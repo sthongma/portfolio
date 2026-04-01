@@ -1,0 +1,51 @@
+# Example: YAML-driven file type configuration
+# Each source file type has its own YAML defining detection, mapping, and dedup rules.
+# The system auto-detects file types by matching column headers against these configs.
+
+file_type:
+  name: logistics_report
+  display_name: Logistics Daily Report
+  description: Daily shipment status report from logistics provider
+  enabled: true
+
+detection:
+  # Columns listed here are NOT required for matching (nice-to-have)
+  # All other columns in column_mapping ARE required
+  optional_columns:
+    - recipient_company
+
+database:
+  schema: bronze
+  table: logistics_report
+
+bronze_dedup:
+  file_level:
+    enabled: true       # Skip files already imported (SHA-256 hash check)
+  row_level:
+    enabled: true       # Generate _row_hash for downstream dedup in Silver layer
+
+# Column mapping: source column name -> target column name
+# Source names match the file headers exactly (supports any language/encoding)
+column_mapping:
+  shipment_account_no: shipment_account_no
+  pickup_name: pickup_name
+  pickup_code: pickup_code
+  recipient_company: recipient_company
+  recipient_name: recipient_name
+  recipient_address: recipient_address
+  recipient_phone: recipient_phone
+  submission_date: submission_date
+  display_date: display_date
+  delivery_service: delivery_service
+  destination_country: destination_country
+  delivery_code: delivery_code
+  shipment_code: shipment_code
+  tracking_number: tracking_number
+  internal_reference_number: internal_reference_number
+  declared_weight_grams: declared_weight_grams
+  actual_weight: actual_weight
+  declared_value_total: declared_value_total
+  latest_status: latest_status
+  latest_status_date: latest_status_date
+  latest_status_time: latest_status_time
+  latest_status_country: latest_status_country
