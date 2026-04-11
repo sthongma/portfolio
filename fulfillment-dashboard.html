@@ -1,0 +1,1197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fulfillment Overview — Mock Dashboard · Sahatsawat Thongma</title>
+<meta name="description" content="Mock fulfillment dashboard replicating the real UI from the E-Commerce Data Platform at EP Asia Group. All data fictional." />
+<style>
+  :root {
+    /* Real project color palette */
+    --maroon: #780000;
+    --crimson: #C1121F;
+    --navy: #003049;
+    --steel: #669BBC;
+    --cream: #FDF0D5;
+
+    /* Supporting */
+    --bg: #f3f4f6;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fafafa;
+    --border: #e5e7eb;
+    --border-strong: #d1d5db;
+    --fg: #111827;
+    --fg-body: #374151;
+    --fg-dim: #6b7280;
+    --fg-mute: #9ca3af;
+
+    /* Semantic */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --warning-strong: #d97706;
+    --danger: #dc2626;
+
+    --shadow-card: 0 4px 24px rgba(0, 48, 73, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-card-hover: 0 8px 32px rgba(0, 48, 73, 0.18), 0 4px 12px rgba(0, 0, 0, 0.08);
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg-body);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--navy); text-decoration: none; }
+  a:hover { color: var(--steel); }
+
+  /* ========== Layout with sidebar ========== */
+  .app {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ========== Sidebar ========== */
+  .sidebar {
+    width: 64px;
+    background: #ffffff;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 0;
+    flex-shrink: 0;
+    box-shadow: 2px 0 8px rgba(0, 48, 73, 0.04);
+  }
+  .sidebar-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--navy), var(--steel));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 26px;
+    box-shadow: 0 4px 12px rgba(0, 48, 73, 0.2);
+  }
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+  .nav-item {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    color: var(--fg-dim);
+    cursor: pointer;
+    transition: all 150ms;
+  }
+  .nav-item:hover { background: var(--bg); color: var(--navy); }
+  .nav-item.active {
+    background: var(--navy);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 48, 73, 0.25);
+  }
+  .nav-item svg { width: 20px; height: 20px; stroke-width: 1.8; }
+  .nav-item.logout { color: var(--fg-dim); margin-top: auto; }
+  .nav-item.logout:hover { color: var(--crimson); background: #fef2f2; }
+
+  /* ========== Main content ========== */
+  .main {
+    flex: 1;
+    padding: 22px 28px 40px;
+    max-width: 1800px;
+    min-width: 0;
+  }
+
+  /* ========== Top header ========== */
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 22px;
+  }
+  .title-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .title-logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--steel), var(--crimson));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(193, 18, 31, 0.25);
+  }
+  .title-text h1 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .title-text .wh-select {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: #fff;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--navy);
+    cursor: pointer;
+  }
+  .title-text .subtitle {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--fg-mute);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .mock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--warning-strong);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .mock-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: var(--warning-strong);
+    border-radius: 50%;
+  }
+
+  .user-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+  }
+  .user-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px 6px 6px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--fg-dim);
+  }
+  .user-avatar {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, var(--navy), var(--steel));
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ========== Tabs row ========== */
+  .tabs-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 10px;
+    padding: 6px 10px 6px 6px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .page-tabs {
+    display: flex;
+    gap: 2px;
+  }
+  .page-tab {
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg-dim);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .page-tab.active {
+    background: var(--navy);
+    color: #fff;
+  }
+  .filters {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .filter-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: #f9fafb;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--fg-body);
+    cursor: pointer;
+  }
+  .filter-pill:hover { border-color: var(--steel); }
+  .filter-pill .caret {
+    color: var(--fg-mute);
+    font-size: 10px;
+  }
+  .filter-pill svg { width: 14px; height: 14px; color: var(--fg-mute); }
+
+  /* ========== Section 1: KPI grid (6 cards) ========== */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .kpi-card {
+    background: #fff;
+    border: 1px solid #f3f4f6;
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow-card);
+  }
+  .kpi-label {
+    font-size: 11px;
+    color: var(--fg-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi-sub {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--fg-dim);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .kpi-value.excellent { color: var(--success); }
+  .kpi-value.good { color: var(--steel); }
+  .kpi-value.warning { color: var(--warning-strong); }
+  .kpi-value.danger { color: var(--crimson); }
+  .kpi-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .pill-excellent { background: #d1fae5; color: #047857; }
+  .pill-good { background: #dbeafe; color: #1e40af; }
+  .pill-warning { background: #fef3c7; color: var(--warning-strong); }
+  .pill-danger { background: #fee2e2; color: #991b1b; }
+
+  /* ========== Section 2: Platform/Shipping KPI card ========== */
+  .perf-card {
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+  .perf-header {
+    background: var(--maroon);
+    color: #fff;
+    padding: 13px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .perf-header .title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .segment-tabs {
+    display: inline-flex;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 7px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .segment-tabs .seg {
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .segment-tabs .seg.active {
+    background: #fff;
+    color: var(--maroon);
+    font-weight: 600;
+  }
+
+  .perf-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
+    padding: 18px 20px;
+  }
+  .perf-item {
+    background: #f9fafb;
+    border: 1px solid #f3f4f6;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .perf-item .name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .perf-item .orders {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--fg-mute);
+    margin-bottom: 10px;
+  }
+  .mini-bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 6px;
+  }
+  .mini-bar-row:last-child { margin-bottom: 0; }
+  .mini-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--fg-dim);
+    font-family: var(--font-mono);
+  }
+  .mini-bar-label .val { color: var(--navy); font-weight: 600; }
+  .mini-bar {
+    height: 5px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .mini-bar > div { height: 100%; border-radius: 3px; }
+  .bar-excellent { background: var(--success); }
+  .bar-good { background: var(--steel); }
+  .bar-warning { background: var(--warning); }
+  .bar-danger { background: var(--crimson); }
+
+  /* ========== Section 3: Pipeline cards ========== */
+  .pipeline-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .pipeline-card {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 16px rgba(0, 48, 73, 0.18);
+    position: relative;
+    overflow: hidden;
+  }
+  .pipeline-card::after {
+    content: '';
+    position: absolute;
+    right: -20px; top: -20px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(102, 155, 188, 0.15), transparent 70%);
+    border-radius: 50%;
+  }
+  .pipeline-stage {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .pipeline-count {
+    font-family: var(--font-mono);
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 2px;
+  }
+  .pipeline-pct {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--steel);
+    margin-bottom: 14px;
+  }
+  .pipeline-subs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+  }
+  .pipeline-sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-family: var(--font-mono);
+  }
+  .pipeline-sub .name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .pipeline-sub .name::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .pipeline-sub.steel .name::before { background: var(--steel); }
+  .pipeline-sub.amber .name::before { background: #fcd34d; }
+  .pipeline-sub.crimson .name::before { background: var(--crimson); }
+  .pipeline-sub.gray .name::before { background: #9ca3af; }
+  .pipeline-sub .value { color: #fff; font-weight: 600; }
+
+  /* ========== Charts (side by side) ========== */
+  .chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .chart-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px 22px;
+    box-shadow: var(--shadow-card);
+  }
+  .chart-card .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .chart-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 0;
+  }
+  .chart-sub {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--fg-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+  }
+  .kpi-pills-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .kpi-pill-inline {
+    padding: 4px 10px;
+    background: #f9fafb;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--navy);
+  }
+  .kpi-pill-inline strong {
+    color: var(--steel);
+    margin-left: 4px;
+  }
+  .chart-svg { width: 100%; height: auto; display: block; }
+  .chart-svg .grid { stroke: #e5e7eb; stroke-width: 1; stroke-dasharray: 2 3; }
+  .chart-svg .axis-label { fill: #6b7280; font-size: 10px; font-family: var(--font-mono); }
+  .chart-svg .ref-line { stroke: var(--crimson); stroke-width: 1; stroke-dasharray: 4 3; }
+  .chart-svg .ref-label { fill: var(--crimson); font-size: 10px; font-family: var(--font-mono); }
+
+  /* ========== Performance comparison ========== */
+  .perf-comparison {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px 22px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 18px;
+  }
+  .legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--fg-dim);
+  }
+  .legend-item::before {
+    content: '';
+    width: 10px;
+    height: 2.5px;
+    border-radius: 1px;
+    background: currentColor;
+  }
+
+  /* ========== Reasons trend (stacked area) ========== */
+  .reasons-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px 22px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 18px;
+  }
+
+  /* ========== Footer ========== */
+  .footer-note {
+    text-align: center;
+    padding: 28px 20px 8px;
+    color: var(--fg-mute);
+    font-size: 12px;
+    font-family: var(--font-mono);
+    line-height: 1.7;
+  }
+  .footer-note strong { color: var(--warning-strong); }
+  .footer-note a { color: var(--navy); font-weight: 600; }
+
+  /* ========== Responsive ========== */
+  @media (max-width: 1400px) {
+    .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+    .perf-grid { grid-template-columns: repeat(3, 1fr); }
+    .pipeline-row { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .perf-grid { grid-template-columns: repeat(2, 1fr); }
+    .pipeline-row { grid-template-columns: repeat(2, 1fr); }
+    .chart-row { grid-template-columns: 1fr; }
+    .main { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ============== SIDEBAR ============== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">EP</div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" title="Fulfillment">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div class="nav-item" title="Procurement">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      </div>
+      <div class="nav-item" title="Price Alerts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      </div>
+      <div class="nav-item" title="Inventory">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      </div>
+      <div class="nav-item" title="Order Report">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div class="nav-item" title="Admin">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      </div>
+    </nav>
+    <div class="nav-item logout" title="Logout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    </div>
+  </aside>
+
+  <!-- ============== MAIN ============== -->
+  <div class="main">
+
+    <!-- HEADER -->
+    <div class="top-header">
+      <div class="title-group">
+        <div class="title-logo">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="title-text">
+          <h1>
+            Warehouse:
+            <span class="wh-select">EPBIGT ▾</span>
+            <span class="mock-badge">Mock Data</span>
+          </h1>
+          <div class="subtitle">EP ASIA GROUP</div>
+        </div>
+      </div>
+      <div class="user-bar">
+        <div class="user-chip">
+          <span class="user-avatar">ST</span>
+          Sahatsawat T.
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS + FILTERS -->
+    <div class="tabs-row">
+      <div class="page-tabs">
+        <div class="page-tab active">Overview</div>
+        <div class="page-tab">Order Tracking</div>
+      </div>
+      <div class="filters">
+        <div class="filter-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          May 12 – Jun 11, 2026
+          <span class="caret">▾</span>
+        </div>
+        <div class="filter-pill">
+          All Platforms (6)
+          <span class="caret">▾</span>
+        </div>
+        <div class="filter-pill">
+          All Shipping (5)
+          <span class="caret">▾</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== SECTION 1: 6 KPI CARDS ============== -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Release</div>
+        <div class="kpi-value">12,458</div>
+        <div class="kpi-sub">last 30 days</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">FFR+</div>
+        <div class="kpi-value excellent">94.2%</div>
+        <div class="kpi-sub"><span class="kpi-pill pill-excellent">Excellent</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">FFR</div>
+        <div class="kpi-value good">96.8%</div>
+        <div class="kpi-sub">12,062 / 12,458 on time</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Collect Rate</div>
+        <div class="kpi-value" style="color: var(--steel);">91.5%</div>
+        <div class="kpi-sub">11,400 / 12,458 collected</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Cancel Rate</div>
+        <div class="kpi-value">3.2%</div>
+        <div class="kpi-sub">399 cancelled</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Returning</div>
+        <div class="kpi-value">2.1%</div>
+        <div class="kpi-sub">262 returns</div>
+      </div>
+    </div>
+
+    <!-- ============== SECTION 2: PLATFORM / SHIPPING PERFORMANCE ============== -->
+    <div class="perf-card">
+      <div class="perf-header">
+        <div class="title">Platform &amp; Shipping Performance</div>
+        <div class="segment-tabs">
+          <div class="seg active">Platform</div>
+          <div class="seg">Shipping</div>
+        </div>
+      </div>
+      <div class="perf-grid">
+        <div class="perf-item">
+          <div class="name">Shopee</div>
+          <div class="orders">5,612 orders</div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Outbound</span><span class="val">96.4%</span></div>
+            <div class="mini-bar"><div class="bar-excellent" style="width:96%"></div></div>
+          </div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Collect</span><span class="val">93.1%</span></div>
+            <div class="mini-bar"><div class="bar-good" style="width:93%"></div></div>
+          </div>
+        </div>
+        <div class="perf-item">
+          <div class="name">Lazada</div>
+          <div class="orders">3,743 orders</div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Outbound</span><span class="val">94.8%</span></div>
+            <div class="mini-bar"><div class="bar-good" style="width:95%"></div></div>
+          </div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Collect</span><span class="val">90.2%</span></div>
+            <div class="mini-bar"><div class="bar-good" style="width:90%"></div></div>
+          </div>
+        </div>
+        <div class="perf-item">
+          <div class="name">TikTok Shop</div>
+          <div class="orders">2,491 orders</div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Outbound</span><span class="val">92.5%</span></div>
+            <div class="mini-bar"><div class="bar-good" style="width:92%"></div></div>
+          </div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Collect</span><span class="val">88.7%</span></div>
+            <div class="mini-bar"><div class="bar-warning" style="width:89%"></div></div>
+          </div>
+        </div>
+        <div class="perf-item">
+          <div class="name">Central Online</div>
+          <div class="orders">312 orders</div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Outbound</span><span class="val">85.3%</span></div>
+            <div class="mini-bar"><div class="bar-warning" style="width:85%"></div></div>
+          </div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Collect</span><span class="val">79.1%</span></div>
+            <div class="mini-bar"><div class="bar-danger" style="width:79%"></div></div>
+          </div>
+        </div>
+        <div class="perf-item">
+          <div class="name">JD Central</div>
+          <div class="orders">184 orders</div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Outbound</span><span class="val">91.2%</span></div>
+            <div class="mini-bar"><div class="bar-good" style="width:91%"></div></div>
+          </div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Collect</span><span class="val">86.4%</span></div>
+            <div class="mini-bar"><div class="bar-warning" style="width:86%"></div></div>
+          </div>
+        </div>
+        <div class="perf-item">
+          <div class="name">Website (D2C)</div>
+          <div class="orders">116 orders</div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Outbound</span><span class="val">97.4%</span></div>
+            <div class="mini-bar"><div class="bar-excellent" style="width:97%"></div></div>
+          </div>
+          <div class="mini-bar-row">
+            <div class="mini-bar-label"><span>Collect</span><span class="val">95.6%</span></div>
+            <div class="mini-bar"><div class="bar-excellent" style="width:96%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== SECTION 3: PIPELINE STAGES ============== -->
+    <div class="pipeline-row">
+      <div class="pipeline-card">
+        <div class="pipeline-stage">Released</div>
+        <div class="pipeline-count">12,458</div>
+        <div class="pipeline-pct">100%</div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">Shopee</span><span class="value">5,612</span></div>
+          <div class="pipeline-sub amber"><span class="name">Lazada</span><span class="value">3,743</span></div>
+          <div class="pipeline-sub crimson"><span class="name">TikTok</span><span class="value">2,491</span></div>
+          <div class="pipeline-sub gray"><span class="name">Others</span><span class="value">612</span></div>
+        </div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pipeline-stage">Packed</div>
+        <div class="pipeline-count">11,892</div>
+        <div class="pipeline-pct">95.5% of released</div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">On time</span><span class="value">11,380</span></div>
+          <div class="pipeline-sub amber"><span class="name">Delayed</span><span class="value">412</span></div>
+          <div class="pipeline-sub crimson"><span class="name">Failed</span><span class="value">100</span></div>
+        </div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pipeline-stage">Handed Over</div>
+        <div class="pipeline-count">11,234</div>
+        <div class="pipeline-pct">90.2% of released</div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">DHL</span><span class="value">4,820</span></div>
+          <div class="pipeline-sub amber"><span class="name">Flash</span><span class="value">3,912</span></div>
+          <div class="pipeline-sub crimson"><span class="name">Kerry</span><span class="value">1,748</span></div>
+          <div class="pipeline-sub gray"><span class="name">J&amp;T, Best</span><span class="value">754</span></div>
+        </div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pipeline-stage">In Transit</div>
+        <div class="pipeline-count">10,568</div>
+        <div class="pipeline-pct">84.8% of released</div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">On schedule</span><span class="value">9,721</span></div>
+          <div class="pipeline-sub amber"><span class="name">Delayed</span><span class="value">612</span></div>
+          <div class="pipeline-sub crimson"><span class="name">Exception</span><span class="value">235</span></div>
+        </div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pipeline-stage">Delivered</div>
+        <div class="pipeline-count">11,400</div>
+        <div class="pipeline-pct">91.5% of released</div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">Success</span><span class="value">11,138</span></div>
+          <div class="pipeline-sub crimson"><span class="name">Returned</span><span class="value">262</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============== SECTION 4: TWO CHARTS SIDE BY SIDE ============== -->
+    <div class="chart-row">
+      <!-- Release & Loading trend -->
+      <div class="chart-card">
+        <div class="header">
+          <div>
+            <h3 class="chart-title">Release &amp; Loading Trend</h3>
+            <div class="chart-sub">daily · last 30 days</div>
+          </div>
+        </div>
+        <div class="kpi-pills-row">
+          <div class="kpi-pill-inline">Avg Release <strong>416/day</strong></div>
+          <div class="kpi-pill-inline">Avg Loading <strong>92.8%</strong></div>
+        </div>
+        <svg class="chart-svg" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="loading-area" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#669BBC" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#669BBC" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- grid -->
+          <line class="grid" x1="40" y1="30" x2="580" y2="30"/>
+          <line class="grid" x1="40" y1="70" x2="580" y2="70"/>
+          <line class="grid" x1="40" y1="110" x2="580" y2="110"/>
+          <line class="grid" x1="40" y1="150" x2="580" y2="150"/>
+          <line class="grid" x1="40" y1="190" x2="580" y2="190"/>
+
+          <!-- y-axis left (count) -->
+          <text class="axis-label" x="35" y="34" text-anchor="end">600</text>
+          <text class="axis-label" x="35" y="74" text-anchor="end">450</text>
+          <text class="axis-label" x="35" y="114" text-anchor="end">300</text>
+          <text class="axis-label" x="35" y="154" text-anchor="end">150</text>
+          <text class="axis-label" x="35" y="194" text-anchor="end">0</text>
+
+          <!-- y-axis right (%) -->
+          <text class="axis-label" x="585" y="34">100%</text>
+          <text class="axis-label" x="585" y="74">75%</text>
+          <text class="axis-label" x="585" y="114">50%</text>
+          <text class="axis-label" x="585" y="154">25%</text>
+          <text class="axis-label" x="585" y="194">0%</text>
+
+          <!-- x-axis labels -->
+          <text class="axis-label" x="70" y="208" text-anchor="middle">May 12</text>
+          <text class="axis-label" x="210" y="208" text-anchor="middle">May 20</text>
+          <text class="axis-label" x="350" y="208" text-anchor="middle">May 28</text>
+          <text class="axis-label" x="490" y="208" text-anchor="middle">Jun 5</text>
+
+          <!-- bars (total release) — ~30 bars -->
+          <g fill="#003049">
+            <rect x="45"  y="90" width="14" height="100"/>
+            <rect x="63"  y="80" width="14" height="110"/>
+            <rect x="81"  y="95" width="14" height="95"/>
+            <rect x="99"  y="70" width="14" height="120"/>
+            <rect x="117" y="65" width="14" height="125"/>
+            <rect x="135" y="60" width="14" height="130"/>
+            <rect x="153" y="75" width="14" height="115"/>
+            <rect x="171" y="85" width="14" height="105"/>
+            <rect x="189" y="55" width="14" height="135"/>
+            <rect x="207" y="50" width="14" height="140"/>
+            <rect x="225" y="68" width="14" height="122"/>
+            <rect x="243" y="60" width="14" height="130"/>
+            <rect x="261" y="45" width="14" height="145"/>
+            <rect x="279" y="40" width="14" height="150"/>
+            <rect x="297" y="52" width="14" height="138"/>
+            <rect x="315" y="65" width="14" height="125"/>
+            <rect x="333" y="35" width="14" height="155"/>
+            <rect x="351" y="48" width="14" height="142"/>
+            <rect x="369" y="58" width="14" height="132"/>
+            <rect x="387" y="42" width="14" height="148"/>
+            <rect x="405" y="55" width="14" height="135"/>
+            <rect x="423" y="62" width="14" height="128"/>
+            <rect x="441" y="38" width="14" height="152"/>
+            <rect x="459" y="50" width="14" height="140"/>
+            <rect x="477" y="60" width="14" height="130"/>
+            <rect x="495" y="45" width="14" height="145"/>
+            <rect x="513" y="55" width="14" height="135"/>
+            <rect x="531" y="48" width="14" height="142"/>
+            <rect x="549" y="58" width="14" height="132"/>
+            <rect x="567" y="42" width="14" height="148"/>
+          </g>
+
+          <!-- loading % area (scaled 0-100% to y 30-190) -->
+          <path fill="url(#loading-area)" stroke="#669BBC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            d="M 52 58 L 70 62 L 88 55 L 106 50 L 124 52 L 142 48 L 160 55 L 178 60 L 196 45 L 214 42 L 232 50 L 250 44 L 268 38 L 286 35 L 304 40 L 322 48 L 340 32 L 358 40 L 376 45 L 394 35 L 412 42 L 430 48 L 448 34 L 466 40 L 484 45 L 502 38 L 520 42 L 538 38 L 556 44 L 574 36 L 574 190 L 52 190 Z"/>
+
+          <!-- legend -->
+          <rect x="45" y="10" width="10" height="10" fill="#003049"/>
+          <text class="axis-label" x="60" y="18" fill="#003049">Total Release</text>
+          <rect x="155" y="10" width="10" height="10" fill="#669BBC" opacity="0.5"/>
+          <text class="axis-label" x="170" y="18" fill="#669BBC">Loading %</text>
+        </svg>
+      </div>
+
+      <!-- FFR+ trend -->
+      <div class="chart-card">
+        <div class="header">
+          <div>
+            <h3 class="chart-title">FFR+ Trend</h3>
+            <div class="chart-sub">outbound vs collect</div>
+          </div>
+        </div>
+        <div class="kpi-pills-row">
+          <div class="kpi-pill-inline">Outbound avg <strong>94.8%</strong></div>
+          <div class="kpi-pill-inline">Collect avg <strong>91.3%</strong></div>
+        </div>
+        <svg class="chart-svg" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="outbound-area" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#003049" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#003049" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="collect-area" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#669BBC" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#669BBC" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- grid -->
+          <line class="grid" x1="40" y1="30" x2="580" y2="30"/>
+          <line class="grid" x1="40" y1="70" x2="580" y2="70"/>
+          <line class="grid" x1="40" y1="110" x2="580" y2="110"/>
+          <line class="grid" x1="40" y1="150" x2="580" y2="150"/>
+          <line class="grid" x1="40" y1="190" x2="580" y2="190"/>
+
+          <!-- y-axis (%) -->
+          <text class="axis-label" x="35" y="34" text-anchor="end">100%</text>
+          <text class="axis-label" x="35" y="74" text-anchor="end">90%</text>
+          <text class="axis-label" x="35" y="114" text-anchor="end">80%</text>
+          <text class="axis-label" x="35" y="154" text-anchor="end">70%</text>
+          <text class="axis-label" x="35" y="194" text-anchor="end">60%</text>
+
+          <!-- x-axis labels -->
+          <text class="axis-label" x="70" y="208" text-anchor="middle">May 12</text>
+          <text class="axis-label" x="210" y="208" text-anchor="middle">May 20</text>
+          <text class="axis-label" x="350" y="208" text-anchor="middle">May 28</text>
+          <text class="axis-label" x="490" y="208" text-anchor="middle">Jun 5</text>
+
+          <!-- 90% ref line -->
+          <line class="ref-line" x1="40" y1="70" x2="580" y2="70"/>
+          <text class="ref-label" x="575" y="66" text-anchor="end">90% target</text>
+
+          <!-- Collect FFR+ area (drawn first = underneath) -->
+          <path fill="url(#collect-area)" stroke="#669BBC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            d="M 52 75 L 70 72 L 88 78 L 106 70 L 124 68 L 142 74 L 160 70 L 178 76 L 196 66 L 214 64 L 232 70 L 250 68 L 268 62 L 286 58 L 304 64 L 322 70 L 340 56 L 358 62 L 376 66 L 394 60 L 412 64 L 430 68 L 448 58 L 466 62 L 484 66 L 502 60 L 520 64 L 538 62 L 556 66 L 574 60 L 574 190 L 52 190 Z"/>
+
+          <!-- Outbound FFR+ area (on top) -->
+          <path fill="url(#outbound-area)" stroke="#003049" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+            d="M 52 60 L 70 58 L 88 62 L 106 55 L 124 52 L 142 58 L 160 54 L 178 60 L 196 50 L 214 48 L 232 54 L 250 52 L 268 46 L 286 42 L 304 48 L 322 54 L 340 40 L 358 46 L 376 50 L 394 44 L 412 48 L 430 52 L 448 42 L 466 46 L 484 50 L 502 44 L 520 48 L 538 46 L 556 50 L 574 44 L 574 190 L 52 190 Z"/>
+
+          <!-- legend -->
+          <line x1="45" y1="15" x2="65" y2="15" stroke="#003049" stroke-width="2.5"/>
+          <text class="axis-label" x="70" y="18" fill="#003049">Outbound FFR+</text>
+          <line x1="175" y1="15" x2="195" y2="15" stroke="#669BBC" stroke-width="2"/>
+          <text class="axis-label" x="200" y="18" fill="#669BBC">Collect FFR+</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- ============== SECTION 5: PERFORMANCE COMPARISON ============== -->
+    <div class="perf-comparison">
+      <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <h3 class="chart-title">Performance Comparison</h3>
+          <div class="chart-sub">FFR+ by platform · last 30 days</div>
+        </div>
+        <div class="segment-tabs" style="background: #f3f4f6;">
+          <div class="seg active" style="background: var(--navy); color: #fff;">Platform</div>
+          <div class="seg" style="color: var(--fg-dim);">Shipping</div>
+        </div>
+      </div>
+      <svg class="chart-svg" viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg">
+        <!-- grid -->
+        <line class="grid" x1="50" y1="30" x2="1180" y2="30"/>
+        <line class="grid" x1="50" y1="70" x2="1180" y2="70"/>
+        <line class="grid" x1="50" y1="110" x2="1180" y2="110"/>
+        <line class="grid" x1="50" y1="150" x2="1180" y2="150"/>
+        <line class="grid" x1="50" y1="190" x2="1180" y2="190"/>
+        <line class="grid" x1="50" y1="230" x2="1180" y2="230"/>
+
+        <!-- y-axis -->
+        <text class="axis-label" x="45" y="34" text-anchor="end">100%</text>
+        <text class="axis-label" x="45" y="74" text-anchor="end">90%</text>
+        <text class="axis-label" x="45" y="114" text-anchor="end">80%</text>
+        <text class="axis-label" x="45" y="154" text-anchor="end">70%</text>
+        <text class="axis-label" x="45" y="194" text-anchor="end">60%</text>
+        <text class="axis-label" x="45" y="234" text-anchor="end">50%</text>
+
+        <!-- x-axis -->
+        <text class="axis-label" x="130" y="250" text-anchor="middle">May 12</text>
+        <text class="axis-label" x="320" y="250" text-anchor="middle">May 16</text>
+        <text class="axis-label" x="510" y="250" text-anchor="middle">May 20</text>
+        <text class="axis-label" x="700" y="250" text-anchor="middle">May 24</text>
+        <text class="axis-label" x="890" y="250" text-anchor="middle">May 28</text>
+        <text class="axis-label" x="1080" y="250" text-anchor="middle">Jun 1</text>
+
+        <!-- 90% reference -->
+        <line class="ref-line" x1="50" y1="70" x2="1180" y2="70"/>
+        <text class="ref-label" x="1175" y="66" text-anchor="end">90% target</text>
+
+        <!-- Multi-line chart (mock) -->
+        <!-- Shopee (navy) -->
+        <polyline fill="none" stroke="#003049" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+          points="60,60 110,55 160,62 210,50 260,48 310,55 360,50 410,58 460,45 510,48 560,52 610,45 660,42 710,48 760,52 810,42 860,45 910,50 960,40 1010,42 1060,48 1110,42 1160,38"/>
+        <!-- Lazada (steel) -->
+        <polyline fill="none" stroke="#669BBC" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+          points="60,70 110,72 160,68 210,62 260,58 310,65 360,60 410,65 460,55 510,58 560,62 610,55 660,52 710,58 760,62 810,50 860,55 910,58 960,48 1010,50 1060,55 1110,50 1160,46"/>
+        <!-- TikTok (crimson) -->
+        <polyline fill="none" stroke="#C1121F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+          points="60,85 110,82 160,80 210,78 260,72 310,78 360,72 410,78 460,68 510,72 560,75 610,68 660,65 710,72 760,78 810,62 860,68 910,72 960,58 1010,62 1060,68 1110,62 1160,58"/>
+        <!-- Central Online (amber) -->
+        <polyline fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          points="60,105 110,110 160,105 210,100 260,95 310,108 360,100 410,105 460,92 510,98 560,102 610,95 660,90 710,98 760,102 810,85 860,92 910,98 960,82 1010,88 1060,95 1110,88 1160,82"/>
+        <!-- JD Central (purple) -->
+        <polyline fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          points="60,95 110,92 160,98 210,88 260,85 310,92 360,88 410,92 460,82 510,85 560,90 610,85 660,82 710,88 760,92 810,78 860,82 910,88 960,75 1010,80 1060,85 1110,80 1160,75"/>
+        <!-- Website (green) -->
+        <polyline fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          points="60,55 110,52 160,58 210,48 260,45 310,52 360,45 410,52 460,40 510,45 560,48 610,42 660,38 710,45 760,48 810,35 860,42 910,45 960,32 1010,38 1060,42 1110,38 1160,32"/>
+      </svg>
+      <div class="legend-row">
+        <span class="legend-item" style="color: #003049;">Shopee</span>
+        <span class="legend-item" style="color: #669BBC;">Lazada</span>
+        <span class="legend-item" style="color: #C1121F;">TikTok Shop</span>
+        <span class="legend-item" style="color: #f59e0b;">Central Online</span>
+        <span class="legend-item" style="color: #8b5cf6;">JD Central</span>
+        <span class="legend-item" style="color: #10b981;">Website (D2C)</span>
+      </div>
+    </div>
+
+    <!-- ============== SECTION 6: NOT-MET FFR REASONS ============== -->
+    <div class="reasons-card">
+      <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <h3 class="chart-title">Not Met FFR Reasons</h3>
+          <div class="chart-sub">stacked · last 30 days</div>
+        </div>
+        <div class="segment-tabs" style="background: #f3f4f6;">
+          <div class="seg active" style="background: var(--navy); color: #fff;">FFR+</div>
+          <div class="seg" style="color: var(--fg-dim);">FFR</div>
+        </div>
+      </div>
+      <svg class="chart-svg" viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg">
+        <!-- grid -->
+        <line class="grid" x1="50" y1="30" x2="1180" y2="30"/>
+        <line class="grid" x1="50" y1="80" x2="1180" y2="80"/>
+        <line class="grid" x1="50" y1="130" x2="1180" y2="130"/>
+        <line class="grid" x1="50" y1="180" x2="1180" y2="180"/>
+
+        <!-- y-axis -->
+        <text class="axis-label" x="45" y="34" text-anchor="end">80</text>
+        <text class="axis-label" x="45" y="84" text-anchor="end">60</text>
+        <text class="axis-label" x="45" y="134" text-anchor="end">40</text>
+        <text class="axis-label" x="45" y="184" text-anchor="end">20</text>
+        <text class="axis-label" x="45" y="214" text-anchor="end">0</text>
+
+        <!-- x-axis -->
+        <text class="axis-label" x="130" y="230" text-anchor="middle">May 12</text>
+        <text class="axis-label" x="320" y="230" text-anchor="middle">May 16</text>
+        <text class="axis-label" x="510" y="230" text-anchor="middle">May 20</text>
+        <text class="axis-label" x="700" y="230" text-anchor="middle">May 24</text>
+        <text class="axis-label" x="890" y="230" text-anchor="middle">May 28</text>
+        <text class="axis-label" x="1080" y="230" text-anchor="middle">Jun 1</text>
+
+        <!-- Stacked areas (OOS, Transport, Confirm, Late, Other) - bottom up -->
+        <!-- Other (gray) -->
+        <path fill="#9ca3af" fill-opacity="0.85" stroke="none"
+          d="M 60 205 L 110 200 L 160 198 L 210 195 L 260 196 L 310 199 L 360 198 L 410 196 L 460 194 L 510 195 L 560 197 L 610 195 L 660 193 L 710 196 L 760 194 L 810 192 L 860 194 L 910 196 L 960 193 L 1010 195 L 1060 197 L 1110 195 L 1160 193 L 1160 210 L 60 210 Z"/>
+        <!-- Late (steel) -->
+        <path fill="#669BBC" fill-opacity="0.9" stroke="none"
+          d="M 60 190 L 110 186 L 160 188 L 210 184 L 260 182 L 310 186 L 360 184 L 410 182 L 460 180 L 510 182 L 560 184 L 610 180 L 660 178 L 710 182 L 760 180 L 810 175 L 860 180 L 910 182 L 960 176 L 1010 180 L 1060 184 L 1110 180 L 1160 175 L 1160 205 L 60 205 Z"/>
+        <!-- Confirm (amber) -->
+        <path fill="#f59e0b" fill-opacity="0.9" stroke="none"
+          d="M 60 170 L 110 166 L 160 168 L 210 162 L 260 158 L 310 164 L 360 160 L 410 162 L 460 156 L 510 160 L 560 162 L 610 156 L 660 152 L 710 158 L 760 156 L 810 148 L 860 154 L 910 158 L 960 148 L 1010 152 L 1060 156 L 1110 152 L 1160 146 L 1160 190 L 60 190 Z"/>
+        <!-- Transport (maroon) -->
+        <path fill="#780000" fill-opacity="0.9" stroke="none"
+          d="M 60 135 L 110 130 L 160 132 L 210 125 L 260 120 L 310 128 L 360 122 L 410 126 L 460 115 L 510 122 L 560 126 L 610 118 L 660 114 L 710 122 L 760 118 L 810 108 L 860 115 L 910 122 L 960 108 L 1010 114 L 1060 120 L 1110 114 L 1160 106 L 1160 170 L 60 170 Z"/>
+        <!-- OOS (crimson) -->
+        <path fill="#C1121F" fill-opacity="0.9" stroke="none"
+          d="M 60 85 L 110 78 L 160 82 L 210 72 L 260 65 L 310 76 L 360 68 L 410 74 L 460 58 L 510 68 L 560 74 L 610 62 L 660 55 L 710 68 L 760 62 L 810 48 L 860 58 L 910 68 L 960 48 L 1010 55 L 1060 64 L 1110 55 L 1160 45 L 1160 135 L 60 135 Z"/>
+      </svg>
+      <div class="legend-row">
+        <span class="legend-item" style="color: #C1121F;">OOS (stock out)</span>
+        <span class="legend-item" style="color: #780000;">Transport</span>
+        <span class="legend-item" style="color: #f59e0b;">Confirm delay</span>
+        <span class="legend-item" style="color: #669BBC;">Late pack</span>
+        <span class="legend-item" style="color: #9ca3af;">Other</span>
+      </div>
+    </div>
+
+    <!-- ============== FOOTER ============== -->
+    <div class="footer-note">
+      <strong>Mock dashboard</strong> replicating the real Fulfillment Overview UI from the
+      <a href="https://github.com/sthongma/portfolio">E-Commerce Data Platform</a>
+      at EP Asia Group. All data, platforms, shipping carriers, and metrics are fictional.
+      <br>
+      Built by <a href="https://github.com/sthongma">Sahatsawat Thongma</a>
+      · <a href="resume-en.html">Resume (EN)</a>
+      · <a href="resume-th.html">Resume (TH)</a>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
