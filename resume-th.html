@@ -795,7 +795,9 @@
           สร้าง <strong>reverse-ETL feeder</strong> รักษาระบบเก่าให้
           ยังใช้งานได้ระหว่าง migration: 25 ADF pipelines ส่งข้อมูล
           cleaned จาก Silver → legacy ทุกคืน (~30&nbsp;นาที/รัน)
-          เพื่อให้ report เดิมของระบบเก่ายังทำงานได้โดยไม่ต้องเขียนใหม่
+          โดย ADF เรียก <strong>Stored Procedure ของระบบเก่า</strong>
+          เพื่อ migrate ข้อมูลเข้า tables ปลายทาง
+          ทำให้ report เดิมของระบบเก่ายังทำงานได้โดยไม่ต้องเขียนใหม่
         </li>
         <li>
           Ship <strong>operational web apps</strong> ควบคู่ไปกับ data
@@ -942,18 +944,19 @@
 
         <!-- Reverse ETL branch -->
         <line class="edge-branch" x1="560" y1="520" x2="590" y2="520"/>
-        <rect class="box" x="590" y="479" width="230" height="82" rx="6" ry="6"/>
+        <rect class="box" x="590" y="479" width="230" height="100" rx="6" ry="6"/>
         <text class="box-title" x="705" y="506">25 ADF Pipelines</text>
         <text class="box-sub" x="705" y="526">(reverse ETL)</text>
-        <text class="box-mono" x="705" y="548">~30 min nightly run</text>
+        <text class="box-mono" x="705" y="546">~30 min nightly run</text>
+        <text class="box-sub" x="705" y="566">↓ call Stored Procedure (ระบบเก่า)</text>
 
-        <line class="edge-branch" x1="705" y1="561" x2="705" y2="595"/>
+        <line class="edge-branch" x1="705" y1="579" x2="705" y2="605"/>
 
-        <rect class="box box-legacy" x="590" y="595" width="230" height="96" rx="6" ry="6"/>
-        <text class="box-title" x="705" y="622">Legacy System</text>
-        <text class="box-sub" x="705" y="642">(ยังใช้งานอยู่)</text>
-        <text class="box-sub" x="705" y="660">JST · Shopee · Lazada</text>
-        <text class="box-sub" x="705" y="678">TikTok · DHL</text>
+        <rect class="box box-legacy" x="590" y="605" width="230" height="96" rx="6" ry="6"/>
+        <text class="box-title" x="705" y="632">Legacy System</text>
+        <text class="box-sub" x="705" y="652">(ยังใช้งานอยู่)</text>
+        <text class="box-sub" x="705" y="670">JST · Shopee · Lazada</text>
+        <text class="box-sub" x="705" y="688">TikTok · DHL</text>
 
         <!-- Silver → Intermediate -->
         <line class="edge" x1="300" y1="560" x2="300" y2="600"/>
@@ -980,7 +983,7 @@
         <text class="box-sub" x="300" y="894">price alerts · procurement tracking · AI chat</text>
 
         <!-- Airflow footer -->
-        <text class="arch-footer" x="418" y="944">รันทั้งระบบด้วย Airflow · daily schedule · freshness checks · email alerts</text>
+        <text class="arch-footer" x="418" y="944">Orchestrated by Airflow + ADF + Power Automate · daily schedule · freshness checks · email alerts</text>
       </svg>
 
       <div class="chips">
@@ -989,6 +992,7 @@
         <span class="chip">Python</span>
         <span class="chip">Airflow</span>
         <span class="chip">Azure Data Factory</span>
+        <span class="chip">Stored Procedure</span>
         <span class="chip">Power Automate</span>
         <span class="chip">FastAPI</span>
         <span class="chip">React / TypeScript</span>
