@@ -1,7 +1,7 @@
-# Portfolio — Sahatsawat Thongma
+![1777556441874](image/README/1777556441874.png)![1777556443657](image/README/1777556443657.png)# Portfolio — Sahatsawat Thongma
 
 > **End-to-end data engineer · e-commerce platforms**
-> Sole data engineer at EP Asia Group, building the full data stack (pipeline → warehouse → dashboards → operational apps) solo with AI pair programming.
+> Sole data engineer at EP Asia Group, building the full data stack (pipeline → warehouse → dashboards → operational apps).
 
 ---
 
@@ -9,8 +9,8 @@
 
 | What | URL |
 |---|---|
-| 🇬🇧 **Resume (EN)** | [sthongma.github.io/portfolio/resume-en.html](https://sthongma.github.io/portfolio/resume-en.html) |
-| 🇹🇭 **Resume (TH)** | [sthongma.github.io/portfolio/resume-th.html](https://sthongma.github.io/portfolio/resume-th.html) |
+| 🌐 **Resume** | [sthongma.github.io/portfolio/resume.html](https://sthongma.github.io/portfolio/resume.html) |
+| 🇹🇭 **Resume (TH)** | [sthongma.github.io/portfolio/resume.html?lang=th](https://sthongma.github.io/portfolio/resume.html?lang=th) |
 | 📊 **Fulfillment dashboard mock** | [sthongma.github.io/portfolio/fulfillment-dashboard.html](https://sthongma.github.io/portfolio/fulfillment-dashboard.html) |
 
 > **Tip:** The resume is interactive — use the **Resume / Projects** tabs at the top to switch between the compact CV view and the rich project gallery.
@@ -21,12 +21,12 @@
 
 This is my public portfolio repository. It's organized into three parts:
 
-### 1. Self-contained HTML resumes
+### 1. Bilingual HTML resume
 
-Single-file HTML resumes with dual-mode layout (compact print-ready CV + rich web portfolio view). No build step, no external dependencies.
+Single resume page with dual-mode layout (compact print-ready CV + rich web portfolio view), language switching, and externalized i18n keys. No build step.
 
-- [`resume-en.html`](resume-en.html) — English version
-- [`resume-th.html`](resume-th.html) — Thai version (with sans-serif overrides for Thai rendering)
+- [`resume.html`](resume.html) — bilingual resume shell
+- [`resume-i18n.js`](resume-i18n.js) — English/Thai content keys
 
 ### 2. Mock dashboard
 
@@ -49,9 +49,9 @@ Real patterns from production systems I've built, with business-specific logic r
 
 ## 🧭 Where to start
 
-- **Recruiter / hiring manager?** → Open the [resume](https://sthongma.github.io/portfolio/resume-en.html) and the [dashboard mock](https://sthongma.github.io/portfolio/fulfillment-dashboard.html).
+- **Recruiter / hiring manager?** → Open the [resume](https://sthongma.github.io/portfolio/resume.html) and the [dashboard mock](https://sthongma.github.io/portfolio/fulfillment-dashboard.html).
 - **Engineer reviewing my work?** → Browse the [`examples/`](examples/) folder for representative code.
-- **Just curious?** → The [resume's Projects tab](https://sthongma.github.io/portfolio/resume-en.html) walks through every production system I've built.
+- **Just curious?** → The [resume's Projects tab](https://sthongma.github.io/portfolio/resume.html) walks through every production system I've built.
 
 ---
 

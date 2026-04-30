@@ -7,23 +7,24 @@
 <meta name="description" content="Mock fulfillment dashboard replicating the real UI from the E-Commerce Data Platform at EP Asia Group. All data fictional." />
 <style>
   :root {
-    /* Real project color palette */
-    --maroon: #780000;
-    --crimson: #C1121F;
-    --navy: #003049;
-    --steel: #669BBC;
-    --cream: #FDF0D5;
+    /* Product palette */
+    --maroon: #7f1d1d;
+    --crimson: #b91c1c;
+    --navy: #0f2d3f;
+    --steel: #477da1;
+    --cream: #fff7ed;
 
     /* Supporting */
-    --bg: #f3f4f6;
+    --bg: #f7f8fb;
     --bg-card: #ffffff;
-    --bg-card-hover: #fafafa;
-    --border: #e5e7eb;
-    --border-strong: #d1d5db;
-    --fg: #111827;
-    --fg-body: #374151;
-    --fg-dim: #6b7280;
-    --fg-mute: #9ca3af;
+    --bg-card-hover: #f9fafb;
+    --bg-soft: #eef3f7;
+    --border: #e1e7ef;
+    --border-strong: #cbd5e1;
+    --fg: #0f172a;
+    --fg-body: #334155;
+    --fg-dim: #64748b;
+    --fg-mute: #94a3b8;
 
     /* Semantic */
     --success: #10b981;
@@ -31,8 +32,8 @@
     --warning-strong: #d97706;
     --danger: #dc2626;
 
-    --shadow-card: 0 4px 24px rgba(0, 48, 73, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
-    --shadow-card-hover: 0 8px 32px rgba(0, 48, 73, 0.18), 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-card-hover: 0 10px 24px rgba(15, 23, 42, 0.08);
 
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -43,7 +44,9 @@
   html, body {
     margin: 0;
     padding: 0;
-    background: var(--bg);
+    background:
+      linear-gradient(180deg, #ffffff 0, #f7f8fb 260px),
+      var(--bg);
     color: var(--fg-body);
     font-family: var(--font-sans);
     font-size: 14px;
@@ -62,21 +65,21 @@
 
   /* ========== Sidebar ========== */
   .sidebar {
-    width: 64px;
+    width: 72px;
     background: #ffffff;
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 18px 0;
+    padding: 20px 0;
     flex-shrink: 0;
-    box-shadow: 2px 0 8px rgba(0, 48, 73, 0.04);
+    box-shadow: 1px 0 0 rgba(15, 23, 42, 0.02);
   }
   .sidebar-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, var(--navy), var(--steel));
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: var(--navy);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,9 +87,9 @@
     font-family: var(--font-mono);
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 26px;
-    box-shadow: 0 4px 12px rgba(0, 48, 73, 0.2);
+    letter-spacing: 0;
+    margin-bottom: 30px;
+    box-shadow: inset 0 -2px 0 rgba(255, 255, 255, 0.14);
   }
   .sidebar-nav {
     display: flex;
@@ -100,16 +103,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 9px;
+    border-radius: 8px;
     color: var(--fg-dim);
     cursor: pointer;
-    transition: all 150ms;
+    transition: background 150ms, color 150ms, box-shadow 150ms;
   }
   .nav-item:hover { background: var(--bg); color: var(--navy); }
   .nav-item.active {
-    background: var(--navy);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 48, 73, 0.25);
+    background: #edf4f8;
+    color: var(--navy);
+    box-shadow: inset 3px 0 0 var(--steel);
   }
   .nav-item svg { width: 20px; height: 20px; stroke-width: 1.8; }
   .nav-item.logout { color: var(--fg-dim); margin-top: auto; }
@@ -118,8 +121,8 @@
   /* ========== Main content ========== */
   .main {
     flex: 1;
-    padding: 22px 28px 40px;
-    max-width: 1800px;
+    padding: 24px 32px 44px;
+    max-width: 1680px;
     min-width: 0;
   }
 
@@ -127,54 +130,53 @@
   .top-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 22px;
+    align-items: center;
+    margin-bottom: 18px;
   }
   .title-group {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
   }
   .title-logo {
-    width: 52px;
-    height: 52px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--steel), var(--crimson));
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: #e6f0f7;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(193, 18, 31, 0.25);
+    color: var(--navy);
+    border: 1px solid #d5e4ee;
   }
   .title-text h1 {
     margin: 0;
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
-    color: var(--navy);
-    letter-spacing: -0.01em;
+    color: var(--fg);
+    letter-spacing: 0;
   }
   .title-text .wh-select {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 12px;
-    background: #fff;
+    padding: 4px 10px;
+    background: #f8fafc;
     border: 1px solid var(--border-strong);
-    border-radius: 8px;
+    border-radius: 7px;
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 12px;
     color: var(--navy);
     cursor: pointer;
   }
   .title-text .subtitle {
-    font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 12px;
     color: var(--fg-mute);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    letter-spacing: 0;
+    text-transform: none;
     margin-top: 3px;
   }
 
@@ -182,16 +184,15 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 5px 12px;
-    background: #fef3c7;
-    border: 1px solid #fde68a;
-    border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: 10.5px;
+    padding: 4px 9px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 7px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--warning-strong);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    text-transform: none;
+    letter-spacing: 0;
   }
   .mock-badge::before {
     content: '';
@@ -205,7 +206,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 12px;
+    font-size: 13px;
   }
   .user-chip {
     display: flex;
@@ -214,14 +215,14 @@
     padding: 6px 12px 6px 6px;
     background: #fff;
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: 8px;
     color: var(--fg-dim);
   }
   .user-avatar {
     width: 24px;
     height: 24px;
-    background: linear-gradient(135deg, var(--navy), var(--steel));
-    border-radius: 50%;
+    background: var(--navy);
+    border-radius: 7px;
     font-size: 10px;
     font-weight: 700;
     color: #fff;
@@ -236,8 +237,9 @@
     align-items: center;
     justify-content: space-between;
     background: #fff;
-    border-radius: 10px;
-    padding: 6px 10px 6px 6px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
     margin-bottom: 18px;
     box-shadow: var(--shadow-card);
   }
@@ -246,16 +248,16 @@
     gap: 2px;
   }
   .page-tab {
-    padding: 8px 18px;
+    padding: 8px 14px;
     font-size: 13px;
     font-weight: 600;
     color: var(--fg-dim);
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
   }
   .page-tab.active {
-    background: var(--navy);
-    color: #fff;
+    background: #eaf2f7;
+    color: var(--navy);
   }
   .filters {
     display: flex;
@@ -266,10 +268,10 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 7px 12px;
+    padding: 7px 10px;
     background: #f9fafb;
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 7px;
     font-size: 12px;
     color: var(--fg-body);
     cursor: pointer;
@@ -285,33 +287,37 @@
   .kpi-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 14px;
+    gap: 12px;
     margin-bottom: 18px;
   }
   .kpi-card {
     background: #fff;
-    border: 1px solid #f3f4f6;
-    border-radius: 10px;
-    padding: 18px 20px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
     box-shadow: var(--shadow-card);
+    min-height: 138px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .kpi-label {
     font-size: 11px;
     color: var(--fg-dim);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     font-weight: 500;
     margin-bottom: 8px;
   }
   .kpi-value {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
     line-height: 1.05;
-    color: var(--navy);
+    color: var(--fg);
     font-variant-numeric: tabular-nums;
   }
   .kpi-sub {
-    margin-top: 6px;
+    margin-top: 8px;
     font-size: 11px;
     color: var(--fg-dim);
     display: flex;
@@ -323,9 +329,10 @@
   .kpi-value.warning { color: var(--warning-strong); }
   .kpi-value.danger { color: var(--crimson); }
   .kpi-pill {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 7px;
+    border-radius: 6px;
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
@@ -335,19 +342,113 @@
   .pill-good { background: #dbeafe; color: #1e40af; }
   .pill-warning { background: #fef3c7; color: var(--warning-strong); }
   .pill-danger { background: #fee2e2; color: #991b1b; }
+  .kpi-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--fg-dim);
+  }
+  .kpi-trend {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--success);
+  }
+  .kpi-trend.down { color: var(--danger); }
+
+  /* ========== Operations attention ========== */
+  .ops-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 18px;
+    overflow: hidden;
+  }
+  .ops-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 15px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ops-title {
+    margin: 0;
+    color: var(--fg);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .ops-sub {
+    margin-top: 2px;
+    color: var(--fg-mute);
+    font-size: 12px;
+  }
+  .ops-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  .ops-table th,
+  .ops-table td {
+    padding: 11px 18px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    white-space: nowrap;
+  }
+  .ops-table th {
+    color: var(--fg-dim);
+    background: #f8fafc;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .ops-table tr:last-child td { border-bottom: none; }
+  .ops-table .metric {
+    font-family: var(--font-mono);
+    color: var(--fg);
+    font-weight: 700;
+  }
+  .severity {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .severity::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .severity.high { background: #fee2e2; color: #991b1b; }
+  .severity.medium { background: #fef3c7; color: #92400e; }
+  .severity.low { background: #dbeafe; color: #1e40af; }
 
   /* ========== Section 2: Platform/Shipping KPI card ========== */
   .perf-card {
     background: #fff;
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     margin-bottom: 18px;
     box-shadow: var(--shadow-card);
     overflow: hidden;
   }
   .perf-header {
-    background: var(--maroon);
-    color: #fff;
-    padding: 13px 20px;
+    background: #fff;
+    color: var(--fg);
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -355,12 +456,12 @@
   }
   .perf-header .title {
     font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    letter-spacing: 0;
   }
   .segment-tabs {
     display: inline-flex;
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--bg-soft);
     border-radius: 7px;
     padding: 3px;
     gap: 2px;
@@ -369,25 +470,26 @@
     padding: 5px 14px;
     font-size: 12px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--fg-dim);
     border-radius: 5px;
     cursor: pointer;
   }
   .segment-tabs .seg.active {
     background: #fff;
-    color: var(--maroon);
+    color: var(--navy);
     font-weight: 600;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
   }
 
   .perf-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 14px;
-    padding: 18px 20px;
+    gap: 12px;
+    padding: 16px 18px;
   }
   .perf-item {
     background: #f9fafb;
-    border: 1px solid #f3f4f6;
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 12px 14px;
   }
@@ -419,69 +521,78 @@
   }
   .mini-bar-label .val { color: var(--navy); font-weight: 600; }
   .mini-bar {
-    height: 5px;
-    background: #e5e7eb;
-    border-radius: 3px;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 999px;
     overflow: hidden;
   }
-  .mini-bar > div { height: 100%; border-radius: 3px; }
+  .mini-bar > div { height: 100%; border-radius: 999px; }
   .bar-excellent { background: var(--success); }
   .bar-good { background: var(--steel); }
   .bar-warning { background: var(--warning); }
   .bar-danger { background: var(--crimson); }
 
-  /* ========== Section 3: Pipeline cards ========== */
+  /* ========== Section 3: Pipeline flow ========== */
   .pipeline-row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 14px;
+    gap: 0;
     margin-bottom: 18px;
-  }
-  .pipeline-card {
-    background: var(--navy);
-    color: #fff;
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: 0 4px 16px rgba(0, 48, 73, 0.18);
-    position: relative;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
     overflow: hidden;
   }
-  .pipeline-card::after {
+  .pipeline-card {
+    background: #fff;
+    color: var(--fg-body);
+    border-radius: 0;
+    padding: 16px 18px;
+    box-shadow: none;
+    position: relative;
+    overflow: hidden;
+    min-height: 178px;
+    border-right: 1px solid var(--border);
+  }
+  .pipeline-card:last-child { border-right: none; }
+  .pipeline-card::before {
     content: '';
     position: absolute;
-    right: -20px; top: -20px;
-    width: 80px; height: 80px;
-    background: radial-gradient(circle, rgba(102, 155, 188, 0.15), transparent 70%);
-    border-radius: 50%;
+    left: 18px;
+    right: 18px;
+    top: 0;
+    height: 3px;
+    background: var(--steel);
   }
   .pipeline-stage {
     font-size: 11px;
-    font-weight: 500;
-    opacity: 0.7;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
+    letter-spacing: 0.06em;
+    color: var(--fg-dim);
+    margin-bottom: 8px;
   }
   .pipeline-count {
     font-family: var(--font-mono);
-    font-size: 26px;
+    font-size: 25px;
     font-weight: 700;
     line-height: 1.05;
-    color: #fff;
+    color: var(--fg);
     margin-bottom: 2px;
   }
   .pipeline-pct {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--steel);
-    margin-bottom: 14px;
+    color: var(--fg-dim);
+    margin-bottom: 12px;
   }
   .pipeline-subs {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
     position: relative;
     z-index: 1;
   }
@@ -496,7 +607,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--fg-dim);
   }
   .pipeline-sub .name::before {
     content: '';
@@ -508,7 +619,7 @@
   .pipeline-sub.amber .name::before { background: #fcd34d; }
   .pipeline-sub.crimson .name::before { background: var(--crimson); }
   .pipeline-sub.gray .name::before { background: #9ca3af; }
-  .pipeline-sub .value { color: #fff; font-weight: 600; }
+  .pipeline-sub .value { color: var(--fg); font-weight: 700; }
 
   /* ========== Charts (side by side) ========== */
   .chart-row {
@@ -519,7 +630,8 @@
   }
   .chart-card {
     background: #fff;
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 18px 20px 22px;
     box-shadow: var(--shadow-card);
   }
@@ -563,15 +675,16 @@
     margin-left: 4px;
   }
   .chart-svg { width: 100%; height: auto; display: block; }
-  .chart-svg .grid { stroke: #e5e7eb; stroke-width: 1; stroke-dasharray: 2 3; }
-  .chart-svg .axis-label { fill: #6b7280; font-size: 10px; font-family: var(--font-mono); }
+  .chart-svg .grid { stroke: #e2e8f0; stroke-width: 1; stroke-dasharray: 2 3; }
+  .chart-svg .axis-label { fill: #64748b; font-size: 10px; font-family: var(--font-mono); }
   .chart-svg .ref-line { stroke: var(--crimson); stroke-width: 1; stroke-dasharray: 4 3; }
   .chart-svg .ref-label { fill: var(--crimson); font-size: 10px; font-family: var(--font-mono); }
 
   /* ========== Performance comparison ========== */
   .perf-comparison {
     background: #fff;
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 18px 20px 22px;
     box-shadow: var(--shadow-card);
     margin-bottom: 18px;
@@ -603,7 +716,8 @@
   /* ========== Reasons trend (stacked area) ========== */
   .reasons-card {
     background: #fff;
-    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 18px 20px 22px;
     box-shadow: var(--shadow-card);
     margin-bottom: 18px;
@@ -629,9 +743,13 @@
   }
   @media (max-width: 900px) {
     .sidebar { display: none; }
+    .top-header { align-items: flex-start; flex-direction: column; }
+    .tabs-row { align-items: stretch; flex-direction: column; gap: 10px; }
+    .filters { overflow-x: auto; padding-bottom: 2px; }
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
     .perf-grid { grid-template-columns: repeat(2, 1fr); }
     .pipeline-row { grid-template-columns: repeat(2, 1fr); }
+    .ops-card { overflow-x: auto; }
     .chart-row { grid-template-columns: 1fr; }
     .main { padding: 16px; }
   }
@@ -681,9 +799,9 @@
           <h1>
             Warehouse:
             <span class="wh-select">EPBIGT ▾</span>
-            <span class="mock-badge">Mock Data</span>
+            <span class="mock-badge">Fictional data</span>
           </h1>
-          <div class="subtitle">EP ASIA GROUP</div>
+          <div class="subtitle">Fulfillment command center · refreshed 09:42 ICT</div>
         </div>
       </div>
       <div class="user-bar">
@@ -714,6 +832,9 @@
           All Shipping (5)
           <span class="caret">▾</span>
         </div>
+        <div class="filter-pill">
+          3 active filters
+        </div>
       </div>
     </div>
 
@@ -723,31 +844,37 @@
         <div class="kpi-label">Total Release</div>
         <div class="kpi-value">12,458</div>
         <div class="kpi-sub">last 30 days</div>
+        <div class="kpi-meta"><span>Prev period</span><span class="kpi-trend">+8.4%</span></div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">FFR+</div>
         <div class="kpi-value excellent">94.2%</div>
         <div class="kpi-sub"><span class="kpi-pill pill-excellent">Excellent</span></div>
+        <div class="kpi-meta"><span>Target 93%</span><span class="kpi-trend">+1.2 pts</span></div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">FFR</div>
         <div class="kpi-value good">96.8%</div>
         <div class="kpi-sub">12,062 / 12,458 on time</div>
+        <div class="kpi-meta"><span>Target 95%</span><span class="kpi-trend">+1.8 pts</span></div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Collect Rate</div>
         <div class="kpi-value" style="color: var(--steel);">91.5%</div>
         <div class="kpi-sub">11,400 / 12,458 collected</div>
+        <div class="kpi-meta"><span>Target 92%</span><span class="kpi-trend down">-0.5 pts</span></div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Cancel Rate</div>
         <div class="kpi-value">3.2%</div>
         <div class="kpi-sub">399 cancelled</div>
+        <div class="kpi-meta"><span>Guardrail 4%</span><span class="kpi-trend">-0.4 pts</span></div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">Returning</div>
         <div class="kpi-value">2.1%</div>
         <div class="kpi-sub">262 returns</div>
+        <div class="kpi-meta"><span>Guardrail 3%</span><span class="kpi-trend">-0.2 pts</span></div>
       </div>
     </div>
 
@@ -891,7 +1018,59 @@
       </div>
     </div>
 
-    <!-- ============== SECTION 4: TWO CHARTS SIDE BY SIDE ============== -->
+    <!-- ============== SECTION 4: OPERATIONS ATTENTION ============== -->
+    <div class="ops-card">
+      <div class="ops-header">
+        <div>
+          <h3 class="ops-title">Operations Attention</h3>
+          <div class="ops-sub">Exceptions that need follow-up before the next carrier cutoff.</div>
+        </div>
+        <div class="segment-tabs">
+          <div class="seg active">Today</div>
+          <div class="seg">7 days</div>
+        </div>
+      </div>
+      <table class="ops-table">
+        <thead>
+          <tr>
+            <th>Queue</th>
+            <th>Owner</th>
+            <th>Open</th>
+            <th>SLA Risk</th>
+            <th>Primary Driver</th>
+            <th>Severity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TikTok Shop pickup</td>
+            <td>Warehouse outbound</td>
+            <td class="metric">148 orders</td>
+            <td class="metric">31 at risk</td>
+            <td>Carrier arrival variance</td>
+            <td><span class="severity high">High</span></td>
+          </tr>
+          <tr>
+            <td>Central Online packing</td>
+            <td>Picking team</td>
+            <td class="metric">42 orders</td>
+            <td class="metric">18 at risk</td>
+            <td>Late stock confirmation</td>
+            <td><span class="severity medium">Medium</span></td>
+          </tr>
+          <tr>
+            <td>DHL handover audit</td>
+            <td>Logistics desk</td>
+            <td class="metric">27 orders</td>
+            <td class="metric">6 at risk</td>
+            <td>Missing scan checkpoint</td>
+            <td><span class="severity low">Watch</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ============== SECTION 5: TWO CHARTS SIDE BY SIDE ============== -->
     <div class="chart-row">
       <!-- Release & Loading trend -->
       <div class="chart-card">
@@ -1049,16 +1228,16 @@
       </div>
     </div>
 
-    <!-- ============== SECTION 5: PERFORMANCE COMPARISON ============== -->
+    <!-- ============== SECTION 6: PERFORMANCE COMPARISON ============== -->
     <div class="perf-comparison">
       <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
         <div>
           <h3 class="chart-title">Performance Comparison</h3>
           <div class="chart-sub">FFR+ by platform · last 30 days</div>
         </div>
-        <div class="segment-tabs" style="background: #f3f4f6;">
-          <div class="seg active" style="background: var(--navy); color: #fff;">Platform</div>
-          <div class="seg" style="color: var(--fg-dim);">Shipping</div>
+        <div class="segment-tabs">
+          <div class="seg active">Platform</div>
+          <div class="seg">Shipping</div>
         </div>
       </div>
       <svg class="chart-svg" viewBox="0 0 1200 260" xmlns="http://www.w3.org/2000/svg">
@@ -1120,16 +1299,16 @@
       </div>
     </div>
 
-    <!-- ============== SECTION 6: NOT-MET FFR REASONS ============== -->
+    <!-- ============== SECTION 7: NOT-MET FFR REASONS ============== -->
     <div class="reasons-card">
       <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
         <div>
           <h3 class="chart-title">Not Met FFR Reasons</h3>
           <div class="chart-sub">stacked · last 30 days</div>
         </div>
-        <div class="segment-tabs" style="background: #f3f4f6;">
-          <div class="seg active" style="background: var(--navy); color: #fff;">FFR+</div>
-          <div class="seg" style="color: var(--fg-dim);">FFR</div>
+        <div class="segment-tabs">
+          <div class="seg active">FFR+</div>
+          <div class="seg">FFR</div>
         </div>
       </div>
       <svg class="chart-svg" viewBox="0 0 1200 240" xmlns="http://www.w3.org/2000/svg">
@@ -1182,13 +1361,13 @@
 
     <!-- ============== FOOTER ============== -->
     <div class="footer-note">
-      <strong>Mock dashboard</strong> replicating the real Fulfillment Overview UI from the
+      <strong>Fictional dashboard</strong> based on the real Fulfillment Overview UI from the
       <a href="https://github.com/sthongma/portfolio">E-Commerce Data Platform</a>
       at EP Asia Group. All data, platforms, shipping carriers, and metrics are fictional.
       <br>
       Built by <a href="https://github.com/sthongma">Sahatsawat Thongma</a>
-      · <a href="resume-en.html">Resume (EN)</a>
-      · <a href="resume-th.html">Resume (TH)</a>
+      · <a href="resume.html">Resume (EN)</a>
+      · <a href="resume.html?lang=th">Resume (TH)</a>
     </div>
 
   </div>
