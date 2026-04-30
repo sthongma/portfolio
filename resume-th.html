@@ -750,13 +750,16 @@
   <section class="summary">
     <h2>เกี่ยวกับผม</h2>
     <p>
-      <strong>Sole data engineer</strong> สาย e-commerce ที่
-      EP Asia Group — ดูแลระบบข้อมูลของบริษัททั้งหมดคนเดียว ตั้งแต่
-      ingestion pipeline (Shopee, Lazada, TikTok), dbt data warehouse
-      modeling, BI dashboards ไปจนถึง operational web apps
-      (warehouse management, barcode scanning, invoice OCR)
-      ใช้ <strong>Claude (AI)</strong> เป็น pair programmer ขยาย
-      กำลังของทีม 1 คนให้ ship scope ขนาดนี้ได้
+      <strong>End-to-end data engineer</strong> สาย e-commerce ที่ดูแล
+      ingestion pipelines, dbt data warehouse modeling, BI dashboards
+      และ production web apps สำหรับงานคลังสินค้า, barcode scanning
+      และ invoice workflows
+    </p>
+    <p>
+      สร้าง data warehouse ตัวแรกของบริษัทและระบบ operational ที่ใช้จริง
+      ในฐานะทีม data คนเดียว แทนงาน Excel/Power Query แบบ manual รายวัน
+      ด้วย automated pipelines, quality checks และ reporting ที่พร้อมใช้
+      ตัดสินใจทางธุรกิจ
     </p>
   </section>
 
@@ -767,7 +770,7 @@
     <div class="exp-item">
       <h3>EP Asia Group</h3>
       <span class="period">2025 – ปัจจุบัน</span>
-      <div class="role">Data Engineer คนเดียวของบริษัท &nbsp;·&nbsp; ทำงานร่วมกับ AI</div>
+      <div class="role">Data Engineer คนเดียวของบริษัท &nbsp;·&nbsp; E-Commerce Data Platform</div>
       <ul>
         <li>
           <strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> —
@@ -788,8 +791,8 @@
           (Cloud flows ดึง email + Desktop flows automate marketplace
           portals) + Python loader → Bronze, และ Azure Data Factory
           46 pipelines (DEV + PRO) sync internal app DBs (WMS, BSN)
-          มี <strong>Bronze config web app</strong> (FastAPI + React
-          + LLM) ให้ user ตั้งค่า column mapping เองผ่าน UI
+          มี <strong>Bronze config web app</strong> (FastAPI + React)
+          ให้ user ตั้งค่า file types และ column mapping เองผ่าน UI
         </li>
         <li>
           สร้าง <strong>reverse-ETL feeder</strong> รักษาระบบเก่าให้
@@ -807,9 +810,10 @@
           quality checks และ email alerts
         </li>
         <li>
-          เลือก stack แบบบ้าน ๆ เน้นความคุ้มค่า — <strong>Python +
+          เลือก stack ที่เรียบง่ายและคุ้มค่า — <strong>Python +
           dbt</strong> แทน Spark/Databricks เพราะที่ volume ~100K
-          rows/วัน เครื่องมือเรียบง่ายก็รันเร็วพอและประหยัดกว่าเยอะ
+          rows/วัน เครื่องมือชุดนี้รันเร็วพอ ดูแลง่าย และมี operating
+          cost ต่ำกว่า
         </li>
       </ul>
     </div>
@@ -869,8 +873,8 @@
       </p>
       <ul class="bullets">
         <li>ดึง raw data จาก 6+ sources (Shopee, Lazada, TikTok, JST, DHL, internal WMS/BSN) → medallion architecture 4 ชั้นด้วย dbt</li>
-        <li><strong>Bronze config web app</strong> (FastAPI + React + LLM) — self-service UI ให้ user config column mapping ใหม่ได้เอง พร้อม AI suggest ชื่อ column</li>
-        <li>Serve <strong>FastAPI + React dashboards</strong> — real-time KPIs, price alerts, procurement tracking และ AI chat queries</li>
+        <li><strong>Bronze config web app</strong> (FastAPI + React) — self-service UI ให้ user config file types, validation rules และ column mapping ได้เอง</li>
+        <li>Serve <strong>FastAPI + React dashboards</strong> — real-time KPIs, price alerts, procurement tracking และ operational drilldowns</li>
         <li>รันอัตโนมัตินอกเวลาทำงานพร้อม data quality checks, email alerts เมื่อ fail หรือ stale</li>
       </ul>
 
@@ -923,7 +927,7 @@
         <!-- Row 3: Bronze -->
         <rect class="box" x="40" y="244" width="520" height="94" rx="6" ry="6"/>
         <text class="box-title" x="300" y="272">Bronze Layer</text>
-        <text class="box-sub" x="300" y="293">FastAPI + React config UI · LLM-assisted mapping</text>
+        <text class="box-sub" x="300" y="293">FastAPI + React config UI · controlled mapping workflow</text>
         <text class="box-sub" x="300" y="311">SHA-256 dedup · metadata · chunked loading</text>
         <text class="box-mono" x="300" y="330">30+ file types · 1,000+ columns</text>
 
@@ -980,7 +984,7 @@
         <rect class="box" x="40" y="824" width="520" height="90" rx="6" ry="6"/>
         <text class="box-title" x="300" y="854">FastAPI + React Dashboard</text>
         <text class="box-sub" x="300" y="876">12 routers · role-based access</text>
-        <text class="box-sub" x="300" y="894">price alerts · procurement tracking · AI chat</text>
+        <text class="box-sub" x="300" y="894">price alerts · procurement tracking · drilldowns</text>
 
         <!-- Airflow footer -->
         <text class="arch-footer" x="418" y="944">Orchestrated by Airflow + ADF + Power Automate · daily schedule · freshness checks · email alerts</text>
@@ -996,7 +1000,7 @@
         <span class="chip">Power Automate</span>
         <span class="chip">FastAPI</span>
         <span class="chip">React / TypeScript</span>
-        <span class="chip">OpenAI-compatible LLM</span>
+        <span class="chip">Config-driven mapping</span>
         <span class="chip">Docker</span>
       </div>
     </article>
@@ -1183,7 +1187,7 @@
       <dd>FastAPI, REST API design</dd>
 
       <dt>Languages</dt>
-      <dd>ไทย (เจ้าของภาษา) &nbsp;·&nbsp; English (อ่าน technical docs ได้)</dd>
+      <dd>ไทย (เจ้าของภาษา) &nbsp;·&nbsp; English (technical documentation, async written communication)</dd>
     </dl>
   </section>
 
@@ -1192,10 +1196,10 @@
     <h2>การศึกษา</h2>
     <div class="edu-item">
       <h3>มหาวิทยาลัยราชภัฏอุดรธานี</h3>
-      <span class="period">เรียนไม่จบ &nbsp;·&nbsp; 1 ปี</span>
+      <span class="period">เรียนจบ coursework ปี 1</span>
       <div class="degree">
-        คณะวิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ — ผ่านปี 1 แล้วลาออก
-        ระหว่างปี 2 เพื่อมาทำร้านค้า online ของตัวเองเต็มตัว
+        คณะวิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ — เรียนจบ coursework ปี 1
+        แล้วออกระหว่างปี 2 เพื่อมาทำร้านค้า online ของตัวเองเต็มตัว
         และเรียนรู้ skill ที่ธุรกิจต้องการด้วยการลงมือทำจริง:
         <strong>graphic design → accounting → data analytics →
         data engineering</strong>
