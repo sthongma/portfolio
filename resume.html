@@ -39,6 +39,7 @@
     font-size: 15px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
   }
 
   a {
@@ -456,12 +457,50 @@
     margin: 0 auto 18px;
     text-align: center;
   }
+  .diagram-heading > div:first-child {
+    width: 100%;
+  }
+  .diagram-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+  }
   .diagram-heading h4 {
     margin: 0;
     color: var(--fg);
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0;
+    text-align: center;
+  }
+  .diagram-expand {
+    appearance: none;
+    display: none;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid var(--chip-border);
+    border-radius: 7px;
+    background: var(--chip-bg);
+    color: var(--accent-strong);
+    cursor: pointer;
+    font: 700 12px/1 var(--font-sans);
+    padding: 7px 10px;
+    white-space: nowrap;
+  }
+  .diagram-expand-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    stroke-width: 2;
+  }
+  .diagram-expand:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .diagram-preview {
+    overflow: hidden;
   }
   .diagram-heading p {
     margin: 5px auto 0;
@@ -503,6 +542,66 @@
     display: block;
     box-sizing: border-box;
     margin: 0 auto;
+  }
+  body.diagram-open {
+    overflow: hidden;
+  }
+  .diagram-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    background: rgba(15, 23, 42, 0.72);
+    padding: 18px;
+  }
+  .diagram-modal.is-open {
+    display: flex;
+    flex-direction: column;
+  }
+  .diagram-modal-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: min(1180px, 100%);
+    margin: 0 auto 10px;
+    color: #ffffff;
+  }
+  .diagram-modal-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .diagram-close {
+    appearance: none;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    cursor: pointer;
+    font: 700 13px/1 var(--font-sans);
+    padding: 10px 12px;
+  }
+  .diagram-modal-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(1180px, 100%);
+    min-height: 0;
+    margin: 0 auto;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    background: #f8fafc;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .diagram-modal-body svg.arch-diagram {
+    width: min(100%, calc((100dvh - 112px) * 0.862));
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
   }
   svg.arch-diagram .box {
     fill: #ffffff;
@@ -895,38 +994,184 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width: 640px) {
-    main { padding: 36px 18px 64px; }
+    main {
+      width: 100%;
+      padding: 22px 14px 56px;
+    }
     .language-switch {
-      right: 16px;
-      top: 16px;
+      right: 14px;
+      top: 14px;
     }
-    header.hero { padding-top: 58px; }
-    .hero h1 { font-size: 28px; }
+    .language-switch .language-icon-wrap {
+      width: 28px;
+      height: 28px;
+    }
+    .language-switch button {
+      padding: 8px 10px;
+    }
+    header.hero {
+      flex-direction: column;
+      gap: 18px;
+      padding: 62px 18px 20px;
+      margin-bottom: 14px;
+    }
+    .hero-text {
+      width: 100%;
+    }
+    .hero-photo {
+      order: -1;
+      width: 76px;
+      height: 76px;
+      margin-top: 0;
+    }
+    .hero h1 {
+      font-size: 30px;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      overflow-wrap: anywhere;
+    }
+    .hero .title {
+      max-width: 100%;
+      margin-bottom: 14px;
+      white-space: normal;
+    }
+    address.contact {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 8px;
+    }
+    address.contact a,
+    address.contact .location {
+      width: 100%;
+      min-width: 0;
+      justify-content: flex-start;
+      overflow-wrap: anywhere;
+    }
+    .tabs {
+      margin: 18px 0 14px;
+    }
+    .tabs label {
+      min-width: 0;
+      padding: 10px 12px;
+      font-size: 13px;
+    }
+    section {
+      margin-top: 30px;
+    }
+    section > h2 {
+      margin-bottom: 18px;
+    }
+    .project {
+      padding: 20px 18px;
+      margin-bottom: 16px;
+    }
+    .project-header {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .project h3 {
+      font-size: 16px;
+      line-height: 1.35;
+    }
+    .project h3 .num,
+    .project-compact h4 .num {
+      display: inline-block;
+      margin-right: 7px;
+    }
+    .project ul.bullets {
+      padding-left: 18px;
+    }
     .project-grid { grid-template-columns: 1fr; }
-    .view-resume section {
-      padding: 22px 18px;
+    .project-compact {
+      padding: 16px;
     }
-    .diagram-panel { padding: 14px; }
+    .view-resume section {
+      padding: 20px 16px;
+      margin-top: 16px;
+    }
+    .diagram-panel { padding: 12px; }
     .diagram-heading { max-width: none; }
     .diagram-heading p { max-width: none; }
+    .diagram-title-row {
+      justify-content: space-between;
+      text-align: left;
+    }
+    .diagram-heading h4 {
+      text-align: left;
+    }
+    .diagram-expand {
+      display: inline-flex;
+      margin-left: auto;
+    }
     .diagram-legend {
       justify-content: flex-start;
       margin-top: 10px;
     }
-    .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 12px; }
-    .metric:nth-child(odd) {
-      border-left: none;
-      padding-left: 0;
+    .diagram-preview {
+      max-height: 390px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #f8fafc;
+      overflow: hidden;
     }
-    .metric:nth-child(even) {
-      padding-right: 0;
+    svg.arch-diagram {
+      width: 100%;
+      max-width: 100%;
+    }
+    .diagram-modal {
+      padding: 12px;
+    }
+    .diagram-modal-body {
+      padding: 12px;
+    }
+    .diagram-modal-body svg.arch-diagram {
+      width: min(100%, calc((100dvh - 112px) * 0.862));
+      height: auto;
+    }
+    .metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      padding: 0;
+      border: none;
+    }
+    .metric,
+    .metric:first-child,
+    .metric:last-child {
+      min-height: 72px;
+      padding: 10px 8px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     dl.skills { grid-template-columns: 1fr; gap: 6px 0; }
     dl.skills dt { padding-top: 0; }
     dl.skills dd { margin-bottom: 10px; }
-    .skill-token { white-space: normal; }
+    .chip,
+    .skill-token {
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
     .exp-item, .edu-item { grid-template-columns: 1fr; }
     .exp-item .period, .edu-item .period { margin-top: 2px; }
+  }
+
+  @media (max-width: 380px) {
+    main { padding-inline: 10px; }
+    header.hero,
+    .view-resume section,
+    .project,
+    .project-compact {
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+    header.hero {
+      padding-top: 58px;
+    }
+    .hero h1 { font-size: 26px; }
+    .metrics { grid-template-columns: 1fr; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1337,7 +1582,16 @@
       <div class="diagram-panel">
         <div class="diagram-heading">
           <div>
-            <h4>Data Platform Flow</h4>
+            <div class="diagram-title-row">
+              <h4>Data Platform Flow</h4>
+              <button class="diagram-expand" type="button" data-diagram-open aria-haspopup="dialog">
+                <svg class="diagram-expand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.3-4.3"/>
+                </svg>
+                <span data-diagram-open-label>Expand</span>
+              </button>
+            </div>
             <p>Marketplace files and internal app databases move through controlled ingestion, dbt warehouse layers, operational dashboards, and a reverse-ETL bridge for legacy reporting.</p>
           </div>
           <div class="diagram-legend" aria-label="Diagram legend">
@@ -1348,6 +1602,7 @@
           </div>
         </div>
 
+      <div class="diagram-preview" data-diagram-source>
 <svg class="arch-diagram" viewBox="0 0 836 970" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data platform architecture diagram">
         <title>Data Platform Architecture</title>
         <desc>End-to-end flow: marketplace file exports and internal app databases feed the Bronze layer, then pass through dbt medallion layers (Staging, Silver, Intermediate, Gold) to a FastAPI and React dashboard. A reverse-ETL branch from Silver pushes cleaned data back into a legacy system.</desc>
@@ -1451,6 +1706,7 @@
         <!-- Airflow footer -->
         <text class="arch-footer" x="418" y="944">Orchestrated by Airflow + ADF + Power Automate · daily schedule · freshness checks · email alerts</text>
       </svg>
+      </div>
       </div>
 
       <div class="chips">
@@ -1697,6 +1953,15 @@
   </div><!-- end .view-resume (part 2) -->
 
 </main>
+
+<div class="diagram-modal" data-diagram-modal role="dialog" aria-modal="true" aria-labelledby="diagram-modal-title">
+  <div class="diagram-modal-bar">
+    <p class="diagram-modal-title" id="diagram-modal-title">Data Platform Flow</p>
+    <button class="diagram-close" type="button" data-diagram-close>Close</button>
+  </div>
+  <div class="diagram-modal-body" data-diagram-modal-body></div>
+</div>
+
 <script src="resume-i18n.js"></script>
 <script>
 (() => {
@@ -1754,7 +2019,44 @@
       button.setAttribute("aria-pressed", String(button.dataset.langOption === lang));
     });
     localStorage.setItem("resumeLang", lang);
+    const expandButtonLabel = $("[data-diagram-open-label]");
+    const closeButton = $("[data-diagram-close]");
+    if (expandButtonLabel) expandButtonLabel.textContent = lang === "th" ? "ดูเต็มจอ" : "Expand";
+    if (closeButton) closeButton.textContent = lang === "th" ? "ปิด" : "Close";
   }
+
+  const diagramModal = $("[data-diagram-modal]");
+  const diagramModalBody = $("[data-diagram-modal-body]");
+  const diagramSource = $("[data-diagram-source] svg.arch-diagram");
+  const diagramOpen = $("[data-diagram-open]");
+  const diagramClose = $("[data-diagram-close]");
+
+  function openDiagramModal() {
+    if (!diagramModal || !diagramModalBody || !diagramSource) return;
+    diagramModalBody.replaceChildren(diagramSource.cloneNode(true));
+    diagramModal.classList.add("is-open");
+    document.body.classList.add("diagram-open");
+    diagramClose?.focus();
+  }
+
+  function closeDiagramModal() {
+    if (!diagramModal || !diagramModalBody) return;
+    diagramModal.classList.remove("is-open");
+    document.body.classList.remove("diagram-open");
+    diagramModalBody.replaceChildren();
+    diagramOpen?.focus();
+  }
+
+  diagramOpen?.addEventListener("click", openDiagramModal);
+  diagramClose?.addEventListener("click", closeDiagramModal);
+  diagramModal?.addEventListener("click", (event) => {
+    if (event.target === diagramModal) closeDiagramModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && diagramModal?.classList.contains("is-open")) {
+      closeDiagramModal();
+    }
+  });
 
   const params = new URLSearchParams(window.location.search);
   const fileDefault = "en";
