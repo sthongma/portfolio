@@ -776,11 +776,6 @@
     border-radius: 7px;
     white-space: nowrap;
   }
-  dl.skills dd.skill-language {
-    display: block;
-    padding-top: 5px;
-  }
-
   /* Education */
   .edu-item {
     display: grid;
@@ -1929,8 +1924,6 @@
         <span class="skill-token">REST API design</span>
       </dd>
 
-      <dt>Languages</dt>
-      <dd class="skill-language">Thai (native) &nbsp;·&nbsp; English (technical documentation, async written communication)</dd>
     </dl>
   </section>
 
@@ -2008,7 +2001,6 @@
     setList(".project-compact p", t.compactProjects);
 
     setHTML(".view-resume-extra section:nth-of-type(1) > h2", t.sectionSkills);
-    setHTML("dl.skills dd:last-child", t.languages);
 
     setHTML(".view-resume-extra section:nth-of-type(2) > h2", t.sectionEducation);
     setHTML(".edu-item:nth-of-type(1) h3", t.university);

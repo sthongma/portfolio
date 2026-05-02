@@ -63,7 +63,6 @@ window.resumeI18n = {
       ],
       sectionSkills: "Technical Skills",
       sectionEducation: "Education",
-      languages: "Thai (native) &nbsp;·&nbsp; English (technical documentation, async written communication)",
       university: "Udon Thani Rajabhat University",
       universityPeriod: "Completed first-year coursework",
       universityDegree: "Mechatronics &amp; Robotics Engineering — completed first-year coursework before leaving to run an online store full-time. Built practical skills through real e-commerce problems: <strong>graphic design → accounting → data analytics → data engineering</strong>."
@@ -132,9 +131,8 @@ window.resumeI18n = {
       ],
       sectionSkills: "ทักษะทางเทคนิค",
       sectionEducation: "การศึกษา",
-      languages: "ไทย (เจ้าของภาษา) &nbsp;·&nbsp; English (technical documentation, async written communication)",
       university: "มหาวิทยาลัยราชภัฏอุดรธานี",
-      universityPeriod: "เรียนจบ coursework ปี 1",
-      universityDegree: "คณะวิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ — เรียนจบ coursework ปี 1 ก่อนออกมาทำร้านค้า online เต็มตัว และต่อยอดทักษะจากปัญหา e-commerce จริง: <strong>graphic design → accounting → data analytics → data engineering</strong>"
+      universityPeriod: "เรียนครบรายวิชาชั้นปีที่ 1",
+      universityDegree: "คณะวิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ — เรียนครบรายวิชาชั้นปีที่ 1 ก่อนออกมาทำร้านค้า online เต็มตัว และต่อยอดทักษะจากปัญหา e-commerce จริง: <strong>graphic design → accounting → data analytics → data engineering</strong>"
     }
   };
