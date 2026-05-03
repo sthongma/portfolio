@@ -1,7 +1,7 @@
 # Portfolio — Sahatsawat Thongma
 
 > **Data Engineer & Solo Builder · E-Commerce Platforms**
-> Sole data engineer at a 100M+ THB/month e-commerce business — designed and shipped the entire data platform plus production operational apps used daily by 25+ staff.
+> Sole data engineer responsible for all incoming data at a 100M+ THB/month e-commerce business — designed and shipped the data platform plus production operational apps used daily by 25+ staff.
 
 ---
 

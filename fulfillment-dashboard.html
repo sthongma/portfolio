@@ -360,81 +360,6 @@
   }
   .kpi-trend.down { color: var(--danger); }
 
-  /* ========== Operations attention ========== */
-  .ops-card {
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-card);
-    margin-bottom: 18px;
-    overflow: hidden;
-  }
-  .ops-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 15px 18px;
-    border-bottom: 1px solid var(--border);
-  }
-  .ops-title {
-    margin: 0;
-    color: var(--fg);
-    font-size: 14px;
-    font-weight: 700;
-  }
-  .ops-sub {
-    margin-top: 2px;
-    color: var(--fg-mute);
-    font-size: 12px;
-  }
-  .ops-table {
-    width: 100%;
-    min-width: 760px;
-    border-collapse: collapse;
-    font-size: 12.5px;
-  }
-  .ops-table th,
-  .ops-table td {
-    padding: 11px 18px;
-    border-bottom: 1px solid var(--border);
-    text-align: left;
-    white-space: nowrap;
-  }
-  .ops-table th {
-    color: var(--fg-dim);
-    background: #f8fafc;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .ops-table tr:last-child td { border-bottom: none; }
-  .ops-table .metric {
-    font-family: var(--font-mono);
-    color: var(--fg);
-    font-weight: 700;
-  }
-  .severity {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 3px 8px;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 700;
-  }
-  .severity::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-  .severity.high { background: #fee2e2; color: #991b1b; }
-  .severity.medium { background: #fef3c7; color: #92400e; }
-  .severity.low { background: #dbeafe; color: #1e40af; }
-
   /* ========== Section 2: Platform/Shipping KPI card ========== */
   .perf-card {
     background: #fff;
@@ -445,19 +370,38 @@
     overflow: hidden;
   }
   .perf-header {
-    background: #fff;
-    color: var(--fg);
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
+    background: var(--maroon);
+    color: #fff;
+    padding: 10px 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
   }
   .perf-header .title {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .perf-header .segment-tabs {
+    background: transparent;
+    padding: 0;
+    gap: 4px;
+  }
+  .perf-header .segment-tabs .seg {
+    color: rgba(255, 255, 255, 0.55);
+    padding: 3px 10px;
+    font-size: 10.5px;
+    font-weight: 500;
+    border-radius: 5px;
+  }
+  .perf-header .segment-tabs .seg.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    box-shadow: none;
+    font-weight: 600;
   }
   .segment-tabs {
     display: inline-flex;
@@ -536,63 +480,63 @@
   .pipeline-row {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 0;
+    gap: 12px;
     margin-bottom: 18px;
-    background: #fff;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-card);
-    overflow: hidden;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
   }
   .pipeline-card {
-    background: #fff;
-    color: var(--fg-body);
-    border-radius: 0;
-    padding: 16px 18px;
-    box-shadow: none;
+    background: var(--navy);
+    color: #fff;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: var(--shadow-card);
     position: relative;
     overflow: hidden;
-    min-height: 178px;
-    border-right: 1px solid var(--border);
+    min-height: auto;
+    border-right: none;
   }
   .pipeline-card:last-child { border-right: none; }
-  .pipeline-card::before {
-    content: '';
-    position: absolute;
-    left: 18px;
-    right: 18px;
-    top: 0;
-    height: 3px;
-    background: var(--steel);
-  }
   .pipeline-stage {
-    font-size: 11px;
-    font-weight: 700;
+    display: inline-block;
+    background: rgba(71, 125, 161, 0.8);
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 9.5px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--fg-dim);
-    margin-bottom: 8px;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
   }
+  .pipeline-card.loading .pipeline-stage { background: rgba(127, 29, 29, 0.85); }
+  .pipeline-card.diff .pipeline-stage { background: rgba(185, 28, 28, 0.8); }
   .pipeline-count {
     font-family: var(--font-mono);
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 700;
     line-height: 1.05;
-    color: var(--fg);
+    color: #fff;
     margin-bottom: 2px;
+    display: inline-block;
   }
   .pipeline-pct {
     font-family: var(--font-mono);
     font-size: 11px;
-    color: var(--fg-dim);
-    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px;
+    margin-left: 4px;
+    display: inline;
   }
   .pipeline-subs {
     display: flex;
     flex-direction: column;
     gap: 5px;
     padding-top: 10px;
-    border-top: 1px solid var(--border);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     z-index: 1;
   }
@@ -600,26 +544,34 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 11px;
+    font-size: 10.5px;
     font-family: var(--font-mono);
+    gap: 6px;
   }
   .pipeline-sub .name {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: var(--fg-dim);
+    color: rgba(255, 255, 255, 0.7);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .pipeline-sub .name::before {
     content: '';
     width: 6px;
     height: 6px;
     border-radius: 50%;
+    flex-shrink: 0;
   }
   .pipeline-sub.steel .name::before { background: var(--steel); }
   .pipeline-sub.amber .name::before { background: #fcd34d; }
   .pipeline-sub.crimson .name::before { background: var(--crimson); }
   .pipeline-sub.gray .name::before { background: #9ca3af; }
-  .pipeline-sub .value { color: var(--fg); font-weight: 700; }
+  .pipeline-sub .value { color: #fff; font-weight: 700; }
+  .pipeline-sub .pct { color: rgba(255, 255, 255, 0.4); font-size: 9.5px; min-width: 44px; text-align: right; }
 
   /* ========== Charts (side by side) ========== */
   .chart-row {
@@ -749,7 +701,6 @@
     .kpi-grid { grid-template-columns: repeat(2, 1fr); }
     .perf-grid { grid-template-columns: repeat(2, 1fr); }
     .pipeline-row { grid-template-columns: repeat(2, 1fr); }
-    .ops-card { overflow-x: auto; }
     .chart-row { grid-template-columns: 1fr; }
     .main { padding: 16px; }
   }
@@ -881,7 +832,7 @@
     <!-- ============== SECTION 2: PLATFORM / SHIPPING PERFORMANCE ============== -->
     <div class="perf-card">
       <div class="perf-header">
-        <div class="title">Platform &amp; Shipping Performance</div>
+        <div class="title">FFR+ Performance</div>
         <div class="segment-tabs">
           <div class="seg active">Platform</div>
           <div class="seg">Shipping</div>
@@ -966,111 +917,66 @@
     <!-- ============== SECTION 3: PIPELINE STAGES ============== -->
     <div class="pipeline-row">
       <div class="pipeline-card">
-        <div class="pipeline-stage">Released</div>
-        <div class="pipeline-count">12,458</div>
-        <div class="pipeline-pct">100%</div>
-        <div class="pipeline-subs">
-          <div class="pipeline-sub steel"><span class="name">Shopee</span><span class="value">5,612</span></div>
-          <div class="pipeline-sub amber"><span class="name">Lazada</span><span class="value">3,743</span></div>
-          <div class="pipeline-sub crimson"><span class="name">TikTok</span><span class="value">2,491</span></div>
-          <div class="pipeline-sub gray"><span class="name">Others</span><span class="value">612</span></div>
-        </div>
-      </div>
-      <div class="pipeline-card">
-        <div class="pipeline-stage">Packed</div>
-        <div class="pipeline-count">11,892</div>
-        <div class="pipeline-pct">95.5% of released</div>
-        <div class="pipeline-subs">
-          <div class="pipeline-sub steel"><span class="name">On time</span><span class="value">11,380</span></div>
-          <div class="pipeline-sub amber"><span class="name">Delayed</span><span class="value">412</span></div>
-          <div class="pipeline-sub crimson"><span class="name">Failed</span><span class="value">100</span></div>
-        </div>
-      </div>
-      <div class="pipeline-card">
-        <div class="pipeline-stage">Handed Over</div>
-        <div class="pipeline-count">11,234</div>
-        <div class="pipeline-pct">90.2% of released</div>
-        <div class="pipeline-subs">
-          <div class="pipeline-sub steel"><span class="name">DHL</span><span class="value">4,820</span></div>
-          <div class="pipeline-sub amber"><span class="name">Flash</span><span class="value">3,912</span></div>
-          <div class="pipeline-sub crimson"><span class="name">Kerry</span><span class="value">1,748</span></div>
-          <div class="pipeline-sub gray"><span class="name">J&amp;T, Best</span><span class="value">754</span></div>
-        </div>
-      </div>
-      <div class="pipeline-card">
-        <div class="pipeline-stage">In Transit</div>
-        <div class="pipeline-count">10,568</div>
-        <div class="pipeline-pct">84.8% of released</div>
-        <div class="pipeline-subs">
-          <div class="pipeline-sub steel"><span class="name">On schedule</span><span class="value">9,721</span></div>
-          <div class="pipeline-sub amber"><span class="name">Delayed</span><span class="value">612</span></div>
-          <div class="pipeline-sub crimson"><span class="name">Exception</span><span class="value">235</span></div>
-        </div>
-      </div>
-      <div class="pipeline-card">
-        <div class="pipeline-stage">Delivered</div>
-        <div class="pipeline-count">11,400</div>
-        <div class="pipeline-pct">91.5% of released</div>
-        <div class="pipeline-subs">
-          <div class="pipeline-sub steel"><span class="name">Success</span><span class="value">11,138</span></div>
-          <div class="pipeline-sub crimson"><span class="name">Returned</span><span class="value">262</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ============== SECTION 4: OPERATIONS ATTENTION ============== -->
-    <div class="ops-card">
-      <div class="ops-header">
+        <div class="pipeline-stage">Release</div>
         <div>
-          <h3 class="ops-title">Operations Attention</h3>
-          <div class="ops-sub">Exceptions that need follow-up before the next carrier cutoff.</div>
+          <span class="pipeline-count">12,458</span>
+          <span class="pipeline-pct">(100.00%)</span>
         </div>
-        <div class="segment-tabs">
-          <div class="seg active">Today</div>
-          <div class="seg">7 days</div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">Morning</span><span class="value">7,200</span><span class="pct">(57.79%)</span></div>
+          <div class="pipeline-sub amber"><span class="name">Afternoon</span><span class="value">4,890</span><span class="pct">(39.25%)</span></div>
+          <div class="pipeline-sub crimson"><span class="name">BO (&gt;1)</span><span class="value">368</span><span class="pct">(2.95%)</span></div>
         </div>
       </div>
-      <table class="ops-table">
-        <thead>
-          <tr>
-            <th>Queue</th>
-            <th>Owner</th>
-            <th>Open</th>
-            <th>SLA Risk</th>
-            <th>Primary Driver</th>
-            <th>Severity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>TikTok Shop pickup</td>
-            <td>Warehouse outbound</td>
-            <td class="metric">148 orders</td>
-            <td class="metric">31 at risk</td>
-            <td>Carrier arrival variance</td>
-            <td><span class="severity high">High</span></td>
-          </tr>
-          <tr>
-            <td>Central Online packing</td>
-            <td>Picking team</td>
-            <td class="metric">42 orders</td>
-            <td class="metric">18 at risk</td>
-            <td>Late stock confirmation</td>
-            <td><span class="severity medium">Medium</span></td>
-          </tr>
-          <tr>
-            <td>DHL handover audit</td>
-            <td>Logistics desk</td>
-            <td class="metric">27 orders</td>
-            <td class="metric">6 at risk</td>
-            <td>Missing scan checkpoint</td>
-            <td><span class="severity low">Watch</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="pipeline-card">
+        <div class="pipeline-stage">In Process</div>
+        <div>
+          <span class="pipeline-count">12,150</span>
+          <span class="pipeline-pct">(97.53%)</span>
+        </div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">Inprocess</span><span class="value">11,892</span><span class="pct">(95.46%)</span></div>
+          <div class="pipeline-sub amber"><span class="name">Wrong Transport</span><span class="value">195</span><span class="pct">(1.56%)</span></div>
+          <div class="pipeline-sub crimson"><span class="name">Item Out Of Stock</span><span class="value">63</span><span class="pct">(0.51%)</span></div>
+        </div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pipeline-stage">Outbound</div>
+        <div>
+          <span class="pipeline-count">11,892</span>
+          <span class="pipeline-pct">(95.46%)</span>
+        </div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">Met FFR Plus</span><span class="value">11,738</span><span class="pct">(94.22%)</span></div>
+          <div class="pipeline-sub crimson"><span class="name">Not Met FFR Plus</span><span class="value">154</span><span class="pct">(1.24%)</span></div>
+        </div>
+      </div>
+      <div class="pipeline-card loading">
+        <div class="pipeline-stage">Loading</div>
+        <div>
+          <span class="pipeline-count">11,892</span>
+          <span class="pipeline-pct">(95.46%)</span>
+        </div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">Available</span><span class="value">11,400</span><span class="pct">(91.51%)</span></div>
+          <div class="pipeline-sub amber"><span class="name">Collect</span><span class="value">412</span><span class="pct">(3.31%)</span></div>
+          <div class="pipeline-sub crimson"><span class="name">No Status</span><span class="value">80</span><span class="pct">(0.64%)</span></div>
+        </div>
+      </div>
+      <div class="pipeline-card">
+        <div class="pipeline-stage">Collect Available</div>
+        <div>
+          <span class="pipeline-count">12,062</span>
+          <span class="pipeline-pct">(96.82%)</span>
+        </div>
+        <div class="pipeline-subs">
+          <div class="pipeline-sub steel"><span class="name">Met FFR</span><span class="value">12,062</span><span class="pct">(96.82%)</span></div>
+          <div class="pipeline-sub crimson"><span class="name">Not Met FFR</span><span class="value">396</span><span class="pct">(3.18%)</span></div>
+        </div>
+      </div>
     </div>
 
-    <!-- ============== SECTION 5: TWO CHARTS SIDE BY SIDE ============== -->
+    <!-- ============== SECTION 4: TWO CHARTS SIDE BY SIDE ============== -->
     <div class="chart-row">
       <!-- Release & Loading trend -->
       <div class="chart-card">
@@ -1228,7 +1134,7 @@
       </div>
     </div>
 
-    <!-- ============== SECTION 6: PERFORMANCE COMPARISON ============== -->
+    <!-- ============== SECTION 5: PERFORMANCE COMPARISON ============== -->
     <div class="perf-comparison">
       <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
         <div>
@@ -1299,7 +1205,7 @@
       </div>
     </div>
 
-    <!-- ============== SECTION 7: NOT-MET FFR REASONS ============== -->
+    <!-- ============== SECTION 6: NOT-MET FFR REASONS ============== -->
     <div class="reasons-card">
       <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
         <div>

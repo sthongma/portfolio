@@ -8,7 +8,7 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Sole data engineer at a 100M+ THB/month e-commerce business</strong> — designed and shipped the entire data platform plus production operational apps (WMS, barcode scanner, OCR) used daily by 25+ staff. AI-augmented development workflow lets me deliver end-to-end systems alone."
+        "<strong>Sole data engineer responsible for all incoming data at a 100M+ THB/month e-commerce business</strong> — designed and shipped the data platform plus production operational apps (WMS, barcode scanner, OCR) used daily by 25+ staff. AI-augmented development workflow lets me deliver end-to-end systems alone."
       ],
       sectionExperience: "Experience",
       epPeriod: "2025 – Present",
@@ -38,7 +38,7 @@ window.resumeI18n = {
           "Ingests data from 6+ sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.",
           "<strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.",
           "Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.",
-          "Runs automatically outside business hours with data quality checks and email alerts on failure or stale data."
+          "Runs automatically outside business hours via <strong>custom Airflow operators</strong> (Bronze, dbt), with <strong>180+ dbt data tests</strong>, source freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data."
         ],
         [
           "<strong>Replaced the previous WMS</strong> — staff (including foreign workers) now learn the system in under 5 minutes versus weeks of struggling with the prior tool, and stock movements are traceable for the first time (full audit trail per item).",
@@ -47,7 +47,7 @@ window.resumeI18n = {
           "19 granular permissions, 21 SQLAlchemy models, 62 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD."
         ],
         [
-          "Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., \"Release\" before \"Outbound\") — replaces manual paper logs.",
+          "Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., \"Release\" before \"Outbound\") — replaces manual logs kept on paper, Google Sheets, and Excel.",
           "Custom notifications + audio alerts, full scan history with filtering and Excel export."
         ],
         [
@@ -65,7 +65,7 @@ window.resumeI18n = {
       sectionEducation: "Education",
       university: "Udon Thani Rajabhat University",
       universityPeriod: "Coursework completed (Year 1)",
-      universityDegree: "Mechatronics &amp; Robotics Engineering — left after first year to run an online store full-time, which became the foundation for everything that followed: <strong>graphic design → accounting → data analytics → data engineering</strong>."
+      universityDegree: "Mechatronics &amp; Robotics Engineering — left after first year to run an online store full-time. <strong>No formal CS/data degree</strong> — every technical skill above was self-taught on the job through real e-commerce problems: <strong>graphic design → accounting → data analytics → data engineering</strong>."
     },
     th: {
       documentTitle: "สหัสวรรษ ทองมา — Data Engineer & Solo Builder",
@@ -76,7 +76,7 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data Engineer คนเดียวที่ดูแลระบบทั้งบริษัท e-commerce ยอดขาย 100 ล้านบาทขึ้นไปต่อเดือน</strong> — ออกแบบและส่งมอบ data platform ครบ พร้อมแอปทำงานจริง (WMS, barcode scanner, OCR) ที่ทีม 25+ คนใช้ทุกวัน ใช้ AI ช่วยพัฒนา ทำให้ส่งของได้คนเดียวครบทั้งระบบ"
+        "<strong>Data Engineer คนเดียวที่ดูแลข้อมูลที่เข้ามาทั้งบริษัท e-commerce ยอดขาย 100 ล้านบาทขึ้นไปต่อเดือน</strong> — ออกแบบและส่งมอบ data platform ครบ พร้อมแอปทำงานจริง (WMS, barcode scanner, OCR) ที่ทีม 25+ คนใช้ทุกวัน ใช้ AI ช่วยพัฒนา ทำให้ส่งของได้คนเดียวครบทั้งระบบ"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
       epPeriod: "2025 – ปัจจุบัน",
@@ -106,7 +106,7 @@ window.resumeI18n = {
           "ดึง raw data จาก 6+ sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, internal WMS/BSN) → medallion architecture 4 ชั้นด้วย dbt — แทนการที่เคยมีคนนั่งโหลดไฟล์ทุกเช้า",
           "<strong>Bronze config web app</strong> (FastAPI + React) — self-service UI สำหรับ file types, validation rules และ AI-assisted column analysis/mapping suggestions ทำให้คนที่ไม่ใช่ developer เพิ่ม source ใหม่ได้เองอย่างปลอดภัย",
           "Serve <strong>FastAPI + React dashboards</strong> — real-time KPIs, price alerts, procurement tracking และ operational drilldowns ที่ฝ่ายจัดซื้อใช้ตัดสินใจซื้อสินค้าทุกวัน",
-          "รันอัตโนมัตินอกเวลาทำงานพร้อม data quality checks และ email alerts เมื่อ pipeline fail หรือข้อมูลค้าง"
+          "รันอัตโนมัตินอกเวลาทำงานผ่าน <strong>custom Airflow operators</strong> (Bronze, dbt) พร้อม <strong>180+ dbt data tests</strong>, source freshness checks และ <strong>email + LINE notifications</strong> ภาษาไทย แจ้งเตือนเมื่อ pipeline fail หรือข้อมูลค้าง"
         ],
         [
           "<strong>มาแทนระบบ WMS เดิม</strong> — จากที่คนงาน (รวมคนงานต่างชาติ) ใช้ยากและสอนนาน เปลี่ยนเป็นเรียนไม่ถึง 5 นาทีก็ใช้ได้ และ track การเคลื่อนไหวของของทุกชิ้นได้ครบ ซึ่งเดิมทำไม่ได้เลย",
@@ -115,7 +115,7 @@ window.resumeI18n = {
           "19 granular permissions, 21 SQLAlchemy models, 62 Jinja2 templates — deploy บน Azure App Service ด้วย GitHub Actions CI/CD"
         ],
         [
-          "ประมวลผล scan พร้อม validation + duplicate detection สำหรับ concurrent users และ enforce workflow ด้วย job dependency rules (เช่น \"Release\" ก่อน \"Outbound\") — แทนการจดมือในกระดาษ",
+          "ประมวลผล scan พร้อม validation + duplicate detection สำหรับ concurrent users และ enforce workflow ด้วย job dependency rules (เช่น \"Release\" ก่อน \"Outbound\") — แทนการจดมือในกระดาษ Google Sheet และ Excel",
           "Custom notifications + audio alerts, เก็บ scan history ครบพร้อม filter และ Excel export"
         ],
         [
@@ -133,6 +133,6 @@ window.resumeI18n = {
       sectionEducation: "การศึกษา",
       university: "มหาวิทยาลัยราชภัฏอุดรธานี",
       universityPeriod: "เรียนครบรายวิชาชั้นปีที่ 1",
-      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ — ออกหลังจบปี 1 ไปทำร้านค้า online เต็มตัว ซึ่งกลายเป็นจุดเริ่มของทุกอย่างที่ตามมา: <strong>graphic design → accounting → data analytics → data engineering</strong>"
+      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ — ออกหลังจบปี 1 ไปทำร้านค้า online เต็มตัว <strong>ไม่มีปริญญาสาย CS/data</strong> — ทุกทักษะที่ใช้ในงานเรียนรู้เองจากการแก้ปัญหา e-commerce จริง: <strong>graphic design → accounting → data analytics → data engineering</strong>"
     }
   };

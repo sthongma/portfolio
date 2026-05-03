@@ -1362,11 +1362,11 @@
   <section class="summary">
     <h2>Summary</h2>
     <p>
-      <strong>Sole data engineer at a 100M+ THB/month e-commerce
-      business</strong> — designed and shipped the entire data platform
-      plus production operational apps (WMS, barcode scanner, OCR) used
-      daily by 25+ staff. AI-augmented development workflow lets me
-      deliver end-to-end systems alone.
+      <strong>Sole data engineer responsible for all incoming data
+      at a 100M+ THB/month e-commerce business</strong> — designed and
+      shipped the data platform plus production operational apps (WMS,
+      barcode scanner, OCR) used daily by 25+ staff. AI-augmented
+      development workflow lets me deliver end-to-end systems alone.
     </p>
   </section>
 
@@ -1455,7 +1455,7 @@
         <li>Ingests data from 6+ sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.</li>
         <li><strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.</li>
         <li>Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.</li>
-        <li>Runs automatically outside business hours with data quality checks and email alerts on failure or stale data.</li>
+        <li>Runs automatically outside business hours via <strong>custom Airflow operators</strong> (Bronze, dbt), with <strong>180+ dbt data tests</strong>, source freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data.</li>
       </ul>
 
       <div class="metrics" aria-label="Data platform metrics">
@@ -1671,7 +1671,7 @@
         enforcement.
       </p>
       <ul class="bullets">
-        <li>Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., "Release" before "Outbound") — replaces manual paper logs.</li>
+        <li>Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., "Release" before "Outbound") — replaces manual logs kept on paper, Google Sheets, and Excel.</li>
         <li>Custom notifications + audio alerts, full scan history with filtering and Excel export.</li>
       </ul>
       <div class="chips">
@@ -1817,6 +1817,7 @@
         <span class="skill-token">HTMX</span>
         <span class="skill-token">Alpine.js</span>
         <span class="skill-token">Jinja2</span>
+        <span class="skill-token">Alembic (DB migrations)</span>
         <span class="skill-token">REST API design</span>
       </dd>
 
@@ -1859,8 +1860,9 @@
       <span class="period">Coursework completed (Year 1)</span>
       <div class="degree">
         Mechatronics &amp; Robotics Engineering — left after first year
-        to run an online store full-time, which became the foundation
-        for everything that followed:
+        to run an online store full-time. <strong>No formal CS/data
+        degree</strong> — every technical skill above was self-taught
+        on the job through real e-commerce problems:
         <strong>graphic design → accounting → data analytics → data
         engineering</strong>.
       </div>
