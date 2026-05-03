@@ -12,6 +12,7 @@
 | 🌐 **Resume** | [sthongma.github.io/portfolio/resume.html](https://sthongma.github.io/portfolio/resume.html) |
 | 🇹🇭 **Resume (TH)** | [sthongma.github.io/portfolio/resume.html?lang=th](https://sthongma.github.io/portfolio/resume.html?lang=th) |
 | 📊 **Fulfillment dashboard mock** | [sthongma.github.io/portfolio/fulfillment-dashboard.html](https://sthongma.github.io/portfolio/fulfillment-dashboard.html) |
+| 🗺️ **WMS warehouse map mock** | [sthongma.github.io/portfolio/wms-mockup.html](https://sthongma.github.io/portfolio/wms-mockup.html) |
 
 > **Tip:** The resume is interactive — use the **Resume / Projects** tabs at the top to switch between the compact CV view and the rich project gallery.
 
@@ -26,11 +27,12 @@ Single resume page with dual-mode layout (compact print-ready CV + rich web port
 - [`resume.html`](resume.html) — bilingual resume shell
 - [`resume-i18n.js`](resume-i18n.js) — English/Thai content keys
 
-### 2. Mock dashboard
+### 2. Mock dashboards
 
-A static HTML mock that replicates the real **Fulfillment Overview** dashboard from the E-Commerce Data Platform I built at EP Asia Group. Same color palette, layout structure, and data shapes as the production UI. All data is fictional.
+Static HTML mocks that replicate real production UIs I built at EP Asia Group. Same color palettes, layout, and data shapes. All data is fictional.
 
-- [`fulfillment-dashboard.html`](fulfillment-dashboard.html) — live demo
+- [`fulfillment-dashboard.html`](fulfillment-dashboard.html) — Fulfillment Overview dashboard (FFR pipeline, platform KPIs, trend charts)
+- [`wms-mockup.html`](wms-mockup.html) — Warehouse Map view with 4-level color-coded grid, merged pallet zones, and reserved area annotations
 
 ---
 

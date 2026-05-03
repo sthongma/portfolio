@@ -1,0 +1,1659 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Warehouse Map — Minimal Warehouse · Sahatsawat Thongma</title>
+<meta name="description" content="Mock warehouse map view replicating the real Minimal Warehouse (MW) WMS UI from EP Asia Group: 4-level color-coded stock states, merged pallet zones, and reserved areas with hachure overlays. All data fictional." />
+<style>
+  /* ==========================================================
+     MW design tokens (matches templates/base.html in real app)
+     ========================================================== */
+  :root {
+    --c-bg: 241 245 249;
+    --c-card: 255 255 255;
+    --c-border: 226 232 240;
+    --c-border-strong: 203 213 225;
+    --c-text: 15 23 42;
+    --c-text-sub: 51 65 85;
+    --c-text-dim: 71 85 105;
+    --c-chrome: 226 232 240;
+    --c-chrome-h: 203 213 225;
+
+    --c-info-400: 23 97 160;
+    --c-info-500: 46 123 191;
+    --c-info-600: 23 97 160;
+    --c-info-700: 18 77 130;
+
+    --c-success-400: 5 150 105;
+    --c-success-500: 16 185 129;
+    --c-success-600: 5 150 105;
+    --c-success-700: 4 120 87;
+
+    --c-picking-500: 59 130 246;
+    --c-picking-600: 37 99 235;
+    --c-picking-700: 29 78 216;
+
+    --c-move-500: 139 92 246;
+    --c-move-600: 124 58 237;
+    --c-move-700: 109 40 217;
+
+    --c-count-500: 202 138 4;
+    --c-count-600: 161 98 7;
+    --c-count-700: 120 70 5;
+
+    --c-receive-500: 16 185 129;
+    --c-receive-600: 5 150 105;
+
+    --c-danger-500: 212 47 66;
+    --c-danger-600: 194 32 50;
+    --c-danger-700: 158 26 41;
+
+    --c-warning-500: 245 158 11;
+    --c-warning-600: 217 119 6;
+
+    --c-brown-500: 146 85 41;
+    --c-purple-500: 139 92 246;
+
+    --sidebar-w: 14rem;
+    --header-h: 4rem;
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Thai", Roboto, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: rgb(var(--c-bg));
+    color: rgb(var(--c-text));
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+
+  /* ==========================================================
+     Sidebar — expanded (14rem) by default for static mockup
+     ========================================================== */
+  .sidebar-wrap {
+    position: fixed;
+    left: 0; top: 0;
+    height: 100vh;
+    width: var(--sidebar-w);
+    z-index: 50;
+  }
+  .sidebar {
+    background: rgb(var(--c-card));
+    box-shadow: 1px 0 0 rgb(var(--c-border)), 3px 0 10px rgba(15, 23, 42, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .sidebar-header {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .sb-logo {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgb(var(--c-info-600));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+  .brand-wordmark {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: rgb(var(--c-text));
+  }
+  .brand-wordmark .minimal { color: rgb(var(--c-info-600)); }
+  .brand-wordmark .warehouse { color: rgb(var(--c-success-600)); }
+  .brand-eyebrow {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: rgb(var(--c-text-dim));
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+  .brand-version {
+    font-size: 9.5px;
+    color: rgb(var(--c-text-dim) / 0.7);
+    margin-top: 1px;
+  }
+
+  .sidebar-nav-wrap {
+    flex: 1;
+    padding: 8px 0;
+    overflow-y: auto;
+  }
+  .sb-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    margin: 2px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgb(var(--c-text-sub));
+    cursor: pointer;
+    transition: background 120ms, color 120ms;
+  }
+  .sb-nav:hover {
+    background: rgb(var(--c-chrome) / 0.6);
+    color: rgb(var(--c-text));
+  }
+  .sb-nav.active {
+    background: rgb(var(--c-info-500) / 0.12);
+    color: rgb(var(--c-info-700));
+    font-weight: 600;
+  }
+  .sb-nav .icon {
+    width: 20px; height: 20px;
+    flex-shrink: 0;
+  }
+  .sb-nav .icon.info { color: rgb(var(--c-info-500)); }
+  .sb-nav .icon.purple { color: rgb(var(--c-purple-500)); }
+  .sb-nav .icon.picking { color: rgb(var(--c-picking-500)); }
+  .sb-nav .icon.success { color: rgb(var(--c-success-500)); }
+  .sb-nav .icon.brown { color: rgb(var(--c-brown-500)); }
+  .sb-nav .icon.danger { color: rgb(var(--c-danger-500)); }
+
+  .sidebar-footer {
+    padding: 10px 12px 14px;
+    flex-shrink: 0;
+    border-top: 1px solid rgb(var(--c-border));
+  }
+  .user-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 4px;
+  }
+  .user-icon-wrap {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgb(var(--c-info-500) / 0.1);
+    color: rgb(var(--c-info-600));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .user-icon-wrap svg { width: 16px; height: 16px; }
+  .user-role {
+    font-size: 9.5px;
+    color: rgb(var(--c-warning-500));
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .user-name {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgb(var(--c-text));
+    line-height: 1.3;
+  }
+  .user-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 0 4px;
+  }
+  .user-actions button {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid rgb(var(--c-border));
+    background: #fff;
+    color: rgb(var(--c-text-dim));
+    cursor: pointer;
+  }
+  .user-actions button:hover { background: rgb(var(--c-chrome)); }
+  .user-actions button.logout {
+    border: none;
+    background: rgb(var(--c-danger-600));
+    color: #fff;
+  }
+  .user-actions button.logout:hover { background: rgb(var(--c-danger-700)); }
+
+  /* ==========================================================
+     Main content area
+     ========================================================== */
+  .main-content {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ui-header — matches real MW page header pattern */
+  .ui-header {
+    background: rgb(var(--c-card));
+    border-bottom: 1px solid rgb(var(--c-border));
+    padding: 12px 24px;
+    min-height: var(--header-h);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .back-btn {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    color: rgb(var(--c-text-dim));
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 8px;
+  }
+  .back-btn:hover { color: rgb(var(--c-text)); background: rgb(var(--c-chrome) / 0.4); }
+  .title-block {
+    border-left: 2px solid rgb(var(--c-success-500));
+    padding-left: 12px;
+    flex: 1;
+    min-width: 0;
+  }
+  .title-block .eyebrow {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgb(var(--c-text-dim));
+    line-height: 1.2;
+  }
+  .title-block h1 {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(var(--c-text));
+    line-height: 1.3;
+  }
+  .title-block .subtitle {
+    font-size: 12px;
+    color: rgb(var(--c-text-dim));
+    margin-top: 1px;
+  }
+  .mock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 8px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    color: rgb(var(--c-warning-600));
+    vertical-align: middle;
+  }
+  .mock-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: rgb(var(--c-warning-600));
+    border-radius: 50%;
+  }
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .ui-btn-sm {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 120ms;
+  }
+  .ui-btn-sm.chrome {
+    background: rgb(var(--c-chrome));
+    color: rgb(var(--c-text-dim));
+  }
+  .ui-btn-sm.chrome:hover { background: rgb(var(--c-chrome-h)); }
+  .ui-btn-sm.info {
+    background: rgb(var(--c-info-600));
+    color: #fff;
+  }
+  .ui-btn-sm.info:hover { background: rgb(var(--c-info-700)); }
+  .ui-btn-sm svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .ui-btn-sm:active { transform: scale(0.97); }
+
+  /* ==========================================================
+     Map container (full bleed below header)
+     ========================================================== */
+  .map-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: rgb(var(--c-bg));
+    min-height: 720px;
+  }
+
+  /* Color legend (top-left, floating card) */
+  .map-legend-bar {
+    position: absolute;
+    top: 16px; left: 16px;
+    z-index: 10;
+    background: rgb(var(--c-card));
+    border: 1px solid rgb(var(--c-border));
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    padding: 10px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    font-size: 11px;
+    color: rgb(var(--c-text-sub));
+    max-width: calc(100% - 80px);
+  }
+  .legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .swatch {
+    width: 11px; height: 11px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+  }
+  .swatch.s-empty { background: rgba(16, 185, 129, 0.6); }
+  .swatch.s-low { background: rgba(251, 191, 36, 0.3); }
+  .swatch.s-warn { background: rgba(251, 191, 36, 0.6); }
+  .swatch.s-crit { background: rgba(239, 68, 68, 0.6); }
+  .swatch.s-mismatch { background: rgba(168, 85, 247, 0.55); }
+  .swatch.s-reserved {
+    background: repeating-linear-gradient(45deg, rgba(127, 29, 29, 0.55), rgba(127, 29, 29, 0.55) 2px, transparent 2px, transparent 5px);
+  }
+
+  /* Floating gear (top right) */
+  .floating-gear {
+    position: absolute;
+    top: 16px; right: 16px;
+    z-index: 10;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgb(var(--c-card));
+    border: 1px solid rgb(var(--c-border));
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(var(--c-text-dim));
+    cursor: pointer;
+    transition: all 120ms;
+  }
+  .floating-gear:hover {
+    background: rgb(var(--c-chrome-h));
+    color: rgb(var(--c-info-500));
+  }
+  .floating-gear svg { width: 16px; height: 16px; }
+  .floating-gear:active { transform: scale(0.95); }
+
+  /* Floating zoom controls (bottom right) */
+  .floating-zoom {
+    position: absolute;
+    bottom: 24px; right: 16px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .floating-zoom button {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgb(var(--c-card));
+    border: 1px solid rgb(var(--c-border));
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    color: rgb(var(--c-text));
+    transition: all 120ms;
+  }
+  .floating-zoom button:hover { background: rgb(var(--c-chrome-h)); }
+  .floating-zoom button:active { transform: scale(0.95); }
+  .floating-zoom button.middle {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgb(var(--c-text-dim));
+    font-family: var(--font-mono);
+  }
+
+  /* The grid wrapper (scrollable, centered) */
+  .map-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: auto;
+    padding: 76px 80px 90px 80px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .map-grid {
+    --cell-size: 32px;
+    --cell-radius: 6px;
+    display: grid;
+    grid-template-columns: repeat(32, var(--cell-size));
+    grid-template-rows: repeat(18, var(--cell-size));
+    gap: 0;
+    width: max-content;
+    background: rgb(var(--c-card));
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid rgb(var(--c-border));
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  }
+  /* Cells */
+  .c {
+    margin: 1.5px;
+    border-radius: var(--cell-radius);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    color: #fff;
+    transition: filter 120ms;
+  }
+  .c:hover { filter: brightness(1.1); }
+  .c-empty { background: rgba(16, 185, 129, 0.6); }
+  .c-low { background: rgba(251, 191, 36, 0.3); color: rgba(15, 23, 42, 0.8); }
+  .c-warn { background: rgba(251, 191, 36, 0.6); color: rgba(15, 23, 42, 0.85); }
+  .c-crit { background: rgba(239, 68, 68, 0.6); }
+  .c-mismatch { background: rgba(168, 85, 247, 0.55); }
+  .c-aisle {
+    background: rgba(15, 45, 63, 0.04);
+    border: 1px dashed rgba(15, 45, 63, 0.1);
+  }
+  .c .lc {
+    background: rgba(0, 0, 0, 0.25);
+    color: #fff;
+    border-radius: 2px;
+    padding: 1px 3px;
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    max-width: calc(100% - 2px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .c-low .lc {
+    background: rgba(15, 23, 42, 0.5);
+    color: #fff;
+  }
+
+  /* Pulsing active cell — copied verbatim from real map_grid.html */
+  .cell-active {
+    background: rgba(56, 189, 248, 0.55) !important;
+    filter: brightness(1.2);
+    z-index: 3;
+    position: relative;
+    animation: cell-pulse 1.4s ease-in-out infinite alternate;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.85), 0 4px 14px rgba(56, 189, 248, 0.4);
+  }
+  .cell-active .lc {
+    background: rgba(15, 45, 63, 0.85);
+    color: #fff;
+  }
+  @keyframes cell-pulse {
+    0%   { background: rgba(56, 189, 248, 0.55) !important; filter: brightness(1.2); }
+    100% { background: rgba(56, 189, 248, 0.32) !important; filter: brightness(1.05); }
+  }
+
+  /* Reserved zones (hachure / cross-hatch) */
+  .rz {
+    pointer-events: none;
+    margin: 1.5px;
+    border-radius: 8px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    border: 2px solid rgba(127, 29, 29, 0.7);
+    color: rgb(127, 29, 29);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .rz-hachure {
+    background: repeating-linear-gradient(45deg, rgba(127, 29, 29, 0.55), rgba(127, 29, 29, 0.55) 2px, transparent 2px, transparent 6px);
+  }
+  .rz-cross-hatch {
+    background:
+      repeating-linear-gradient(0deg, rgba(127, 29, 29, 0.55), rgba(127, 29, 29, 0.55) 2px, transparent 2px, transparent 6px),
+      repeating-linear-gradient(90deg, rgba(127, 29, 29, 0.55), rgba(127, 29, 29, 0.55) 2px, transparent 2px, transparent 6px);
+  }
+  .rz span {
+    background: rgba(255, 255, 255, 0.92);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(127, 29, 29, 0.5);
+  }
+
+  /* ==========================================================
+     Floating cell detail popover (matches real MW pattern)
+     ========================================================== */
+  .cell-popover {
+    position: absolute;
+    bottom: 80px; right: 80px;
+    z-index: 20;
+    width: 380px;
+    max-height: 60vh;
+    background: rgb(var(--c-card));
+    border: 1px solid rgb(var(--c-border));
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .popover-handle {
+    display: flex;
+    justify-content: center;
+    padding: 6px 0 4px;
+    cursor: grab;
+    flex-shrink: 0;
+  }
+  .popover-handle .grip {
+    width: 36px; height: 3px;
+    border-radius: 2px;
+    background: rgb(var(--c-border-strong));
+  }
+  .popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 0 14px 10px;
+    border-bottom: 1px solid rgb(var(--c-border));
+    flex-shrink: 0;
+  }
+  .popover-header .left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+    flex: 1;
+  }
+  .live-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgb(var(--c-info-500));
+    flex-shrink: 0;
+    animation: live-pulse 1.4s ease-in-out infinite;
+  }
+  @keyframes live-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+  .popover-loc {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14px;
+    color: rgb(var(--c-text));
+    cursor: pointer;
+  }
+  .popover-loc:hover { color: rgb(var(--c-info-500)); text-decoration: underline; }
+  .popover-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 1px 7px;
+    background: rgb(var(--c-chrome) / 0.6);
+    border: 1px solid rgb(var(--c-border));
+    border-radius: 5px;
+    font-size: 10px;
+    color: rgb(var(--c-text-dim));
+    font-family: var(--font-mono);
+  }
+  .popover-close {
+    width: 24px; height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(var(--c-text-dim));
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .popover-close:hover { color: rgb(var(--c-text)); background: rgb(var(--c-chrome) / 0.4); }
+  .popover-body {
+    padding: 12px 14px;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .popover-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 11.5px;
+    color: rgb(var(--c-text-dim));
+  }
+  .popover-summary .label { color: rgb(var(--c-text-dim)); }
+  .popover-summary .value {
+    font-weight: 700;
+    color: rgb(var(--c-text));
+    font-family: var(--font-mono);
+  }
+  .popover-section-label {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(var(--c-text-dim));
+    margin-bottom: 6px;
+    margin-top: 8px;
+  }
+  .sku-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sku-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    background: rgb(var(--c-bg));
+    border: 1px solid rgb(var(--c-border));
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .sku-item .sku {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: rgb(var(--c-info-600));
+    flex-shrink: 0;
+    width: 110px;
+    font-size: 11px;
+  }
+  .sku-item .name {
+    flex: 1;
+    color: rgb(var(--c-text-sub));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11.5px;
+  }
+  .sku-item .qty {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: rgb(var(--c-text));
+    font-size: 12px;
+  }
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    background: rgb(var(--c-bg));
+    border: 1px solid rgb(var(--c-border));
+    border-radius: 8px;
+    font-size: 11.5px;
+  }
+  .task-chip {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 4px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .task-chip.pick { background: rgb(var(--c-picking-600)); }
+  .task-chip.move { background: rgb(var(--c-move-600)); }
+  .task-chip.count { background: rgb(var(--c-count-600)); }
+  .task-chip.receive { background: rgb(var(--c-receive-600)); }
+  .task-id {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: rgb(var(--c-text));
+    font-size: 11px;
+  }
+  .task-flow {
+    flex: 1;
+    color: rgb(var(--c-text-dim));
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .task-due {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgb(var(--c-text-dim));
+    flex-shrink: 0;
+  }
+  .task-due.today { color: rgb(var(--c-warning-600)); font-weight: 700; }
+  .popover-footer {
+    padding: 10px 14px;
+    border-top: 1px solid rgb(var(--c-border));
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .popover-footer button {
+    flex: 1;
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid rgb(var(--c-border));
+    background: #fff;
+    color: rgb(var(--c-text-dim));
+    font-size: 11.5px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: all 120ms;
+  }
+  .popover-footer button:hover { background: rgb(var(--c-chrome) / 0.4); }
+  .popover-footer button.primary {
+    border: none;
+    background: rgb(var(--c-info-600));
+    color: #fff;
+  }
+  .popover-footer button.primary:hover { background: rgb(var(--c-info-700)); }
+
+  /* Footer note */
+  .footer-note {
+    text-align: center;
+    padding: 20px 16px 28px;
+    color: rgb(var(--c-text-dim));
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    line-height: 1.7;
+  }
+  .footer-note strong { color: rgb(var(--c-warning-600)); }
+  .footer-note a { color: rgb(var(--c-info-600)); font-weight: 600; }
+  .footer-note a:hover { color: rgb(var(--c-info-700)); }
+
+  /* ==========================================================
+     Responsive
+     ========================================================== */
+  @media (max-width: 1180px) {
+    .map-grid { --cell-size: 28px; }
+    .cell-popover { width: 340px; right: 60px; }
+  }
+  @media (max-width: 1023px) {
+    :root { --sidebar-w: 0; }
+    .sidebar-wrap { display: none; }
+    .main-content { margin-left: 0; }
+    .map-grid { --cell-size: 24px; }
+    .map-legend-bar { font-size: 10px; gap: 8px; padding: 8px 10px; }
+    .cell-popover {
+      position: fixed;
+      bottom: 12px; left: 12px; right: 12px;
+      width: auto;
+      max-height: 50vh;
+    }
+    .ui-header { padding: 10px 14px; }
+    .map-wrap { padding: 76px 30px 90px 30px; }
+  }
+  @media (max-width: 640px) {
+    .map-grid { --cell-size: 20px; }
+    .header-actions .ui-btn-sm span { display: none; }
+    .map-wrap { padding: 84px 16px 220px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SIDEBAR ==================== -->
+<div class="sidebar-wrap">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sb-logo">MW</div>
+      <div>
+        <div class="brand-wordmark"><span class="minimal">Minimal</span> <span class="warehouse">Warehouse</span></div>
+        <div class="brand-eyebrow">EP ASIA GROUP</div>
+        <div class="brand-version">v0.4.2</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav-wrap">
+      <a class="sb-nav">
+        <svg class="icon info" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+        </svg>
+        <span>Tasks</span>
+      </a>
+      <a class="sb-nav">
+        <svg class="icon purple" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="4" width="6" height="6" rx="1.5"/>
+          <rect x="14" y="4" width="6" height="6" rx="1.5"/>
+          <rect x="4" y="14" width="6" height="6" rx="1.5"/>
+          <rect x="14" y="14" width="6" height="6" rx="1.5"/>
+        </svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="sb-nav">
+        <svg class="icon picking" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" y1="22.08" x2="12" y2="12"/>
+        </svg>
+        <span>Inventory</span>
+      </a>
+      <a class="sb-nav active">
+        <svg class="icon success" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+          <line x1="8" y1="2" x2="8" y2="18"/>
+          <line x1="16" y1="6" x2="16" y2="22"/>
+        </svg>
+        <span>Map</span>
+      </a>
+      <a class="sb-nav">
+        <svg class="icon brown" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>Audit</span>
+      </a>
+      <a class="sb-nav">
+        <svg class="icon danger" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Users</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-block">
+        <div class="user-icon-wrap">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <div>
+          <div class="user-role">ADMIN</div>
+          <div class="user-name">Sahatsawat T.</div>
+        </div>
+      </div>
+      <div class="user-actions">
+        <button>EN</button>
+        <button class="logout">Logout</button>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- ==================== MAIN ==================== -->
+<div class="main-content">
+
+  <!-- ui-header (back + title block + actions) -->
+  <header class="ui-header">
+    <button class="back-btn" title="Back">
+      <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <div class="title-block">
+      <div class="eyebrow">Warehouse</div>
+      <h1>BIGT Floor 1 <span class="mock-badge">Fictional data</span></h1>
+      <div class="subtitle">412 locations · 18 × 32 grid · last sync 09:42 ICT</div>
+    </div>
+    <div class="header-actions">
+      <button class="ui-btn-sm chrome" title="Copy map">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+        </svg>
+        <span>Copy</span>
+      </button>
+      <button class="ui-btn-sm info" title="Edit map">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+          <path d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+        <span>Edit</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Map container (full bleed) -->
+  <div class="map-container">
+
+    <!-- Color legend (top-left floating card) -->
+    <div class="map-legend-bar">
+      <span class="legend-item"><span class="swatch s-empty"></span>Available</span>
+      <span class="legend-item"><span class="swatch s-low"></span>Light (&lt;30%)</span>
+      <span class="legend-item"><span class="swatch s-warn"></span>Heavy (30–70%)</span>
+      <span class="legend-item"><span class="swatch s-crit"></span>At capacity (≥70%)</span>
+      <span class="legend-item"><span class="swatch s-mismatch"></span>Mismatch</span>
+      <span class="legend-item"><span class="swatch s-reserved"></span>Reserved</span>
+    </div>
+
+    <!-- Color settings gear (top-right floating button) -->
+    <button class="floating-gear" title="Color settings">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+      </svg>
+    </button>
+
+    <!-- Zoom controls (bottom-right floating buttons) -->
+    <div class="floating-zoom">
+      <button title="Zoom in">+</button>
+      <button class="middle" title="Reset zoom">32</button>
+      <button title="Zoom out">−</button>
+    </div>
+
+    <!-- The grid wrap (scrollable) -->
+    <div class="map-wrap">
+      <div class="map-grid">
+        <div class="c c-warn" style="grid-row:1;grid-column:1;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:2;"></div>
+        <div class="c c-low" style="grid-row:1;grid-column:3;"></div>
+        <div class="c c-low" style="grid-row:1;grid-column:4;"></div>
+        <div class="c c-warn" style="grid-row:1;grid-column:5;"></div>
+        <div class="c c-warn" style="grid-row:1;grid-column:6;"></div>
+        <div class="c c-crit" style="grid-row:1;grid-column:7;"><span class="lc">A-01-07</span></div>
+        <div class="c c-aisle" style="grid-row:1;grid-column:8;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:9;"></div>
+        <div class="c c-low" style="grid-row:1;grid-column:10;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:11;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:12;"></div>
+        <div class="c c-low" style="grid-row:1;grid-column:13;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:14;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:15;"><span class="lc">B-01-15</span></div>
+        <div class="c c-aisle" style="grid-row:1;grid-column:16;"></div>
+        <div class="c c-warn" style="grid-row:1;grid-column:17;"></div>
+        <div class="c c-warn" style="grid-row:1;grid-column:18;"></div>
+        <div class="c c-low" style="grid-row:1;grid-column:19;"></div>
+        <div class="c c-warn" style="grid-row:1;grid-column:20;"></div>
+        <div class="c c-crit" style="grid-row:1;grid-column:21;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:22;"></div>
+        <div class="c c-crit" style="grid-row:1;grid-column:23;"><span class="lc">C-01-23</span></div>
+        <div class="c c-aisle" style="grid-row:1;grid-column:24;"></div>
+        <div class="c c-warn" style="grid-row:1;grid-column:25;"></div>
+        <div class="c c-low" style="grid-row:1;grid-column:26;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:27;"></div>
+        <div class="c c-mismatch" style="grid-row:1;grid-column:28;"></div>
+        <div class="c c-low" style="grid-row:1;grid-column:29;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:30;"></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:31;"><span class="lc">D-01-31</span></div>
+        <div class="c c-crit" style="grid-row:1;grid-column:32;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:1;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:2;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">A-02-02</span></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:3;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:4;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-mismatch" style="grid-row:2;grid-column:5;"></div>
+        <div class="c c-low" style="grid-row:2;grid-column:6;"><span class="lc">A-02-06</span></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:2;grid-column:8;"></div>
+        <div class="c c-crit" style="grid-row:2;grid-column:9;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:10;"></div>
+        <div class="c c-crit" style="grid-row:2;grid-column:11;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:12;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:13;"></div>
+        <div class="c c-empty" style="grid-row:2;grid-column:14;"><span class="lc">B-02-14</span></div>
+        <div class="c c-low" style="grid-row:2;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:2;grid-column:16;"></div>
+        <div class="c c-low" style="grid-row:2;grid-column:17;"></div>
+        <div class="c c-empty" style="grid-row:2;grid-column:18;"></div>
+        <div class="c c-low" style="grid-row:2;grid-column:19;"></div>
+        <div class="c c-empty" style="grid-row:2;grid-column:20;"></div>
+        <div class="c c-low" style="grid-row:2;grid-column:21;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:22;"><span class="lc">C-02-22</span></div>
+        <div class="c c-low" style="grid-row:2;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:2;grid-column:24;"></div>
+        <div class="c c-low" style="grid-row:2;grid-column:25;"></div>
+        <div class="c c-empty" style="grid-row:2;grid-column:26;"></div>
+        <div class="c c-low" style="grid-row:2;grid-column:27;"></div>
+        <div class="c c-crit" style="grid-row:2;grid-column:28;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:29;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:30;"><span class="lc">D-02-30</span></div>
+        <div class="c c-empty" style="grid-row:2;grid-column:31;"></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:32;"></div>
+        <div class="c c-empty" style="grid-row:3;grid-column:1;"></div>
+        <div class="c c-low" style="grid-row:3;grid-column:2;"></div>
+        <div class="c c-mismatch" style="grid-row:3;grid-column:3;"></div>
+        <div class="c c-warn" style="grid-row:3;grid-column:4;"></div>
+        <div class="c c-warn" style="grid-row:3;grid-column:5;"><span class="lc">A-03-05</span></div>
+        <div class="c c-warn" style="grid-row:3;grid-column:6;"></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:3;grid-column:8;"></div>
+        <div class="c c-warn" style="grid-row:3;grid-column:9;"></div>
+        <div class="c c-low" style="grid-row:3;grid-column:10;"></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:11;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">B-03-11</span></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:12;border-radius:0 6px 0 0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-low" style="grid-row:3;grid-column:13;"><span class="lc">B-03-13</span></div>
+        <div class="c c-empty" style="grid-row:3;grid-column:14;"></div>
+        <div class="c c-mismatch" style="grid-row:3;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:3;grid-column:16;"></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:17;"></div>
+        <div class="c c-low" style="grid-row:3;grid-column:18;"></div>
+        <div class="c c-warn" style="grid-row:3;grid-column:19;"></div>
+        <div class="c c-low" style="grid-row:3;grid-column:20;"></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:21;"><span class="lc">C-03-21</span></div>
+        <div class="c c-low" style="grid-row:3;grid-column:22;"></div>
+        <div class="c c-low" style="grid-row:3;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:3;grid-column:24;"></div>
+        <div class="c c-low" style="grid-row:3;grid-column:25;"></div>
+        <div class="c c-warn" style="grid-row:3;grid-column:26;"></div>
+        <div class="c c-low" style="grid-row:3;grid-column:27;"></div>
+        <div class="c c-warn" style="grid-row:3;grid-column:28;"></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:29;"><span class="lc">D-03-29</span></div>
+        <div class="c c-low" style="grid-row:3;grid-column:30;"></div>
+        <div class="c c-empty" style="grid-row:3;grid-column:31;"></div>
+        <div class="c c-mismatch" style="grid-row:3;grid-column:32;"></div>
+        <div class="c c-low" style="grid-row:4;grid-column:1;"></div>
+        <div class="c c-empty" style="grid-row:4;grid-column:2;"></div>
+        <div class="c c-empty" style="grid-row:4;grid-column:3;"></div>
+        <div class="c c-empty" style="grid-row:4;grid-column:4;"><span class="lc">A-04-04</span></div>
+        <div class="c c-warn" style="grid-row:4;grid-column:5;"></div>
+        <div class="c c-warn" style="grid-row:4;grid-column:6;"></div>
+        <div class="c c-low" style="grid-row:4;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:4;grid-column:8;"></div>
+        <div class="c c-empty" style="grid-row:4;grid-column:9;"></div>
+        <div class="c c-low" style="grid-row:4;grid-column:10;"></div>
+        <div class="c c-crit" style="grid-row:4;grid-column:11;border-radius:0 0 0 6px;margin-top:0;border-top-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-crit" style="grid-row:4;grid-column:12;border-radius:0 0 6px 0;margin-top:0;border-top-width:0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-mismatch" style="grid-row:4;grid-column:13;"></div>
+        <div class="c c-crit" style="grid-row:4;grid-column:14;"></div>
+        <div class="c c-empty" style="grid-row:4;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:4;grid-column:16;"></div>
+        <div class="c c-warn" style="grid-row:4;grid-column:17;"></div>
+        <div class="c c-warn" style="grid-row:4;grid-column:18;"></div>
+        <div class="c c-low" style="grid-row:4;grid-column:19;"></div>
+        <div class="c c-low" style="grid-row:4;grid-column:20;"><span class="lc">C-04-20</span></div>
+        <div class="c c-warn" style="grid-row:4;grid-column:21;"></div>
+        <div class="c c-empty" style="grid-row:4;grid-column:22;"></div>
+        <div class="c c-low" style="grid-row:4;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:4;grid-column:24;"></div>
+        <div class="c c-low" style="grid-row:4;grid-column:25;"></div>
+        <div class="c c-mismatch" style="grid-row:4;grid-column:26;"></div>
+        <div class="c c-crit" style="grid-row:4;grid-column:27;"></div>
+        <div class="c c-low" style="grid-row:4;grid-column:28;"><span class="lc">D-04-28</span></div>
+        <div class="c c-low" style="grid-row:4;grid-column:29;"></div>
+        <div class="c c-empty" style="grid-row:4;grid-column:30;"></div>
+        <div class="c c-crit" style="grid-row:4;grid-column:31;"></div>
+        <div class="c c-crit" style="grid-row:4;grid-column:32;"></div>
+        <div class="c c-low" style="grid-row:5;grid-column:1;"></div>
+        <div class="c c-warn" style="grid-row:5;grid-column:2;"></div>
+        <div class="c c-warn" style="grid-row:5;grid-column:3;"><span class="lc">A-05-03</span></div>
+        <div class="c c-empty" style="grid-row:5;grid-column:4;"></div>
+        <div class="c c-warn" style="grid-row:5;grid-column:5;"></div>
+        <div class="c c-low" style="grid-row:5;grid-column:6;"></div>
+        <div class="c c-warn" style="grid-row:5;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:5;grid-column:8;"></div>
+        <div class="c c-low" style="grid-row:5;grid-column:9;"></div>
+        <div class="c c-empty" style="grid-row:5;grid-column:10;"></div>
+        <div class="c c-low" style="grid-row:5;grid-column:11;"><span class="lc">B-05-11</span></div>
+        <div class="c c-empty" style="grid-row:5;grid-column:12;"></div>
+        <div class="c c-crit" style="grid-row:5;grid-column:13;"></div>
+        <div class="c c-crit" style="grid-row:5;grid-column:14;"></div>
+        <div class="c c-crit" style="grid-row:5;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:5;grid-column:16;"></div>
+        <div class="c c-low" style="grid-row:5;grid-column:17;"></div>
+        <div class="c c-empty" style="grid-row:5;grid-column:18;"></div>
+        <div class="c c-crit" style="grid-row:5;grid-column:19;"><span class="lc">C-05-19</span></div>
+        <div class="c c-mismatch" style="grid-row:5;grid-column:20;"></div>
+        <div class="c c-empty" style="grid-row:5;grid-column:21;"></div>
+        <div class="c c-low" style="grid-row:5;grid-column:22;"></div>
+        <div class="c c-empty" style="grid-row:5;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:5;grid-column:24;"></div>
+        <div class="c c-warn" style="grid-row:5;grid-column:25;"></div>
+        <div class="c c-warn" style="grid-row:5;grid-column:26;"></div>
+        <div class="c c-empty" style="grid-row:5;grid-column:27;"><span class="lc">D-05-27</span></div>
+        <div class="c c-low" style="grid-row:5;grid-column:28;"></div>
+        <div class="c c-warn" style="grid-row:5;grid-column:29;"></div>
+        <div class="c c-low" style="grid-row:5;grid-column:30;"></div>
+        <div class="c c-crit" style="grid-row:5;grid-column:31;"></div>
+        <div class="c c-low" style="grid-row:5;grid-column:32;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:1;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:2;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:3;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:4;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:5;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:6;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:8;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:9;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:10;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:11;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:12;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:13;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:14;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:16;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:17;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:18;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:19;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:20;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:21;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:22;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:24;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:25;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:26;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:27;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:28;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:29;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:30;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:31;"></div>
+        <div class="c c-aisle" style="grid-row:6;grid-column:32;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:1;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">A-07-01</span></div>
+        <div class="c c-low" style="grid-row:7;grid-column:2;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:3;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:4;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:5;"></div>
+        <div class="c c-mismatch" style="grid-row:7;grid-column:6;"></div>
+        <div class="c c-warn" style="grid-row:7;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:7;grid-column:8;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:9;"></div>
+        <div class="c c-low cell-active" style="grid-row:7;grid-column:10;"><span class="lc">B-07-10</span></div>
+        <div class="c c-empty" style="grid-row:7;grid-column:11;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:12;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:13;"></div>
+        <div class="c c-warn" style="grid-row:7;grid-column:14;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:7;grid-column:16;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:17;"></div>
+        <div class="c c-empty" style="grid-row:7;grid-column:18;"><span class="lc">C-07-18</span></div>
+        <div class="c c-warn" style="grid-row:7;grid-column:19;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:20;"></div>
+        <div class="c c-crit" style="grid-row:7;grid-column:21;"></div>
+        <div class="c c-crit" style="grid-row:7;grid-column:22;"></div>
+        <div class="c c-empty" style="grid-row:7;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:7;grid-column:24;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:25;"></div>
+        <div class="c c-warn" style="grid-row:7;grid-column:26;"><span class="lc">D-07-26</span></div>
+        <div class="c c-empty" style="grid-row:7;grid-column:27;"></div>
+        <div class="c c-empty" style="grid-row:7;grid-column:28;"></div>
+        <div class="c c-crit" style="grid-row:7;grid-column:29;"></div>
+        <div class="c c-warn" style="grid-row:7;grid-column:30;"></div>
+        <div class="c c-low" style="grid-row:7;grid-column:31;"></div>
+        <div class="c c-warn" style="grid-row:7;grid-column:32;"></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:1;"><span class="lc">A-08-01</span></div>
+        <div class="c c-empty" style="grid-row:8;grid-column:2;"></div>
+        <div class="c c-empty" style="grid-row:8;grid-column:3;"></div>
+        <div class="c c-low" style="grid-row:8;grid-column:4;"></div>
+        <div class="c c-low" style="grid-row:8;grid-column:5;"></div>
+        <div class="c c-low" style="grid-row:8;grid-column:6;"></div>
+        <div class="c c-warn" style="grid-row:8;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:8;grid-column:8;"></div>
+        <div class="c c-warn" style="grid-row:8;grid-column:9;"><span class="lc">B-08-09</span></div>
+        <div class="c c-mismatch" style="grid-row:8;grid-column:10;"></div>
+        <div class="c c-empty" style="grid-row:8;grid-column:11;"></div>
+        <div class="c c-low" style="grid-row:8;grid-column:12;"></div>
+        <div class="c c-low" style="grid-row:8;grid-column:13;"></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:14;"></div>
+        <div class="c c-low" style="grid-row:8;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:8;grid-column:16;"></div>
+        <div class="c c-empty" style="grid-row:8;grid-column:17;"><span class="lc">C-08-17</span></div>
+        <div class="c c-warn" style="grid-row:8;grid-column:18;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">C-08-18</span></div>
+        <div class="c c-warn" style="grid-row:8;grid-column:19;border-radius:0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-warn" style="grid-row:8;grid-column:20;border-radius:0 6px 0 0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-low" style="grid-row:8;grid-column:21;"></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:22;"></div>
+        <div class="c c-low" style="grid-row:8;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:8;grid-column:24;"></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:25;"><span class="lc">D-08-25</span></div>
+        <div class="c c-warn" style="grid-row:8;grid-column:26;"></div>
+        <div class="c c-empty" style="grid-row:8;grid-column:27;"></div>
+        <div class="c c-mismatch" style="grid-row:8;grid-column:28;"></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:29;"></div>
+        <div class="c c-mismatch" style="grid-row:8;grid-column:30;"></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:31;"></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:32;"><span class="lc">D-08-32</span></div>
+        <div class="c c-empty" style="grid-row:9;grid-column:1;"></div>
+        <div class="c c-low" style="grid-row:9;grid-column:2;"></div>
+        <div class="c c-empty" style="grid-row:9;grid-column:3;"></div>
+        <div class="c c-low" style="grid-row:9;grid-column:4;"></div>
+        <div class="c c-empty" style="grid-row:9;grid-column:5;"></div>
+        <div class="c c-low" style="grid-row:9;grid-column:6;"></div>
+        <div class="c c-mismatch" style="grid-row:9;grid-column:7;"><span class="lc">A-09-07</span></div>
+        <div class="c c-aisle" style="grid-row:9;grid-column:8;"></div>
+        <div class="c c-low" style="grid-row:9;grid-column:9;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:10;"></div>
+        <div class="c c-low" style="grid-row:9;grid-column:11;"></div>
+        <div class="c c-low" style="grid-row:9;grid-column:12;"></div>
+        <div class="c c-mismatch" style="grid-row:9;grid-column:13;"></div>
+        <div class="c c-mismatch" style="grid-row:9;grid-column:14;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:15;"><span class="lc">B-09-15</span></div>
+        <div class="c c-aisle" style="grid-row:9;grid-column:16;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:17;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:18;border-radius:0 0 0 6px;margin-top:0;border-top-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:19;border-radius:0;margin-top:0;border-top-width:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:20;border-radius:0 0 6px 0;margin-top:0;border-top-width:0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:21;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:22;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:23;"><span class="lc">C-09-23</span></div>
+        <div class="c c-aisle" style="grid-row:9;grid-column:24;"></div>
+        <div class="c c-empty" style="grid-row:9;grid-column:25;"></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:26;"></div>
+        <div class="c c-low" style="grid-row:9;grid-column:27;"></div>
+        <div class="c c-crit" style="grid-row:9;grid-column:28;"></div>
+        <div class="c c-empty" style="grid-row:9;grid-column:29;"></div>
+        <div class="c c-mismatch" style="grid-row:9;grid-column:30;"></div>
+        <div class="c c-empty" style="grid-row:9;grid-column:31;"><span class="lc">D-09-31</span></div>
+        <div class="c c-empty" style="grid-row:9;grid-column:32;"></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:1;"></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:2;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:3;"></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:4;"></div>
+        <div class="c c-crit" style="grid-row:10;grid-column:5;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:6;"><span class="lc">A-10-06</span></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:10;grid-column:8;"></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:9;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:10;"></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:11;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:12;"></div>
+        <div class="c c-crit" style="grid-row:10;grid-column:13;"></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:14;"><span class="lc">B-10-14</span></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:10;grid-column:16;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:17;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:18;"></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:19;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:20;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:21;"></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:22;"><span class="lc">C-10-22</span></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:10;grid-column:24;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:25;"></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:26;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">D-10-26</span></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:27;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:28;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:29;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-low" style="grid-row:10;grid-column:30;"><span class="lc">D-10-30</span></div>
+        <div class="c c-crit" style="grid-row:10;grid-column:31;"></div>
+        <div class="c c-crit" style="grid-row:10;grid-column:32;"></div>
+        <div class="c c-crit" style="grid-row:11;grid-column:1;"></div>
+        <div class="c c-low" style="grid-row:11;grid-column:2;"></div>
+        <div class="c c-empty" style="grid-row:11;grid-column:3;"></div>
+        <div class="c c-crit" style="grid-row:11;grid-column:4;"></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:5;"><span class="lc">A-11-05</span></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:6;"></div>
+        <div class="c c-mismatch" style="grid-row:11;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:11;grid-column:8;"></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:9;"></div>
+        <div class="c c-empty" style="grid-row:11;grid-column:10;"></div>
+        <div class="c c-crit" style="grid-row:11;grid-column:11;"></div>
+        <div class="c c-low" style="grid-row:11;grid-column:12;"></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:13;"><span class="lc">B-11-13</span></div>
+        <div class="c c-crit" style="grid-row:11;grid-column:14;"></div>
+        <div class="c c-empty" style="grid-row:11;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:11;grid-column:16;"></div>
+        <div class="c c-empty" style="grid-row:11;grid-column:17;"></div>
+        <div class="c c-empty" style="grid-row:11;grid-column:18;"></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:19;"></div>
+        <div class="c c-low" style="grid-row:11;grid-column:20;"></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:21;"><span class="lc">C-11-21</span></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:22;"></div>
+        <div class="c c-empty" style="grid-row:11;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:11;grid-column:24;"></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:25;"></div>
+        <div class="c c-low" style="grid-row:11;grid-column:26;"></div>
+        <div class="c c-low" style="grid-row:11;grid-column:27;"></div>
+        <div class="c c-crit" style="grid-row:11;grid-column:28;"></div>
+        <div class="c c-crit" style="grid-row:11;grid-column:29;"><span class="lc">D-11-29</span></div>
+        <div class="c c-empty" style="grid-row:11;grid-column:30;"></div>
+        <div class="c c-low" style="grid-row:11;grid-column:31;"></div>
+        <div class="c c-low" style="grid-row:11;grid-column:32;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:1;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:2;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:3;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:4;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:5;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:6;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:8;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:9;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:10;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:11;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:12;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:13;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:14;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:16;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:17;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:18;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:19;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:20;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:21;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:22;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:24;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:25;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:26;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:27;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:28;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:29;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:30;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:31;"></div>
+        <div class="c c-aisle" style="grid-row:12;grid-column:32;"></div>
+        <div class="c c-empty" style="grid-row:13;grid-column:1;"></div>
+        <div class="c c-warn" style="grid-row:13;grid-column:2;"></div>
+        <div class="c c-warn" style="grid-row:13;grid-column:3;"></div>
+        <div class="c c-low" style="grid-row:13;grid-column:4;"><span class="lc">A-13-04</span></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:5;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">A-13-05</span></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:6;border-radius:0 6px 0 0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-low" style="grid-row:13;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:13;grid-column:8;"></div>
+        <div class="c c-empty" style="grid-row:13;grid-column:9;"></div>
+        <div class="c c-empty" style="grid-row:13;grid-column:10;"></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:11;"></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:12;"><span class="lc">B-13-12</span></div>
+        <div class="c c-warn" style="grid-row:13;grid-column:13;"></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:14;"></div>
+        <div class="c c-warn" style="grid-row:13;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:13;grid-column:16;"></div>
+        <div class="c c-empty" style="grid-row:13;grid-column:17;"></div>
+        <div class="c c-empty" style="grid-row:13;grid-column:18;"></div>
+        <div class="c c-low" style="grid-row:13;grid-column:19;"></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:20;"><span class="lc">C-13-20</span></div>
+        <div class="c c-warn" style="grid-row:13;grid-column:21;"></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:22;"></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:13;grid-column:24;"></div>
+        <div class="c c-empty" style="grid-row:13;grid-column:25;"></div>
+        <div class="c c-low" style="grid-row:13;grid-column:26;"></div>
+        <div class="c c-empty" style="grid-row:13;grid-column:27;"></div>
+        <div class="c c-warn" style="grid-row:13;grid-column:28;"><span class="lc">D-13-28</span></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:29;"></div>
+        <div class="c c-low" style="grid-row:13;grid-column:30;"></div>
+        <div class="c c-warn" style="grid-row:13;grid-column:31;"></div>
+        <div class="c c-empty" style="grid-row:13;grid-column:32;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:1;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:2;"></div>
+        <div class="c c-mismatch" style="grid-row:14;grid-column:3;"><span class="lc">A-14-03</span></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:4;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:5;border-radius:0 0 0 6px;margin-top:0;border-top-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:6;border-radius:0 0 6px 0;margin-top:0;border-top-width:0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-warn" style="grid-row:14;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:14;grid-column:8;"></div>
+        <div class="c c-warn" style="grid-row:14;grid-column:9;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">B-14-09</span></div>
+        <div class="c c-warn" style="grid-row:14;grid-column:10;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-warn" style="grid-row:14;grid-column:11;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:12;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:13;"></div>
+        <div class="c c-low" style="grid-row:14;grid-column:14;"></div>
+        <div class="c c-warn" style="grid-row:14;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:14;grid-column:16;"></div>
+        <div class="c c-empty" style="grid-row:14;grid-column:17;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:18;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:19;"><span class="lc">C-14-19</span></div>
+        <div class="c c-low" style="grid-row:14;grid-column:20;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:21;"></div>
+        <div class="c c-low" style="grid-row:14;grid-column:22;"></div>
+        <div class="c c-low" style="grid-row:14;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:14;grid-column:24;"></div>
+        <div class="c c-warn" style="grid-row:14;grid-column:25;"></div>
+        <div class="c c-low" style="grid-row:14;grid-column:26;"></div>
+        <div class="c c-empty" style="grid-row:14;grid-column:27;"><span class="lc">D-14-27</span></div>
+        <div class="c c-empty" style="grid-row:14;grid-column:28;"></div>
+        <div class="c c-low" style="grid-row:14;grid-column:29;"></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:30;"></div>
+        <div class="c c-mismatch" style="grid-row:14;grid-column:31;"></div>
+        <div class="c c-low" style="grid-row:14;grid-column:32;"></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:1;"></div>
+        <div class="c c-low" style="grid-row:15;grid-column:2;"><span class="lc">A-15-02</span></div>
+        <div class="c c-mismatch" style="grid-row:15;grid-column:3;"></div>
+        <div class="c c-low" style="grid-row:15;grid-column:4;"></div>
+        <div class="c c-crit" style="grid-row:15;grid-column:5;"></div>
+        <div class="c c-empty" style="grid-row:15;grid-column:6;"></div>
+        <div class="c c-mismatch" style="grid-row:15;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:15;grid-column:8;"></div>
+        <div class="c c-empty" style="grid-row:15;grid-column:9;"></div>
+        <div class="c c-mismatch" style="grid-row:15;grid-column:10;"><span class="lc">B-15-10</span></div>
+        <div class="c c-low" style="grid-row:15;grid-column:11;"></div>
+        <div class="c c-empty" style="grid-row:15;grid-column:12;"></div>
+        <div class="c c-low" style="grid-row:15;grid-column:13;"></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:14;"></div>
+        <div class="c c-low" style="grid-row:15;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:15;grid-column:16;"></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:17;"></div>
+        <div class="c c-low" style="grid-row:15;grid-column:18;"><span class="lc">C-15-18</span></div>
+        <div class="c c-low" style="grid-row:15;grid-column:19;"></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:20;"></div>
+        <div class="c c-low" style="grid-row:15;grid-column:21;"></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:22;"></div>
+        <div class="c c-empty" style="grid-row:15;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:15;grid-column:24;"></div>
+        <div class="c c-crit" style="grid-row:15;grid-column:25;"></div>
+        <div class="c c-low" style="grid-row:15;grid-column:26;"><span class="lc">D-15-26</span></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:27;"></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:28;"></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:29;"></div>
+        <div class="c c-low" style="grid-row:15;grid-column:30;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">D-15-30</span></div>
+        <div class="c c-low" style="grid-row:15;grid-column:31;border-radius:0 6px 0 0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-warn" style="grid-row:15;grid-column:32;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:1;"><span class="lc">A-16-01</span></div>
+        <div class="c c-low" style="grid-row:16;grid-column:2;"></div>
+        <div class="c c-crit" style="grid-row:16;grid-column:3;"></div>
+        <div class="c c-warn" style="grid-row:16;grid-column:4;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:5;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:6;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:16;grid-column:8;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:9;"><span class="lc">B-16-09</span></div>
+        <div class="c c-low" style="grid-row:16;grid-column:10;"></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:11;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:12;"></div>
+        <div class="c c-mismatch" style="grid-row:16;grid-column:13;"></div>
+        <div class="c c-warn" style="grid-row:16;grid-column:14;"></div>
+        <div class="c c-crit" style="grid-row:16;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:16;grid-column:16;"></div>
+        <div class="c c-warn" style="grid-row:16;grid-column:17;"><span class="lc">C-16-17</span></div>
+        <div class="c c-low" style="grid-row:16;grid-column:18;"></div>
+        <div class="c c-warn" style="grid-row:16;grid-column:19;"></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:20;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:21;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:22;"></div>
+        <div class="c c-warn" style="grid-row:16;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:16;grid-column:24;"></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:25;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">D-16-25</span></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:26;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:27;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:28;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:29;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:30;border-radius:0 0 0 6px;margin-top:0;border-top-width:0;margin-right:0;border-right-width:0;"></div>
+        <div class="c c-low" style="grid-row:16;grid-column:31;border-radius:0 0 6px 0;margin-top:0;border-top-width:0;margin-left:0;border-left-width:0;"></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:32;"><span class="lc">D-16-32</span></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:1;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:2;"></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:3;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:4;"></div>
+        <div class="c c-crit" style="grid-row:17;grid-column:5;"></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:6;"></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:7;"><span class="lc">A-17-07</span></div>
+        <div class="c c-aisle" style="grid-row:17;grid-column:8;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:9;"></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:10;"></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:11;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:12;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:13;"></div>
+        <div class="c c-crit" style="grid-row:17;grid-column:14;"></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:15;"><span class="lc">B-17-15</span></div>
+        <div class="c c-aisle" style="grid-row:17;grid-column:16;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:17;"></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:18;"></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:19;"></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:20;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:21;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:22;"></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:23;"><span class="lc">C-17-23</span></div>
+        <div class="c c-aisle" style="grid-row:17;grid-column:24;"></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:25;"></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:26;"></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:27;"></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:28;"></div>
+        <div class="c c-low" style="grid-row:17;grid-column:29;"></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:30;"></div>
+        <div class="c c-mismatch" style="grid-row:17;grid-column:31;"><span class="lc">D-17-31</span></div>
+        <div class="c c-low" style="grid-row:17;grid-column:32;"></div>
+        <div class="c c-empty" style="grid-row:18;grid-column:1;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:2;"></div>
+        <div class="c c-crit" style="grid-row:18;grid-column:3;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:4;"></div>
+        <div class="c c-crit" style="grid-row:18;grid-column:5;"></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:6;"><span class="lc">A-18-06</span></div>
+        <div class="c c-mismatch" style="grid-row:18;grid-column:7;"></div>
+        <div class="c c-aisle" style="grid-row:18;grid-column:8;"></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:9;"></div>
+        <div class="c c-mismatch" style="grid-row:18;grid-column:10;"></div>
+        <div class="c c-crit" style="grid-row:18;grid-column:11;"></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:12;"></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:13;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:14;"><span class="lc">B-18-14</span></div>
+        <div class="c c-crit" style="grid-row:18;grid-column:15;"></div>
+        <div class="c c-aisle" style="grid-row:18;grid-column:16;"></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:17;"></div>
+        <div class="c c-crit" style="grid-row:18;grid-column:18;"></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:19;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:20;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:21;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:22;"><span class="lc">C-18-22</span></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:23;"></div>
+        <div class="c c-aisle" style="grid-row:18;grid-column:24;"></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:25;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:26;"></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:27;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:28;"></div>
+        <div class="c c-empty" style="grid-row:18;grid-column:29;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:30;"><span class="lc">D-18-30</span></div>
+        <div class="c c-low" style="grid-row:18;grid-column:31;"></div>
+        <div class="c c-low" style="grid-row:18;grid-column:32;"></div>
+        <div class="rz rz-hachure" style="grid-row:1/3;grid-column:26/32;"><span>PALLET ZONE A &middot; RESERVED</span></div>
+        <div class="rz rz-cross-hatch" style="grid-row:14/18;grid-column:28/32;"><span>COLD STORAGE</span></div>
+        <div class="rz rz-hachure" style="grid-row:8/10;grid-column:18/23;"><span>QC HOLD</span></div>
+        <div class="rz rz-hachure" style="grid-row:17/18;grid-column:9/16;"><span>INBOUND STAGING</span></div>
+      </div>
+    </div>
+
+    <!-- Cell detail popover (floating, near pre-selected cell) -->
+    <div class="cell-popover">
+      <div class="popover-handle"><div class="grip"></div></div>
+      <div class="popover-header">
+        <div class="left">
+          <span class="live-dot"></span>
+          <a class="popover-loc">B-07-10</a>
+          <span class="popover-tag">SHELF</span>
+        </div>
+        <button class="popover-close" title="Close">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="popover-body">
+        <div class="popover-summary">
+          <div><span class="label">Total:</span> <span class="value">1,240/1,800</span></div>
+          <div><span class="label">SKUs:</span> <span class="value">4</span></div>
+          <div><span class="label">Counted:</span> <span class="value">3d ago</span></div>
+        </div>
+
+        <div class="popover-section-label">SKUs at this location</div>
+        <div class="sku-list">
+          <div class="sku-item">
+            <span class="sku">SHE-1234-BLU</span>
+            <span class="name">Sneaker Classic Blue (M)</span>
+            <span class="qty">620</span>
+          </div>
+          <div class="sku-item">
+            <span class="sku">SHE-1234-RED</span>
+            <span class="name">Sneaker Classic Red (M)</span>
+            <span class="qty">340</span>
+          </div>
+          <div class="sku-item">
+            <span class="sku">SHE-1289-BLK</span>
+            <span class="name">Sneaker Sport Black (L)</span>
+            <span class="qty">180</span>
+          </div>
+          <div class="sku-item">
+            <span class="sku">SHE-1311-WHT</span>
+            <span class="name">Sneaker Lite White (S)</span>
+            <span class="qty">100</span>
+          </div>
+        </div>
+
+        <div class="popover-section-label">Active tasks</div>
+        <div class="task-list">
+          <div class="task-item">
+            <span class="task-chip pick">Pick</span>
+            <span class="task-id">TSK-4521</span>
+            <span class="task-flow">→ Outbound</span>
+            <span class="task-due today">Today 16:00</span>
+          </div>
+          <div class="task-item">
+            <span class="task-chip move">Move</span>
+            <span class="task-id">TSK-4517</span>
+            <span class="task-flow">← from B-03-15</span>
+            <span class="task-due">Done</span>
+          </div>
+        </div>
+      </div>
+      <div class="popover-footer">
+        <button>Movement history</button>
+        <button class="primary">View detail →</button>
+      </div>
+    </div>
+  </div><!-- /.map-container -->
+
+  <div class="footer-note">
+    <strong>All data is fictional.</strong> Static mock that replicates the real Minimal Warehouse (MW) UI from EP Asia Group — same color tokens, layout, and grid logic as production.<br>
+    Sahatsawat Thongma · <a href="resume.html">Resume</a> · <a href="fulfillment-dashboard.html">Fulfillment dashboard mock</a> · <a href="https://github.com/sthongma/portfolio">GitHub</a>
+  </div>
+
+</div><!-- /.main-content -->
+
+</body>
+</html>
