@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
-<title>Sahatsawat Thongma — Data Engineer</title>
+<title>Sahatsawat Thongma — Data Engineer & Solo Builder</title>
 <style>
   :root {
     --bg: #0b0f17;
@@ -1295,7 +1295,7 @@
     <img class="hero-photo" src="https://avatars.githubusercontent.com/u/186543613?v=4" alt="Sahatsawat Thongma">
     <div class="hero-text">
     <h1>Sahatsawat Thongma</h1>
-    <p class="title">End-to-End Data Engineer &nbsp;·&nbsp; E-Commerce Platforms</p>
+    <p class="title">Data Engineer &amp; Solo Builder &nbsp;·&nbsp; E-Commerce Platforms</p>
     <address class="contact">
       <a href="mailto:sahatsawat.thongma@gmail.com">
         <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1362,10 +1362,11 @@
   <section class="summary">
     <h2>Summary</h2>
     <p>
-      <strong>Data engineer with hands-on e-commerce operations
-      experience</strong>, combining ERP/accounting, BI, data
-      warehousing, and production web apps to replace manual workflows
-      with reliable automated systems.
+      <strong>Sole data engineer at a 100M+ THB/month e-commerce
+      business</strong> — designed and shipped the entire data platform
+      plus production operational apps (WMS, barcode scanner, OCR) used
+      daily by 25+ staff. AI-augmented development workflow lets me
+      deliver end-to-end systems alone.
     </p>
   </section>
 
@@ -1379,25 +1380,34 @@
       <div class="role">Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform</div>
       <ul>
         <li>
-          <strong>Built the company's first data warehouse</strong>,
-          automating daily marketplace data prep that previously took
-          1–3 staff half a day in Excel/Power Query.
+          <strong>Built the company's first data warehouse
+          single-handedly</strong> — replaced fragmented Google
+          Sheets/Excel files (where staff spent 1–3 hours/day searching
+          and one person manually downloaded files every morning) with
+          a single source of truth that 25+ staff now query directly.
         </li>
         <li>
           Designed a <strong>dbt medallion architecture</strong> with
-          193 models across 9 business domains, serving executive,
-          procurement, warehouse, and fulfillment reporting.
+          193 models across 9 business domains, ingesting
+          <strong>100K+ rows/day (~400 MB/day)</strong> from 4
+          marketplaces (Shopee, Lazada, TikTok, Facebook) plus internal
+          systems — serving executive, procurement, warehouse, and
+          fulfillment reporting.
         </li>
         <li>
-          Built ingestion with Power Automate, Python, and 46 Azure Data
-          Factory pipelines, plus a FastAPI + React config app for
-          AI-assisted column analysis and controlled self-service
-          mappings.
+          Built ingestion stack with Power Automate, Python, and 46
+          Azure Data Factory pipelines, plus a FastAPI + React config
+          app with AI-assisted column analysis — letting non-developers
+          add new file mappings safely without my involvement.
         </li>
         <li>
-          Shipped production apps used daily: WMS, real-time barcode
-          scanner network, and Azure-powered invoice OCR, orchestrated
-          with Airflow/ADF and quality alerts.
+          <strong>Replaced the previous third-party WMS</strong>
+          (which staff struggled to use, with system stock counts that
+          didn't match the physical inventory) with custom WMS, barcode
+          scanner, and Azure-powered invoice OCR — foreign warehouse
+          staff now learn the new system in under 5 minutes;
+          <strong>1,200+ orders/day</strong> flow through with full
+          audit trail.
         </li>
       </ul>
     </div>
@@ -1438,36 +1448,36 @@
         <h3><span class="num">01</span>E-Commerce Data Pipeline &amp; Analytics Platform</h3>
       </div>
       <p class="tagline">
-        Full data platform serving 9 business domains across multiple
-        e-commerce channels and warehouse operations.
+        Full data platform serving 9 business domains, 1,200+ orders/day,
+        and 100K+ rows/day across 4 marketplaces.
       </p>
       <ul class="bullets">
-        <li>Ingests data from 6+ sources (Shopee, Lazada, TikTok, JST, DHL, internal WMS/BSN) → 4-layer medallion architecture with dbt.</li>
-        <li><strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions.</li>
-        <li>Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns.</li>
+        <li>Ingests data from 6+ sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.</li>
+        <li><strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.</li>
+        <li>Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.</li>
         <li>Runs automatically outside business hours with data quality checks and email alerts on failure or stale data.</li>
       </ul>
 
       <div class="metrics" aria-label="Data platform metrics">
         <div class="metric">
-          <span class="val">193+</span>
-          <span class="label">dbt models</span>
+          <span class="val">100K+</span>
+          <span class="label">rows / day</span>
         </div>
         <div class="metric">
-          <span class="val">30+ / 6+</span>
-          <span class="label">file types / systems</span>
+          <span class="val">1,200+</span>
+          <span class="label">orders / day</span>
+        </div>
+        <div class="metric">
+          <span class="val">193+</span>
+          <span class="label">dbt models</span>
         </div>
         <div class="metric">
           <span class="val">9</span>
           <span class="label">business domains</span>
         </div>
         <div class="metric">
-          <span class="val">46 / 6</span>
-          <span class="label">ADF pipelines / DAGs</span>
-        </div>
-        <div class="metric">
-          <span class="val">180+</span>
-          <span class="label">dbt data tests</span>
+          <span class="val">46</span>
+          <span class="label">ADF pipelines</span>
         </div>
       </div>
 
@@ -1503,7 +1513,7 @@
         <rect class="box box-source" x="20" y="14" width="380" height="88" rx="6" ry="6"/>
         <text class="box-kicker" x="210" y="34">SOURCE</text>
         <text class="box-title" x="210" y="55">External Marketplaces</text>
-        <text class="box-sub" x="210" y="76">Shopee · Lazada · TikTok · JST · DHL</text>
+        <text class="box-sub" x="210" y="76">Shopee · Lazada · TikTok · OMS · DHL</text>
 
         <rect class="box box-source" x="420" y="14" width="380" height="88" rx="6" ry="6"/>
         <text class="box-kicker" x="610" y="34">SOURCE</text>
@@ -1567,7 +1577,7 @@
         <text class="box-kicker" x="705" y="628">COMPATIBILITY</text>
         <text class="box-title" x="705" y="649">Legacy System</text>
         <text class="box-sub" x="705" y="670">Kept alive during migration</text>
-        <text class="box-mono" x="705" y="688">JST · SHOPEE · LAZADA · DHL</text>
+        <text class="box-mono" x="705" y="688">OMS · SHOPEE · LAZADA · DHL</text>
 
         <!-- Silver → Intermediate -->
         <line class="edge" x1="300" y1="560" x2="300" y2="600"/>
@@ -1622,20 +1632,21 @@
         <h3><span class="num">02</span>Warehouse Management System (WMS)</h3>
       </div>
       <p class="tagline">
-        Full-featured WMS with an <strong>interactive visual warehouse
-        map</strong> — used daily by warehouse teams.
+        Custom WMS that replaced the previous third-party system —
+        interactive visual map, foreign staff trained in under 5 min,
+        full stock audit trail.
       </p>
       <ul class="bullets">
+        <li><strong>Replaced the previous WMS</strong> — staff (including foreign workers) now learn the system in under 5 minutes versus weeks of struggling with the prior tool, and stock movements are traceable for the first time (full audit trail per item).</li>
         <li>
           <strong>Interactive warehouse grid map</strong> (dynamic
           CSS Grid, server-side) with 4-level color-coded stock states
           (empty / low / ok / critical) that instantly surface low,
-          incomplete, or misplaced slots — plus a custom annotation
-          system for reserved zones and merged-cell support for
-          pallet-sized locations.
+          incomplete, or misplaced slots — plus annotations for
+          reserved zones and merged-cell support for pallet-sized
+          locations.
         </li>
-        <li>Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with task chat and full audit logging.</li>
-        <li>Mobile barcode/QR scanning + bilingual UI (Thai/English, 736 i18n keys).</li>
+        <li>Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with task chat, mobile barcode/QR scanning, and bilingual UI (Thai/English, 736 i18n keys).</li>
         <li>19 granular permissions, 21 SQLAlchemy models, 62 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD.</li>
       </ul>
       <div class="chips">
@@ -1660,7 +1671,7 @@
         enforcement.
       </p>
       <ul class="bullets">
-        <li>Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., "Release" before "Outbound").</li>
+        <li>Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., "Release" before "Outbound") — replaces manual paper logs.</li>
         <li>Custom notifications + audio alerts, full scan history with filtering and Excel export.</li>
       </ul>
       <div class="chips">
@@ -1777,13 +1788,15 @@
   <section>
     <h2>Technical Skills</h2>
     <dl class="skills">
-      <dt>Data Warehousing</dt>
+      <dt>Data Warehousing &amp; Modeling</dt>
       <dd>
         <span class="skill-token">SQL Server</span>
         <span class="skill-token">T-SQL</span>
         <span class="skill-token">dbt</span>
-        <span class="skill-token">Medallion Architecture</span>
+        <span class="skill-token">Medallion architecture</span>
         <span class="skill-token">Kimball dimensional modeling</span>
+        <span class="skill-token">Star / snowflake schema</span>
+        <span class="skill-token">SCD type 2</span>
         <span class="skill-token">Incremental strategies</span>
       </dd>
 
@@ -1793,6 +1806,18 @@
         <span class="skill-token">Pandas</span>
         <span class="skill-token">Apache Airflow</span>
         <span class="skill-token">SQLAlchemy</span>
+        <span class="skill-token">Pipeline orchestration</span>
+        <span class="skill-token">Data quality &amp; alerting</span>
+      </dd>
+
+      <dt>Application Development</dt>
+      <dd>
+        <span class="skill-token">FastAPI</span>
+        <span class="skill-token">React / TypeScript</span>
+        <span class="skill-token">HTMX</span>
+        <span class="skill-token">Alpine.js</span>
+        <span class="skill-token">Jinja2</span>
+        <span class="skill-token">REST API design</span>
       </dd>
 
       <dt>BI &amp; Automation</dt>
@@ -1815,10 +1840,12 @@
         <span class="skill-token">GitHub Actions</span>
       </dd>
 
-      <dt>Backend &amp; APIs</dt>
+      <dt>AI-Augmented Workflow</dt>
       <dd>
-        <span class="skill-token">FastAPI</span>
-        <span class="skill-token">REST API design</span>
+        <span class="skill-token">Claude Code (primary IDE)</span>
+        <span class="skill-token">AI pair-programming</span>
+        <span class="skill-token">Prompt engineering for code generation</span>
+        <span class="skill-token">System design &amp; architecture</span>
       </dd>
 
     </dl>
@@ -1829,11 +1856,11 @@
     <h2>Education</h2>
     <div class="edu-item">
       <h3>Udon Thani Rajabhat University</h3>
-      <span class="period">Completed first-year coursework</span>
+      <span class="period">Coursework completed (Year 1)</span>
       <div class="degree">
-        Mechatronics &amp; Robotics Engineering — completed first-year
-        coursework before leaving to run an online store full-time.
-        Built practical skills through real e-commerce problems:
+        Mechatronics &amp; Robotics Engineering — left after first year
+        to run an online store full-time, which became the foundation
+        for everything that followed:
         <strong>graphic design → accounting → data analytics → data
         engineering</strong>.
       </div>

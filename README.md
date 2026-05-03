@@ -1,7 +1,7 @@
-![1777556441874](image/README/1777556441874.png)![1777556443657](image/README/1777556443657.png)# Portfolio — Sahatsawat Thongma
+# Portfolio — Sahatsawat Thongma
 
-> **End-to-end data engineer · e-commerce platforms**
-> Sole data engineer at EP Asia Group, building the full data stack (pipeline → warehouse → dashboards → operational apps).
+> **Data Engineer & Solo Builder · E-Commerce Platforms**
+> Sole data engineer at a 100M+ THB/month e-commerce business — designed and shipped the entire data platform plus production operational apps used daily by 25+ staff.
 
 ---
 
@@ -17,13 +17,11 @@
 
 ---
 
-## 📁 Repository contents
-
-This is my public portfolio repository. It's organized into three parts:
+## 📁 What's here
 
 ### 1. Bilingual HTML resume
 
-Single resume page with dual-mode layout (compact print-ready CV + rich web portfolio view), language switching, and externalized i18n keys. No build step.
+Single resume page with dual-mode layout (compact print-ready CV + rich web portfolio view), language switching (EN/TH), and externalized i18n keys. No build step.
 
 - [`resume.html`](resume.html) — bilingual resume shell
 - [`resume-i18n.js`](resume-i18n.js) — English/Thai content keys
@@ -34,23 +32,11 @@ A static HTML mock that replicates the real **Fulfillment Overview** dashboard f
 
 - [`fulfillment-dashboard.html`](fulfillment-dashboard.html) — live demo
 
-### 3. Sanitized code examples
-
-Real patterns from production systems I've built, with business-specific logic removed. The code is representative, not the actual production source.
-
-| Directory | Pattern demonstrated |
-|---|---|
-| [`examples/dbt-models/`](examples/dbt-models/) | Medallion architecture (staging → silver → intermediate → gold), incremental strategies, macros, schema tests |
-| [`examples/bronze-ingestion/`](examples/bronze-ingestion/) | YAML-driven file ingestion with SHA-256 deduplication and metadata tracking |
-| [`examples/fastapi-backend/`](examples/fastapi-backend/) | FastAPI router + query pattern for SQL Server with authentication and pagination |
-| [`examples/airflow-dags/`](examples/airflow-dags/) | Orchestrator DAG with sequential dependency execution |
-
 ---
 
 ## 🧭 Where to start
 
 - **Recruiter / hiring manager?** → Open the [resume](https://sthongma.github.io/portfolio/resume.html) and the [dashboard mock](https://sthongma.github.io/portfolio/fulfillment-dashboard.html).
-- **Engineer reviewing my work?** → Browse the [`examples/`](examples/) folder for representative code.
 - **Just curious?** → The [resume's Projects tab](https://sthongma.github.io/portfolio/resume.html) walks through every production system I've built.
 
 ---
@@ -61,9 +47,3 @@ Real patterns from production systems I've built, with business-specific logic r
 - **LinkedIn:** [linkedin.com/in/sahatsawat-thongma](https://www.linkedin.com/in/sahatsawat-thongma-82bb45396)
 - **GitHub:** [github.com/sthongma](https://github.com/sthongma)
 - **Location:** Samut Sakhon, Thailand
-
----
-
-## 📄 About the code samples
-
-Code in [`examples/`](examples/) is provided as reference patterns. Feel free to read, learn from, or adapt. Nothing here is the actual production code — it's been stripped of business logic, credentials, and anything proprietary. The production systems themselves live in private repos.
