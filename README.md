@@ -11,8 +11,9 @@
 |---|---|
 | 🌐 **Resume** | [sthongma.github.io/portfolio/resume.html](https://sthongma.github.io/portfolio/resume.html) |
 | 🇹🇭 **Resume (TH)** | [sthongma.github.io/portfolio/resume.html?lang=th](https://sthongma.github.io/portfolio/resume.html?lang=th) |
-| 📊 **Fulfillment dashboard mock** | [sthongma.github.io/portfolio/fulfillment-dashboard.html](https://sthongma.github.io/portfolio/fulfillment-dashboard.html) |
-| 🗺️ **WMS warehouse map mock** | [sthongma.github.io/portfolio/wms-mockup.html](https://sthongma.github.io/portfolio/wms-mockup.html) |
+| 📊 **Fulfillment dashboard mock** | [sthongma.github.io/portfolio/mockups/fulfillment.html](https://sthongma.github.io/portfolio/mockups/fulfillment.html) |
+| 🗺️ **WMS warehouse map mock** | [sthongma.github.io/portfolio/mockups/wms.html](https://sthongma.github.io/portfolio/mockups/wms.html) |
+| 📷 **BSN barcode scanner mock** | [sthongma.github.io/portfolio/mockups/bsn.html](https://sthongma.github.io/portfolio/mockups/bsn.html) |
 
 > **Tip:** The resume is interactive — use the **Resume / Projects** tabs at the top to switch between the compact CV view and the rich project gallery.
 
@@ -27,18 +28,19 @@ Single resume page with dual-mode layout (compact print-ready CV + rich web port
 - [`resume.html`](resume.html) — bilingual resume shell
 - [`resume-i18n.js`](resume-i18n.js) — English/Thai content keys
 
-### 2. Mock dashboards
+### 2. App mockups
 
-Static HTML mocks that replicate real production UIs I built at EP Asia Group. Same color palettes, layout, and data shapes. All data is fictional.
+Static HTML mocks under [`mockups/`](mockups/) that replicate real production UIs I built at EP Asia Group. Each is a self-contained single file with its own design tokens, sized to feel like the real app. All data is fictional.
 
-- [`fulfillment-dashboard.html`](fulfillment-dashboard.html) — Fulfillment Overview dashboard (FFR pipeline, platform KPIs, trend charts)
-- [`wms-mockup.html`](wms-mockup.html) — Warehouse Map view with 4-level color-coded grid, merged pallet zones, and reserved area annotations
+- [`mockups/fulfillment.html`](mockups/fulfillment.html) — Fulfillment Overview dashboard (FFR pipeline, platform KPIs, trend charts)
+- [`mockups/wms.html`](mockups/wms.html) — Warehouse Map view with 4-level color-coded grid, merged pallet zones, and reserved area annotations
+- [`mockups/bsn.html`](mockups/bsn.html) — Barcode Scanner page with workflow validation, recent-scan feed, and dependency-violation row
 
 ---
 
 ## 🧭 Where to start
 
-- **Recruiter / hiring manager?** → Open the [resume](https://sthongma.github.io/portfolio/resume.html) and the [dashboard mock](https://sthongma.github.io/portfolio/fulfillment-dashboard.html).
+- **Recruiter / hiring manager?** → Open the [resume](https://sthongma.github.io/portfolio/resume.html) and the [fulfillment dashboard mock](https://sthongma.github.io/portfolio/mockups/fulfillment.html).
 - **Just curious?** → The [resume's Projects tab](https://sthongma.github.io/portfolio/resume.html) walks through every production system I've built.
 
 ---

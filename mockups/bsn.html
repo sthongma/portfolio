@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scanner — BSN · Sahatsawat Thongma</title>
+<meta name="description" content="Mock scanner page replicating the real Barcode Scanner Network (BSN) UI from EP Asia Group: dark notebook scan workspace, real-time scan result feedback, recent-scans table with workflow validation. All data fictional." />
+<style>
+  /* ==========================================================
+     BSN design tokens (matches templates/base.html in real app)
+     ========================================================== */
+  :root {
+    --c-dark-bg: 248 250 252;
+    --c-dark-card: 255 255 255;
+    --c-dark-border: 229 231 235;
+    --c-text: 15 23 42;
+    --c-text-sub: 71 85 105;
+    --c-text-dim: 148 163 184;
+    --c-chrome: 241 245 249;
+    --c-chrome-h: 226 232 240;
+
+    --c-success-50: 240 253 244;
+    --c-success-400: 34 197 94;
+    --c-success-500: 22 163 74;
+    --c-success-600: 22 163 74;
+    --c-success-700: 21 128 61;
+
+    --c-danger-50: 254 236 236;
+    --c-danger-400: 210 50 55;
+    --c-danger-500: 193 18 31;
+    --c-danger-600: 193 18 31;
+    --c-danger-700: 120 0 0;
+
+    --c-warning-50: 255 251 235;
+    --c-warning-400: 251 191 36;
+    --c-warning-500: 245 158 11;
+    --c-warning-600: 217 119 6;
+    --c-warning-700: 180 83 9;
+
+    --c-info-50: 232 242 250;
+    --c-info-400: 102 155 188;
+    --c-info-500: 82 135 168;
+    --c-info-600: 0 48 73;
+    --c-info-700: 0 48 73;
+
+    --c-slate-400: 148 163 184;
+    --c-slate-500: 100 116 139;
+    --c-slate-600: 71 85 105;
+    --c-slate-700: 51 65 85;
+
+    --o-tint: 0.08;
+    --o-badge: 0.12;
+    --o-border: 0.2;
+
+    --sidebar-w: 16rem;
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: rgb(var(--c-dark-bg));
+    color: rgb(var(--c-text));
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+
+  /* ==========================================================
+     Sidebar — dark navy (info-700) — matches real BSN
+     ========================================================== */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: rgb(var(--c-info-700));
+    height: 100vh;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .sb-brand {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .sb-logo {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: rgb(var(--c-info-500));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+  .sb-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .sb-subtitle {
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 1px;
+  }
+  .sb-section-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 14px 20px 6px;
+  }
+  .sb-nav-list {
+    flex: 1;
+    padding: 8px 0;
+  }
+  .sb-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    margin: 2px 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: all 120ms;
+  }
+  .sb-nav:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  .sb-nav.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  .sb-nav svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .sb-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px;
+  }
+  .user-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .user-avatar {
+    width: 32px; height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .user-avatar svg { width: 16px; height: 16px; }
+  .user-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .user-role {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .lang-row {
+    display: flex;
+    gap: 8px;
+  }
+  .lang-row a {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    padding: 6px 0;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 120ms;
+  }
+  .lang-row a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+
+  /* ==========================================================
+     Main content
+     ========================================================== */
+  .main-content {
+    margin-left: var(--sidebar-w);
+    min-height: 100vh;
+  }
+
+  /* Page header */
+  .page-header {
+    padding: 24px 24px 16px;
+  }
+  .page-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgb(var(--c-info-500) / 0.3);
+  }
+  .page-header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .page-header-title svg {
+    width: 22px; height: 22px;
+    color: rgb(var(--c-info-500));
+  }
+  .page-header-title h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(var(--c-text));
+  }
+  .mock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgb(var(--c-warning-600));
+    margin-left: 8px;
+  }
+  .mock-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: rgb(var(--c-warning-600));
+    border-radius: 50%;
+  }
+
+  /* ==========================================================
+     The notebook (dark slate-700 container — iconic BSN)
+     ========================================================== */
+  .notebook {
+    margin: 0 24px 24px;
+    background: rgb(var(--c-slate-700));
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+    padding: 24px;
+  }
+  .notebook-grid {
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    gap: 16px;
+  }
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Inner panels (slate-600/50 with slate-500/30 border) */
+  .panel {
+    background: rgb(var(--c-slate-600) / 0.5);
+    border: 1px solid rgb(var(--c-slate-500) / 0.3);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .panel.summary-panel {
+    background: rgb(var(--c-info-600) / 0.2);
+    border: 1px solid rgb(var(--c-info-500) / 0.3);
+  }
+  .panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(var(--c-slate-500) / 0.4);
+  }
+  .panel-title svg {
+    width: 16px; height: 16px;
+    color: rgb(var(--c-info-400));
+  }
+  .panel.summary-panel .panel-title { border-bottom: none; padding-bottom: 0; margin-bottom: 12px; }
+
+  /* ==========================================================
+     Form inputs (dark variant — scan-dark)
+     ========================================================== */
+  .ui-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: rgb(226, 232, 240);
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  .ui-input {
+    width: 100%;
+    background: rgb(var(--c-slate-600));
+    border: 1.5px solid rgb(var(--c-slate-500) / 0.5);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: rgb(226, 232, 240);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 120ms, box-shadow 120ms;
+  }
+  .ui-input::placeholder { color: rgb(148, 163, 184); }
+  .ui-input:focus {
+    outline: none;
+    border-color: rgb(var(--c-info-500));
+    box-shadow: 0 0 0 3px rgb(var(--c-info-500) / 0.2);
+  }
+  textarea.ui-input { min-height: 64px; resize: vertical; }
+  .form-row { margin-bottom: 12px; }
+  select.ui-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+
+  /* Barcode input — large, mono, centered, glowing */
+  .barcode-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .barcode-wrap {
+    flex: 1;
+    position: relative;
+  }
+  .barcode-input {
+    width: 100%;
+    background: rgb(var(--c-slate-600)) !important;
+    border: 2px solid rgb(var(--c-info-500));
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #fff;
+    font-size: 16px;
+    font-family: var(--font-mono);
+    text-align: center;
+    letter-spacing: 0.04em;
+    box-shadow: 0 0 0 3px rgb(var(--c-info-500) / 0.18), 0 1px 3px rgba(0, 0, 0, 0.2);
+    animation: barcode-glow 2.4s ease-in-out infinite;
+  }
+  .barcode-input::placeholder { color: rgb(148, 163, 184); letter-spacing: 0.05em; }
+  .barcode-input:focus { outline: none; }
+  @keyframes barcode-glow {
+    0%, 100% { box-shadow: 0 0 0 3px rgb(var(--c-info-500) / 0.18), 0 1px 3px rgba(0, 0, 0, 0.2); }
+    50% { box-shadow: 0 0 0 5px rgb(var(--c-info-500) / 0.28), 0 1px 3px rgba(0, 0, 0, 0.2); }
+  }
+  .camera-btn {
+    background: rgb(var(--c-info-500));
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0 14px;
+    cursor: pointer;
+    transition: all 120ms;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+  }
+  .camera-btn:hover { background: rgb(var(--c-info-600)); }
+  .camera-btn:active { transform: scale(0.95); }
+  .camera-btn svg { width: 18px; height: 18px; }
+
+  /* ==========================================================
+     Scan Result toast (success-600 = green)
+     ========================================================== */
+  .scan-result {
+    background: rgb(var(--c-success-600));
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgb(var(--c-success-600) / 0.3);
+    animation: pulse-once 0.4s ease-out;
+  }
+  @keyframes pulse-once {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+  }
+  .scan-result .msg {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+  }
+  .scan-result .msg svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .scan-result .detail {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 12px;
+    margin-top: 4px;
+    margin-left: 26px;
+    font-family: var(--font-mono);
+  }
+
+  /* ==========================================================
+     Today summary panel
+     ========================================================== */
+  .summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 6px;
+  }
+  .summary-label {
+    font-size: 13px;
+    color: rgb(226, 232, 240);
+  }
+  .summary-label .sub {
+    color: rgb(148, 163, 184);
+    margin-left: 4px;
+  }
+  .summary-count {
+    font-size: 28px;
+    font-weight: 700;
+    color: rgb(var(--c-info-400));
+    font-family: var(--font-mono);
+    line-height: 1;
+  }
+
+  /* ==========================================================
+     Recent scans table
+     ========================================================== */
+  .recent-table-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+    max-height: 64vh;
+    overflow-y: auto;
+  }
+  .recent-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .recent-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  .recent-table thead th {
+    background: rgb(var(--c-info-600));
+    color: #fff;
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 11.5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .recent-table thead th:first-child { border-top-left-radius: 8px; }
+  .recent-table thead th:last-child { border-top-right-radius: 8px; text-align: right; }
+  .recent-table tbody tr {
+    border-bottom: 1px solid rgb(var(--c-slate-500) / 0.2);
+    transition: background-color 120ms;
+  }
+  .recent-table tbody tr:nth-child(odd) { background: rgb(var(--c-slate-600) / 0.3); }
+  .recent-table tbody tr:hover { background: rgb(var(--c-slate-500) / 0.25); }
+  .recent-table tbody tr.row-new {
+    animation: highlight-new 2.4s ease-out 1;
+  }
+  @keyframes highlight-new {
+    from { background-color: rgb(var(--c-success-400) / 0.25); }
+    to { background-color: rgb(var(--c-slate-600) / 0.3); }
+  }
+  .recent-table td {
+    padding: 9px 12px;
+    color: rgb(203, 213, 225);
+    font-size: 12.5px;
+  }
+  .barcode {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: rgb(var(--c-info-400));
+    letter-spacing: 0.02em;
+  }
+  .scan-time {
+    color: rgb(148, 163, 184);
+    font-size: 11.5px;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+  }
+  .job-tag {
+    color: rgb(203, 213, 225);
+    font-size: 11.5px;
+  }
+  .job-tag .sep { color: rgb(148, 163, 184); margin: 0 4px; }
+  .row-actions {
+    text-align: right;
+    white-space: nowrap;
+  }
+  .row-actions .icon-btn {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    background: transparent;
+    border: none;
+    color: rgb(var(--c-info-400));
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 120ms;
+  }
+  tr:hover .icon-btn { opacity: 1; }
+  .icon-btn:hover { background: rgb(var(--c-info-600) / 0.25); }
+  .icon-btn.danger { color: rgb(var(--c-danger-400)); }
+  .icon-btn.danger:hover { background: rgb(var(--c-danger-500) / 0.2); }
+  .icon-btn svg { width: 14px; height: 14px; }
+
+  /* Workflow violation row (shown for one row, illustrating dependency error) */
+  .recent-table tbody tr.row-violation {
+    background: rgb(var(--c-danger-500) / 0.12) !important;
+    border-left: 2px solid rgb(var(--c-danger-500));
+  }
+  .recent-table tbody tr.row-violation .barcode { color: rgb(var(--c-danger-400)); }
+  .violation-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgb(var(--c-danger-500) / 0.2);
+    color: rgb(var(--c-danger-400));
+    border: 1px solid rgb(var(--c-danger-500) / 0.4);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: var(--font-mono);
+  }
+
+  /* ==========================================================
+     Footer note
+     ========================================================== */
+  .footer-note {
+    text-align: center;
+    padding: 16px 16px 28px;
+    color: rgb(var(--c-text-dim));
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    line-height: 1.7;
+  }
+  .footer-note strong { color: rgb(var(--c-warning-600)); }
+  .footer-note a { color: rgb(var(--c-info-500)); font-weight: 600; }
+  .footer-note a:hover { color: rgb(var(--c-info-600)); }
+
+  /* ==========================================================
+     Responsive
+     ========================================================== */
+  @media (max-width: 1180px) {
+    .notebook-grid { grid-template-columns: 4fr 6fr; }
+    .recent-table-wrap { max-height: 60vh; }
+  }
+  @media (max-width: 900px) {
+    :root { --sidebar-w: 0; }
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; }
+    .notebook { margin: 0 12px 16px; padding: 16px; }
+    .notebook-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .recent-table-wrap { max-height: none; }
+    .recent-table thead th:nth-child(3),
+    .recent-table tbody td:nth-child(3) { display: none; }
+    .recent-table thead th:nth-child(4),
+    .recent-table tbody td:nth-child(4) { display: none; }
+    .row-actions .icon-btn { opacity: 0.6; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SIDEBAR ==================== -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-logo">BSN</div>
+    <div>
+      <div class="sb-title">BSN</div>
+      <div class="sb-subtitle">Barcode Scanner</div>
+    </div>
+  </div>
+
+  <nav class="sb-nav-list">
+    <div class="sb-section-label">Menu</div>
+    <a class="sb-nav active">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2"/>
+        <line x1="7" y1="8" x2="7" y2="16"/>
+        <line x1="10" y1="8" x2="10" y2="16"/>
+        <line x1="13" y1="8" x2="13" y2="16"/>
+        <line x1="16" y1="8" x2="16" y2="16"/>
+      </svg>
+      <span>Scanner</span>
+    </a>
+    <a class="sb-nav">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span>History</span>
+    </a>
+
+    <div class="sb-section-label" style="margin-top: 12px;">Admin</div>
+    <a class="sb-nav">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+      </svg>
+      <span>Settings</span>
+    </a>
+    <a class="sb-nav">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18V5l12-2v13"/>
+        <circle cx="6" cy="18" r="3"/>
+        <circle cx="18" cy="16" r="3"/>
+      </svg>
+      <span>Sounds</span>
+    </a>
+    <a class="sb-nav">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+        <path d="M13.73 21a2 2 0 01-3.46 0"/>
+      </svg>
+      <span>Notifications</span>
+    </a>
+    <a class="sb-nav">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+        <path d="M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+      <span>Users</span>
+    </a>
+  </nav>
+
+  <div class="sb-footer">
+    <div class="user-row">
+      <div class="user-avatar">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="user-name">Sahatsawat T.</div>
+        <div class="user-role">Admin</div>
+      </div>
+    </div>
+    <div class="lang-row">
+      <a>EN</a>
+      <a>Logout</a>
+    </div>
+  </div>
+</aside>
+
+<!-- ==================== MAIN ==================== -->
+<div class="main-content">
+
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-title">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="16" rx="2"/>
+          <line x1="7" y1="8" x2="7" y2="16"/>
+          <line x1="10" y1="8" x2="10" y2="16"/>
+          <line x1="13" y1="8" x2="13" y2="16"/>
+          <line x1="16" y1="8" x2="16" y2="16"/>
+        </svg>
+        <h1>Scanner</h1>
+        <span class="mock-badge">Fictional data</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notebook (dark slate-700 container) -->
+  <div class="notebook">
+    <div class="notebook-grid">
+
+      <!-- ============== LEFT COLUMN ============== -->
+      <div class="left-col">
+
+        <!-- Scanner Form -->
+        <div class="panel">
+          <h3 class="panel-title">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+            Main Job
+          </h3>
+
+          <div class="form-row">
+            <label class="ui-label">Main Job</label>
+            <select class="ui-input">
+              <option>Outbound</option>
+              <option>Release</option>
+              <option>Receiving</option>
+              <option>Stock Count</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="ui-label">Sub Job</label>
+            <select class="ui-input">
+              <option>Pack &amp; Label</option>
+              <option>Carrier Handover</option>
+              <option>QC Final Check</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="ui-label">Notes</label>
+            <textarea class="ui-input" rows="2" placeholder="Optional notes…"></textarea>
+          </div>
+
+          <label class="ui-label" style="margin-top: 4px;">Barcode</label>
+          <div class="barcode-row">
+            <div class="barcode-wrap">
+              <input type="text" class="barcode-input" placeholder="Scan or type…" autocomplete="off" />
+            </div>
+            <button class="camera-btn" title="Open camera scanner">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scan Result Toast (success) -->
+        <div class="scan-result">
+          <div class="msg">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Scanned successfully
+          </div>
+          <div class="detail">EP-OB-2026-04582 · Outbound · Pack &amp; Label · 247 today</div>
+        </div>
+
+        <!-- Today Summary -->
+        <div class="panel summary-panel">
+          <h3 class="panel-title">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+            Today's Summary
+          </h3>
+          <div class="summary-row">
+            <div class="summary-label">Outbound<span class="sub">· Pack &amp; Label</span></div>
+            <div class="summary-count">247</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============== RIGHT COLUMN ============== -->
+      <div class="panel">
+        <h3 class="panel-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          Recent Scans
+        </h3>
+        <div class="recent-table-wrap">
+          <table class="recent-table">
+            <thead>
+              <tr>
+                <th>Barcode</th>
+                <th>Time</th>
+                <th>Job / Sub-job</th>
+                <th>Notes</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-new">
+                <td><span class="barcode">EP-OB-2026-04582</span></td>
+                <td class="scan-time">15/05 14:32</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                  </button>
+                  <button class="icon-btn danger" title="Delete">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04581</span></td>
+                <td class="scan-time">15/05 14:31</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04580</span></td>
+                <td class="scan-time">15/05 14:30</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">Heavy item</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr class="row-violation">
+                <td>
+                  <span class="barcode">EP-OB-2026-04579</span>
+                  <div style="margin-top: 3px;"><span class="violation-tag">⚠ Release first</span></div>
+                </td>
+                <td class="scan-time">15/05 14:28</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag" style="color: rgb(var(--c-danger-400));">Workflow violation: Release not completed</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04578</span></td>
+                <td class="scan-time">15/05 14:25</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04577</span></td>
+                <td class="scan-time">15/05 14:24</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Carrier Handover</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04576</span></td>
+                <td class="scan-time">15/05 14:22</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">Fragile · double-box</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04575</span></td>
+                <td class="scan-time">15/05 14:20</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>QC Final Check</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04574</span></td>
+                <td class="scan-time">15/05 14:18</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04573</span></td>
+                <td class="scan-time">15/05 14:15</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Carrier Handover</span></td>
+                <td class="job-tag">DHL pickup</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04572</span></td>
+                <td class="scan-time">15/05 14:12</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04571</span></td>
+                <td class="scan-time">15/05 14:10</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04570</span></td>
+                <td class="scan-time">15/05 14:08</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>QC Final Check</span></td>
+                <td class="job-tag">Damaged carton — replaced</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04569</span></td>
+                <td class="scan-time">15/05 14:05</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="barcode">EP-OB-2026-04568</span></td>
+                <td class="scan-time">15/05 14:02</td>
+                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
+                <td class="job-tag">—</td>
+                <td class="row-actions">
+                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /.notebook-grid -->
+  </div><!-- /.notebook -->
+
+  <div class="footer-note">
+    <strong>All data is fictional.</strong> Static mock that replicates the real BSN (Barcode Scanner Network) UI from EP Asia Group — same color tokens, layout, and workflow logic as production.<br>
+    Sahatsawat Thongma · <a href="../resume.html">Resume</a> · <a href="fulfillment.html">Fulfillment dashboard</a> · <a href="wms.html">WMS map</a> · <a href="https://github.com/sthongma/portfolio">GitHub</a>
+  </div>
+
+</div><!-- /.main-content -->
+
+</body>
+</html>
