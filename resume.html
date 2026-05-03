@@ -1184,205 +1184,102 @@
 
   /* ---------- Print ---------- */
   @media print {
-    /* Force Resume view regardless of selected tab */
+    /* Preserve web colors/backgrounds when printing */
+    *, *::before, *::after {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Hide interactive controls only */
     .tabs { display: none !important; }
     .language-switch { display: none !important; }
-    .view-projects { display: none !important; }
-    .view-resume { display: block !important; }
-    /* Content hidden only when printing */
+    .diagram-expand { display: none !important; }
+    .diagram-modal { display: none !important; }
     .print-hide { display: none !important; }
 
-    :root {
-      --bg: #ffffff;
-      --bg-elev: #ffffff;
-      --bg-elev-2: #f5f5f5;
-      --fg: #0f172a;
-      --fg-dim: #334155;
-      --fg-mute: #64748b;
-      --accent: #0b5ea8;
-      --accent-strong: #0b5ea8;
-      --border: #d1d5db;
-      --border-strong: #9ca3af;
-      --chip-bg: #ffffff;
-      --chip-border: #9ca3af;
-    }
-    html, body {
-      background: #ffffff;
-      color: #0f172a;
-      font-size: 10pt;
-      line-height: 1.45;
-    }
-    a { color: #0b5ea8; border-bottom: none; }
-    main { max-width: none; margin: 0; padding: 0 14mm; }
+    /* Print resume view only (Projects view stays hidden) */
+    .view-projects { display: none !important; }
+    .view-resume { display: block !important; }
 
+    /* Tighten layout to fit A4 — keep web visuals */
+    html, body { font-size: 10px; line-height: 1.5; }
+    main {
+      max-width: none;
+      margin: 0;
+      padding: 10px 14px;
+    }
+
+    /* Compact hero — keep photo small */
     header.hero {
-      padding-bottom: 12px;
-      margin-bottom: 14px;
-      display: block;
-      border-bottom: 1px solid #9ca3af;
-    }
-    .hero-photo { display: none !important; }
-    .hero-text { flex: none; }
-    .hero h1 { font-size: 19pt; margin-bottom: 3px; letter-spacing: 0; line-height: 1.15; }
-    .hero .title {
-      display: inline;
-      padding: 0;
-      background: transparent;
-      border: none;
-      color: #0b5ea8;
-      font-size: 10.5pt;
-      text-transform: none;
-      letter-spacing: 0.02em;
+      padding-bottom: 10px;
       margin-bottom: 6px;
+      gap: 18px;
+      align-items: center;
     }
-    address.contact { font-size: 9pt; gap: 4px 14px; margin-top: 6px; }
-    address.contact a {
-      color: #0b5ea8;
-      border-bottom: none;
-      padding-bottom: 0;
+    .hero-photo {
+      width: 68px;
+      height: 68px;
+      box-shadow: 0 0 0 3px var(--bg-elev), 0 0 12px rgba(56, 189, 248, 0.15);
+      margin-top: 0;
     }
-    address.contact .location {
-      display: inline-flex;
-      padding: 0;
-      background: transparent;
-      border: none;
-      color: #334155;
-      font-size: 9pt;
-    }
-    .contact-icon {
-      color: #0b5ea8;
-      width: 11px;
-      height: 11px;
-    }
+    .hero h1 { font-size: 23px; margin-bottom: 6px; line-height: 1.1; }
+    .hero .title { margin-bottom: 10px; padding: 3px 11px; font-size: 9.5px; }
+    address.contact { font-size: 9.5px; gap: 5px 13px; }
+    address.contact .location { padding: 2px 9px; font-size: 9.5px; }
+    .contact-icon { width: 11px; height: 11px; }
 
-    section { margin-top: 22px; }
+    /* Section cards with breathing room */
+    section { margin-top: 9px !important; }
     .view-resume section {
-      background: transparent;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      padding: 0;
-      margin-top: 22px;
+      padding: 11px 15px;
+      margin-top: 9px;
+      border-radius: 7px;
     }
-    .exp-item { page-break-inside: avoid; break-inside: avoid; }
+    .view-resume section:first-child,
+    .view-resume-extra section:first-child {
+      margin-top: 9px;
+    }
     section > h2 {
-      font-size: 9.5pt;
-      margin-bottom: 12px;
+      margin: 0 0 8px;
       padding-bottom: 5px;
-      letter-spacing: 0.16em;
-      color: #0f172a;
-      border-bottom: 1px solid #9ca3af;
-    }
-    .summary p { font-size: 10pt; margin: 0 0 8px; line-height: 1.5; }
-    .exp-item + .exp-item { margin-top: 18px !important; }
-    .exp-item h3 { font-size: 11.5pt; margin: 0; }
-    .exp-item .period { font-size: 9.5pt; }
-    .exp-item .role { font-size: 9.5pt; margin: 3px 0 6px !important; }
-    .exp-item ul { margin: 5px 0 0 !important; padding-left: 18px !important; }
-    .exp-item li { font-size: 9.5pt; margin-bottom: 4px !important; line-height: 1.45 !important; }
-
-    .project, .project-compact {
-      background: #ffffff;
-      border: none;
-      border-radius: 0;
-      padding: 6px 0;
-      margin-bottom: 8px;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
-      transition: none;
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-    .project h3 { font-size: 11pt; }
-    .project .tagline { margin: 2px 0 4px; font-size: 9pt; }
-    .project ul.bullets { margin: 4px 0 6px; }
-    .project ul.bullets li { font-size: 9.5pt; margin-bottom: 1px; }
-
-    .chip {
-      background: #ffffff;
-      border: 1px solid #9ca3af;
-      color: #0f172a;
-      font-size: 8pt;
-      padding: 1px 6px;
+      font-size: 10px;
     }
 
-    .metrics {
-      grid-template-columns: repeat(5, 1fr);
-      gap: 5px;
-      margin: 6px 0;
-    }
-    .metric {
-      padding: 5px 6px;
-      border-color: #9ca3af;
-      background: #ffffff;
-    }
-    .metric .val {
-      color: #0b5ea8;
-      font-size: 10pt;
-    }
-    .metric .label {
-      color: #334155;
-      font-size: 7.5pt;
-      margin-top: 3px;
-    }
+    /* Summary */
+    .summary p { margin: 0 0 5px; }
 
-    .diagram-panel {
-      padding: 0;
-      background: transparent;
-      border: none;
-      margin: 6px 0;
-    }
-    .diagram-heading,
-    .diagram-legend {
-      display: none;
-    }
-    svg.arch-diagram {
-      max-width: 100%;
-      page-break-inside: avoid;
-      break-inside: avoid;
-      margin: 8px auto 4px;
-    }
-    svg.arch-diagram .box { fill: #ffffff; stroke: #0b5ea8; }
-    svg.arch-diagram .box-legacy { stroke: #64748b; }
-    svg.arch-diagram .box-title { fill: #0b5ea8; }
-    svg.arch-diagram .box-sub { fill: #334155; }
-    svg.arch-diagram .box-mono { fill: #0b5ea8; }
-    svg.arch-diagram .edge { stroke: #64748b; }
-    svg.arch-diagram .edge-branch { stroke: #0b5ea8; }
-    svg.arch-diagram .arch-footer { fill: #334155; }
+    /* Experience */
+    .exp-item h3 { font-size: 13.5px; }
+    .exp-item .period { font-size: 10px; }
+    .exp-item .role { font-size: 10px; margin: 2px 0 5px !important; }
+    .exp-item + .exp-item { margin-top: 10px !important; }
+    .exp-item ul { margin: 4px 0 0 !important; padding-left: 17px !important; }
+    .exp-item li { margin-bottom: 3px !important; line-height: 1.5 !important; }
 
-    .project-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px 10px;
-    }
-    .project-compact h4 { font-size: 10pt; }
-    .project-compact p { font-size: 9pt; margin-bottom: 3px; }
-
+    /* Skills */
     dl.skills {
-      grid-template-columns: 150px 1fr;
-      gap: 8px 18px !important;
+      grid-template-columns: 125px 1fr;
+      gap: 6px 16px !important;
     }
-    dl.skills dt { font-size: 9pt !important; color: #0f172a; padding-top: 2px !important; }
-    dl.skills dd { font-size: 10pt !important; line-height: 1.45 !important; }
-    .skill-token {
-      min-height: 0;
-      padding: 1px 5px;
-      border-color: #9ca3af;
-      background: #ffffff;
-      color: #0f172a;
+    dl.skills dt { font-size: 10.5px !important; padding-top: 1px !important; }
+    dl.skills dd { font-size: 10.5px !important; gap: 5px !important; line-height: 1.4 !important; }
+    .skill-token { min-height: 0; padding: 1px 7px; font-size: 9.5px; }
+
+    /* Education */
+    .edu-item h3 { font-size: 12.5px; }
+    .edu-item .period { font-size: 10px; }
+    .edu-item .degree { font-size: 10px !important; line-height: 1.5 !important; margin-top: 3px !important; }
+    .edu-item + .edu-item { margin-top: 8px !important; }
+
+    /* Avoid breaks inside cards/items */
+    .view-resume section,
+    .exp-item,
+    .edu-item {
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
 
-    .edu-item h3 { font-size: 11pt; }
-    .edu-item .period { font-size: 9.5pt; }
-    .edu-item .degree { font-size: 9.5pt !important; line-height: 1.45 !important; margin-top: 4px !important; }
-    .edu-item + .edu-item { margin-top: 14px !important; }
-
-    /* Keep section headers with their content */
-    section > h2 { page-break-after: avoid; break-after: avoid; }
-    h3, h4 { page-break-after: avoid; break-after: avoid; }
-
-    @page { size: A4; margin: 15mm 0; }
+    @page { size: A4; margin: 6mm; }
   }
 </style>
 </head>
