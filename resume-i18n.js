@@ -1,31 +1,32 @@
 window.resumeI18n = {
     en: {
-      documentTitle: "Sahatsawat Thongma — Data Engineer & Solo Builder",
+      documentTitle: "Sahatsawat Thongma — Data, BI & Automation Engineer",
       htmlLang: "en",
       name: "Sahatsawat Thongma",
-      roleTitle: "Data Engineer &amp; Solo Builder &nbsp;·&nbsp; E-Commerce Platforms",
+      roleTitle: "Data, BI &amp; Automation Engineer &nbsp;·&nbsp; E-Commerce Platforms",
       location: "Samut Sakhon, Thailand",
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Sole data engineer responsible for all incoming data at a 100M+ THB/month e-commerce business</strong> — designed and shipped the data platform plus production operational apps (WMS, barcode scanner, OCR) used daily by 25+ staff. AI-augmented development workflow lets me deliver end-to-end systems alone."
+        "<strong>Data, BI &amp; automation engineer at a 100M+ THB/month e-commerce business</strong> — builds for business users (warehouse, procurement, exec), ships with AI, learns fast. Delivered the data warehouse, BI dashboards, AI automation, and warehouse apps (WMS, barcode, OCR)."
       ],
       sectionExperience: "Experience",
       epPeriod: "2025 – Present",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>Built the company's first data warehouse single-handedly</strong> — replaced fragmented Google Sheets/Excel files (where staff spent 1–3 hours/day searching and one person manually downloaded files every morning) with a single source of truth that 25+ staff now query directly.",
-        "Designed a <strong>dbt medallion architecture</strong> with 193 models across 9 business domains, ingesting <strong>100K+ rows/day (~400 MB/day)</strong> from 4 marketplaces (Shopee, Lazada, TikTok, Facebook) plus internal systems — serving executive, procurement, warehouse, and fulfillment reporting.",
-        "Built ingestion stack with Power Automate, Python, and 46 Azure Data Factory pipelines, plus a FastAPI + React config app with AI-assisted column analysis — letting non-developers add new file mappings safely without my involvement.",
-        "<strong>Replaced the previous third-party WMS</strong> (which staff struggled to use, with system stock counts that didn't match the physical inventory) with custom WMS, barcode scanner, and Azure-powered invoice OCR — foreign warehouse staff now learn the new system in under 5 minutes; <strong>1,200+ orders/day</strong> flow through with full audit trail."
+        "<strong>Built the company's first data warehouse</strong> — replaced messy Google Sheets/Excel. 25+ staff now access and act on data instantly, saving <strong>1–3 hours/day</strong>.",
+        "<strong>Designed the data warehouse structure</strong> — 193 transformation steps across 9 business areas, processing <strong>100K+ records/day</strong> from Shopee, Lazada, TikTok, Facebook. Powers <strong>BI dashboards</strong> for exec, procurement, warehouse, and fulfillment teams.",
+        "<strong>Built ETL pipelines</strong> pulling marketplace file exports and internal data (Power Automate portal automation, Python, 46 Azure Data Factory pipelines). Plus a self-service config app so non-developers can add new data sources themselves.",
+        "<strong>Replaced the broken warehouse system</strong> with custom apps (WMS, barcode scanner, invoice OCR) — Burmese teammates now learn in under 5 minutes; <strong>1,200+ orders/day</strong> with full audit trail.",
+        "<strong>Worked with procurement, warehouse &amp; executive teams</strong> to find work that could be automated — replaced manual processes with <strong>low-code / no-code tools and AI</strong>."
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst &nbsp;·&nbsp; Graphic Designer, E-Commerce"
       ],
       travelerBullets: [
-        "Managed Ecount ERP workflows for sales and finance teams, resolved data issues, and trained new users.",
-        "Built Power BI reporting and used Power Query, SQL, and Python to reconcile ERP exports for sales and finance.",
-        "Created e-commerce product imagery and maintained product/SKU data across marketplace and ERP systems."
+        "Ran Ecount ERP for sales and finance teams — fixed data issues, trained new users.",
+        "Built Power BI reports and used SQL/Python to reconcile ERP data for sales and finance.",
+        "Created product photos for e-commerce and kept product/SKU data in sync across marketplaces and ERP."
       ],
       projectTaglines: [
         "Full data platform serving 9 business domains, 1,200+ orders/day, and 100K+ rows/day across 4 marketplaces.",
@@ -65,35 +66,36 @@ window.resumeI18n = {
       sectionEducation: "Education",
       university: "Udon Thani Rajabhat University",
       universityPeriod: "Coursework completed (Year 1)",
-      universityDegree: "Mechatronics &amp; Robotics Engineering — left after first year to run an online store full-time. <strong>No formal CS/data degree</strong> — every technical skill above was self-taught on the job through real e-commerce problems: <strong>graphic design → accounting → data analytics → data engineering</strong>."
+      universityDegree: "Mechatronics &amp; Robotics Engineering, left Year 1 to run an online store full-time. <strong>No formal CS/data degree</strong> — every skill above is self-taught through real e-commerce work: <strong>graphic design → accounting → data analytics → data engineering</strong>."
     },
     th: {
-      documentTitle: "สหัสวรรษ ทองมา — Data Engineer & Solo Builder",
+      documentTitle: "สหัสวรรษ ทองมา — Data, BI & Automation Engineer",
       htmlLang: "th",
       name: "สหัสวรรษ ทองมา",
-      roleTitle: "Data Engineer &amp; Solo Builder &nbsp;·&nbsp; สาย E-Commerce",
+      roleTitle: "Data, BI &amp; Automation Engineer &nbsp;·&nbsp; สาย E-Commerce",
       location: "สมุทรสาคร, ประเทศไทย",
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data Engineer คนเดียวที่ดูแลข้อมูลที่เข้ามาทั้งบริษัท e-commerce ยอดขาย 100 ล้านบาทขึ้นไปต่อเดือน</strong> — ออกแบบและส่งมอบ data platform ครบ พร้อมแอปทำงานจริง (WMS, barcode scanner, OCR) ที่ทีม 25+ คนใช้ทุกวัน ใช้ AI ช่วยพัฒนา ทำให้ส่งของได้คนเดียวครบทั้งระบบ"
+        "<strong>Data, BI &amp; Automation Engineer ที่บริษัท e-commerce ยอดขาย 100 ล้านบาทขึ้นไปต่อเดือน</strong> — เข้าใจ user จริง (ทีมคลัง จัดซื้อ ผู้บริหาร) ใช้ AI ช่วยพัฒนา เรียนรู้ได้ไว สร้าง data warehouse, BI dashboards, AI automation และแอปคลัง (WMS, barcode, OCR)"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
       epPeriod: "2025 – ปัจจุบัน",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>สร้าง data warehouse ตัวแรกของบริษัทคนเดียว</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย (เคยต้องค้นหาเอกสาร 1–3 ชั่วโมง/คน/วัน และมีคนนั่งโหลดไฟล์ทุกเช้า) เปลี่ยนเป็นที่เก็บข้อมูลที่เดียว ที่ทีม 25+ คนเปิดดูได้ทันที",
-        "ออกแบบ <strong>dbt medallion architecture</strong> 193 models ครอบคลุม 9 business domains รับข้อมูล <strong>100K+ rows/วัน (~400 MB/วัน)</strong> จาก 4 marketplaces (Shopee, Lazada, TikTok, Facebook) และระบบภายใน — เสิร์ฟรายงานให้ผู้บริหาร จัดซื้อ คลังสินค้า และทีม fulfillment",
-        "สร้าง ingestion ด้วย Power Automate, Python และ Azure Data Factory 46 pipelines พร้อม FastAPI + React config app ที่มี AI ช่วยวิเคราะห์คอลัมน์ — ทำให้คนที่ไม่ใช่ developer เพิ่ม mapping ใหม่ได้เองอย่างปลอดภัย",
-        "<strong>เปลี่ยนระบบ WMS เดิม</strong> (ที่คนใช้ยาก และ stock ในระบบไม่ตรงกับของจริงในคลัง) เป็น WMS, barcode scanner และ invoice OCR ที่เขียนเอง — คนงานคลังต่างชาติเรียนไม่ถึง 5 นาทีก็ใช้ได้ ระบบรองรับ <strong>1,200+ orders/วัน</strong> พร้อมประวัติของทุกชิ้นครบ"
+        "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ทีม 25+ คนเข้าถึงและนำข้อมูลไปใช้งานได้ทันที ประหยัดเวลาวันละ <strong>1–3 ชั่วโมง</strong>",
+        "<strong>ออกแบบโครงสร้าง data warehouse</strong> — 193 transformation steps ครอบคลุม 9 ด้านธุรกิจ ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok, Facebook ป้อน <strong>BI dashboards</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment",
+        "<strong>สร้าง ETL pipelines</strong> ดึงไฟล์ export จาก marketplace และข้อมูลจากระบบภายใน (Power Automate portal automation, Python, Azure Data Factory 46 pipelines) พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
+        "<strong>เปลี่ยนระบบ WMS ที่ใช้ไม่ได้</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พี่พม่าในคลังเรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,200+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
+        "<strong>ทำงานร่วมกับทีมจัดซื้อ คลัง และผู้บริหาร</strong> หา process ที่ automate ได้ แทนงานมือด้วย <strong>low-code / no-code และ AI</strong>"
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst &nbsp;·&nbsp; Graphic Designer, E-Commerce"
       ],
       travelerBullets: [
-        "ดูแล Ecount ERP workflows ให้ทีมขายและการเงิน แก้ปัญหา data และสอน user ใหม่",
-        "สร้าง Power BI reporting และใช้ Power Query, SQL, Python reconcile ERP exports สำหรับ sales/finance",
-        "ออกแบบรูปสินค้า e-commerce และดูแล product/SKU data ระหว่าง marketplace กับ ERP"
+        "ดูแล Ecount ERP ให้ทีมขายและการเงิน — แก้ปัญหา data และสอน user ใหม่",
+        "สร้าง Power BI reports และใช้ SQL/Python reconcile ข้อมูล ERP สำหรับ sales/finance",
+        "ออกแบบรูปสินค้า e-commerce และดูแล product/SKU data ให้ตรงกันระหว่าง marketplace กับ ERP"
       ],
       projectTaglines: [
         "Data platform เต็มระบบ เสิร์ฟ 9 business domains รับ 1,200+ orders/วัน และ 100K+ rows/วัน จาก 4 marketplaces",
@@ -133,6 +135,6 @@ window.resumeI18n = {
       sectionEducation: "การศึกษา",
       university: "มหาวิทยาลัยราชภัฏอุดรธานี",
       universityPeriod: "เรียนครบรายวิชาชั้นปีที่ 1",
-      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ — ออกหลังจบปี 1 ไปทำร้านค้า online เต็มตัว <strong>ไม่มีปริญญาสาย CS/data</strong> — ทุกทักษะที่ใช้ในงานเรียนรู้เองจากการแก้ปัญหา e-commerce จริง: <strong>graphic design → accounting → data analytics → data engineering</strong>"
+      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ ออกหลังปี 1 ไปทำร้านค้า online เต็มตัว <strong>ไม่มีปริญญาสาย CS/data</strong> — ทุกทักษะเรียนเองจากงาน e-commerce จริง: <strong>graphic design → accounting → data analytics → data engineering</strong>"
     }
   };

@@ -10,7 +10,6 @@
 | What | URL |
 |---|---|
 | 🌐 **Resume** | [sthongma.github.io/portfolio/resume.html](https://sthongma.github.io/portfolio/resume.html) |
-| 🇹🇭 **Resume (TH)** | [sthongma.github.io/portfolio/resume.html?lang=th](https://sthongma.github.io/portfolio/resume.html?lang=th) |
 | 📊 **Fulfillment dashboard mock** | [sthongma.github.io/portfolio/mockups/fulfillment.html](https://sthongma.github.io/portfolio/mockups/fulfillment.html) |
 | 🗺️ **WMS warehouse map mock** | [sthongma.github.io/portfolio/mockups/wms.html](https://sthongma.github.io/portfolio/mockups/wms.html) |
 | 📷 **BSN barcode scanner mock** | [sthongma.github.io/portfolio/mockups/bsn.html](https://sthongma.github.io/portfolio/mockups/bsn.html) |
