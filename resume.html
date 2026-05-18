@@ -17,10 +17,10 @@
     --fg: #e5e7eb;
     --fg-dim: #94a3b8;
     --fg-mute: #64748b;
-    --accent: #6294b8;
-    --accent-strong: #82b0d0;
-    --chip-bg: rgba(98, 148, 184, 0.1);
-    --chip-border: rgba(98, 148, 184, 0.28);
+    --accent: #94a3b8;
+    --accent-strong: #cbd5e1;
+    --chip-bg: rgba(148, 163, 184, 0.1);
+    --chip-border: rgba(148, 163, 184, 0.28);
     --font-sans: "Noto Sans Thai", "Noto Sans", -apple-system,
       BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
       sans-serif;
@@ -45,7 +45,7 @@
   a {
     color: var(--accent);
     text-decoration: none;
-    border-bottom: 1px solid rgba(98, 148, 184, 0.32);
+    border-bottom: 1px solid rgba(100, 116, 139, 0.32);
     transition: color 120ms, border-color 120ms;
   }
   a:hover {
@@ -80,7 +80,7 @@
     object-fit: cover;
     border-radius: 50%;
     border: 2px solid var(--accent);
-    box-shadow: 0 0 0 5px var(--bg-elev), 0 0 24px rgba(98, 148, 184, 0.18);
+    box-shadow: 0 0 0 5px var(--bg-elev), 0 0 24px rgba(100, 116, 139, 0.18);
     flex-shrink: 0;
     margin-top: 6px;
   }
@@ -455,7 +455,7 @@
   .diagram-panel {
     margin: 22px 0 10px;
     padding: 18px;
-    background: linear-gradient(180deg, #fbfdff 0%, #f8fafc 100%);
+    background: linear-gradient(180deg, #f9fafb 0%, #f1f5f9 100%);
     border: 1px solid var(--border);
     border-radius: 10px;
   }
@@ -538,9 +538,9 @@
     border: 1px solid var(--border-strong);
     background: #ffffff;
   }
-  .legend-swatch.layer { background: #f6fbff; border-color: #9cc6dc; }
-  .legend-swatch.output { background: #f1f8fc; border-color: var(--accent); }
-  .legend-swatch.legacy { background: #fffdf7; border-color: #d8c79f; }
+  .legend-swatch.layer { background: #f8fafc; border-color: #cbd5e1; }
+  .legend-swatch.output { background: #e2e8f0; border-color: var(--accent); }
+  .legend-swatch.legacy { background: #f9fafb; border-color: #9ca3af; }
 
   svg.arch-diagram {
     width: 100%;
@@ -620,20 +620,20 @@
     fill: #ffffff;
   }
   svg.arch-diagram .box-ingest {
-    fill: #f8fbfd;
+    fill: #f1f5f9;
   }
   svg.arch-diagram .box-layer {
-    fill: #f6fbff;
-    stroke: #9cc6dc;
+    fill: #f8fafc;
+    stroke: #cbd5e1;
   }
   svg.arch-diagram .box-output {
-    fill: #f1f8fc;
+    fill: #e2e8f0;
     stroke: var(--accent);
     stroke-width: 1.35;
   }
   svg.arch-diagram .box-side {
-    fill: #fffdf7;
-    stroke: #d8c79f;
+    fill: #f9fafb;
+    stroke: #9ca3af;
   }
   svg.arch-diagram .box-legacy {
     fill: #fafafa;
@@ -680,7 +680,7 @@
     stroke-linejoin: round;
   }
   svg.arch-diagram .edge-branch {
-    stroke: #b58b2a;
+    stroke: #9ca3af;
     stroke-width: 1.35;
     fill: none;
     stroke-dasharray: 5 3;
@@ -811,7 +811,7 @@
 
   /* ---------- Professional UI refresh ---------- */
   :root {
-    --bg: #f7f8fb;
+    --bg: #f9fafb;
     --bg-elev: #ffffff;
     --bg-elev-2: #f8fafc;
     --border: #e2e8f0;
@@ -819,15 +819,15 @@
     --fg: #0f172a;
     --fg-dim: #475569;
     --fg-mute: #94a3b8;
-    --accent: #0f5f8c;
-    --accent-strong: #083f60;
-    --chip-bg: #eef6fb;
-    --chip-border: #cfe4f0;
+    --accent: #1f2937;
+    --accent-strong: #0f172a;
+    --chip-bg: #f1f5f9;
+    --chip-border: #cbd5e1;
   }
 
   html, body {
     background:
-      linear-gradient(180deg, #ffffff 0, #f7f8fb 340px),
+      linear-gradient(180deg, #ffffff 0, #f9fafb 340px),
       var(--bg);
     color: var(--fg-dim);
   }
@@ -1226,7 +1226,7 @@
     .hero-photo {
       width: 68px;
       height: 68px;
-      box-shadow: 0 0 0 3px var(--bg-elev), 0 0 12px rgba(98, 148, 184, 0.18);
+      box-shadow: 0 0 0 3px var(--bg-elev), 0 0 12px rgba(100, 116, 139, 0.18);
       margin-top: 0;
     }
     .hero h1 { font-size: 23px; margin-bottom: 6px; line-height: 1.1; }
