@@ -3,18 +3,18 @@ window.resumeI18n = {
       documentTitle: "Sahatsawat Thongma — Data Engineer",
       htmlLang: "en",
       name: "Sahatsawat Thongma",
-      roleTitle: "Data Engineer &nbsp;·&nbsp; E-Commerce Platforms",
+      roleTitle: "Data Engineer",
       location: "Samut Sakhon, Thailand",
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Data engineer building data platforms in e-commerce.</strong> 3+ years across data, BI, and operations; currently designs and operates a <strong>50 GB warehouse processing 100K+ records/day</strong> for a 100M+ THB/month business — <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong>. Builds for non-technical business users (warehouse, procurement, exec)."
+        "<strong>Data engineer building production data platforms.</strong> 3+ years across data, BI, and operations; currently designs and operates a <strong>50 GB warehouse processing 100K+ records/day</strong> for a 100M+ THB/month e-commerce business — <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong>. Builds for non-technical business users (warehouse, procurement, exec)."
       ],
       sectionExperience: "Experience",
-      epPeriod: "2025 – Present",
+      epPeriod: "May 2025 – Present",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>Built the company's first data warehouse</strong> — replaced messy Google Sheets/Excel. 25+ staff now access and act on data instantly, saving <strong>1–3 hours/day</strong>.",
+        "<strong>Built the company's first data warehouse</strong> — replaced messy Google Sheets/Excel for 25+ staff, saving <strong>25–75 person-hours/day across the team</strong> (1–3 hr/person) and eliminating cross-spreadsheet reconciliation errors.",
         "<strong>Designed the data warehouse structure</strong> — 193 transformation steps across 9 business areas, processing <strong>100K+ records/day</strong> from Shopee, Lazada, TikTok, Facebook. Powers <strong>BI dashboards</strong> for exec, procurement, warehouse, and fulfillment teams.",
         "<strong>Built ETL pipelines</strong> pulling marketplace file exports and internal data (Power Automate portal automation, Python, 46 Azure Data Factory pipelines). Plus a self-service config app so non-developers can add new data sources themselves.",
         "<strong>Replaced the broken warehouse system</strong> with custom apps (WMS, barcode scanner, invoice OCR) — Burmese teammates now learn in under 5 minutes; <strong>1,200+ orders/day</strong> with full audit trail.",
@@ -66,24 +66,24 @@ window.resumeI18n = {
       sectionEducation: "Education",
       university: "Udon Thani Rajabhat University",
       universityPeriod: "Coursework completed (Year 1)",
-      universityDegree: "Mechatronics &amp; Robotics Engineering (Year 1 coursework) — left to run an online store full-time. Data/engineering skills self-taught through hands-on e-commerce work: <strong>graphic design → accounting → data analytics → data engineering</strong>."
+      universityDegree: "Mechatronics &amp; Robotics Engineering."
     },
     th: {
       documentTitle: "สหัสวรรษ ทองมา — Data Engineer",
       htmlLang: "th",
       name: "สหัสวรรษ ทองมา",
-      roleTitle: "Data Engineer &nbsp;·&nbsp; สาย E-Commerce",
+      roleTitle: "Data Engineer",
       location: "สมุทรสาคร, ประเทศไทย",
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data engineer สาย e-commerce</strong> — ประสบการณ์ 3+ ปี ในงาน data, BI และ operations ปัจจุบันออกแบบและดูแล <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ให้บริษัทยอดขาย 100M+ THB/เดือน — <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong> สร้าง app และ dashboard ให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
+        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 3+ ปี ในงาน data, BI และ operations ปัจจุบันออกแบบและดูแล <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ให้บริษัท e-commerce ยอดขาย 100M+ THB/เดือน — <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong> สร้าง app และ dashboard ให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
-      epPeriod: "2025 – ปัจจุบัน",
+      epPeriod: "พ.ค. 2025 – ปัจจุบัน",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ทีม 25+ คนเข้าถึงและนำข้อมูลไปใช้งานได้ทันที ประหยัดเวลาวันละ <strong>1–3 ชั่วโมง</strong>",
+        "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ให้ทีม 25+ คน ประหยัดเวลารวมทั้งทีม <strong>25–75 ชั่วโมง/วัน</strong> (1–3 ชม./คน) และตัดปัญหา reconcile ตัวเลขข้าม spreadsheet",
         "<strong>ออกแบบโครงสร้าง data warehouse</strong> — 193 transformation steps ครอบคลุม 9 ด้านธุรกิจ ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok, Facebook ป้อน <strong>BI dashboards</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment",
         "<strong>สร้าง ETL pipelines</strong> ดึงไฟล์ export จาก marketplace และข้อมูลจากระบบภายใน (Power Automate portal automation, Python, Azure Data Factory 46 pipelines) พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
         "<strong>เปลี่ยนระบบ WMS ที่ใช้ไม่ได้</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พี่พม่าในคลังเรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,200+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
@@ -135,6 +135,6 @@ window.resumeI18n = {
       sectionEducation: "การศึกษา",
       university: "มหาวิทยาลัยราชภัฏอุดรธานี",
       universityPeriod: "เรียนครบรายวิชาชั้นปีที่ 1",
-      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ (เรียนครบรายวิชาชั้นปีที่ 1) — ออกไปทำร้านค้า online เต็มตัว ทักษะ data/engineering หลังจากนั้นเรียนเองจากงาน e-commerce จริง — <strong>graphic design → accounting → data analytics → data engineering</strong>"
+      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์"
     }
   };
