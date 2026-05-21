@@ -1,14 +1,14 @@
 window.resumeI18n = {
     en: {
-      documentTitle: "Sahatsawat Thongma — Data, BI & Automation Engineer",
+      documentTitle: "Sahatsawat Thongma — Data Engineer",
       htmlLang: "en",
       name: "Sahatsawat Thongma",
-      roleTitle: "Data, BI &amp; Automation Engineer &nbsp;·&nbsp; E-Commerce Platforms",
+      roleTitle: "Data Engineer &nbsp;·&nbsp; E-Commerce Platforms",
       location: "Samut Sakhon, Thailand",
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Data, BI &amp; automation engineer at a 100M+ THB/month e-commerce business</strong> — builds for business users (warehouse, procurement, exec), ships with AI, learns fast. Delivered the data warehouse, BI dashboards, AI automation, and warehouse apps (WMS, barcode, OCR)."
+        "<strong>Data engineer building data platforms in e-commerce.</strong> 3+ years across data, BI, and operations; currently designs and operates a <strong>50 GB warehouse processing 100K+ records/day</strong> for a 100M+ THB/month business — <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong>. Builds for non-technical business users (warehouse, procurement, exec)."
       ],
       sectionExperience: "Experience",
       epPeriod: "2025 – Present",
@@ -29,14 +29,14 @@ window.resumeI18n = {
         "Created product photos for e-commerce and kept product/SKU data in sync across marketplaces and ERP."
       ],
       projectTaglines: [
-        "Full data platform serving 9 business domains, 1,200+ orders/day, and 100K+ rows/day across 4 marketplaces.",
+        "Full data platform — 50 GB warehouse with 44M+ rows, serving 9 business domains, 1,200+ orders/day, and 100K+ rows/day across 4 marketplaces.",
         "Custom WMS that replaced the previous third-party system — interactive visual map, foreign staff trained in under 5 min, full stock audit trail.",
         "Real-time multi-user barcode scanning system with workflow enforcement.",
         "AI-assisted invoice processing that reads Thai e-commerce PDF invoices and fills structured records automatically."
       ],
       projectBullets: [
         [
-          "Ingests data from 6+ sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.",
+          "Ingests data from 8 sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.",
           "<strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.",
           "Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.",
           "Runs automatically outside business hours via <strong>custom Airflow operators</strong> (Bronze, dbt), with <strong>180+ dbt data tests</strong>, source freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data."
@@ -66,18 +66,18 @@ window.resumeI18n = {
       sectionEducation: "Education",
       university: "Udon Thani Rajabhat University",
       universityPeriod: "Coursework completed (Year 1)",
-      universityDegree: "Mechatronics &amp; Robotics Engineering, left Year 1 to run an online store full-time. <strong>No formal CS/data degree</strong> — every skill above is self-taught through real e-commerce work: <strong>graphic design → accounting → data analytics → data engineering</strong>."
+      universityDegree: "Mechatronics &amp; Robotics Engineering (Year 1 coursework) — left to run an online store full-time. Data/engineering skills self-taught through hands-on e-commerce work: <strong>graphic design → accounting → data analytics → data engineering</strong>."
     },
     th: {
-      documentTitle: "สหัสวรรษ ทองมา — Data, BI & Automation Engineer",
+      documentTitle: "สหัสวรรษ ทองมา — Data Engineer",
       htmlLang: "th",
       name: "สหัสวรรษ ทองมา",
-      roleTitle: "Data, BI &amp; Automation Engineer &nbsp;·&nbsp; สาย E-Commerce",
+      roleTitle: "Data Engineer &nbsp;·&nbsp; สาย E-Commerce",
       location: "สมุทรสาคร, ประเทศไทย",
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data, BI &amp; Automation Engineer ที่บริษัท e-commerce ยอดขาย 100 ล้านบาทขึ้นไปต่อเดือน</strong> — เข้าใจ user จริง (ทีมคลัง จัดซื้อ ผู้บริหาร) ใช้ AI ช่วยพัฒนา เรียนรู้ได้ไว สร้าง data warehouse, BI dashboards, AI automation และแอปคลัง (WMS, barcode, OCR)"
+        "<strong>Data engineer สาย e-commerce</strong> — ประสบการณ์ 3+ ปี ในงาน data, BI และ operations ปัจจุบันออกแบบและดูแล <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ให้บริษัทยอดขาย 100M+ THB/เดือน — <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong> สร้าง app และ dashboard ให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
       epPeriod: "2025 – ปัจจุบัน",
@@ -98,14 +98,14 @@ window.resumeI18n = {
         "ออกแบบรูปสินค้า e-commerce และดูแล product/SKU data ให้ตรงกันระหว่าง marketplace กับ ERP"
       ],
       projectTaglines: [
-        "Data platform เต็มระบบ เสิร์ฟ 9 business domains รับ 1,200+ orders/วัน และ 100K+ rows/วัน จาก 4 marketplaces",
+        "Data platform เต็มระบบ — warehouse ขนาด 50 GB กว่า 44M แถว เสิร์ฟ 9 business domains รับ 1,200+ orders/วัน และ 100K+ rows/วัน จาก 4 marketplaces",
         "WMS ที่เขียนเองมาแทนระบบเดิม — แผนที่คลังกดดูของได้ คนงานต่างชาติเรียนไม่ถึง 5 นาทีก็ใช้ได้ track ของได้ทุกการเคลื่อนไหว",
         "ระบบ barcode scanner หลายคนใช้พร้อมกันแบบ real-time พร้อมบังคับลำดับงาน",
         "ระบบ AI อ่านไฟล์ invoice PDF ของ e-commerce ไทย แล้วลงข้อมูลเป็น structured records ให้อัตโนมัติ"
       ],
       projectBullets: [
         [
-          "ดึง raw data จาก 6+ sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, internal WMS/BSN) → medallion architecture 4 ชั้นด้วย dbt — แทนการที่เคยมีคนนั่งโหลดไฟล์ทุกเช้า",
+          "ดึง raw data จาก 8 sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) → medallion architecture 4 ชั้นด้วย dbt — แทนการที่เคยมีคนนั่งโหลดไฟล์ทุกเช้า",
           "<strong>Bronze config web app</strong> (FastAPI + React) — self-service UI สำหรับ file types, validation rules และ AI-assisted column analysis/mapping suggestions ทำให้คนที่ไม่ใช่ developer เพิ่ม source ใหม่ได้เองอย่างปลอดภัย",
           "Serve <strong>FastAPI + React dashboards</strong> — real-time KPIs, price alerts, procurement tracking และ operational drilldowns ที่ฝ่ายจัดซื้อใช้ตัดสินใจซื้อสินค้าทุกวัน",
           "รันอัตโนมัตินอกเวลาทำงานผ่าน <strong>custom Airflow operators</strong> (Bronze, dbt) พร้อม <strong>180+ dbt data tests</strong>, source freshness checks และ <strong>email + LINE notifications</strong> ภาษาไทย แจ้งเตือนเมื่อ pipeline fail หรือข้อมูลค้าง"
@@ -135,6 +135,6 @@ window.resumeI18n = {
       sectionEducation: "การศึกษา",
       university: "มหาวิทยาลัยราชภัฏอุดรธานี",
       universityPeriod: "เรียนครบรายวิชาชั้นปีที่ 1",
-      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ ออกหลังปี 1 ไปทำร้านค้า online เต็มตัว <strong>ไม่มีปริญญาสาย CS/data</strong> — ทุกทักษะเรียนเองจากงาน e-commerce จริง: <strong>graphic design → accounting → data analytics → data engineering</strong>"
+      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์ (เรียนครบรายวิชาชั้นปีที่ 1) — ออกไปทำร้านค้า online เต็มตัว ทักษะ data/engineering หลังจากนั้นเรียนเองจากงาน e-commerce จริง — <strong>graphic design → accounting → data analytics → data engineering</strong>"
     }
   };
