@@ -1437,19 +1437,21 @@
     <div class="exp-item" style="margin-top: 22px;">
       <h3>Traveler Co., Ltd.</h3>
       <span class="period">2022 – 2025</span>
-      <div class="role">Accountant / ERP &amp; BI Analyst &nbsp;·&nbsp; Graphic Designer, E-Commerce</div>
+      <div class="role">Accountant / ERP &amp; BI Analyst</div>
       <ul>
         <li>
-          Ran Ecount ERP for sales and finance teams — fixed data
-          issues, trained new users.
+          Set up <strong>Ecount ERP master data from scratch</strong>
+          — defined chart of accounts, customer/vendor master, and
+          SKU mapping standards.
         </li>
         <li>
-          Built Power BI reports and used SQL/Python to reconcile ERP
-          data for sales and finance.
+          Built <strong>Power BI reports</strong> and used
+          <strong>Power Query</strong> to reconcile ERP data across
+          sales and finance — established consistent monthly reporting.
         </li>
         <li>
-          Created product photos for e-commerce and kept product/SKU
-          data in sync across marketplaces and ERP.
+          Established product/SKU master data across marketplaces and
+          ERP as a single source of truth for the catalog.
         </li>
       </ul>
     </div>
@@ -1729,75 +1731,31 @@
       </div>
     </article>
 
-    <!-- Compact projects 5–8 -->
-    <div class="project-grid">
-      <article class="project-compact">
-        <h4><span class="num">05</span>App Pipeline (SQL Server ETL Tool)</h4>
-        <p>
-          Generic Excel/CSV-to-SQL Server ETL tool with Tkinter GUI and CLI
-          for non-technical users. Supports Replace and Upsert modes,
-          auto-schema detection, batch processing, column mapping, and
-          metadata tracking. Ships as a Windows installer via PyInstaller.
-        </p>
-        <div class="chips">
-          <span class="chip">Python</span>
-          <span class="chip">Tkinter</span>
-          <span class="chip">SQLAlchemy</span>
-          <span class="chip">SQL Server</span>
-          <span class="chip">PyInstaller</span>
-        </div>
-      </article>
-
-      <article class="project-compact">
-        <h4><span class="num">06</span>Copy Files Utility</h4>
-        <p>
-          File sync utility for staging raw data files of any type
-          (Excel, CSV, PDF, images, archives, ...) into the pipeline's
-          landing folders. Features SQLite-backed history tracking for
-          deduplication, per-mapping copy/move modes, depth and date
-          filtering, collision handling, dry-run preview, and progress
-          reporting. Configured through a single CSV so non-developers
-          can update mappings without code changes.
-        </p>
-        <div class="chips">
-          <span class="chip">Python</span>
-          <span class="chip">SQLite</span>
-          <span class="chip">Batch</span>
-          <span class="chip">CSV config</span>
-        </div>
-      </article>
-
-      <article class="project-compact">
-        <h4><span class="num">07</span>DHL Webhook Receiver</h4>
-        <p>
-          Lightweight Flask service that receives webhook events from
-          DHL (shipment and tracking updates) and persists them to
-          SQL Server via PyODBC — a minimal integration bridge that
-          streams logistics events straight into the warehouse data
-          layer.
-        </p>
-        <div class="chips">
-          <span class="chip">Flask</span>
-          <span class="chip">PyODBC</span>
-          <span class="chip">SQL Server</span>
-        </div>
-      </article>
-
-      <article class="project-compact">
-        <h4><span class="num">08</span>Web Scraper</h4>
-        <p>
-          Python scraper that collects flash-sale and return data from
-          e-commerce platforms, feeding raw files into the Bronze layer of
-          the main data pipeline.
-        </p>
-        <div class="chips">
-          <span class="chip">Python</span>
-          <span class="chip">Requests</span>
-          <span class="chip">BeautifulSoup</span>
-        </div>
-      </article>
-
-    </div>
+    <!-- Project 5 — Additional Tooling (consolidated 5–8) -->
+    <article class="project">
+      <div class="project-header">
+        <h3><span class="num">05</span>Additional Tooling</h3>
+      </div>
+      <p class="tagline">
+        Supporting utilities that feed and operate the data platform.
+      </p>
+      <ul class="bullets">
+        <li><strong>App Pipeline</strong> — generic Excel/CSV → SQL Server ETL tool with Tkinter GUI + CLI, shipped as Windows installer (PyInstaller). Replace/Upsert, auto-schema, batch processing.</li>
+        <li><strong>Copy Files Utility</strong> — file-sync utility for staging raw files (any type) into landing folders. SQLite-backed dedup, CSV-configured mappings so non-devs update sources without code.</li>
+        <li><strong>DHL Webhook Receiver</strong> — Flask service that streams DHL tracking events into SQL Server (PyODBC) — minimal bridge from logistics to warehouse data.</li>
+        <li><strong>Web Scraper</strong> — Python scraper collecting flash-sale and return data from marketplaces, feeding the Bronze layer.</li>
+      </ul>
+      <div class="chips">
+        <span class="chip">Python</span>
+        <span class="chip">Tkinter</span>
+        <span class="chip">Flask</span>
+        <span class="chip">SQLite</span>
+        <span class="chip">SQLAlchemy</span>
+        <span class="chip">PyODBC</span>
+        <span class="chip">BeautifulSoup</span>
+        <span class="chip">PyInstaller</span>
+      </div>
+    </article>
   </section>
 
   </div><!-- end .view-projects -->
@@ -1936,13 +1894,12 @@
     setList(".exp-item:nth-of-type(2) li", t.travelerBullets);
 
     setList(".project .tagline", t.projectTaglines);
-    $$(".project").slice(0, 4).forEach((project, index) => {
+    $$(".project").forEach((project, index) => {
       project.querySelectorAll("ul.bullets li").forEach((li, bulletIndex) => {
         const value = t.projectBullets[index]?.[bulletIndex];
         if (value !== undefined) li.innerHTML = value;
       });
     });
-    setList(".project-compact p", t.compactProjects);
 
     setHTML(".view-resume-extra section:nth-of-type(1) > h2", t.sectionSkills);
 

@@ -21,18 +21,19 @@ window.resumeI18n = {
         "<strong>Worked with procurement, warehouse &amp; executive teams</strong> to find work that could be automated — replaced manual processes with <strong>low-code / no-code tools and AI</strong>."
       ],
       travelerRoles: [
-        "Accountant / ERP &amp; BI Analyst &nbsp;·&nbsp; Graphic Designer, E-Commerce"
+        "Accountant / ERP &amp; BI Analyst"
       ],
       travelerBullets: [
-        "Ran Ecount ERP for sales and finance teams — fixed data issues, trained new users.",
-        "Built Power BI reports and used SQL/Python to reconcile ERP data for sales and finance.",
-        "Created product photos for e-commerce and kept product/SKU data in sync across marketplaces and ERP."
+        "Set up <strong>Ecount ERP master data from scratch</strong> — defined chart of accounts, customer/vendor master, and SKU mapping standards.",
+        "Built <strong>Power BI reports</strong> and used <strong>Power Query</strong> to reconcile ERP data across sales and finance — established consistent monthly reporting.",
+        "Established product/SKU master data across marketplaces and ERP as a single source of truth for the catalog."
       ],
       projectTaglines: [
         "Full data platform — 50 GB warehouse with 44M+ rows, serving 9 business domains, 1,200+ orders/day, and 100K+ rows/day across 4 marketplaces.",
         "Custom WMS that replaced the previous third-party system — interactive visual map, foreign staff trained in under 5 min, full stock audit trail.",
         "Real-time multi-user barcode scanning system with workflow enforcement.",
-        "AI-assisted invoice processing that reads Thai e-commerce PDF invoices and fills structured records automatically."
+        "AI-assisted invoice processing that reads Thai e-commerce PDF invoices and fills structured records automatically.",
+        "Supporting utilities that feed and operate the data platform."
       ],
       projectBullets: [
         [
@@ -54,13 +55,13 @@ window.resumeI18n = {
         [
           "Uses Azure Document Intelligence to read invoice files and automatically populate fields such as invoice number, dates, amounts, vendor/customer, tax IDs, and VAT.",
           "Supports Thai-specific formats (Buddhist Era dates, Thai Baht, UTF-8), caches results by file hash, and exports completed records to branded Excel."
+        ],
+        [
+          "<strong>App Pipeline</strong> — generic Excel/CSV → SQL Server ETL tool with Tkinter GUI + CLI, shipped as Windows installer (PyInstaller). Replace/Upsert, auto-schema, batch processing.",
+          "<strong>Copy Files Utility</strong> — file-sync utility for staging raw files (any type) into landing folders. SQLite-backed dedup, CSV-configured mappings so non-devs update sources without code.",
+          "<strong>DHL Webhook Receiver</strong> — Flask service that streams DHL tracking events into SQL Server (PyODBC) — minimal bridge from logistics to warehouse data.",
+          "<strong>Web Scraper</strong> — Python scraper collecting flash-sale and return data from marketplaces, feeding the Bronze layer."
         ]
-      ],
-      compactProjects: [
-        "Generic Excel/CSV-to-SQL Server ETL tool with Tkinter GUI and CLI for non-technical users. Supports Replace and Upsert modes, auto-schema detection, batch processing, column mapping, and metadata tracking. Ships as a Windows installer via PyInstaller.",
-        "File sync utility for staging raw data files of any type (Excel, CSV, PDF, images, archives, ...) into the pipeline's landing folders. Features SQLite-backed history tracking for deduplication, per-mapping copy/move modes, depth and date filtering, collision handling, dry-run preview, and progress reporting. Configured through a single CSV so non-developers can update mappings without code changes.",
-        "Lightweight Flask service that receives webhook events from DHL (shipment and tracking updates) and persists them to SQL Server via PyODBC — a minimal integration bridge that streams logistics events straight into the warehouse data layer.",
-        "Python scraper that collects flash-sale and return data from e-commerce platforms, feeding raw files into the Bronze layer of the main data pipeline."
       ],
       sectionSkills: "Technical Skills",
       sectionEducation: "Education",
@@ -90,18 +91,19 @@ window.resumeI18n = {
         "<strong>ทำงานร่วมกับทีมจัดซื้อ คลัง และผู้บริหาร</strong> หา process ที่ automate ได้ แทนงานมือด้วย <strong>low-code / no-code และ AI</strong>"
       ],
       travelerRoles: [
-        "Accountant / ERP &amp; BI Analyst &nbsp;·&nbsp; Graphic Designer, E-Commerce"
+        "Accountant / ERP &amp; BI Analyst"
       ],
       travelerBullets: [
-        "ดูแล Ecount ERP ให้ทีมขายและการเงิน — แก้ปัญหา data และสอน user ใหม่",
-        "สร้าง Power BI reports และใช้ SQL/Python reconcile ข้อมูล ERP สำหรับ sales/finance",
-        "ออกแบบรูปสินค้า e-commerce และดูแล product/SKU data ให้ตรงกันระหว่าง marketplace กับ ERP"
+        "<strong>วาง master data ใน Ecount ERP ตั้งแต่ 0</strong> — กำหนด chart of accounts, customer/vendor master และ SKU mapping standards",
+        "สร้าง <strong>Power BI reports</strong> และใช้ <strong>Power Query</strong> reconcile ข้อมูล ERP ของ sales/finance — ทำให้ report รายเดือนตรงและ stable",
+        "วาง product/SKU master data ระหว่าง marketplaces และ ERP ให้เป็น single source of truth ของ catalog"
       ],
       projectTaglines: [
         "Data platform เต็มระบบ — warehouse ขนาด 50 GB กว่า 44M แถว เสิร์ฟ 9 business domains รับ 1,200+ orders/วัน และ 100K+ rows/วัน จาก 4 marketplaces",
         "WMS ที่เขียนเองมาแทนระบบเดิม — แผนที่คลังกดดูของได้ คนงานต่างชาติเรียนไม่ถึง 5 นาทีก็ใช้ได้ track ของได้ทุกการเคลื่อนไหว",
         "ระบบ barcode scanner หลายคนใช้พร้อมกันแบบ real-time พร้อมบังคับลำดับงาน",
-        "ระบบ AI อ่านไฟล์ invoice PDF ของ e-commerce ไทย แล้วลงข้อมูลเป็น structured records ให้อัตโนมัติ"
+        "ระบบ AI อ่านไฟล์ invoice PDF ของ e-commerce ไทย แล้วลงข้อมูลเป็น structured records ให้อัตโนมัติ",
+        "Utility ที่ feed และ operate data platform หลัก"
       ],
       projectBullets: [
         [
@@ -123,13 +125,13 @@ window.resumeI18n = {
         [
           "ใช้ Azure Document Intelligence อ่านไฟล์ invoice แล้วกรอกข้อมูลให้อัตโนมัติ เช่น เลข invoice, วันที่, ยอดเงิน, vendor/customer, เลขผู้เสียภาษี และ VAT",
           "รองรับ format เฉพาะไทย (พ.ศ., เงินบาท, UTF-8), cache ด้วย file hash เพื่อลดการเรียก API ซ้ำ และ export records ที่ลงข้อมูลแล้วเป็น Excel พร้อม branding"
+        ],
+        [
+          "<strong>App Pipeline</strong> — ETL tool โหลด Excel/CSV → SQL Server พร้อม Tkinter GUI + CLI, แพ็คเป็น Windows installer (PyInstaller) รองรับ Replace/Upsert, auto-schema, batch processing",
+          "<strong>Copy Files Utility</strong> — file-sync utility สำหรับ stage raw files ทุกประเภทเข้า landing folder พร้อม SQLite dedup, config ผ่าน CSV ไฟล์เดียวให้ user แก้ mapping ได้เอง",
+          "<strong>DHL Webhook Receiver</strong> — Flask service ที่ stream DHL tracking events เข้า SQL Server (PyODBC) — bridge ระหว่าง logistics กับ warehouse data",
+          "<strong>Web Scraper</strong> — Python scraper เก็บ flash-sale และ return data จาก marketplaces ส่งเข้า Bronze layer"
         ]
-      ],
-      compactProjects: [
-        "ETL tool สำหรับโหลด Excel/CSV เข้า SQL Server พร้อม Tkinter GUI และ CLI ให้ user ที่ไม่ใช่ developer ใช้งานได้ รองรับ Replace และ Upsert mode, auto-schema detection, batch processing, column mapping และ metadata tracking แพ็คเป็น Windows installer ด้วย PyInstaller",
-        "File sync utility สำหรับ stage raw data files ทุกประเภท (Excel, CSV, PDF, images, archives, ...) เข้า landing folder ของ pipeline — มี SQLite history tracking กัน duplicate, copy/move modes ต่อ mapping, depth + date filtering, collision handling, dry-run preview และ progress bar config ผ่าน CSV ไฟล์เดียวให้ user ที่ไม่ใช่ developer แก้ source / destination mapping ได้",
-        "Flask service เบา ๆ ที่รับ webhook event จาก DHL (shipment / tracking updates) และ persist ลง SQL Server ด้วย PyODBC — เป็น integration bridge ระหว่าง DHL notification กับ warehouse data",
-        "Python scraper ที่เก็บ flash-sale และ return data จาก e-commerce platforms ส่ง raw files ต่อเข้า Bronze layer ของ main data pipeline"
       ],
       sectionSkills: "ทักษะทางเทคนิค",
       sectionEducation: "การศึกษา",
