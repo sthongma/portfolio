@@ -8,7 +8,7 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Data engineer building production data platforms.</strong> 3+ years across data, BI, and operations; currently designs and operates a <strong>50 GB warehouse processing 100K+ records/day</strong> for a 100M+ THB/month e-commerce business — <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong>. Builds for non-technical business users (warehouse, procurement, exec)."
+        "<strong>Data engineer building production data platforms.</strong> 3+ years across data, BI, and operations; currently designs and operates a <strong>50 GB warehouse processing 100K+ records/day</strong> via ELT pipelines, <strong>193+ dbt models with 180+ data tests</strong>, dimensional data modeling, and reverse-ETL to legacy systems — for a 100M+ THB/month e-commerce business. Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong>. Builds for non-technical business users (warehouse, procurement, exec)."
       ],
       sectionExperience: "Experience",
       epPeriod: "May 2025 – Present",
@@ -98,7 +98,7 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 3+ ปี ในงาน data, BI และ operations ปัจจุบันออกแบบและดูแล <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ให้บริษัท e-commerce ยอดขาย 100M+ THB/เดือน — <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong> สร้าง app และ dashboard ให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
+        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 3+ ปี ในงาน data, BI และ operations ปัจจุบันออกแบบและดูแล <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ผ่าน ELT pipelines, <strong>193+ dbt models พร้อม 180+ data tests</strong>, dimensional data modeling และ reverse-ETL กลับไประบบเดิม — ให้บริษัท e-commerce ยอดขาย 100M+ THB/เดือน Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong> สร้าง app และ dashboard ให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
       epPeriod: "พ.ค. 2025 – ปัจจุบัน",

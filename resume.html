@@ -1449,14 +1449,14 @@
 
   <!-- ============== TAB NAV ============== -->
   <nav class="tabs" role="tablist" aria-label="View switcher">
-    <label for="tab-resume" role="tab">Resume</label>
-    <label for="tab-projects" role="tab">Projects</label>
+    <label for="tab-resume" id="tab-resume-label" role="tab" aria-controls="panel-resume-top panel-resume-extra">Resume</label>
+    <label for="tab-projects" id="tab-projects-label" role="tab" aria-controls="panel-projects">Projects</label>
   </nav>
 
   <!-- ============================================= -->
   <!-- ============== RESUME VIEW =================== -->
   <!-- ============================================= -->
-  <div class="view view-resume">
+  <div class="view view-resume" id="panel-resume-top" role="tabpanel" aria-labelledby="tab-resume-label" tabindex="0">
 
   <!-- ============== SUMMARY ============== -->
   <section class="summary">
@@ -1465,10 +1465,12 @@
       <strong>Data engineer building production data platforms.</strong>
       3+ years across data, BI, and operations; currently designs and
       operates a <strong>50 GB warehouse processing 100K+ records/day</strong>
-      for a 100M+ THB/month e-commerce business —
-      <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server,
-      FastAPI/React</strong>. Builds for non-technical business users
-      (warehouse, procurement, exec).
+      via ELT pipelines, <strong>193+ dbt models with 180+ data
+      tests</strong>, dimensional data modeling, and reverse-ETL to
+      legacy systems — for a 100M+ THB/month e-commerce business.
+      Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python,
+      SQL Server, FastAPI/React</strong>. Builds for non-technical
+      business users (warehouse, procurement, exec).
     </p>
   </section>
 
@@ -1552,7 +1554,7 @@
   <!-- ============================================= -->
   <!-- ============== PROJECTS VIEW ================= -->
   <!-- ============================================= -->
-  <div class="view view-projects">
+  <div class="view view-projects" id="panel-projects" role="tabpanel" aria-labelledby="tab-projects-label" tabindex="0">
 
   <!-- ============== PROJECTS ============== -->
   <section>
@@ -1875,7 +1877,7 @@
   <!-- ============================================= -->
   <!-- ============== RESUME VIEW (cont'd) ========== -->
   <!-- ============================================= -->
-  <div class="view view-resume view-resume-extra">
+  <div class="view view-resume view-resume-extra" id="panel-resume-extra" role="tabpanel" aria-labelledby="tab-resume-label" tabindex="0">
 
   <!-- ============== SKILLS ============== -->
   <section>
@@ -2096,6 +2098,53 @@
     button.addEventListener("click", () => applyLanguage(button.dataset.langOption));
   });
   applyLanguage(initialLang === "th" ? "th" : "en");
+
+  // ============== Tabs: aria-selected sync + URL hash sync ==============
+  const tabRadios = {
+    resume: $("#tab-resume"),
+    projects: $("#tab-projects"),
+  };
+  const tabLabels = {
+    resume: $("#tab-resume-label"),
+    projects: $("#tab-projects-label"),
+  };
+
+  function syncTabAria() {
+    const active = tabRadios.projects?.checked ? "projects" : "resume";
+    Object.entries(tabLabels).forEach(([key, label]) => {
+      label?.setAttribute("aria-selected", String(key === active));
+    });
+  }
+
+  function selectTab(name, { updateHash = true } = {}) {
+    const radio = tabRadios[name];
+    if (!radio) return;
+    radio.checked = true;
+    syncTabAria();
+    if (updateHash) {
+      const newHash = name === "projects" ? "#projects" : "";
+      if (newHash !== window.location.hash) {
+        history.replaceState(null, "", newHash || window.location.pathname + window.location.search);
+      }
+    }
+  }
+
+  // Initial tab from URL hash
+  const initialTab = window.location.hash === "#projects" ? "projects" : "resume";
+  selectTab(initialTab, { updateHash: false });
+
+  // Click on a tab label updates hash + aria
+  Object.entries(tabLabels).forEach(([name, label]) => {
+    label?.addEventListener("click", () => {
+      // Defer so radio :checked has updated
+      setTimeout(() => selectTab(name), 0);
+    });
+  });
+
+  // Hash change (back/forward, manual edit)
+  window.addEventListener("hashchange", () => {
+    selectTab(window.location.hash === "#projects" ? "projects" : "resume", { updateHash: false });
+  });
 })();
 </script>
 </body>
