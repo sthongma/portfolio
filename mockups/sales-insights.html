@@ -65,6 +65,7 @@
     top: 0; left: 0; bottom: 0;
     width: 56px;
     background: var(--paper-50);
+    border-right: 1px solid var(--line);
     display: flex;
     flex-direction: column;
     z-index: 50;
@@ -78,7 +79,6 @@
     align-items: center;
     gap: 12px;
     padding: 0 14px;
-    border-bottom: 1px solid var(--line);
     flex-shrink: 0;
   }
   .sidebar-logo {
@@ -146,7 +146,7 @@
     background: var(--accent-navy);
     border-radius: 0 2px 2px 0;
   }
-  .sidebar-foot { padding: 10px 8px; border-top: 1px solid var(--line); }
+  .sidebar-foot { padding: 10px 8px; }
 
   /* ============= TOPBAR ============= */
   .topbar {
@@ -841,6 +841,7 @@
     top: 0; right: 0; bottom: 0;
     width: 384px;
     background: var(--paper-50);
+    border-left: 1px solid var(--line);
     box-shadow: var(--shadow-modal);
     display: flex;
     flex-direction: column;
