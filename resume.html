@@ -3,10 +3,18 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sahatsawat Thongma — Data Engineer</title>
+<meta name="description" content="Sahatsawat Thongma — Data Engineer building production data platforms. dbt · Airflow · Azure · Python · SQL Server · FastAPI/React. 50 GB warehouse, 100K+ records/day at EP Asia Group." />
+<meta property="og:title" content="Sahatsawat Thongma — Data Engineer" />
+<meta property="og:description" content="Production data platforms — dbt · Airflow · Azure · Python. 50 GB warehouse, 100K+ records/day at EP Asia Group." />
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/186543613" />
+<meta property="og:type" content="profile" />
+<meta name="twitter:card" content="summary" />
+<link rel="canonical" href="https://sthongma.github.io/portfolio/resume.html" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231f2937'/><text x='50' y='72' font-size='66' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>S</text></svg>" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
-<title>Sahatsawat Thongma — Data Engineer</title>
 <style>
   :root {
     --bg: #0b0f17;
@@ -133,6 +141,7 @@
   address.contact a.contact-portfolio:hover {
     color: var(--fg);
   }
+  .print-only { display: none !important; }
   address.contact span.sep {
     display: none;
   }
@@ -407,6 +416,42 @@
     border-radius: 99px;
     color: var(--accent-strong);
     white-space: nowrap;
+  }
+
+  /* Live-demo links — under chips on Project cards */
+  .demo-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+  .demo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border-strong);
+    border-bottom: 1px solid var(--border-strong);
+    border-radius: 7px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent-strong);
+    text-decoration: none;
+    transition: border-color 120ms, background 120ms, transform 120ms;
+  }
+  .demo-link:hover {
+    background: var(--chip-bg);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .demo-link svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.2;
   }
 
   /* Metric summary (project #1) */
@@ -1203,10 +1248,14 @@
     .diagram-expand { display: none !important; }
     .diagram-modal { display: none !important; }
     .print-hide { display: none !important; }
+    .print-only { display: inline-flex !important; }
 
-    /* Print resume view only (Projects view stays hidden) */
-    .view-projects { display: none !important; }
+    /* Show resume + only Project #1 in print */
     .view-resume { display: block !important; }
+    .view-projects { display: block !important; }
+    .view-projects .project ~ .project { display: none !important; }
+    /* Demo links not useful in print */
+    .demo-links { display: none !important; }
 
     /* Tighten layout to fit A4 — keep web visuals */
     html, body { font-size: 10px; line-height: 1.5; }
@@ -1273,16 +1322,50 @@
     dl.skills dd { font-size: 10.5px !important; gap: 5px !important; line-height: 1.4 !important; }
     .skill-token { min-height: 0; padding: 1px 7px; font-size: 9.5px; }
 
-    /* Education */
+    /* Learning / Certifications */
     .edu-item h3 { font-size: 12.5px; }
     .edu-item .period { font-size: 10px; }
     .edu-item .degree { font-size: 10px !important; line-height: 1.5 !important; margin-top: 3px !important; }
     .edu-item + .edu-item { margin-top: 8px !important; }
 
+    /* Project #1 compact for print */
+    .view-projects { page-break-before: always; }
+    .view-projects section { margin-top: 0 !important; }
+    .project {
+      padding: 11px 15px !important;
+      margin-bottom: 0 !important;
+      border-radius: 7px;
+      background: #ffffff !important;
+      border: 1px solid var(--border) !important;
+      box-shadow: none !important;
+      cursor: default;
+    }
+    .project h3 { font-size: 13.5px; }
+    .project h3 .num { margin-right: 8px; }
+    .project .tagline { font-size: 10px !important; margin: 4px 0 6px !important; line-height: 1.45 !important; }
+    .project ul.bullets { margin: 5px 0 6px !important; padding-left: 16px !important; }
+    .project ul.bullets li { margin-bottom: 4px !important; line-height: 1.5 !important; font-size: 10px; }
+    .metrics { margin: 8px 0 6px !important; padding: 5px 0 !important; }
+    .metric .val { font-size: 11.5px !important; }
+    .metric .label { font-size: 8.5px !important; }
+    .chips { gap: 4px !important; margin-top: 8px !important; }
+    .chip { padding: 1px 7px !important; font-size: 8.5px !important; border-radius: 5px !important; }
+
+    /* Diagram compact for print */
+    .diagram-panel { padding: 8px !important; margin: 8px 0 4px !important; }
+    .diagram-heading { margin-bottom: 6px !important; }
+    .diagram-heading h4 { font-size: 11px !important; }
+    .diagram-heading p { font-size: 9px !important; margin-top: 3px !important; line-height: 1.4 !important; }
+    .diagram-legend { gap: 6px !important; margin-top: 6px !important; }
+    .legend-item { font-size: 8.5px !important; }
+    .legend-swatch { width: 8px !important; height: 8px !important; }
+    svg.arch-diagram { max-width: 100% !important; max-height: 320px !important; }
+
     /* Avoid breaks inside cards/items */
     .view-resume section,
     .exp-item,
-    .edu-item {
+    .edu-item,
+    .project {
       page-break-inside: avoid;
       break-inside: avoid;
     }
@@ -1332,7 +1415,7 @@
         </svg>
         github.com/sthongma
       </a>
-      <a href="https://sthongma.github.io/portfolio/resume.html" class="contact-portfolio">
+      <a href="https://sthongma.github.io/portfolio/resume.html" class="contact-portfolio print-only">
         <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="10"/>
           <path d="M2 12h20"/>
@@ -1415,15 +1498,17 @@
         <li>
           <strong>Built ETL pipelines</strong> pulling marketplace
           file exports and internal data (Power Automate portal
-          automation, Python, 46 Azure Data Factory pipelines). Plus
-          a self-service config app so non-developers can add new
+          automation, Python, 46 Azure Data Factory pipelines —
+          incl. 25 reverse-ETL to legacy systems). Plus a
+          self-service config app so non-developers can add new
           data sources themselves.
         </li>
         <li>
-          <strong>Replaced the broken warehouse system</strong> with
-          custom apps (WMS, barcode scanner, invoice OCR) — Burmese
-          teammates now learn in under 5 minutes;
-          <strong>1,200+ orders/day</strong> with full audit trail.
+          <strong>Replaced the legacy warehouse system</strong> with
+          custom apps (WMS, barcode scanner, invoice OCR) — warehouse
+          staff (including non-Thai speakers) now learn in under 5
+          minutes; <strong>1,200+ orders/day</strong> with full audit
+          trail.
         </li>
         <li>
           <strong>Worked with procurement, warehouse &amp; executive
@@ -1442,16 +1527,21 @@
         <li>
           Set up <strong>Ecount ERP master data from scratch</strong>
           — defined chart of accounts, customer/vendor master, and
-          SKU mapping standards.
+          SKU mapping standards, giving the company a clean foundation
+          for finance, sales reporting, and downstream BI.
         </li>
         <li>
           Built <strong>Power BI reports</strong> and used
           <strong>Power Query</strong> to reconcile ERP data across
-          sales and finance — established consistent monthly reporting.
+          sales and finance — established consistent monthly reporting
+          that closed recurring discrepancies between the sales and
+          finance teams.
         </li>
         <li>
           Established product/SKU master data across marketplaces and
-          ERP as a single source of truth for the catalog.
+          ERP as a single source of truth for the catalog —
+          eliminated the SKU-mapping ambiguity that had caused stock
+          misalignment across channels.
         </li>
       </ul>
     </div>
@@ -1502,7 +1592,7 @@
         </div>
         <div class="metric">
           <span class="val">THB 800M+</span>
-          <span class="label">revenue processed</span>
+          <span class="label">revenue processed (to date)</span>
         </div>
       </div>
 
@@ -1649,6 +1739,16 @@
         <span class="chip">Config-driven mapping</span>
         <span class="chip">Docker</span>
       </div>
+      <div class="demo-links" data-demo-links>
+        <a class="demo-link" href="mockups/sales-insights.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span data-demo-label="sales">Sales Insights demo</span>
+        </a>
+        <a class="demo-link" href="mockups/fulfillment.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span data-demo-label="fulfillment">Fulfillment demo</span>
+        </a>
+      </div>
     </article>
 
     <!-- Project 2 -->
@@ -1684,6 +1784,12 @@
         <span class="chip">Docker</span>
         <span class="chip">Azure App Service</span>
       </div>
+      <div class="demo-links" data-demo-links>
+        <a class="demo-link" href="mockups/wms.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span data-demo-label="wms">Warehouse map demo</span>
+        </a>
+      </div>
     </article>
 
     <!-- Project 3 -->
@@ -1706,6 +1812,12 @@
         <span class="chip">SQL Server</span>
         <span class="chip">Azure Blob Storage</span>
         <span class="chip">Docker</span>
+      </div>
+      <div class="demo-links" data-demo-links>
+        <a class="demo-link" href="mockups/bsn.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span data-demo-label="bsn">Barcode scanner demo</span>
+        </a>
       </div>
     </article>
 
@@ -1811,36 +1923,49 @@
         <span class="skill-token">Excel (advanced)</span>
       </dd>
 
-      <dt>Cloud &amp; DevOps</dt>
+      <dt>Cloud Services</dt>
       <dd>
         <span class="skill-token">Azure Data Factory</span>
         <span class="skill-token">Azure App Service</span>
         <span class="skill-token">Blob Storage</span>
         <span class="skill-token">Document Intelligence</span>
-        <span class="skill-token">Docker</span>
-        <span class="skill-token">Git</span>
-        <span class="skill-token">GitHub Actions</span>
       </dd>
 
-      <dt>AI-Assisted Development</dt>
+      <dt>Developer Tooling</dt>
       <dd>
+        <span class="skill-token">Git</span>
+        <span class="skill-token">GitHub Actions</span>
+        <span class="skill-token">Docker</span>
+        <span class="skill-token">AI pair-programming</span>
         <span class="skill-token">Claude Code</span>
         <span class="skill-token">Cursor</span>
-        <span class="skill-token">AI pair-programming</span>
-        <span class="skill-token">Spec-driven prompting</span>
       </dd>
 
     </dl>
   </section>
 
-  <!-- ============== EDUCATION ============== -->
+  <!-- ============== LEARNING & CERTIFICATIONS ============== -->
   <section>
-    <h2>Education</h2>
+    <h2>Learning &amp; Certifications</h2>
     <div class="edu-item">
-      <h3>Udon Thani Rajabhat University</h3>
-      <span class="period">Coursework completed (Year 1)</span>
+      <h3>Power BI &amp; Excel for Data Analysis</h3>
+      <span class="period">9Expert Online Training</span>
       <div class="degree">
-        Mechatronics &amp; Robotics Engineering.
+        Hands-on coursework on Power BI modeling, DAX, and Power Query — applied to monthly finance &amp; sales reconciliation at Traveler Co.
+      </div>
+    </div>
+    <div class="edu-item">
+      <h3>Python Programming Foundations</h3>
+      <span class="period">Skooldio &nbsp;·&nbsp; Jun 2025</span>
+      <div class="degree">
+        Instructor: Soranapop Devapaticom (สรณภพ เทวปฏิคม). Core Python for data work — used as the base for ETL scripts, FastAPI services, and Airflow operators in production.
+      </div>
+    </div>
+    <div class="edu-item">
+      <h3>Continuous Self-Directed Learning</h3>
+      <span class="period">Ongoing</span>
+      <div class="degree">
+        Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript.
       </div>
     </div>
   </section>
@@ -1903,10 +2028,23 @@
 
     setHTML(".view-resume-extra section:nth-of-type(1) > h2", t.sectionSkills);
 
-    setHTML(".view-resume-extra section:nth-of-type(2) > h2", t.sectionEducation);
-    setHTML(".edu-item:nth-of-type(1) h3", t.university);
-    setHTML(".edu-item:nth-of-type(1) .period", t.universityPeriod);
-    setHTML(".edu-item:nth-of-type(1) .degree", t.universityDegree);
+    setHTML(".view-resume-extra section:nth-of-type(2) > h2", t.sectionLearning);
+    $$(".view-resume-extra .edu-item").forEach((item, i) => {
+      const data = t.learningItems?.[i];
+      if (!data) return;
+      const h3 = item.querySelector("h3");
+      const period = item.querySelector(".period");
+      const degree = item.querySelector(".degree");
+      if (h3 && data.title !== undefined) h3.innerHTML = data.title;
+      if (period && data.period !== undefined) period.innerHTML = data.period;
+      if (degree && data.degree !== undefined) degree.innerHTML = data.degree;
+    });
+
+    document.querySelectorAll("[data-demo-label]").forEach((el) => {
+      const key = el.dataset.demoLabel;
+      const label = t.demoLabels?.[key];
+      if (label) el.textContent = label;
+    });
 
     document.querySelectorAll("[data-lang-option]").forEach((button) => {
       button.setAttribute("aria-pressed", String(button.dataset.langOption === lang));

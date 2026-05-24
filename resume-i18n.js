@@ -16,17 +16,17 @@ window.resumeI18n = {
       epBullets: [
         "<strong>Built the company's first data warehouse</strong> — replaced messy Google Sheets/Excel for 25+ staff, saving <strong>25–75 person-hours/day across the team</strong> (1–3 hr/person) and eliminating cross-spreadsheet reconciliation errors.",
         "<strong>Designed the data warehouse structure</strong> — 193 transformation steps across 9 business areas, processing <strong>100K+ records/day</strong> from Shopee, Lazada, TikTok, Facebook. Powers <strong>BI dashboards</strong> for exec, procurement, warehouse, and fulfillment teams.",
-        "<strong>Built ETL pipelines</strong> pulling marketplace file exports and internal data (Power Automate portal automation, Python, 46 Azure Data Factory pipelines). Plus a self-service config app so non-developers can add new data sources themselves.",
-        "<strong>Replaced the broken warehouse system</strong> with custom apps (WMS, barcode scanner, invoice OCR) — Burmese teammates now learn in under 5 minutes; <strong>1,200+ orders/day</strong> with full audit trail.",
+        "<strong>Built ETL pipelines</strong> pulling marketplace file exports and internal data (Power Automate portal automation, Python, 46 Azure Data Factory pipelines — incl. 25 reverse-ETL to legacy systems). Plus a self-service config app so non-developers can add new data sources themselves.",
+        "<strong>Replaced the legacy warehouse system</strong> with custom apps (WMS, barcode scanner, invoice OCR) — warehouse staff (including non-Thai speakers) now learn in under 5 minutes; <strong>1,200+ orders/day</strong> with full audit trail.",
         "<strong>Worked with procurement, warehouse &amp; executive teams</strong> to find work that could be automated — replaced manual processes with <strong>low-code / no-code tools and AI</strong>."
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
       ],
       travelerBullets: [
-        "Set up <strong>Ecount ERP master data from scratch</strong> — defined chart of accounts, customer/vendor master, and SKU mapping standards.",
-        "Built <strong>Power BI reports</strong> and used <strong>Power Query</strong> to reconcile ERP data across sales and finance — established consistent monthly reporting.",
-        "Established product/SKU master data across marketplaces and ERP as a single source of truth for the catalog."
+        "Set up <strong>Ecount ERP master data from scratch</strong> — defined chart of accounts, customer/vendor master, and SKU mapping standards, giving the company a clean foundation for finance, sales reporting, and downstream BI.",
+        "Built <strong>Power BI reports</strong> and used <strong>Power Query</strong> to reconcile ERP data across sales and finance — established consistent monthly reporting that closed recurring discrepancies between the sales and finance teams.",
+        "Established product/SKU master data across marketplaces and ERP as a single source of truth for the catalog — eliminated the SKU-mapping ambiguity that had caused stock misalignment across channels."
       ],
       projectTaglines: [
         "Full data platform — 50 GB warehouse with 44M+ rows, serving 9 business domains, 1,200+ orders/day, and 100K+ rows/day across 4 marketplaces.",
@@ -64,10 +64,30 @@ window.resumeI18n = {
         ]
       ],
       sectionSkills: "Technical Skills",
-      sectionEducation: "Education",
-      university: "Udon Thani Rajabhat University",
-      universityPeriod: "Coursework completed (Year 1)",
-      universityDegree: "Mechatronics &amp; Robotics Engineering."
+      sectionLearning: "Learning &amp; Certifications",
+      learningItems: [
+        {
+          title: "Power BI &amp; Excel for Data Analysis",
+          period: "9Expert Online Training",
+          degree: "Hands-on coursework on Power BI modeling, DAX, and Power Query — applied to monthly finance &amp; sales reconciliation at Traveler Co."
+        },
+        {
+          title: "Python Programming Foundations",
+          period: "Skooldio &nbsp;·&nbsp; Jun 2025",
+          degree: "Instructor: Soranapop Devapaticom (สรณภพ เทวปฏิคม). Core Python for data work — used as the base for ETL scripts, FastAPI services, and Airflow operators in production."
+        },
+        {
+          title: "Continuous Self-Directed Learning",
+          period: "Ongoing",
+          degree: "Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript."
+        }
+      ],
+      demoLabels: {
+        sales: "Sales Insights demo",
+        fulfillment: "Fulfillment demo",
+        wms: "Warehouse map demo",
+        bsn: "Barcode scanner demo"
+      }
     },
     th: {
       documentTitle: "สหัสวรรษ ทองมา — Data Engineer",
@@ -86,17 +106,17 @@ window.resumeI18n = {
       epBullets: [
         "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ให้ทีม 25+ คน ประหยัดเวลารวมทั้งทีม <strong>25–75 ชั่วโมง/วัน</strong> (1–3 ชม./คน) และตัดปัญหา reconcile ตัวเลขข้าม spreadsheet",
         "<strong>ออกแบบโครงสร้าง data warehouse</strong> — 193 transformation steps ครอบคลุม 9 ด้านธุรกิจ ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok, Facebook ป้อน <strong>BI dashboards</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment",
-        "<strong>สร้าง ETL pipelines</strong> ดึงไฟล์ export จาก marketplace และข้อมูลจากระบบภายใน (Power Automate portal automation, Python, Azure Data Factory 46 pipelines) พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
-        "<strong>เปลี่ยนระบบ WMS ที่ใช้ไม่ได้</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พี่พม่าในคลังเรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,200+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
+        "<strong>สร้าง ETL pipelines</strong> ดึงไฟล์ export จาก marketplace และข้อมูลจากระบบภายใน (Power Automate portal automation, Python, Azure Data Factory 46 pipelines — รวม 25 reverse-ETL ไปยังระบบเดิม) พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
+        "<strong>เปลี่ยนระบบ WMS เดิม</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พนักงานคลัง (รวมพนักงานต่างชาติ) เรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,200+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
         "<strong>ทำงานร่วมกับทีมจัดซื้อ คลัง และผู้บริหาร</strong> หา process ที่ automate ได้ แทนงานมือด้วย <strong>low-code / no-code และ AI</strong>"
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
       ],
       travelerBullets: [
-        "<strong>วาง master data ใน Ecount ERP ตั้งแต่ 0</strong> — กำหนด chart of accounts, customer/vendor master และ SKU mapping standards",
-        "สร้าง <strong>Power BI reports</strong> และใช้ <strong>Power Query</strong> reconcile ข้อมูล ERP ของ sales/finance — ทำให้ report รายเดือนตรงและ stable",
-        "วาง product/SKU master data ระหว่าง marketplaces และ ERP ให้เป็น single source of truth ของ catalog"
+        "<strong>วาง master data ใน Ecount ERP ตั้งแต่ 0</strong> — กำหนด chart of accounts, customer/vendor master และ SKU mapping standards ทำให้บริษัทมีฐานข้อมูลที่สะอาดสำหรับ finance, sales reporting และ BI ในระยะยาว",
+        "สร้าง <strong>Power BI reports</strong> และใช้ <strong>Power Query</strong> reconcile ข้อมูล ERP ของ sales/finance — ทำให้ report รายเดือนตรงและ stable ปิดปัญหาตัวเลขไม่ตรงกันระหว่างทีม sales กับ finance ที่เคยเกิดประจำ",
+        "วาง product/SKU master data ระหว่าง marketplaces และ ERP ให้เป็น single source of truth ของ catalog — ตัดปัญหา SKU mapping ที่เคยทำให้สต็อกไม่ตรงระหว่างช่องทาง"
       ],
       projectTaglines: [
         "Data platform เต็มระบบ — warehouse ขนาด 50 GB กว่า 44M แถว เสิร์ฟ 9 business domains รับ 1,200+ orders/วัน และ 100K+ rows/วัน จาก 4 marketplaces",
@@ -134,9 +154,29 @@ window.resumeI18n = {
         ]
       ],
       sectionSkills: "ทักษะทางเทคนิค",
-      sectionEducation: "การศึกษา",
-      university: "มหาวิทยาลัยราชภัฏอุดรธานี",
-      universityPeriod: "เรียนครบรายวิชาชั้นปีที่ 1",
-      universityDegree: "วิศวกรรมเมคคาทรอนิกส์และหุ่นยนต์"
+      sectionLearning: "ประกาศนียบัตร &amp; การเรียนรู้ต่อเนื่อง",
+      learningItems: [
+        {
+          title: "Power BI &amp; Excel สำหรับงาน Data Analysis",
+          period: "9Expert Online Training",
+          degree: "เรียน Power BI modeling, DAX และ Power Query แบบ hands-on — นำมาใช้จริงในการ reconcile ข้อมูล finance &amp; sales รายเดือนที่ Traveler Co."
+        },
+        {
+          title: "Python Programming Foundations",
+          period: "Skooldio &nbsp;·&nbsp; มิ.ย. 2025",
+          degree: "สอนโดย สรณภพ เทวปฏิคม — Python พื้นฐานสำหรับงาน data ใช้เป็นฐานเขียน ETL scripts, FastAPI services และ Airflow operators ในงานจริง"
+        },
+        {
+          title: "เรียนรู้ต่อเนื่องด้วยตัวเอง",
+          period: "ทำต่อเนื่อง",
+          degree: "ศึกษา stack ของ data engineering จาก official docs, YouTube และ AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript"
+        }
+      ],
+      demoLabels: {
+        sales: "ดู Sales Insights",
+        fulfillment: "ดู Fulfillment",
+        wms: "ดูแผนที่คลัง",
+        bsn: "ดู Barcode scanner"
+      }
     }
   };
