@@ -1274,20 +1274,22 @@
     address.contact a.contact-portfolio { text-decoration: underline; text-underline-offset: 2px; }
     .contact-icon { width: 11px; height: 11px; }
 
-    /* Section cards with breathing room */
-    section { margin-top: 9px !important; }
+    /* Sections flow continuously in print — no card chrome */
+    section { margin-top: 8px !important; }
     .view-resume section {
-      padding: 11px 15px;
-      margin-top: 9px;
-      border-radius: 7px;
+      padding: 0 !important;
+      margin-top: 8px !important;
+      border: none !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
     }
-    .view-resume section:first-child,
-    .view-resume-extra section:first-child {
-      margin-top: 9px;
+    .view-resume section:first-child {
+      margin-top: 4px !important;
     }
     section > h2 {
-      margin: 0 0 8px;
-      padding-bottom: 5px;
+      margin: 0 0 6px;
+      padding-bottom: 4px;
       font-size: 10px;
     }
 
@@ -1317,8 +1319,8 @@
     .edu-item .degree { font-size: 10px !important; line-height: 1.5 !important; margin-top: 3px !important; }
     .edu-item + .edu-item { margin-top: 8px !important; }
 
-    /* Project #1 compact for print */
-    .view-projects { page-break-before: always; }
+    /* Project #1 compact for print — flows naturally; page-break-inside
+       on .project keeps it from splitting across pages. */
     .view-projects section { margin-top: 0 !important; }
     .project {
       padding: 11px 15px !important;
@@ -1438,7 +1440,7 @@
 
   <!-- ============== TAB NAV ============== -->
   <nav class="tabs" role="tablist" aria-label="View switcher">
-    <label for="tab-resume" id="tab-resume-label" role="tab" aria-controls="panel-resume-top panel-resume-extra" data-i18n="tabs[0]">Resume</label>
+    <label for="tab-resume" id="tab-resume-label" role="tab" aria-controls="panel-resume-top" data-i18n="tabs[0]">Resume</label>
     <label for="tab-projects" id="tab-projects-label" role="tab" aria-controls="panel-projects" data-i18n="tabs[1]">Projects</label>
   </nav>
 
@@ -1538,7 +1540,100 @@
     </div>
   </section>
 
-  </div><!-- end .view-resume (part 1) -->
+  <!-- ============== SKILLS ============== -->
+  <section>
+    <h2 data-i18n="sectionSkills">Technical Skills</h2>
+    <dl class="skills">
+      <dt>Data Warehouse</dt>
+      <dd>
+        <span class="skill-token">SQL Server</span>
+        <span class="skill-token">T-SQL</span>
+        <span class="skill-token">dbt</span>
+        <span class="skill-token">Medallion architecture</span>
+        <span class="skill-token">Kimball / star schema</span>
+        <span class="skill-token">SCD type 2</span>
+      </dd>
+
+      <dt>Data Engineering</dt>
+      <dd>
+        <span class="skill-token">Python</span>
+        <span class="skill-token">Pandas</span>
+        <span class="skill-token">ETL / ELT pipelines</span>
+        <span class="skill-token">Apache Airflow</span>
+        <span class="skill-token">SQLAlchemy</span>
+        <span class="skill-token">Pipeline orchestration</span>
+        <span class="skill-token">Data quality &amp; alerting</span>
+      </dd>
+
+      <dt>App Development</dt>
+      <dd>
+        <span class="skill-token">FastAPI</span>
+        <span class="skill-token">React / TypeScript</span>
+        <span class="skill-token">HTMX</span>
+        <span class="skill-token">Alpine.js</span>
+        <span class="skill-token">Jinja2</span>
+        <span class="skill-token">Alembic (DB migrations)</span>
+        <span class="skill-token">REST / JSON API integration</span>
+      </dd>
+
+      <dt>BI &amp; Automation</dt>
+      <dd>
+        <span class="skill-token">BI dashboards &amp; reports</span>
+        <span class="skill-token">Power BI</span>
+        <span class="skill-token">Power Query</span>
+        <span class="skill-token">Power Automate</span>
+        <span class="skill-token">Low-code / No-code</span>
+        <span class="skill-token">Excel (advanced)</span>
+      </dd>
+
+      <dt>Cloud Services</dt>
+      <dd>
+        <span class="skill-token">Azure Data Factory</span>
+        <span class="skill-token">Azure App Service</span>
+        <span class="skill-token">Blob Storage</span>
+        <span class="skill-token">Document Intelligence</span>
+      </dd>
+
+      <dt>Developer Tooling</dt>
+      <dd>
+        <span class="skill-token">Git</span>
+        <span class="skill-token">GitHub Actions</span>
+        <span class="skill-token">Docker</span>
+        <span class="skill-token">AI pair-programming</span>
+        <span class="skill-token">Claude Code</span>
+        <span class="skill-token">Cursor</span>
+      </dd>
+
+    </dl>
+  </section>
+
+  <!-- ============== LEARNING & CERTIFICATIONS ============== -->
+  <section>
+    <h2 data-i18n="sectionLearning">Learning &amp; Certifications</h2>
+    <div class="edu-item">
+      <h3 data-i18n="learningItems[0].title">Power BI &amp; Excel for Data Analysis</h3>
+      <span class="period" data-i18n="learningItems[0].period">9Expert Online Training</span>
+      <div class="degree" data-i18n="learningItems[0].degree">
+        Hands-on coursework on Power BI modeling, DAX, and Power Query — applied to monthly finance &amp; sales reconciliation at Traveler Co.
+      </div>
+    </div>
+    <div class="edu-item">
+      <h3 data-i18n="learningItems[1].title">Python Programming Foundations</h3>
+      <span class="period" data-i18n="learningItems[1].period">Skooldio &nbsp;·&nbsp; Jun 2025</span>
+      <div class="degree" data-i18n="learningItems[1].degree">
+        Instructor: Soranapop Devapaticom (สรณภพ เทวปฏิคม). Core Python for data work — used as the base for ETL scripts, FastAPI services, and Airflow operators in production.
+      </div>
+    </div>
+    <div class="edu-item">
+      <h3 data-i18n="learningItems[2].title">Continuous Self-Directed Learning</h3>
+      <span class="period" data-i18n="learningItems[2].period">Ongoing</span>
+      <div class="degree" data-i18n="learningItems[2].degree">
+        Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript.
+      </div>
+    </div>
+  </section>
+
+  </div><!-- end .view-resume -->
 
   <!-- ============================================= -->
   <!-- ============== PROJECTS VIEW ================= -->
@@ -1862,106 +1957,6 @@
   </section>
 
   </div><!-- end .view-projects -->
-
-  <!-- ============================================= -->
-  <!-- ============== RESUME VIEW (cont'd) ========== -->
-  <!-- ============================================= -->
-  <div class="view view-resume view-resume-extra" id="panel-resume-extra" role="tabpanel" aria-labelledby="tab-resume-label" tabindex="0">
-
-  <!-- ============== SKILLS ============== -->
-  <section>
-    <h2 data-i18n="sectionSkills">Technical Skills</h2>
-    <dl class="skills">
-      <dt>Data Warehouse</dt>
-      <dd>
-        <span class="skill-token">SQL Server</span>
-        <span class="skill-token">T-SQL</span>
-        <span class="skill-token">dbt</span>
-        <span class="skill-token">Medallion architecture</span>
-        <span class="skill-token">Kimball / star schema</span>
-        <span class="skill-token">SCD type 2</span>
-      </dd>
-
-      <dt>Data Engineering</dt>
-      <dd>
-        <span class="skill-token">Python</span>
-        <span class="skill-token">Pandas</span>
-        <span class="skill-token">ETL / ELT pipelines</span>
-        <span class="skill-token">Apache Airflow</span>
-        <span class="skill-token">SQLAlchemy</span>
-        <span class="skill-token">Pipeline orchestration</span>
-        <span class="skill-token">Data quality &amp; alerting</span>
-      </dd>
-
-      <dt>App Development</dt>
-      <dd>
-        <span class="skill-token">FastAPI</span>
-        <span class="skill-token">React / TypeScript</span>
-        <span class="skill-token">HTMX</span>
-        <span class="skill-token">Alpine.js</span>
-        <span class="skill-token">Jinja2</span>
-        <span class="skill-token">Alembic (DB migrations)</span>
-        <span class="skill-token">REST / JSON API integration</span>
-      </dd>
-
-      <dt>BI &amp; Automation</dt>
-      <dd>
-        <span class="skill-token">BI dashboards &amp; reports</span>
-        <span class="skill-token">Power BI</span>
-        <span class="skill-token">Power Query</span>
-        <span class="skill-token">Power Automate</span>
-        <span class="skill-token">Low-code / No-code</span>
-        <span class="skill-token">Excel (advanced)</span>
-      </dd>
-
-      <dt>Cloud Services</dt>
-      <dd>
-        <span class="skill-token">Azure Data Factory</span>
-        <span class="skill-token">Azure App Service</span>
-        <span class="skill-token">Blob Storage</span>
-        <span class="skill-token">Document Intelligence</span>
-      </dd>
-
-      <dt>Developer Tooling</dt>
-      <dd>
-        <span class="skill-token">Git</span>
-        <span class="skill-token">GitHub Actions</span>
-        <span class="skill-token">Docker</span>
-        <span class="skill-token">AI pair-programming</span>
-        <span class="skill-token">Claude Code</span>
-        <span class="skill-token">Cursor</span>
-      </dd>
-
-    </dl>
-  </section>
-
-  <!-- ============== LEARNING & CERTIFICATIONS ============== -->
-  <section>
-    <h2 data-i18n="sectionLearning">Learning &amp; Certifications</h2>
-    <div class="edu-item">
-      <h3 data-i18n="learningItems[0].title">Power BI &amp; Excel for Data Analysis</h3>
-      <span class="period" data-i18n="learningItems[0].period">9Expert Online Training</span>
-      <div class="degree" data-i18n="learningItems[0].degree">
-        Hands-on coursework on Power BI modeling, DAX, and Power Query — applied to monthly finance &amp; sales reconciliation at Traveler Co.
-      </div>
-    </div>
-    <div class="edu-item">
-      <h3 data-i18n="learningItems[1].title">Python Programming Foundations</h3>
-      <span class="period" data-i18n="learningItems[1].period">Skooldio &nbsp;·&nbsp; Jun 2025</span>
-      <div class="degree" data-i18n="learningItems[1].degree">
-        Instructor: Soranapop Devapaticom (สรณภพ เทวปฏิคม). Core Python for data work — used as the base for ETL scripts, FastAPI services, and Airflow operators in production.
-      </div>
-    </div>
-    <div class="edu-item">
-      <h3 data-i18n="learningItems[2].title">Continuous Self-Directed Learning</h3>
-      <span class="period" data-i18n="learningItems[2].period">Ongoing</span>
-      <div class="degree" data-i18n="learningItems[2].degree">
-        Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript.
-      </div>
-    </div>
-  </section>
-
-  </div><!-- end .view-resume (part 2) -->
 
 </main>
 
