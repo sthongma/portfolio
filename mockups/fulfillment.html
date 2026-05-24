@@ -12,54 +12,51 @@
 <meta name="twitter:card" content="summary" />
 <link rel="canonical" href="https://sthongma.github.io/portfolio/mockups/fulfillment.html" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231f2937'/><text x='50' y='72' font-size='66' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>S</text></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* Paper (surfaces) */
+    /* Surfaces — aligned with bsn/wms slate palette */
     --paper-50:  #ffffff;
-    --paper-100: #fafaf8;
-    --paper-200: #f2f1ee;
-    --paper-300: #e6e4df;
-    --paper-400: #c9c6bf;
+    --paper-100: #f8fafc;
+    --paper-200: #f1f5f9;
+    --paper-300: #e2e8f0;
+    --paper-400: #cbd5e1;
 
-    /* Ink (text) */
-    --ink-900: #1a1a1a;
-    --ink-800: #262624;
-    --ink-700: #3d3b37;
-    --ink-600: #57544e;
-    --ink-500: #7c7972;
-    --ink-400: #a29f98;
-    --ink-300: #c4c1ba;
-    --ink-200: #dedcd6;
-    --ink-100: #eceae5;
+    /* Text — slate tones (was warm "ink") */
+    --ink-900: #0f172a;
+    --ink-800: #1e293b;
+    --ink-700: #334155;
+    --ink-600: #475569;
+    --ink-500: #64748b;
+    --ink-400: #94a3b8;
+    --ink-300: #cbd5e1;
+    --ink-200: #e2e8f0;
+    --ink-100: #f1f5f9;
 
-    /* Brand + semantic */
-    --brand: #1e4b8c;
-    --brand-hover: #163b6e;
-    --brand-soft: rgba(30,75,140,0.10);
-    --accent: #b8242e;
+    /* Brand + semantic — navy matches bsn/wms --c-info family */
+    --brand: #003049;
+    --brand-hover: #001f30;
+    --brand-soft: rgba(0,48,73,0.10);
+    --accent: #c1121f;
     --accent-navy: #1f3d72;
-    --good: #4b7a3d;
-    --good-bg: rgba(75,122,61,0.10);
-    --warn: #b57828;
-    --warn-bg: rgba(181,120,40,0.12);
-    --bad: #b8242e;
-    --bad-bg: rgba(184,36,46,0.10);
-    --info: #5b9bd5;
-    --info-bg: rgba(91,155,213,0.12);
+    --good: #16a34a;
+    --good-bg: rgba(22,163,74,0.10);
+    --warn: #d97706;
+    --warn-bg: rgba(217,119,6,0.12);
+    --bad: #c1121f;
+    --bad-bg: rgba(193,18,31,0.10);
+    --info: #5287a8;
+    --info-bg: rgba(82,135,168,0.12);
 
-    /* Lines + shadows */
-    --line: rgba(26,26,26,0.09);
-    --line-soft: rgba(26,26,26,0.05);
-    --line-bold: rgba(26,26,26,0.18);
-    --shadow-pop: 0 1px 0 rgba(34,34,34,0.04), 0 8px 24px -8px rgba(34,34,34,0.18);
+    /* Lines + shadows — neutral slate */
+    --line: rgba(15,23,42,0.09);
+    --line-soft: rgba(15,23,42,0.05);
+    --line-bold: rgba(15,23,42,0.18);
+    --shadow-pop: 0 1px 0 rgba(15,23,42,0.04), 0 8px 24px -8px rgba(15,23,42,0.18);
 
-    /* Fonts */
-    --f-display: 'Fraunces', Georgia, serif;
-    --f-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    --f-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    /* Fonts — system sans, matches bsn/wms */
+    --f-display: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
+    --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
+    --f-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
 
   * { box-sizing: border-box; }
@@ -1235,8 +1232,8 @@
           <svg class="chart-svg" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="ld-area" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#5b9bd5" stop-opacity="0.35"/>
-                <stop offset="100%" stop-color="#5b9bd5" stop-opacity="0"/>
+                <stop offset="0%" stop-color="#5287a8" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#5287a8" stop-opacity="0"/>
               </linearGradient>
             </defs>
             <line class="grid" x1="40" y1="30" x2="580" y2="30"/>
@@ -1262,7 +1259,7 @@
             <text class="axis" x="350" y="208" text-anchor="middle">May 28</text>
             <text class="axis" x="490" y="208" text-anchor="middle">Jun 5</text>
 
-            <g fill="#1e4b8c" fill-opacity="0.85">
+            <g fill="#003049" fill-opacity="0.85">
               <rect x="45"  y="90" width="14" height="100" rx="1"/>
               <rect x="63"  y="80" width="14" height="110" rx="1"/>
               <rect x="81"  y="95" width="14" height="95" rx="1"/>
@@ -1295,12 +1292,12 @@
               <rect x="567" y="42" width="14" height="148" rx="1"/>
             </g>
 
-            <path fill="url(#ld-area)" stroke="#5b9bd5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            <path fill="url(#ld-area)" stroke="#5287a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               d="M 52 58 L 70 62 L 88 55 L 106 50 L 124 52 L 142 48 L 160 55 L 178 60 L 196 45 L 214 42 L 232 50 L 250 44 L 268 38 L 286 35 L 304 40 L 322 48 L 340 32 L 358 40 L 376 45 L 394 35 L 412 42 L 430 48 L 448 34 L 466 40 L 484 45 L 502 38 L 520 42 L 538 38 L 556 44 L 574 36 L 574 190 L 52 190 Z"/>
           </svg>
           <div class="legend">
-            <span class="lg-item"><span class="sw" style="background:#1e4b8c"></span>Total Release</span>
-            <span class="lg-item"><span class="sw" style="background:#5b9bd5"></span>Loading %</span>
+            <span class="lg-item"><span class="sw" style="background:#003049"></span>Total Release</span>
+            <span class="lg-item"><span class="sw" style="background:#5287a8"></span>Loading %</span>
           </div>
         </div>
       </div>
@@ -1321,12 +1318,12 @@
           <svg class="chart-svg" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="ob-area" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#1e4b8c" stop-opacity="0.40"/>
-                <stop offset="100%" stop-color="#1e4b8c" stop-opacity="0"/>
+                <stop offset="0%" stop-color="#003049" stop-opacity="0.40"/>
+                <stop offset="100%" stop-color="#003049" stop-opacity="0"/>
               </linearGradient>
               <linearGradient id="col-area" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#5b9bd5" stop-opacity="0.30"/>
-                <stop offset="100%" stop-color="#5b9bd5" stop-opacity="0"/>
+                <stop offset="0%" stop-color="#5287a8" stop-opacity="0.30"/>
+                <stop offset="100%" stop-color="#5287a8" stop-opacity="0"/>
               </linearGradient>
             </defs>
             <line class="grid" x1="40" y1="30" x2="580" y2="30"/>
@@ -1348,16 +1345,16 @@
             <line class="ref" x1="40" y1="70" x2="580" y2="70"/>
             <text class="ref-lab" x="575" y="66" text-anchor="end">90% target</text>
 
-            <path fill="url(#col-area)" stroke="#5b9bd5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            <path fill="url(#col-area)" stroke="#5287a8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
               d="M 52 75 L 70 72 L 88 78 L 106 70 L 124 68 L 142 74 L 160 70 L 178 76 L 196 66 L 214 64 L 232 70 L 250 68 L 268 62 L 286 58 L 304 64 L 322 70 L 340 56 L 358 62 L 376 66 L 394 60 L 412 64 L 430 68 L 448 58 L 466 62 L 484 66 L 502 60 L 520 64 L 538 62 L 556 66 L 574 60 L 574 190 L 52 190 Z"/>
 
-            <path fill="url(#ob-area)" stroke="#1e4b8c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+            <path fill="url(#ob-area)" stroke="#003049" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
               d="M 52 60 L 70 58 L 88 62 L 106 55 L 124 52 L 142 58 L 160 54 L 178 60 L 196 50 L 214 48 L 232 54 L 250 52 L 268 46 L 286 42 L 304 48 L 322 54 L 340 40 L 358 46 L 376 50 L 394 44 L 412 48 L 430 52 L 448 42 L 466 46 L 484 50 L 502 44 L 520 48 L 538 46 L 556 50 L 574 44 L 574 190 L 52 190 Z"/>
           </svg>
           <div class="legend">
-            <span class="lg-item"><span class="sw" style="background:#1e4b8c"></span>Outbound FFR+</span>
-            <span class="lg-item"><span class="sw" style="background:#5b9bd5"></span>Collect FFR+</span>
-            <span class="lg-item"><span class="sw" style="background:#b8242e"></span>90% target</span>
+            <span class="lg-item"><span class="sw" style="background:#003049"></span>Outbound FFR+</span>
+            <span class="lg-item"><span class="sw" style="background:#5287a8"></span>Collect FFR+</span>
+            <span class="lg-item"><span class="sw" style="background:#c1121f"></span>90% target</span>
           </div>
         </div>
       </div>
@@ -1459,23 +1456,23 @@
           <text class="axis" x="1080" y="230" text-anchor="middle">Jun 1</text>
 
           <!-- Stacked areas: bottom→top -->
-          <path fill="#7c7972" fill-opacity="0.85"
+          <path fill="#64748b" fill-opacity="0.85"
             d="M 60 205 L 110 200 L 160 198 L 210 195 L 260 196 L 310 199 L 360 198 L 410 196 L 460 194 L 510 195 L 560 197 L 610 195 L 660 193 L 710 196 L 760 194 L 810 192 L 860 194 L 910 196 L 960 193 L 1010 195 L 1060 197 L 1110 195 L 1160 193 L 1160 210 L 60 210 Z"/>
-          <path fill="#b8242e" fill-opacity="0.85"
+          <path fill="#c1121f" fill-opacity="0.85"
             d="M 60 190 L 110 186 L 160 188 L 210 184 L 260 182 L 310 186 L 360 184 L 410 182 L 460 180 L 510 182 L 560 184 L 610 180 L 660 178 L 710 182 L 760 180 L 810 175 L 860 180 L 910 182 L 960 176 L 1010 180 L 1060 184 L 1110 180 L 1160 175 L 1160 205 L 60 205 Z"/>
-          <path fill="#7c7972" fill-opacity="0.85"
+          <path fill="#64748b" fill-opacity="0.85"
             d="M 60 170 L 110 166 L 160 168 L 210 162 L 260 158 L 310 164 L 360 160 L 410 162 L 460 156 L 510 160 L 560 162 L 610 156 L 660 152 L 710 158 L 760 156 L 810 148 L 860 154 L 910 158 L 960 148 L 1010 152 L 1060 156 L 1110 152 L 1160 146 L 1160 190 L 60 190 Z"/>
-          <path fill="#5b9bd5" fill-opacity="0.85"
+          <path fill="#5287a8" fill-opacity="0.85"
             d="M 60 135 L 110 130 L 160 132 L 210 125 L 260 120 L 310 128 L 360 122 L 410 126 L 460 115 L 510 122 L 560 126 L 610 118 L 660 114 L 710 122 L 760 118 L 810 108 L 860 115 L 910 122 L 960 108 L 1010 114 L 1060 120 L 1110 114 L 1160 106 L 1160 170 L 60 170 Z"/>
-          <path fill="#1e4b8c" fill-opacity="0.85"
+          <path fill="#003049" fill-opacity="0.85"
             d="M 60 85 L 110 78 L 160 82 L 210 72 L 260 65 L 310 76 L 360 68 L 410 74 L 460 58 L 510 68 L 560 74 L 610 62 L 660 55 L 710 68 L 760 62 L 810 48 L 860 58 L 910 68 L 960 48 L 1010 55 L 1060 64 L 1110 55 L 1160 45 L 1160 135 L 60 135 Z"/>
         </svg>
         <div class="legend">
-          <span class="lg-item"><span class="sw" style="background:#1e4b8c"></span>Item Out Of Stock</span>
-          <span class="lg-item"><span class="sw" style="background:#5b9bd5"></span>Wrong Transport</span>
-          <span class="lg-item"><span class="sw" style="background:#7c7972"></span>Need Confirm</span>
-          <span class="lg-item"><span class="sw" style="background:#b8242e"></span>Printed Late</span>
-          <span class="lg-item"><span class="sw" style="background:#7c7972; opacity:0.85"></span>Other</span>
+          <span class="lg-item"><span class="sw" style="background:#003049"></span>Item Out Of Stock</span>
+          <span class="lg-item"><span class="sw" style="background:#5287a8"></span>Wrong Transport</span>
+          <span class="lg-item"><span class="sw" style="background:#64748b"></span>Need Confirm</span>
+          <span class="lg-item"><span class="sw" style="background:#c1121f"></span>Printed Late</span>
+          <span class="lg-item"><span class="sw" style="background:#64748b; opacity:0.85"></span>Other</span>
         </div>
       </div>
     </div>

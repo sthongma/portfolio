@@ -17,18 +17,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b0f17;
-    --bg-elev: #151b26;
-    --bg-elev-2: #1b2231;
-    --border: rgba(255, 255, 255, 0.08);
-    --border-strong: rgba(255, 255, 255, 0.14);
-    --fg: #e5e7eb;
-    --fg-dim: #94a3b8;
-    --fg-mute: #64748b;
-    --accent: #94a3b8;
-    --accent-strong: #cbd5e1;
-    --chip-bg: rgba(148, 163, 184, 0.1);
-    --chip-border: rgba(148, 163, 184, 0.28);
+    /* Surfaces */
+    --bg: #f9fafb;
+    --bg-elev: #ffffff;
+    /* Borders */
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    /* Text */
+    --fg: #0f172a;
+    --fg-dim: #475569;
+    --fg-mute: #94a3b8;
+    /* Accent + chips */
+    --accent: #1f2937;
+    --accent-strong: #0f172a;
+    --chip-bg: #f1f5f9;
+    --chip-border: #cbd5e1;
+    /* Typography */
     --font-sans: "Noto Sans Thai", "Noto Sans", -apple-system,
       BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
       sans-serif;
@@ -855,21 +859,6 @@
   }
 
   /* ---------- Professional UI refresh ---------- */
-  :root {
-    --bg: #f9fafb;
-    --bg-elev: #ffffff;
-    --bg-elev-2: #f8fafc;
-    --border: #e2e8f0;
-    --border-strong: #cbd5e1;
-    --fg: #0f172a;
-    --fg-dim: #475569;
-    --fg-mute: #94a3b8;
-    --accent: #1f2937;
-    --accent-strong: #0f172a;
-    --chip-bg: #f1f5f9;
-    --chip-border: #cbd5e1;
-  }
-
   html, body {
     background:
       linear-gradient(180deg, #ffffff 0, #f9fafb 340px),
@@ -1385,8 +1374,8 @@
   <header class="hero">
     <img class="hero-photo" src="https://avatars.githubusercontent.com/u/186543613?v=4" alt="Sahatsawat Thongma">
     <div class="hero-text">
-    <h1>Sahatsawat Thongma</h1>
-    <p class="title">Data Engineer</p>
+    <h1 data-i18n="name">Sahatsawat Thongma</h1>
+    <p class="title" data-i18n="roleTitle">Data Engineer</p>
     <address class="contact">
       <a href="mailto:sahatsawat.thongma@gmail.com">
         <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1429,7 +1418,7 @@
           <path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0z"/>
           <circle cx="12" cy="10" r="3"/>
         </svg>
-        Samut Sakhon, Thailand
+        <span data-i18n="location">Samut Sakhon, Thailand</span>
       </span>
     </address>
     <div class="language-switch" aria-label="Language">
@@ -1449,8 +1438,8 @@
 
   <!-- ============== TAB NAV ============== -->
   <nav class="tabs" role="tablist" aria-label="View switcher">
-    <label for="tab-resume" id="tab-resume-label" role="tab" aria-controls="panel-resume-top panel-resume-extra">Resume</label>
-    <label for="tab-projects" id="tab-projects-label" role="tab" aria-controls="panel-projects">Projects</label>
+    <label for="tab-resume" id="tab-resume-label" role="tab" aria-controls="panel-resume-top panel-resume-extra" data-i18n="tabs[0]">Resume</label>
+    <label for="tab-projects" id="tab-projects-label" role="tab" aria-controls="panel-projects" data-i18n="tabs[1]">Projects</label>
   </nav>
 
   <!-- ============================================= -->
@@ -1460,11 +1449,11 @@
 
   <!-- ============== SUMMARY ============== -->
   <section class="summary">
-    <h2>Summary</h2>
-    <p>
+    <h2 data-i18n="sectionSummary">Summary</h2>
+    <p data-i18n="summary[0]">
       <strong>Data engineer building production data platforms.</strong>
-      3+ years across data, BI, and operations; currently designs and
-      operates a <strong>50 GB warehouse processing 100K+ records/day</strong>
+      3+ years across data &amp; operations, currently shipping a
+      <strong>50 GB warehouse processing 100K+ records/day</strong>
       via ELT pipelines, <strong>193+ dbt models with 180+ data
       tests</strong>, dimensional data modeling, and reverse-ETL to
       legacy systems — for a 100M+ THB/month e-commerce business.
@@ -1476,28 +1465,28 @@
 
   <!-- ============== EXPERIENCE ============== -->
   <section>
-    <h2>Experience</h2>
+    <h2 data-i18n="sectionExperience">Experience</h2>
 
     <div class="exp-item">
       <h3>EP Asia Group</h3>
-      <span class="period">May 2025 – Present</span>
-      <div class="role">Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform</div>
+      <span class="period" data-i18n="epPeriod">May 2025 – Present</span>
+      <div class="role" data-i18n="epRole">Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform</div>
       <ul>
-        <li>
+        <li data-i18n="epBullets[0]">
           <strong>Built the company's first data warehouse</strong> —
           replaced messy Google Sheets/Excel for 25+ staff, saving
           <strong>25–75 person-hours/day across the team</strong>
           (1–3 hr/person) and eliminating cross-spreadsheet
           reconciliation errors.
         </li>
-        <li>
+        <li data-i18n="epBullets[1]">
           <strong>Designed the data warehouse structure</strong> — 193
           transformation steps across 9 business areas, processing
           <strong>100K+ records/day</strong> from Shopee, Lazada,
           TikTok, Facebook. Powers <strong>BI dashboards</strong> for
           exec, procurement, warehouse, and fulfillment teams.
         </li>
-        <li>
+        <li data-i18n="epBullets[2]">
           <strong>Built ETL pipelines</strong> pulling marketplace
           file exports and internal data (Power Automate portal
           automation, Python, 46 Azure Data Factory pipelines —
@@ -1505,14 +1494,14 @@
           self-service config app so non-developers can add new
           data sources themselves.
         </li>
-        <li>
+        <li data-i18n="epBullets[3]">
           <strong>Replaced the legacy warehouse system</strong> with
           custom apps (WMS, barcode scanner, invoice OCR) — warehouse
           staff (including non-Thai speakers) now learn in under 5
           minutes; <strong>1,200+ orders/day</strong> with full audit
           trail.
         </li>
-        <li>
+        <li data-i18n="epBullets[4]">
           <strong>Worked with procurement, warehouse &amp; executive
           teams</strong> to find work that could be automated —
           replaced manual processes with <strong>low-code / no-code
@@ -1524,22 +1513,22 @@
     <div class="exp-item" style="margin-top: 22px;">
       <h3>Traveler Co., Ltd.</h3>
       <span class="period">2022 – 2025</span>
-      <div class="role">Accountant / ERP &amp; BI Analyst</div>
+      <div class="role" data-i18n="travelerRoles[0]">Accountant / ERP &amp; BI Analyst</div>
       <ul>
-        <li>
+        <li data-i18n="travelerBullets[0]">
           Set up <strong>Ecount ERP master data from scratch</strong>
           — defined chart of accounts, customer/vendor master, and
           SKU mapping standards, giving the company a clean foundation
           for finance, sales reporting, and downstream BI.
         </li>
-        <li>
+        <li data-i18n="travelerBullets[1]">
           Built <strong>Power BI reports</strong> and used
           <strong>Power Query</strong> to reconcile ERP data across
           sales and finance — established consistent monthly reporting
           that closed recurring discrepancies between the sales and
           finance teams.
         </li>
-        <li>
+        <li data-i18n="travelerBullets[2]">
           Established product/SKU master data across marketplaces and
           ERP as a single source of truth for the catalog —
           eliminated the SKU-mapping ambiguity that had caused stock
@@ -1563,16 +1552,16 @@
       <div class="project-header">
         <h3><span class="num">01</span>E-Commerce Data Pipeline &amp; Analytics Platform</h3>
       </div>
-      <p class="tagline">
+      <p class="tagline" data-i18n="projectTaglines[0]">
         Full data platform — 50 GB warehouse with 44M+ rows, serving
         9 business domains, 1,200+ orders/day, and 100K+ rows/day
         across 4 marketplaces.
       </p>
       <ul class="bullets">
-        <li>Ingests data from 8 sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.</li>
-        <li><strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.</li>
-        <li>Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.</li>
-        <li>Runs automatically outside business hours via <strong>custom Airflow operators</strong> (Bronze, dbt), with <strong>180+ dbt data tests</strong>, source freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data.</li>
+        <li data-i18n="projectBullets[0][0]">Ingests data from 8 sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.</li>
+        <li data-i18n="projectBullets[0][1]"><strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.</li>
+        <li data-i18n="projectBullets[0][2]">Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.</li>
+        <li data-i18n="projectBullets[0][3]">Runs automatically outside business hours via <strong>custom Airflow operators</strong> (Bronze, dbt), with <strong>180+ dbt data tests</strong>, source freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data.</li>
       </ul>
 
       <div class="metrics" aria-label="Data platform metrics">
@@ -1758,14 +1747,14 @@
       <div class="project-header">
         <h3><span class="num">02</span>Warehouse Management System (WMS)</h3>
       </div>
-      <p class="tagline">
+      <p class="tagline" data-i18n="projectTaglines[1]">
         Custom WMS that replaced the previous third-party system —
         interactive visual map, foreign staff trained in under 5 min,
         full stock audit trail.
       </p>
       <ul class="bullets">
-        <li><strong>Replaced the previous WMS</strong> — staff (including foreign workers) now learn the system in under 5 minutes versus weeks of struggling with the prior tool, and stock movements are traceable for the first time (full audit trail per item).</li>
-        <li>
+        <li data-i18n="projectBullets[1][0]"><strong>Replaced the previous WMS</strong> — staff (including foreign workers) now learn the system in under 5 minutes versus weeks of struggling with the prior tool, and stock movements are traceable for the first time (full audit trail per item).</li>
+        <li data-i18n="projectBullets[1][1]">
           <strong>Interactive warehouse grid map</strong> (dynamic
           CSS Grid, server-side) with 4-level color-coded stock states
           (empty / low / ok / critical) that instantly surface low,
@@ -1773,8 +1762,8 @@
           reserved zones and merged-cell support for pallet-sized
           locations.
         </li>
-        <li>Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with task chat, mobile barcode/QR scanning, and bilingual UI (Thai/English, 736 i18n keys).</li>
-        <li>19 granular permissions, 21 SQLAlchemy models, 62 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD.</li>
+        <li data-i18n="projectBullets[1][2]">Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with task chat, mobile barcode/QR scanning, and bilingual UI (Thai/English, 736 i18n keys).</li>
+        <li data-i18n="projectBullets[1][3]">19 granular permissions, 21 SQLAlchemy models, 62 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD.</li>
       </ul>
       <div class="chips">
         <span class="chip">FastAPI</span>
@@ -1799,13 +1788,13 @@
       <div class="project-header">
         <h3><span class="num">03</span>Barcode Scanner (BSN)</h3>
       </div>
-      <p class="tagline">
+      <p class="tagline" data-i18n="projectTaglines[2]">
         Real-time multi-user barcode scanning system with workflow
         enforcement.
       </p>
       <ul class="bullets">
-        <li>Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., "Release" before "Outbound") — replaces manual logs kept on paper, Google Sheets, and Excel.</li>
-        <li>Custom notifications + audio alerts, full scan history with filtering and Excel export.</li>
+        <li data-i18n="projectBullets[2][0]">Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., "Release" before "Outbound") — replaces manual logs kept on paper, Google Sheets, and Excel.</li>
+        <li data-i18n="projectBullets[2][1]">Custom notifications + audio alerts, full scan history with filtering and Excel export.</li>
       </ul>
       <div class="chips">
         <span class="chip">FastAPI</span>
@@ -1828,13 +1817,13 @@
       <div class="project-header">
         <h3><span class="num">04</span>OCR Invoice Processor</h3>
       </div>
-      <p class="tagline">
+      <p class="tagline" data-i18n="projectTaglines[3]">
         AI-assisted invoice processing that reads Thai e-commerce PDF
         invoices and fills structured records automatically.
       </p>
       <ul class="bullets">
-        <li>Uses Azure Document Intelligence to read invoice files and automatically populate fields such as invoice number, dates, amounts, vendor/customer, tax IDs, and VAT.</li>
-        <li>Supports Thai-specific formats (Buddhist Era dates, Thai Baht, UTF-8), caches results by file hash, and exports completed records to branded Excel.</li>
+        <li data-i18n="projectBullets[3][0]">Uses Azure Document Intelligence to read invoice files and automatically populate fields such as invoice number, dates, amounts, vendor/customer, tax IDs, and VAT.</li>
+        <li data-i18n="projectBullets[3][1]">Supports Thai-specific formats (Buddhist Era dates, Thai Baht, UTF-8), caches results by file hash, and exports completed records to branded Excel.</li>
       </ul>
       <div class="chips">
         <span class="chip">Python</span>
@@ -1850,14 +1839,14 @@
       <div class="project-header">
         <h3><span class="num">05</span>Additional Tooling</h3>
       </div>
-      <p class="tagline">
+      <p class="tagline" data-i18n="projectTaglines[4]">
         Supporting utilities that feed and operate the data platform.
       </p>
       <ul class="bullets">
-        <li><strong>App Pipeline</strong> — generic Excel/CSV → SQL Server ETL tool with Tkinter GUI + CLI, shipped as Windows installer (PyInstaller). Replace/Upsert, auto-schema, batch processing.</li>
-        <li><strong>Copy Files Utility</strong> — file-sync utility for staging raw files (any type) into landing folders. SQLite-backed dedup, CSV-configured mappings so non-devs update sources without code.</li>
-        <li><strong>DHL Webhook Receiver</strong> — Flask service that streams DHL tracking events into SQL Server (PyODBC) — minimal bridge from logistics to warehouse data.</li>
-        <li><strong>Web Scraper</strong> — Python scraper collecting flash-sale and return data from marketplaces, feeding the Bronze layer.</li>
+        <li data-i18n="projectBullets[4][0]"><strong>App Pipeline</strong> — generic Excel/CSV → SQL Server ETL tool with Tkinter GUI + CLI, shipped as Windows installer (PyInstaller). Replace/Upsert, auto-schema, batch processing.</li>
+        <li data-i18n="projectBullets[4][1]"><strong>Copy Files Utility</strong> — file-sync utility for staging raw files (any type) into landing folders. SQLite-backed dedup, CSV-configured mappings so non-devs update sources without code.</li>
+        <li data-i18n="projectBullets[4][2]"><strong>DHL Webhook Receiver</strong> — Flask service that streams DHL tracking events into SQL Server (PyODBC) — minimal bridge from logistics to warehouse data.</li>
+        <li data-i18n="projectBullets[4][3]"><strong>Web Scraper</strong> — Python scraper collecting flash-sale and return data from marketplaces, feeding the Bronze layer.</li>
       </ul>
       <div class="chips">
         <span class="chip">Python</span>
@@ -1881,7 +1870,7 @@
 
   <!-- ============== SKILLS ============== -->
   <section>
-    <h2>Technical Skills</h2>
+    <h2 data-i18n="sectionSkills">Technical Skills</h2>
     <dl class="skills">
       <dt>Data Warehouse</dt>
       <dd>
@@ -1948,25 +1937,25 @@
 
   <!-- ============== LEARNING & CERTIFICATIONS ============== -->
   <section>
-    <h2>Learning &amp; Certifications</h2>
+    <h2 data-i18n="sectionLearning">Learning &amp; Certifications</h2>
     <div class="edu-item">
-      <h3>Power BI &amp; Excel for Data Analysis</h3>
-      <span class="period">9Expert Online Training</span>
-      <div class="degree">
+      <h3 data-i18n="learningItems[0].title">Power BI &amp; Excel for Data Analysis</h3>
+      <span class="period" data-i18n="learningItems[0].period">9Expert Online Training</span>
+      <div class="degree" data-i18n="learningItems[0].degree">
         Hands-on coursework on Power BI modeling, DAX, and Power Query — applied to monthly finance &amp; sales reconciliation at Traveler Co.
       </div>
     </div>
     <div class="edu-item">
-      <h3>Python Programming Foundations</h3>
-      <span class="period">Skooldio &nbsp;·&nbsp; Jun 2025</span>
-      <div class="degree">
+      <h3 data-i18n="learningItems[1].title">Python Programming Foundations</h3>
+      <span class="period" data-i18n="learningItems[1].period">Skooldio &nbsp;·&nbsp; Jun 2025</span>
+      <div class="degree" data-i18n="learningItems[1].degree">
         Instructor: Soranapop Devapaticom (สรณภพ เทวปฏิคม). Core Python for data work — used as the base for ETL scripts, FastAPI services, and Airflow operators in production.
       </div>
     </div>
     <div class="edu-item">
-      <h3>Continuous Self-Directed Learning</h3>
-      <span class="period">Ongoing</span>
-      <div class="degree">
+      <h3 data-i18n="learningItems[2].title">Continuous Self-Directed Learning</h3>
+      <span class="period" data-i18n="learningItems[2].period">Ongoing</span>
+      <div class="degree" data-i18n="learningItems[2].degree">
         Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript.
       </div>
     </div>
@@ -1990,58 +1979,29 @@
   const i18n = window.resumeI18n;
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-  const setHTML = (selector, value) => {
-    const el = $(selector);
-    if (el && value !== undefined) el.innerHTML = value;
-  };
-  const setList = (selector, values) => {
-    $$(selector).forEach((el, index) => {
-      if (values[index] !== undefined) el.innerHTML = values[index];
-    });
-  };
+
+  // Resolve a path like "epBullets[2]", "projectBullets[0][1]",
+  // "learningItems[2].degree" against the i18n object.
+  function resolveI18nPath(obj, path) {
+    return path
+      .split(/[.\[\]]+/)
+      .filter(Boolean)
+      .reduce((acc, key) => (acc == null ? acc : acc[key]), obj);
+  }
 
   function applyLanguage(lang) {
     const t = i18n[lang] || i18n.en;
     document.documentElement.lang = t.htmlLang;
     document.title = t.documentTitle;
 
-    setHTML(".hero h1", t.name);
-    setHTML(".hero .title", t.roleTitle);
-    setHTML("address.contact .location", $("address.contact .location").querySelector("svg").outerHTML + t.location);
-    setList(".tabs label", t.tabs);
-
-    setHTML(".summary h2", t.sectionSummary);
-    setList(".summary p", t.summary);
-
-    setHTML(".view-resume section:nth-of-type(2) > h2", t.sectionExperience);
-    setHTML(".exp-item:nth-of-type(1) .period", t.epPeriod);
-    setHTML(".exp-item:nth-of-type(1) .role", t.epRole);
-    setList(".exp-item:nth-of-type(1) li", t.epBullets);
-    setList(".exp-item:nth-of-type(2) .role", t.travelerRoles);
-    setList(".exp-item:nth-of-type(2) li", t.travelerBullets);
-
-    setList(".project .tagline", t.projectTaglines);
-    $$(".project").forEach((project, index) => {
-      project.querySelectorAll("ul.bullets li").forEach((li, bulletIndex) => {
-        const value = t.projectBullets[index]?.[bulletIndex];
-        if (value !== undefined) li.innerHTML = value;
-      });
+    // Generic walker: every element marked with data-i18n gets its
+    // innerHTML replaced by the value resolved from the i18n tree.
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const value = resolveI18nPath(t, el.dataset.i18n);
+      if (value !== undefined) el.innerHTML = value;
     });
 
-    setHTML(".view-resume-extra section:nth-of-type(1) > h2", t.sectionSkills);
-
-    setHTML(".view-resume-extra section:nth-of-type(2) > h2", t.sectionLearning);
-    $$(".view-resume-extra .edu-item").forEach((item, i) => {
-      const data = t.learningItems?.[i];
-      if (!data) return;
-      const h3 = item.querySelector("h3");
-      const period = item.querySelector(".period");
-      const degree = item.querySelector(".degree");
-      if (h3 && data.title !== undefined) h3.innerHTML = data.title;
-      if (period && data.period !== undefined) period.innerHTML = data.period;
-      if (degree && data.degree !== undefined) degree.innerHTML = data.degree;
-    });
-
+    // Demo links are keyed by [data-demo-label="sales|fulfillment|..."]
     document.querySelectorAll("[data-demo-label]").forEach((el) => {
       const key = el.dataset.demoLabel;
       const label = t.demoLabels?.[key];

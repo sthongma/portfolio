@@ -12,45 +12,47 @@
 <meta name="twitter:card" content="summary" />
 <link rel="canonical" href="https://sthongma.github.io/portfolio/mockups/sales-insights.html" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231f2937'/><text x='50' y='72' font-size='66' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>S</text></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
+    /* Surfaces — aligned with bsn/wms slate palette */
     --paper-50:  #ffffff;
-    --paper-100: #fafaf8;
-    --paper-200: #f2f1ee;
-    --paper-300: #e6e4df;
-    --paper-400: #c9c6bf;
-    --ink-900: #1a1a1a;
-    --ink-800: #262624;
-    --ink-700: #3d3b37;
-    --ink-600: #57544e;
-    --ink-500: #7c7972;
-    --ink-400: #a29f98;
-    --ink-300: #c4c1ba;
-    --ink-200: #dedcd6;
-    --ink-100: #eceae5;
-    --brand: #1e4b8c;
-    --brand-hover: #163b6e;
-    --brand-soft: rgba(30,75,140,0.10);
-    --accent: #b8242e;
+    --paper-100: #f8fafc;
+    --paper-200: #f1f5f9;
+    --paper-300: #e2e8f0;
+    --paper-400: #cbd5e1;
+    /* Text — slate tones (was warm "ink") */
+    --ink-900: #0f172a;
+    --ink-800: #1e293b;
+    --ink-700: #334155;
+    --ink-600: #475569;
+    --ink-500: #64748b;
+    --ink-400: #94a3b8;
+    --ink-300: #cbd5e1;
+    --ink-200: #e2e8f0;
+    --ink-100: #f1f5f9;
+    /* Brand + semantic — navy matches bsn/wms --c-info family */
+    --brand: #003049;
+    --brand-hover: #001f30;
+    --brand-soft: rgba(0,48,73,0.10);
+    --accent: #c1121f;
     --accent-navy: #1f3d72;
-    --good: #4b7a3d;
-    --good-bg: rgba(75,122,61,0.10);
-    --warn: #b57828;
-    --warn-bg: rgba(181,120,40,0.12);
-    --bad: #b8242e;
-    --bad-bg: rgba(184,36,46,0.10);
-    --info: #5b9bd5;
-    --info-bg: rgba(91,155,213,0.12);
-    --line: rgba(26,26,26,0.09);
-    --line-soft: rgba(26,26,26,0.05);
-    --line-bold: rgba(26,26,26,0.18);
-    --shadow-pop: 0 1px 0 rgba(34,34,34,0.04), 0 8px 24px -8px rgba(34,34,34,0.18);
-    --f-display: 'Fraunces', Georgia, serif;
-    --f-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    --f-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --good: #16a34a;
+    --good-bg: rgba(22,163,74,0.10);
+    --warn: #d97706;
+    --warn-bg: rgba(217,119,6,0.12);
+    --bad: #c1121f;
+    --bad-bg: rgba(193,18,31,0.10);
+    --info: #5287a8;
+    --info-bg: rgba(82,135,168,0.12);
+    /* Lines + shadows — neutral slate */
+    --line: rgba(15,23,42,0.09);
+    --line-soft: rgba(15,23,42,0.05);
+    --line-bold: rgba(15,23,42,0.18);
+    --shadow-pop: 0 1px 0 rgba(15,23,42,0.04), 0 8px 24px -8px rgba(15,23,42,0.18);
+    /* Fonts — system sans, matches bsn/wms */
+    --f-display: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
+    --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
+    --f-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; }
   html, body {
@@ -1395,10 +1397,10 @@
                 <!-- Donut: total circumference at r=72 is 2π·72 ≈ 452.4 -->
                 <!-- SINGLE 75.5%: dasharray 341.6, offset 0 -->
                 <!-- SET 24.5%: dasharray 110.8, offset (75.5% from start, rotated) -->
-                <circle cx="90" cy="90" r="72" fill="none" stroke="#b8242e" stroke-width="32"
+                <circle cx="90" cy="90" r="72" fill="none" stroke="#c1121f" stroke-width="32"
                   stroke-dasharray="341.6 110.8" stroke-dashoffset="0"
                   transform="rotate(-90 90 90)"/>
-                <circle cx="90" cy="90" r="72" fill="none" stroke="#1e4b8c" stroke-width="32"
+                <circle cx="90" cy="90" r="72" fill="none" stroke="#003049" stroke-width="32"
                   stroke-dasharray="110.8 341.6" stroke-dashoffset="-341.6"
                   transform="rotate(-90 90 90)"/>
                 <!-- Inner ring break -->
@@ -1411,7 +1413,7 @@
             </div>
             <div class="donut-info">
               <div class="donut-card">
-                <div class="header"><span class="dot" style="background:#1e4b8c"></span>SET</div>
+                <div class="header"><span class="dot" style="background:#003049"></span>SET</div>
                 <div class="grid2">
                   <div class="ki"><div class="l">Orders</div><div class="v">3,052 · 24.5%</div></div>
                   <div class="ki"><div class="l">Items</div><div class="v">18,930 · 41.2%</div></div>
@@ -1420,7 +1422,7 @@
                 </div>
               </div>
               <div class="donut-card">
-                <div class="header"><span class="dot" style="background:#b8242e"></span>SINGLE</div>
+                <div class="header"><span class="dot" style="background:#c1121f"></span>SINGLE</div>
                 <div class="grid2">
                   <div class="ki"><div class="l">Orders</div><div class="v">9,404 · 75.5%</div></div>
                   <div class="ki"><div class="l">Items</div><div class="v">26,962 · 58.8%</div></div>
