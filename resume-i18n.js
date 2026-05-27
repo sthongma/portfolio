@@ -8,17 +8,18 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Data engineer building production data platforms.</strong> 3+ years across data &amp; operations, currently shipping a <strong>50 GB warehouse processing 100K+ records/day</strong> via ELT pipelines, <strong>193+ dbt models with 180+ data tests</strong>, dimensional data modeling, and reverse-ETL to legacy systems — for a 100M+ THB/month e-commerce business. Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong>. Builds for non-technical business users (warehouse, procurement, exec)."
+        "<strong>Data engineer building production data platforms.</strong> 3+ years across data &amp; operations, currently shipping a <strong>50 GB warehouse processing 100K+ records/day</strong> via ELT pipelines, <strong>190+ dbt models with 180+ data tests</strong>, dimensional data modeling, and reverse-ETL to legacy systems — for a 100M+ THB/month e-commerce business. Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong>. Builds for non-technical business users (warehouse, procurement, exec)."
       ],
       sectionExperience: "Experience",
       epPeriod: "May 2025 – Present",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
         "<strong>Built the company's first data warehouse</strong> — replaced messy Google Sheets/Excel for 25+ staff, saving <strong>25–75 person-hours/day across the team</strong> (1–3 hr/person) and eliminating cross-spreadsheet reconciliation errors.",
-        "<strong>Designed the data warehouse structure</strong> — 193 transformation steps across 9 business areas, processing <strong>100K+ records/day</strong> from Shopee, Lazada, TikTok, Facebook. Powers <strong>BI dashboards</strong> for exec, procurement, warehouse, and fulfillment teams.",
-        "<strong>Built ETL pipelines</strong> pulling marketplace file exports and internal data (Power Automate portal automation, Python, 46 Azure Data Factory pipelines — incl. 25 reverse-ETL to legacy systems). Plus a self-service config app so non-developers can add new data sources themselves.",
-        "<strong>Replaced the legacy warehouse system</strong> with custom apps (WMS, barcode scanner, invoice OCR) — warehouse staff (including non-Thai speakers) now learn in under 5 minutes; <strong>1,200+ orders/day</strong> with full audit trail.",
-        "<strong>Worked with procurement, warehouse &amp; executive teams</strong> to find work that could be automated — replaced manual processes with <strong>low-code / no-code tools and AI</strong>."
+        "<strong>Designed the data warehouse structure</strong> — 190+ transformation steps across business domains, processing <strong>100K+ records/day</strong> from Shopee, Lazada, TikTok, Facebook. Powers <strong>operational dashboards (FastAPI + React)</strong> for exec, procurement, warehouse, and fulfillment teams.",
+        "<strong>Built ETL pipelines</strong> pulling marketplace exports and internal data — <strong>40 Power Automate Desktop flows</strong> (Shopee, Lazada, TikTok, JST, DHL), Python ingestion, <strong>48 Azure Data Factory pipelines incl. 24 reverse-ETL</strong> keeping legacy reporting in sync. Plus a self-service config app so non-developers can add new data sources themselves.",
+        "<strong>Replaced the vendor WMS</strong> with custom apps (WMS, barcode scanner, invoice OCR) — warehouse staff (including non-Thai speakers) now learn in under 5 minutes; <strong>1,200+ orders/day</strong> with full audit trail.",
+        "<strong>Worked with procurement, warehouse &amp; executive teams</strong> to find work that could be automated — replaced manual processes with <strong>low-code / no-code tools and AI</strong>.",
+        "<strong>Operate 7 production systems end-to-end</strong> — data platform (DPL), WMS, barcode scanner, webhook receiver, OCR, file-sync utility, marketplace scraper — single-engineer ownership across data + warehouse + logistics stack."
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
@@ -59,8 +60,8 @@ window.resumeI18n = {
         [
           "<strong>App Pipeline</strong> — generic Excel/CSV → SQL Server ETL tool with Tkinter GUI + CLI, shipped as Windows installer (PyInstaller). Replace/Upsert, auto-schema, batch processing.",
           "<strong>Copy Files Utility</strong> — file-sync utility for staging raw files (any type) into landing folders. SQLite-backed dedup, CSV-configured mappings so non-devs update sources without code.",
-          "<strong>DHL Webhook Receiver</strong> — Flask service that streams DHL tracking events into SQL Server (PyODBC) — minimal bridge from logistics to warehouse data.",
-          "<strong>Web Scraper</strong> — Python scraper collecting flash-sale and return data from marketplaces, feeding the Bronze layer."
+          "<strong>Logistics Webhook Receiver</strong> — Flask + pyodbc service streaming DHL eCommerce and Flash Express tracking events into Azure SQL — 6 webhook endpoints with signature verification.",
+          "<strong>Web Scraper</strong> — Python scraper for Flash Express seller-return parcels (logistics provider) via authenticated API, feeding the Bronze layer."
         ]
       ],
       sectionSkills: "Technical Skills",
@@ -98,17 +99,18 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 3+ ปี ในงาน data &amp; operations ปัจจุบันส่งมอบ <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ผ่าน ELT pipelines, <strong>193+ dbt models พร้อม 180+ data tests</strong>, dimensional data modeling และ reverse-ETL กลับไประบบเดิม — ให้บริษัท e-commerce ยอดขาย 100M+ THB/เดือน Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong> สร้าง app และ dashboard ให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
+        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 3+ ปี ในงาน data &amp; operations ปัจจุบันส่งมอบ <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ผ่าน ELT pipelines, <strong>190+ dbt models พร้อม 180+ data tests</strong>, dimensional data modeling และ reverse-ETL กลับไประบบเดิม — ให้บริษัท e-commerce ยอดขาย 100M+ THB/เดือน Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong> สร้าง app และ dashboard ให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
       epPeriod: "พ.ค. 2025 – ปัจจุบัน",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
         "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ให้ทีม 25+ คน ประหยัดเวลารวมทั้งทีม <strong>25–75 ชั่วโมง/วัน</strong> (1–3 ชม./คน) และตัดปัญหา reconcile ตัวเลขข้าม spreadsheet",
-        "<strong>ออกแบบโครงสร้าง data warehouse</strong> — 193 transformation steps ครอบคลุม 9 ด้านธุรกิจ ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok, Facebook ป้อน <strong>BI dashboards</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment",
-        "<strong>สร้าง ETL pipelines</strong> ดึงไฟล์ export จาก marketplace และข้อมูลจากระบบภายใน (Power Automate portal automation, Python, Azure Data Factory 46 pipelines — รวม 25 reverse-ETL ไปยังระบบเดิม) พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
-        "<strong>เปลี่ยนระบบ WMS เดิม</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พนักงานคลัง (รวมพนักงานต่างชาติ) เรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,200+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
-        "<strong>ทำงานร่วมกับทีมจัดซื้อ คลัง และผู้บริหาร</strong> หา process ที่ automate ได้ แทนงานมือด้วย <strong>low-code / no-code และ AI</strong>"
+        "<strong>ออกแบบโครงสร้าง data warehouse</strong> — 190+ transformation steps ครอบคลุม business domains หลายด้าน ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok, Facebook ป้อน <strong>operational dashboards (FastAPI + React)</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment",
+        "<strong>สร้าง ETL pipelines</strong> ดึงไฟล์ export จาก marketplace และข้อมูลจากระบบภายใน — <strong>Power Automate Desktop 40 flows</strong> (Shopee, Lazada, TikTok, JST, DHL), Python ingestion, <strong>Azure Data Factory 48 pipelines รวม 24 reverse-ETL</strong> เพื่อ sync รายงานกลับไประบบเดิม พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
+        "<strong>เปลี่ยน vendor WMS</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พนักงานคลัง (รวมพนักงานต่างชาติ) เรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,200+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
+        "<strong>ทำงานร่วมกับทีมจัดซื้อ คลัง และผู้บริหาร</strong> หา process ที่ automate ได้ แทนงานมือด้วย <strong>low-code / no-code และ AI</strong>",
+        "<strong>ดูแล 7 ระบบ production แบบ end-to-end</strong> — data platform (DPL), WMS, barcode scanner, webhook receiver, OCR, file-sync utility, marketplace scraper — รับผิดชอบคนเดียวครอบคลุม data + warehouse + logistics stack"
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
@@ -149,8 +151,8 @@ window.resumeI18n = {
         [
           "<strong>App Pipeline</strong> — ETL tool โหลด Excel/CSV → SQL Server พร้อม Tkinter GUI + CLI, แพ็คเป็น Windows installer (PyInstaller) รองรับ Replace/Upsert, auto-schema, batch processing",
           "<strong>Copy Files Utility</strong> — file-sync utility สำหรับ stage raw files ทุกประเภทเข้า landing folder พร้อม SQLite dedup, config ผ่าน CSV ไฟล์เดียวให้ user แก้ mapping ได้เอง",
-          "<strong>DHL Webhook Receiver</strong> — Flask service ที่ stream DHL tracking events เข้า SQL Server (PyODBC) — bridge ระหว่าง logistics กับ warehouse data",
-          "<strong>Web Scraper</strong> — Python scraper เก็บ flash-sale และ return data จาก marketplaces ส่งเข้า Bronze layer"
+          "<strong>Logistics Webhook Receiver</strong> — Flask + pyodbc service รับ webhook events จาก DHL eCommerce และ Flash Express เข้า Azure SQL — 6 endpoints พร้อม signature verification",
+          "<strong>Web Scraper</strong> — Python scraper ดึง return parcels ของ Flash Express (บริษัทขนส่ง) ผ่าน authenticated API ส่งเข้า Bronze layer"
         ]
       ],
       sectionSkills: "ทักษะทางเทคนิค",

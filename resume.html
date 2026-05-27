@@ -145,7 +145,6 @@
   address.contact a.contact-portfolio:hover {
     color: var(--fg);
   }
-  .print-only { display: none !important; }
   address.contact span.sep {
     display: none;
   }
@@ -1223,146 +1222,6 @@
     }
   }
 
-  /* ---------- Print ---------- */
-  @media print {
-    /* Preserve web colors/backgrounds when printing */
-    *, *::before, *::after {
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-    }
-
-    /* Hide interactive controls only */
-    .tabs { display: none !important; }
-    .language-switch { display: none !important; }
-    .diagram-expand { display: none !important; }
-    .diagram-modal { display: none !important; }
-    .print-hide { display: none !important; }
-    .print-only { display: inline-flex !important; }
-
-    /* Show resume + only Project #1 in print */
-    .view-resume { display: block !important; }
-    .view-projects { display: block !important; }
-    .view-projects .project ~ .project { display: none !important; }
-    /* Demo links not useful in print */
-    .demo-links { display: none !important; }
-
-    /* Tighten layout to fit A4 — keep web visuals */
-    html, body { font-size: 10px; line-height: 1.5; }
-    main {
-      max-width: none;
-      margin: 0;
-      padding: 2px 14px 10px;
-    }
-
-    /* Compact hero — keep photo small */
-    header.hero {
-      padding-bottom: 6px;
-      margin-bottom: 4px;
-      gap: 18px;
-      align-items: center;
-    }
-    .hero-photo {
-      width: 68px;
-      height: 68px;
-      box-shadow: 0 0 0 3px var(--bg-elev), 0 0 12px rgba(100, 116, 139, 0.18);
-      margin-top: 0;
-    }
-    .hero h1 { font-size: 23px; margin-bottom: 6px; line-height: 1.1; }
-    .hero .title { margin-bottom: 10px; padding: 3px 11px; font-size: 9.5px; }
-    address.contact { font-size: 9.5px; gap: 5px 13px; }
-    address.contact .location { padding: 2px 9px; font-size: 9.5px; }
-    address.contact a.contact-portfolio { text-decoration: underline; text-underline-offset: 2px; }
-    .contact-icon { width: 11px; height: 11px; }
-
-    /* Sections flow continuously in print — no card chrome */
-    section { margin-top: 8px !important; }
-    .view-resume section {
-      padding: 0 !important;
-      margin-top: 8px !important;
-      border: none !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      border-radius: 0 !important;
-    }
-    .view-resume section:first-child {
-      margin-top: 4px !important;
-    }
-    section > h2 {
-      margin: 0 0 6px;
-      padding-bottom: 4px;
-      font-size: 10px;
-    }
-
-    /* Summary */
-    .summary p { margin: 0 0 5px; }
-
-    /* Experience */
-    .exp-item h3 { font-size: 13.5px; }
-    .exp-item .period { font-size: 10px; }
-    .exp-item .role { font-size: 10px; margin: 2px 0 5px !important; }
-    .exp-item + .exp-item { margin-top: 10px !important; }
-    .exp-item ul { margin: 5px 0 0 !important; padding-left: 16px !important; }
-    .exp-item li { margin-bottom: 6px !important; line-height: 1.55 !important; }
-
-    /* Skills */
-    dl.skills {
-      grid-template-columns: 125px 1fr;
-      gap: 6px 16px !important;
-    }
-    dl.skills dt { font-size: 10.5px !important; padding-top: 1px !important; }
-    dl.skills dd { font-size: 10.5px !important; gap: 5px !important; line-height: 1.4 !important; }
-    .skill-token { min-height: 0; padding: 1px 7px; font-size: 9.5px; }
-
-    /* Learning / Certifications */
-    .edu-item h3 { font-size: 12.5px; }
-    .edu-item .period { font-size: 10px; }
-    .edu-item .degree { font-size: 10px !important; line-height: 1.5 !important; margin-top: 3px !important; }
-    .edu-item + .edu-item { margin-top: 8px !important; }
-
-    /* Project #1 compact for print — flows naturally; page-break-inside
-       on .project keeps it from splitting across pages. */
-    .view-projects section { margin-top: 0 !important; }
-    .project {
-      padding: 11px 15px !important;
-      margin-bottom: 0 !important;
-      border-radius: 7px;
-      background: #ffffff !important;
-      border: 1px solid var(--border) !important;
-      box-shadow: none !important;
-      cursor: default;
-    }
-    .project h3 { font-size: 13.5px; }
-    .project h3 .num { margin-right: 8px; }
-    .project .tagline { font-size: 10px !important; margin: 4px 0 6px !important; line-height: 1.45 !important; }
-    .project ul.bullets { margin: 5px 0 6px !important; padding-left: 16px !important; }
-    .project ul.bullets li { margin-bottom: 4px !important; line-height: 1.5 !important; font-size: 10px; }
-    .metrics { margin: 8px 0 6px !important; padding: 5px 0 !important; }
-    .metric .val { font-size: 11.5px !important; }
-    .metric .label { font-size: 8.5px !important; }
-    .chips { gap: 4px !important; margin-top: 8px !important; }
-    .chip { padding: 1px 7px !important; font-size: 8.5px !important; border-radius: 5px !important; }
-
-    /* Diagram compact for print */
-    .diagram-panel { padding: 8px !important; margin: 8px 0 4px !important; }
-    .diagram-heading { margin-bottom: 6px !important; }
-    .diagram-heading h4 { font-size: 11px !important; }
-    .diagram-heading p { font-size: 9px !important; margin-top: 3px !important; line-height: 1.4 !important; }
-    .diagram-legend { gap: 6px !important; margin-top: 6px !important; }
-    .legend-item { font-size: 8.5px !important; }
-    .legend-swatch { width: 8px !important; height: 8px !important; }
-    svg.arch-diagram { max-width: 100% !important; max-height: 320px !important; }
-
-    /* Avoid breaks inside cards/items */
-    .view-resume section,
-    .exp-item,
-    .edu-item,
-    .project {
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    @page { size: A4; margin: 4mm 6mm 6mm; }
-  }
 </style>
 </head>
 <body>
@@ -1406,15 +1265,6 @@
         </svg>
         github.com/sthongma
       </a>
-      <a href="https://sthongma.github.io/portfolio/resume.html" class="contact-portfolio print-only">
-        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M2 12h20"/>
-          <path d="M12 2a15.3 15.3 0 0 1 0 20"/>
-          <path d="M12 2a15.3 15.3 0 0 0 0 20"/>
-        </svg>
-        sthongma.github.io/portfolio/resume.html
-      </a>
       <span class="location">
         <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0z"/>
@@ -1456,7 +1306,7 @@
       <strong>Data engineer building production data platforms.</strong>
       3+ years across data &amp; operations, currently shipping a
       <strong>50 GB warehouse processing 100K+ records/day</strong>
-      via ELT pipelines, <strong>193+ dbt models with 180+ data
+      via ELT pipelines, <strong>190+ dbt models with 180+ data
       tests</strong>, dimensional data modeling, and reverse-ETL to
       legacy systems — for a 100M+ THB/month e-commerce business.
       Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python,
@@ -1482,32 +1332,39 @@
           reconciliation errors.
         </li>
         <li data-i18n="epBullets[1]">
-          <strong>Designed the data warehouse structure</strong> — 193
-          transformation steps across 9 business areas, processing
+          <strong>Designed the data warehouse structure</strong> —
+          190+ transformation steps across business domains, processing
           <strong>100K+ records/day</strong> from Shopee, Lazada,
-          TikTok, Facebook. Powers <strong>BI dashboards</strong> for
-          exec, procurement, warehouse, and fulfillment teams.
+          TikTok, Facebook. Powers <strong>operational dashboards
+          (FastAPI + React)</strong> for exec, procurement, warehouse,
+          and fulfillment teams.
         </li>
         <li data-i18n="epBullets[2]">
           <strong>Built ETL pipelines</strong> pulling marketplace
-          file exports and internal data (Power Automate portal
-          automation, Python, 46 Azure Data Factory pipelines —
-          incl. 25 reverse-ETL to legacy systems). Plus a
-          self-service config app so non-developers can add new
-          data sources themselves.
+          exports and internal data — <strong>40 Power Automate
+          Desktop flows</strong> (Shopee, Lazada, TikTok, JST, DHL),
+          Python ingestion, <strong>48 Azure Data Factory pipelines
+          incl. 24 reverse-ETL</strong> keeping legacy reporting in
+          sync. Plus a self-service config app so non-developers can
+          add new data sources themselves.
         </li>
         <li data-i18n="epBullets[3]">
-          <strong>Replaced the legacy warehouse system</strong> with
-          custom apps (WMS, barcode scanner, invoice OCR) — warehouse
-          staff (including non-Thai speakers) now learn in under 5
-          minutes; <strong>1,200+ orders/day</strong> with full audit
-          trail.
+          <strong>Replaced the vendor WMS</strong> with custom apps
+          (WMS, barcode scanner, invoice OCR) — warehouse staff
+          (including non-Thai speakers) now learn in under 5 minutes;
+          <strong>1,200+ orders/day</strong> with full audit trail.
         </li>
         <li data-i18n="epBullets[4]">
           <strong>Worked with procurement, warehouse &amp; executive
           teams</strong> to find work that could be automated —
           replaced manual processes with <strong>low-code / no-code
           tools and AI</strong>.
+        </li>
+        <li data-i18n="epBullets[5]">
+          <strong>Operate 7 production systems end-to-end</strong> —
+          data platform (DPL), WMS, barcode scanner, webhook receiver,
+          OCR, file-sync utility, marketplace scraper — single-engineer
+          ownership across data + warehouse + logistics stack.
         </li>
       </ul>
     </div>
@@ -1669,7 +1526,7 @@
           <span class="label">orders / day</span>
         </div>
         <div class="metric">
-          <span class="val">193+</span>
+          <span class="val">190+</span>
           <span class="label">dbt models</span>
         </div>
         <div class="metric">
@@ -1729,7 +1586,7 @@
         <rect class="box box-ingest" x="20" y="140" width="380" height="64" rx="6" ry="6"/>
         <text class="box-kicker" x="210" y="160">INGESTION</text>
         <text class="box-title" x="210" y="181">Power Automate</text>
-        <text class="box-sub" x="210" y="195">Email capture · portal automation</text>
+        <text class="box-sub" x="210" y="195">40 desktop flows · portal scraping</text>
 
         <rect class="box box-ingest" x="420" y="140" width="380" height="64" rx="6" ry="6"/>
         <text class="box-kicker" x="610" y="160">INGESTION</text>
@@ -1768,8 +1625,8 @@
         <line class="edge-branch" x1="560" y1="520" x2="590" y2="520"/>
         <rect class="box box-side" x="590" y="479" width="230" height="100" rx="6" ry="6"/>
         <text class="box-kicker" x="705" y="501">REVERSE ETL</text>
-        <text class="box-title" x="705" y="522">25 ADF Pipelines</text>
-        <text class="box-mono" x="705" y="543">~30 MIN NIGHTLY RUN</text>
+        <text class="box-title" x="705" y="522">24 ADF Pipelines</text>
+        <text class="box-mono" x="705" y="543">~45 MIN NIGHTLY RUN</text>
         <text class="box-sub" x="705" y="563">Legacy stored procedures</text>
 
         <line class="edge-branch" x1="705" y1="579" x2="705" y2="605"/>
@@ -1787,7 +1644,7 @@
         <rect class="box box-layer" x="40" y="600" width="520" height="62" rx="6" ry="6"/>
         <text class="box-kicker" x="300" y="620">BUSINESS LOGIC</text>
         <text class="box-title" x="300" y="638">dbt Intermediate</text>
-        <text class="box-mono" x="300" y="653">113 VIEWS · JOINS · CALCULATIONS</text>
+        <text class="box-mono" x="300" y="653">75 VIEWS · JOINS · CALCULATIONS</text>
 
         <line class="edge" x1="300" y1="662" x2="300" y2="702"/>
 
@@ -1892,11 +1749,10 @@
         <li data-i18n="projectBullets[2][1]">Custom notifications + audio alerts, full scan history with filtering and Excel export.</li>
       </ul>
       <div class="chips">
-        <span class="chip">FastAPI</span>
+        <span class="chip">Flask</span>
         <span class="chip">HTMX</span>
-        <span class="chip">TailwindCSS</span>
-        <span class="chip">SQL Server</span>
-        <span class="chip">Azure Blob Storage</span>
+        <span class="chip">SQL Server (on-prem)</span>
+        <span class="chip">Cloudflare Tunnel</span>
         <span class="chip">Docker</span>
       </div>
       <div class="demo-links" data-demo-links>
@@ -1940,8 +1796,8 @@
       <ul class="bullets">
         <li data-i18n="projectBullets[4][0]"><strong>App Pipeline</strong> — generic Excel/CSV → SQL Server ETL tool with Tkinter GUI + CLI, shipped as Windows installer (PyInstaller). Replace/Upsert, auto-schema, batch processing.</li>
         <li data-i18n="projectBullets[4][1]"><strong>Copy Files Utility</strong> — file-sync utility for staging raw files (any type) into landing folders. SQLite-backed dedup, CSV-configured mappings so non-devs update sources without code.</li>
-        <li data-i18n="projectBullets[4][2]"><strong>DHL Webhook Receiver</strong> — Flask service that streams DHL tracking events into SQL Server (PyODBC) — minimal bridge from logistics to warehouse data.</li>
-        <li data-i18n="projectBullets[4][3]"><strong>Web Scraper</strong> — Python scraper collecting flash-sale and return data from marketplaces, feeding the Bronze layer.</li>
+        <li data-i18n="projectBullets[4][2]"><strong>Logistics Webhook Receiver</strong> — Flask + pyodbc service streaming DHL eCommerce and Flash Express tracking events into Azure SQL — 6 webhook endpoints with signature verification.</li>
+        <li data-i18n="projectBullets[4][3]"><strong>Web Scraper</strong> — Python scraper for Flash Express seller-return parcels (logistics provider) via authenticated API, feeding the Bronze layer.</li>
       </ul>
       <div class="chips">
         <span class="chip">Python</span>
@@ -1950,7 +1806,6 @@
         <span class="chip">SQLite</span>
         <span class="chip">SQLAlchemy</span>
         <span class="chip">PyODBC</span>
-        <span class="chip">BeautifulSoup</span>
         <span class="chip">PyInstaller</span>
       </div>
     </article>
