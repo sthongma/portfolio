@@ -37,7 +37,7 @@
     min-height: 297mm;
     margin: 0 auto;
     background: #ffffff;
-    padding: 7mm 12mm 5mm;
+    padding: 5mm 12mm 4mm;
     display: flex;
     flex-direction: column;
   }
@@ -229,7 +229,7 @@
   <section class="section prod" data-screen-label="Prod Project">
     <div class="eyebrow"><span class="tick"></span>Prod Project<span class="num">/ 02</span></div>
     <h2>E-Commerce Data Pipeline &amp; Analytics Platform</h2>
-    <p class="desc">Data platform เต็มระบบ — warehouse <b>50 GB · 44M rows</b> เสิร์ฟ <b>9 business domains</b> สร้างตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) รับ data Excel และ SQL จาก 4 marketplaces ดึง raw data จาก 8 sources <span class="arrow">→</span> Power Automate, Pandas, dbt แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
+    <p class="desc">Data platform เต็มระบบ — warehouse <b>50 GB · 44M rows</b> เสิร์ฟ <b>9 business domains</b> สร้างตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) รับ data Excel และ SQL จาก 4 marketplaces ดึง raw data จาก 10 source systems · 39 tables <span class="arrow">→</span> Power Automate, Pandas, dbt แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
 
     <div class="diagram">
       <!-- stats -->
@@ -245,11 +245,11 @@
       <div class="stage-row">
         <!-- SOURCES -->
         <div class="zone sources">
-          <div class="zhead"><span>Sources</span><span class="zc">8</span></div>
+          <div class="zhead"><span>Sources</span><span class="zc">39 tables</span></div>
           <div class="znodes">
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-xls" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#21a366"/><stop offset="1" stop-color="#107c41"/></linearGradient></defs><path d="M27 6H13a3 3 0 0 0-3 3v30a3 3 0 0 0 3 3h22a3 3 0 0 0 3-3V17L27 6z" fill="#fff" stroke="#d7e6dc"/><path d="M27 6l11 11h-8a3 3 0 0 1-3-3V6z" fill="#cae0d2"/><rect x="6" y="20" width="22" height="16" rx="2.5" fill="url(#g-xls)"/><path d="M12 24l8 8M20 24l-8 8" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/></svg></div>
-              <div class="tx"><div class="nt">External Marketplaces</div><div class="ns">Shopee · Lazada · TikTok · FB</div></div>
+              <div class="tx"><div class="nt">Marketplaces + OMS</div><div class="ns">Shopee · Lazada · TikTok · JST (FB)</div></div>
             </div>
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-sql" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3aa0e3"/><stop offset="1" stop-color="#1769a8"/></linearGradient></defs><path d="M9 13c0-2.2 6.7-4 15-4s15 1.8 15 4v22c0 2.2-6.7 4-15 4S9 37.2 9 35V13z" fill="url(#g-sql)"/><ellipse cx="24" cy="13" rx="15" ry="4" fill="#6cc0ef"/><path d="M9 22c2.5 2 8 3.2 15 3.2S36.5 24 39 22" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.3"/><text x="24" y="35" text-anchor="middle" font-size="9.5" font-weight="800" fill="#fff">SQL</text></svg></div>
@@ -257,7 +257,7 @@
             </div>
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="11" width="36" height="26" rx="4" fill="#fff" stroke="#e6e6e6"/><path d="M6 15v22h5V19l-5-4z" fill="#c5221f"/><path d="M42 15v22h-5V19l5-4z" fill="#4285f4"/><path d="M6 15l18 13L42 15a4 4 0 0 0-4-4L24 22 10 11a4 4 0 0 0-4 4z" fill="#ea4335"/></svg></div>
-              <div class="tx"><div class="nt">Email</div><div class="ns">Flash · Return · COD</div></div>
+              <div class="tx"><div class="nt">Logistics</div><div class="ns">Flash · DHL</div></div>
             </div>
           </div>
         </div>
