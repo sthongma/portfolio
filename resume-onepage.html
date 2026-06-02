@@ -3,155 +3,175 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>สหัสวรรษ ทองมา — Resume (1 page)</title>
+<title>สหัสวรรษ ทองมา — Resume</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --border: #e5e8ee;
-    --border-strong: #cbd5e1;
-    --fg: #0f172a;
-    --fg-dim: #475569;
-    --fg-mute: #94a3b8;
-    --accent: #1f2937;
-    --accent-strong: #0f172a;
-    --indigo: #4f46e5;
-    --chip-bg: #f4f6fa;
-    --font-sans: "Noto Sans Thai","Noto Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    --font-mono: ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+    /* Carbon gray scale */
+    --ink:        #161616;   /* gray-100 — headings */
+    --ink-2:      #393939;   /* gray-80  */
+    --body:       #525252;   /* gray-70  — body copy */
+    --muted:      #8d8d8d;   /* gray-50  — labels, meta */
+    --line:       #e0e0e0;   /* gray-20  — hairlines */
+    --line-soft:  #ededed;
+    --field:      #f4f4f4;   /* gray-10  — tile fills */
+    --field-2:    #fafafa;
+    /* Carbon blue */
+    --blue:       #0f62fe;   /* blue-60  — single accent */
+    --blue-70:    #0043ce;
+    --blue-soft:  #edf2ff;
+    --blue-line:  #d0ddff;
+    --r: 4px;
+    --font-sans: "IBM Plex Sans Thai","IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-mono: "IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
   * { box-sizing: border-box; }
   @page { size: A4; margin: 0; }
-  html, body { margin: 0; padding: 0; background: #eceef2; }
-  body { font-family: var(--font-sans); color: var(--fg); -webkit-font-smoothing: antialiased; }
+  html, body { margin: 0; padding: 0; background: #e8eaed; }
+  body { font-family: var(--font-sans); color: var(--body); -webkit-font-smoothing: antialiased; line-height: 1.5; }
 
   .sheet {
     width: 210mm;
     min-height: 297mm;
     margin: 0 auto;
     background: #ffffff;
-    padding: 7mm 11mm 6mm;
+    padding: 7mm 12mm 5mm;
     display: flex;
     flex-direction: column;
   }
+  .doc { flex: 1; display: flex; flex-direction: column; }
 
-  /* sections flow directly on the page, separated by inset dividers */
-  .doc {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  /* ---------- consistent section header ---------- */
+  .section { padding: 7px 0 0; }
+  .section + .section { margin-top: 5px; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 9px;
+    font-family: var(--font-mono); font-size: 8.5px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink);
+    margin: 0 0 5px;
   }
-  .card { background: transparent; }
-  .doc > .card + .card { position: relative; }
-  .doc > .card + .card::before { content: ""; position: absolute; top: 0; left: 16px; right: 16px; border-top: 1px solid var(--border); }
+  .eyebrow .tick { width: 9px; height: 9px; background: var(--blue); flex: 0 0 auto; }
+  .eyebrow .num { color: var(--muted); font-weight: 500; }
+  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
   /* ---------------- HERO ---------------- */
-  .hero { display: flex; align-items: center; gap: 16px; padding: 11px 16px; }
-  .hero .photo {
-    width: 82px; height: 82px; flex: 0 0 auto; object-fit: cover;
-    border-radius: 12px; border: 1px solid var(--border-strong);
+  .hero {
+    display: flex; align-items: stretch; gap: 0;
+    border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
   }
-  .hero .id { flex: 1; min-width: 0; }
-  .hero h1 { margin: 0; font-size: 27px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; }
-  .hero .role { margin: 3px 0 9px; font-size: 14px; font-weight: 700; color: var(--fg-mute); letter-spacing: 0.01em; }
-  .hero .contacts { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .hero .photo-wrap { flex: 0 0 auto; position: relative; }
+  .hero .photo { width: 96px; height: 100%; object-fit: cover; display: block; }
+  .hero .id { flex: 1; min-width: 0; padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; border-left: 3px solid var(--blue); }
+  .hero h1 { margin: 0; font-size: 27px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.06; color: var(--ink); }
+  .hero .role {
+    margin: 7px 0 12px; font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.02em; color: var(--blue);
+  }
+  .hero .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
   .hero .contacts a, .hero .contacts span {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; color: var(--fg-dim); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 10px; color: var(--body); text-decoration: none; min-width: 0;
   }
-  .hero .contacts svg { width: 12px; height: 12px; flex: 0 0 auto; color: var(--accent); stroke-width: 2; }
-  .hero .qr { flex: 0 0 auto; text-align: center; }
-  .hero .qr img { width: 78px; height: 78px; display: block; }
-  .hero .qr .qlabel { margin-top: 4px; font-family: var(--font-mono); font-size: 7.5px; font-weight: 700; letter-spacing: 0.1em; color: var(--accent-strong); }
-  .hero .qr .qsub { font-family: var(--font-mono); font-size: 7px; font-weight: 600; letter-spacing: 0.1em; color: var(--fg-mute); }
+  .hero .contacts a span, .hero .contacts > span span { display: inline; }
+  .hero .contacts .txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .hero .contacts svg { width: 13px; height: 13px; flex: 0 0 auto; color: var(--muted); stroke-width: 1.8; }
+  .hero .qr { flex: 0 0 auto; width: 104px; text-align: center; padding: 12px 10px; background: var(--field-2); border-left: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .hero .qr img { width: 72px; height: 72px; display: block; }
+  .hero .qr .qlabel { margin-top: 7px; font-family: var(--font-mono); font-size: 7.5px; font-weight: 600; letter-spacing: 0.14em; color: var(--ink); }
+  .hero .qr .qsub { font-family: var(--font-mono); font-size: 7px; font-weight: 500; letter-spacing: 0.08em; color: var(--muted); margin-top: 1px; }
 
   /* ---------------- SUMMARY ---------------- */
-  .summary { padding: 10px 16px; }
-  .summary .tl { font-size: 11px; color: var(--fg-mute); margin: 0 0 5px; }
-  .summary .cur { font-size: 12px; color: var(--fg-dim); line-height: 1.55; margin: 0; }
-  .summary .cur b { color: var(--accent-strong); font-weight: 700; }
-  .summary ul { margin: 7px 0 0; padding-left: 16px; }
-  .summary li { font-size: 12px; color: var(--fg-dim); line-height: 1.66; }
-  .summary li b { color: var(--accent-strong); font-weight: 700; }
+  .summary .tl {
+    font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.02em;
+    color: var(--muted); margin: 0 0 9px; display: flex; flex-wrap: wrap; gap: 4px 8px;
+  }
+  .summary .tl .step { color: var(--ink-2); }
+  .summary .tl .now { color: var(--blue); font-weight: 600; }
+  .summary .cur { font-size: 11.5px; color: var(--body); line-height: 1.55; margin: 0; }
+  .summary .cur b { color: var(--ink); font-weight: 600; }
+  .summary .hl {
+    margin: 8px 0 0; padding: 8px 11px; background: var(--blue-soft);
+    border: 1px solid var(--blue-line); border-radius: var(--r);
+    font-size: 11.5px; color: var(--ink-2); line-height: 1.5;
+  }
+  .summary .hl b { color: var(--ink); font-weight: 600; }
+  .summary .hl .big { font-family: var(--font-mono); font-weight: 700; color: var(--blue-70); }
 
   /* ---------------- PROD PROJECT ---------------- */
-  .prod { padding: 11px 16px 12px; }
-  .prod h2 { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
-  .prod h2 .tag { font-weight: 800; color: var(--accent-strong); }
-  .prod .desc { margin: 6px 0 0; font-size: 11px; color: var(--fg-dim); line-height: 1.57; }
-  .prod .desc b { color: var(--accent-strong); font-weight: 700; }
-  .prod .desc .arrow { color: var(--fg-mute); font-weight: 700; }
+  .prod h2 { margin: 0; font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .prod .desc { margin: 6px 0 0; font-size: 10.6px; color: var(--body); line-height: 1.5; }
+  .prod .desc b { color: var(--ink); font-weight: 600; }
+  .prod .desc .arrow { color: var(--blue); font-weight: 700; font-family: var(--font-mono); }
 
-  .diagram { margin-top: 11px; }
+  .diagram { margin-top: 7px; }
 
   /* stat strip */
-  .stats { display: flex; border: 1px solid var(--border); border-radius: 9px; background: #ffffff; overflow: hidden; margin-bottom: 8px; }
-  .stat { flex: 1; min-width: 0; padding: 5px 6px; border-left: 1px solid var(--border); text-align: center; }
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-bottom: 9px; }
+  .stat { padding: 8px 6px; border-left: 1px solid var(--line); text-align: left; }
   .stat:first-child { border-left: none; }
-  .stat .v { display: block; font-family: var(--font-mono); font-size: 15px; font-weight: 800; color: var(--accent-strong); line-height: 1.05; }
-  .stat .l { display: block; margin-top: 2px; font-family: var(--font-mono); font-size: 7px; font-weight: 600; letter-spacing: 0.05em; color: var(--fg-mute); text-transform: uppercase; }
+  .stat .v { display: block; font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1; letter-spacing: -0.01em; }
+  .stat .l { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 7px; font-weight: 500; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; }
 
   /* zones */
   .stage-row { display: flex; align-items: stretch; gap: 0; }
-  .zone { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 10px; background: #ffffff; padding: 7px 8px 8px; }
-  .zone.sources   { width: 152px; }
-  .zone.ingest    { width: 152px; }
-  .zone.warehouse { width: 188px; background: #f6f8fc; }
-  .zone.serving   { width: 140px; }
-  .zlabel { font-family: var(--font-mono); font-size: 7.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-mute); margin: 0 0 6px; }
-  .zlabel b { color: var(--accent-strong); font-weight: 800; }
-  .znodes { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
-  .zarrow { flex: 0 0 22px; display: flex; align-items: center; justify-content: center; color: var(--fg-mute); }
-  .zarrow svg { width: 18px; height: 14px; }
+  .zone { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--r); background: #ffffff; padding: 0; overflow: hidden; }
+  .zone.sources   { width: 150px; }
+  .zone.ingest    { width: 150px; }
+  .zone.warehouse { width: 192px; }
+  .zone.serving   { flex: 1; min-width: 0; }
+  .zhead { font-family: var(--font-mono); font-size: 7.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink); padding: 6px 9px; background: var(--field); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+  .zhead .zc { color: var(--blue); font-weight: 700; }
+  .zone.warehouse .zhead { background: var(--blue-soft); border-bottom-color: var(--blue-line); }
+  .znodes { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 7px; }
+  .zarrow { flex: 0 0 20px; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+  .zarrow svg { width: 16px; height: 12px; }
 
-  .node { display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid var(--border); border-radius: 8px; padding: 5px 7px; box-shadow: 0 1px 1px rgba(15,23,42,0.03); }
+  .node { display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid var(--line); border-radius: 3px; padding: 6px 8px; }
   .node .ic { flex: 0 0 auto; width: 22px; height: 22px; }
   .node .ic svg { width: 100%; height: 100%; display: block; }
-  .node .nt { font-size: 10.5px; font-weight: 700; color: var(--accent-strong); line-height: 1.15; }
-  .node .ns { font-size: 8px; color: var(--fg-dim); margin-top: 1.5px; line-height: 1.3; }
+  .node .nt { font-size: 10px; font-weight: 600; color: var(--ink); line-height: 1.15; }
+  .node .ns { font-size: 8px; color: var(--body); margin-top: 2px; line-height: 1.3; }
 
-  .medallion { display: flex; flex-direction: column; gap: 0; }
-  .layer { background: #ffffff; border: 1px solid var(--border); border-left: 3px solid var(--border-strong); border-radius: 6px; padding: 3px 8px; }
-  .layer .lt { font-size: 9.5px; font-weight: 700; color: var(--accent-strong); line-height: 1.12; }
-  .layer .lm { font-family: var(--font-mono); font-size: 6.8px; font-weight: 600; letter-spacing: 0.01em; color: #64748b; margin-top: 1.5px; }
-  .layer.bronze { border-left-color: #c0803a; }
-  .layer.staging{ border-left-color: #9aa6b2; }
-  .layer.silver { border-left-color: #6b8bb0; }
-  .layer.inter  { border-left-color: #9aa6b2; }
-  .layer.gold   { border-left-color: #cca52e; }
-  .vdrop { width: 0; height: 2px; margin: 0 auto; border-left: 1.2px solid var(--border-strong); }
+  .medallion { display: flex; flex-direction: column; gap: 3px; }
+  .layer { background: var(--field-2); border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 3px; padding: 3px 9px; }
+  .layer .lt { font-size: 9.5px; font-weight: 600; color: var(--ink); line-height: 1.12; }
+  .layer .lm { font-family: var(--font-mono); font-size: 6.6px; font-weight: 500; letter-spacing: 0.01em; color: var(--muted); margin-top: 1.5px; }
+  .layer.bronze { border-left-color: #b06b2f; }
+  .layer.staging{ border-left-color: #a8a8a8; }
+  .layer.silver { border-left-color: #6f8fb3; }
+  .layer.inter  { border-left-color: #a8a8a8; }
+  .layer.gold   { border-left-color: #c6a52c; }
 
-  .node.app { flex-direction: column; align-items: flex-start; gap: 6px; background: #eef2ff; border: 1.4px solid var(--indigo); padding: 10px; height: 100%; justify-content: center; }
-  .node.app .ic { width: 26px; height: 26px; }
-  .node.app .nt { font-size: 11.5px; color: var(--indigo); }
-  .node.app .ns { font-size: 8.4px; }
-
-  /* ---------------- SKILLS ---------------- */
-  .skills { padding: 10px 16px 11px; }
-  .skills h2 { margin: 0 0 8px; font-size: 13px; font-weight: 700; }
-  .skills .grid { display: grid; grid-template-columns: 118px 1fr; gap: 3px 14px; align-items: start; }
-  .skills dt { font-size: 10.5px; font-weight: 700; color: var(--fg); padding-top: 2px; }
-  .skills dd { margin: 0; display: flex; flex-wrap: wrap; gap: 5px; }
-  .tok { font-size: 8.5px; padding: 2px 6px; background: var(--chip-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--fg-dim); white-space: nowrap; font-weight: 600; }
+  .node.app { flex-direction: column; align-items: flex-start; gap: 8px; background: var(--blue-soft); border: 1px solid var(--blue-line); padding: 12px; height: 100%; justify-content: center; }
+  .node.app .ic { width: 28px; height: 28px; }
+  .node.app .nt { font-size: 12px; color: var(--blue-70); }
+  .node.app .ns { font-size: 8.4px; color: var(--ink-2); line-height: 1.45; }
 
   /* ---------------- EXPERIENCE ---------------- */
-  .experience { padding: 10px 16px 11px; }
-  .experience h2 { margin: 0 0 8px; font-size: 13px; font-weight: 700; }
-  .experience .xp + .xp { margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--border); }
-  .experience .xp-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 9px; }
-  .experience .xp-co { font-size: 12px; font-weight: 700; color: var(--accent-strong); }
-  .experience .xp-role { font-size: 10.5px; font-weight: 700; color: var(--indigo); letter-spacing: -0.01em; }
-  .experience .xp-per { margin-left: auto; font-family: var(--font-mono); font-size: 10px; font-weight: 600; color: var(--fg-mute); white-space: nowrap; }
-  .experience .xp-pts { margin: 5px 0 0; padding-left: 15px; }
-  .experience .xp-pts li { font-size: 11px; color: var(--fg-dim); line-height: 1.47; }
-  .experience .xp-pts li + li { margin-top: 3px; }
-  .experience .xp-pts li b { color: var(--accent-strong); font-weight: 700; }
-  .experience .xp-lead { font-size: 11.3px; }
-  .experience .xp-sys { list-style: none; margin-left: -15px; margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px; }
-  .experience .sys { font-family: var(--font-mono); font-size: 8.4px; font-weight: 600; letter-spacing: 0.02em; padding: 2px 6px; background: var(--chip-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--fg-dim); white-space: nowrap; }
+  .experience .xp + .xp { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--line); }
+  .experience .xp-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 10px; }
+  .experience .xp-co { font-size: 12.5px; font-weight: 600; color: var(--ink); }
+  .experience .xp-role { font-size: 10.5px; font-weight: 500; color: var(--blue); letter-spacing: -0.005em; }
+  .experience .xp-per { margin-left: auto; font-family: var(--font-mono); font-size: 9px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+  .experience .xp-pts { margin: 6px 0 0; padding: 0; list-style: none; }
+  .experience .xp-pts li { font-size: 11px; color: var(--body); line-height: 1.45; position: relative; padding-left: 16px; }
+  .experience .xp-pts li.bullet::before { content: ""; position: absolute; left: 1px; top: 7px; width: 5px; height: 5px; background: var(--blue); }
+  .experience .xp-pts li + li { margin-top: 5px; }
+  .experience .xp-pts li b { color: var(--ink); font-weight: 600; }
+  .experience .xp-sys { list-style: none; padding-left: 0 !important; margin-top: 7px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .experience .sys { font-family: var(--font-mono); font-size: 8px; font-weight: 500; letter-spacing: 0.01em; padding: 3px 8px; background: var(--field); border: 1px solid var(--line); border-radius: 3px; color: var(--ink-2); white-space: nowrap; }
 
-  @media screen { body { padding: 16px 0; } .sheet { box-shadow: 0 4px 24px rgba(15,23,42,0.12); } }
+  /* ---------------- SKILLS ---------------- */
+  .skills .grid { display: grid; grid-template-columns: 118px 1fr; gap: 5px 16px; align-items: start; }
+  .skills .grid .row { display: contents; }
+  .skills dt { font-size: 10px; font-weight: 600; color: var(--ink); padding-top: 3px; font-family: var(--font-mono); letter-spacing: 0.01em; }
+  .skills dd { margin: 0; display: flex; flex-wrap: wrap; gap: 5px; }
+  .tok { font-size: 8.5px; padding: 2.5px 8px; background: #fff; border: 1px solid var(--line); border-radius: 3px; color: var(--ink-2); white-space: nowrap; font-weight: 500; }
+  .tok.cert { background: var(--field); }
+
+  @media screen { body { padding: 20px 0; } .sheet { box-shadow: 0 6px 30px rgba(22,22,22,0.13); } }
 </style>
 </head>
 <body>
@@ -159,65 +179,73 @@
  <div class="doc">
 
   <!-- ======= HERO ======= -->
-  <header class="card hero">
-    <img class="photo" src="assets/avatar.png" alt="สหัสวรรษ ทองมา" />
+  <header class="hero" data-screen-label="Hero">
+    <div class="photo-wrap">
+      <img class="photo" src="assets/avatar.png" alt="สหัสวรรษ ทองมา" />
+    </div>
     <div class="id">
       <h1>สหัสวรรษ ทองมา</h1>
       <div class="role">Data Analyst &amp; Data Engineer</div>
       <div class="contacts">
         <a href="mailto:sahatsawat.thongma@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
-          sahatsawat.thongma@gmail.com</a>
+          <span class="txt">sahatsawat.thongma@gmail.com</span></a>
         <a href="tel:+66836914296">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          +66 83-691-4296</a>
+          <span class="txt">+66 83-691-4296</span></a>
         <span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 7-8 13-8 13s-8-6-8-13a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          พันท้ายนรสิงห์, สมุทรสาคร</span>
-        <a href="https://sthongma.github.io/portfolio/resume.html">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"/></svg>
-          sthongma.github.io/portfolio/resume.html</a>
+          <span class="txt">พันท้ายนรสิงห์, สมุทรสาคร</span></span>
         <a href="https://github.com/sthongma">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-          github.com/sthongma</a>
+          <span class="txt">github.com/sthongma</span></a>
+        <a href="https://sthongma.github.io/portfolio/resume.html" style="grid-column: 1 / -1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"/></svg>
+          <span class="txt">sthongma.github.io/portfolio/resume.html</span></a>
       </div>
     </div>
     <div class="qr">
       <img src="assets/qr.png" alt="QR to full resume" />
       <div class="qlabel">FULL RESUME</div>
-      <div class="qsub">+ live demos</div>
+      <div class="qsub">+ LIVE DEMOS</div>
     </div>
   </header>
 
   <!-- ======= SUMMARY ======= -->
-  <section class="card summary">
-    <p class="tl">ประสบการณ์ 3+ ปี · Timeline : 2022 graphic design &amp; admin operations → 2024 accounting &amp; ERP admin</p>
-    <p class="cur">Current : <b>Data Analyst &amp; Data Engineer</b> — สร้าง <b>fully-automated data pipeline + dashboard</b> ingest 100K+ records/วัน จาก Excel + SQL sources ผ่าน ELT pipelines พร้อม <b>193+ dbt models</b> · 180+ data tests · dimensional modeling ให้บริษัท <b>e-commerce ยอดขาย 100M+ THB</b>/เดือน</p>
-    <ul>
-      <li>สร้าง <b>Data warehouse &amp; Web app</b> — แทน Google Sheets/Excel/WMS/App ที่ไม่ตอบโจทย์และไม่เป็นระบบ ให้ทีม 25 คน <b>ประหยัดเวลารวมทั้งทีม 25–75 ชั่วโมง/วัน</b> (1–3 ชม. ต่อคน) จบปัญหาเดิมๆ ที่เคยเจอ</li>
-    </ul>
+  <section class="section summary" data-screen-label="Summary">
+    <div class="eyebrow"><span class="tick"></span>Summary<span class="num">/ 01</span></div>
+    <p class="tl">
+      <span class="step">2022 — Graphic design &amp; admin operations</span>
+      <span>→</span>
+      <span class="step">2024 — Accounting &amp; ERP admin</span>
+      <span>→</span>
+      <span class="now">2025 — Data Analyst &amp; Engineer</span>
+    </p>
+    <p class="cur">ประสบการณ์ 3+ ปี ในสาย e-commerce ปัจจุบันเป็น <b>Data Analyst &amp; Data Engineer</b> — สร้าง <b>fully-automated data pipeline + dashboard</b> ingest 100K+ records/วัน จาก Excel + SQL sources ผ่าน ELT pipelines พร้อม <b>190+ dbt models</b> · 240+ data tests · dimensional modeling ให้บริษัทระดับร้อยล้านบาทต่อเดือน</p>
+    <div class="hl">สร้าง <b>Data warehouse &amp; Web app</b> แทน Google Sheets / Excel / WMS เดิมที่ไม่เป็นระบบ ให้ทีม <b>25 คน</b> ประหยัดเวลารวม <span class="big">25–75 ชม./วัน</span> (1–3 ชม. ต่อคน) จบปัญหาสต็อก &amp; ตัวเลขไม่ตรงข้ามช่องทาง</div>
   </section>
 
   <!-- ======= PROD PROJECT ======= -->
-  <section class="card prod">
-    <h2><span class="tag">PROD PROJECT</span> : E-Commerce Data Pipeline &amp; Analytics Platform</h2>
-    <p class="desc">Data platform เต็มระบบ — warehouse <b>50 GB · 44M rows</b> เสิร์ฟ <b>9 business domains</b> สร้างระบบตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) รับ data Excel และ SQL จาก 4 marketplaces ดึง raw data จาก sources (8 sources) <span class="arrow">→</span> Power Automate, Pandas, dbt แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
+  <section class="section prod" data-screen-label="Prod Project">
+    <div class="eyebrow"><span class="tick"></span>Prod Project<span class="num">/ 02</span></div>
+    <h2>E-Commerce Data Pipeline &amp; Analytics Platform</h2>
+    <p class="desc">Data platform เต็มระบบ — warehouse <b>50 GB · 44M rows</b> เสิร์ฟ <b>9 business domains</b> สร้างตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) รับ data Excel และ SQL จาก 4 marketplaces ดึง raw data จาก 8 sources <span class="arrow">→</span> Power Automate, Pandas, dbt แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
 
     <div class="diagram">
       <!-- stats -->
       <div class="stats">
         <div class="stat"><span class="v">100K</span><span class="l">row / day</span></div>
-        <div class="stat"><span class="v">48+</span><span class="l">ADF flow</span></div>
-        <div class="stat"><span class="v">THB 800M+</span><span class="l">revenue · to date</span></div>
-        <div class="stat"><span class="v">1,200+</span><span class="l">order / day</span></div>
-        <div class="stat"><span class="v">193+</span><span class="l">dbt model</span></div>
+        <div class="stat"><span class="v">46+</span><span class="l">ADF flow</span></div>
+        <div class="stat"><span class="v">240+</span><span class="l">data test</span></div>
+        <div class="stat"><span class="v">1,000+</span><span class="l">order / day</span></div>
+        <div class="stat"><span class="v">190+</span><span class="l">dbt model</span></div>
       </div>
 
       <!-- zones -->
       <div class="stage-row">
         <!-- SOURCES -->
         <div class="zone sources">
-          <div class="zlabel"><b>Sources</b></div>
+          <div class="zhead"><span>Sources</span><span class="zc">8</span></div>
           <div class="znodes">
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-xls" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#21a366"/><stop offset="1" stop-color="#107c41"/></linearGradient></defs><path d="M27 6H13a3 3 0 0 0-3 3v30a3 3 0 0 0 3 3h22a3 3 0 0 0 3-3V17L27 6z" fill="#fff" stroke="#d7e6dc"/><path d="M27 6l11 11h-8a3 3 0 0 1-3-3V6z" fill="#cae0d2"/><rect x="6" y="20" width="22" height="16" rx="2.5" fill="url(#g-xls)"/><path d="M12 24l8 8M20 24l-8 8" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/></svg></div>
@@ -237,7 +265,7 @@
 
         <!-- INGESTION -->
         <div class="zone ingest">
-          <div class="zlabel"><b>Ingestion</b></div>
+          <div class="zhead"><span>Ingestion</span><span class="zc">ELT</span></div>
           <div class="znodes">
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-pa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F6FE5"/><stop offset="1" stop-color="#0A46B8"/></linearGradient><linearGradient id="g-pa2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#62B0FF"/><stop offset="1" stop-color="#2F86F5"/></linearGradient></defs><path d="M27 3 L11 26 L21 26 L19 45 L37 20 L27 20 Z" fill="url(#g-pa)"/><path d="M27 3 L11 26 L21 26 L19 45 L23 25 Z" fill="url(#g-pa2)"/></svg></div>
@@ -257,17 +285,13 @@
 
         <!-- WAREHOUSE -->
         <div class="zone warehouse">
-          <div class="zlabel"><b>Data Warehouse</b> · dbt medallion</div>
+          <div class="zhead"><span>Data Warehouse</span><span class="zc">dbt medallion</span></div>
           <div class="znodes">
             <div class="medallion">
               <div class="layer bronze"><div class="lt">Bronze Layer</div><div class="lm">CONFIG UI · AI MAPPING · 30+ FILE TYPES</div></div>
-              <div class="vdrop"></div>
               <div class="layer staging"><div class="lt">dbt Staging</div><div class="lm">38 MODELS · CASTING · NULL STD</div></div>
-              <div class="vdrop"></div>
               <div class="layer silver"><div class="lt">dbt Silver</div><div class="lm">42 INCREMENTAL · ROW-HASH DEDUP</div></div>
-              <div class="vdrop"></div>
-              <div class="layer inter"><div class="lt">dbt Intermediate</div><div class="lm">75 VIEWS · JOINS · CALCULATIONS</div></div>
-              <div class="vdrop"></div>
+              <div class="layer inter"><div class="lt">dbt Intermediate</div><div class="lm">76 VIEWS · JOINS · CALCULATIONS</div></div>
               <div class="layer gold"><div class="lt">dbt Gold</div><div class="lm">FACTS · DIMS · INCREMENTAL REFRESH</div></div>
             </div>
           </div>
@@ -276,10 +300,10 @@
 
         <!-- SERVING -->
         <div class="zone serving">
-          <div class="zlabel"><b>Serving</b></div>
+          <div class="zhead"><span>Serving</span><span class="zc">APP</span></div>
           <div class="znodes">
             <div class="node app">
-              <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="8" width="36" height="32" rx="4" fill="#fff" stroke="#4f46e5" stroke-width="1.6"/><rect x="11" y="24" width="5" height="11" rx="1" fill="#4f46e5"/><rect x="20" y="18" width="5" height="17" rx="1" fill="#6366f1"/><rect x="29" y="13" width="5" height="22" rx="1" fill="#818cf8"/><line x1="6" y1="15" x2="42" y2="15" stroke="#e0e7ff" stroke-width="1.4"/></svg></div>
+              <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="8" width="36" height="32" rx="3" fill="#fff" stroke="#0f62fe" stroke-width="1.6"/><rect x="11" y="24" width="5" height="11" rx="0.5" fill="#0f62fe"/><rect x="20" y="18" width="5" height="17" rx="0.5" fill="#4589ff"/><rect x="29" y="13" width="5" height="22" rx="0.5" fill="#78a9ff"/><line x1="6" y1="15" x2="42" y2="15" stroke="#d0ddff" stroke-width="1.4"/></svg></div>
               <div class="tx"><div class="nt">FastAPI + React Dashboard</div><div class="ns">Real-time KPIs · price alerts · procurement · drilldowns</div></div>
             </div>
           </div>
@@ -289,8 +313,8 @@
   </section>
 
   <!-- ======= EXPERIENCE ======= -->
-  <section class="card experience">
-    <h2>Experience</h2>
+  <section class="section experience" data-screen-label="Experience">
+    <div class="eyebrow"><span class="tick"></span>Experience<span class="num">/ 03</span></div>
 
     <div class="xp">
       <div class="xp-head">
@@ -299,7 +323,7 @@
         <span class="xp-per">May 2025 – Present</span>
       </div>
       <ul class="xp-pts">
-        <li class="xp-lead"><b>วิศวกรคนเดียว ออกแบบ + operate 7 ระบบ production แบบ end-to-end</b> — ตั้งแต่ architecture จนถึงดูแล production เองทั้งหมด</li>
+        <li class="bullet"><b>วิศวกรคนเดียว ออกแบบ + operate 7 ระบบ production แบบ end-to-end</b> — ตั้งแต่ architecture จนถึงดูแล production เองทั้งหมด</li>
         <li class="xp-sys"><span class="sys">Data Platform / DPL</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">Webhook Receiver</span><span class="sys">OCR Pipeline</span><span class="sys">File-Sync</span><span class="sys">Marketplace Scraper</span></li>
       </ul>
     </div>
@@ -311,15 +335,15 @@
         <span class="xp-per">2022 – 2025</span>
       </div>
       <ul class="xp-pts">
-        <li>วาง <b>Ecount ERP master data ตั้งแต่ศูนย์</b> — เป็น single source of truth ข้าม marketplaces + ERP (แก้ stock ไม่ตรงข้ามช่องทาง)</li>
-        <li>สร้าง <b>Power BI + Power Query</b> reconcile ERP ระหว่างทีม sales &amp; finance ปิด recurring discrepancy ใน monthly reporting</li>
+        <li class="bullet">วาง <b>Ecount ERP master data ตั้งแต่ศูนย์</b> — เป็น single source of truth ข้าม marketplaces + ERP (แก้ stock ไม่ตรงข้ามช่องทาง)</li>
+        <li class="bullet">สร้าง <b>Power BI + Power Query</b> reconcile ERP ระหว่างทีม sales &amp; finance ปิด recurring discrepancy ใน monthly reporting</li>
       </ul>
     </div>
   </section>
 
   <!-- ======= TECHNICAL SKILLS ======= -->
-  <section class="card skills">
-    <h2>Technical Skills &amp; Certifications</h2>
+  <section class="section skills" data-screen-label="Skills">
+    <div class="eyebrow"><span class="tick"></span>Skills &amp; Certifications<span class="num">/ 04</span></div>
     <dl class="grid">
       <dt>Data Warehouse</dt>
       <dd><span class="tok">SQL Server</span><span class="tok">T-SQL</span><span class="tok">dbt</span><span class="tok">Medallion</span><span class="tok">Kimball / Star schema</span><span class="tok">SCD type 2</span></dd>
@@ -334,7 +358,7 @@
       <dt>Developer Tooling</dt>
       <dd><span class="tok">Git</span><span class="tok">GitHub Actions</span><span class="tok">Docker</span><span class="tok">AI pair-programming</span><span class="tok">Claude Code</span><span class="tok">Cursor</span></dd>
       <dt>Certifications</dt>
-      <dd><span class="tok">Power BI &amp; Excel — 9Expert</span><span class="tok">Python — Skooldio (2025)</span><span class="tok">Self-directed Data Engineering</span></dd>
+      <dd><span class="tok cert">Power BI &amp; Excel — 9Expert</span><span class="tok cert">Python — Skooldio (2025)</span><span class="tok cert">Self-directed Data Engineering</span></dd>
     </dl>
   </section>
 
