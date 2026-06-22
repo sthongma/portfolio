@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sahatsawat Thongma — CV (ATS)</title>
+<style>
+  /* ---------------------------------------------------------------
+     ATS-friendly CV — single column, semantic HTML, selectable text,
+     no icons / images / QR / multi-column layout / text-in-graphics.
+     Uses local Windows fonts (Thai-capable) so the PDF renders the
+     same offline. Print to A4 PDF.
+  ----------------------------------------------------------------*/
+  * { box-sizing: border-box; }
+  @page { size: A4; margin: 16mm 15mm; }
+  html, body { margin: 0; padding: 0; background: #fff; }
+  body {
+    font-family: "Segoe UI", "Leelawadee UI", Tahoma, Arial, sans-serif;
+    color: #1a1a1a;
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  .page { max-width: 190mm; margin: 0 auto; padding: 14mm 13mm; }
+
+  /* ---------- header ---------- */
+  header { margin-bottom: 10px; }
+  h1 {
+    margin: 0;
+    font-size: 21pt;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #111;
+  }
+  .role {
+    margin: 2px 0 8px;
+    font-size: 12pt;
+    font-weight: 600;
+    color: #0043ce;
+  }
+  .contact {
+    font-size: 9.5pt;
+    color: #333;
+    line-height: 1.6;
+  }
+  .contact a { color: #333; text-decoration: none; }
+  .contact .sep { color: #999; padding: 0 6px; }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 14px; }
+  h2 {
+    margin: 0 0 7px;
+    font-size: 11pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #111;
+    border-bottom: 1.5px solid #1a1a1a;
+    padding-bottom: 3px;
+  }
+
+  p { margin: 0 0 6px; }
+  .summary { text-align: justify; }
+
+  /* ---------- skills ---------- */
+  .skills-row { margin: 0 0 4px; }
+  .skills-row .label { font-weight: 700; color: #111; }
+
+  /* ---------- experience ---------- */
+  .job { margin-bottom: 12px; }
+  .job:last-child { margin-bottom: 0; }
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .job-head .co { font-size: 11pt; font-weight: 700; color: #111; }
+  .job-head .period { font-size: 9.5pt; color: #555; white-space: nowrap; }
+  .job .title { font-size: 10pt; font-weight: 600; color: #0043ce; margin: 1px 0 5px; }
+
+  ul { margin: 4px 0 0; padding-left: 18px; }
+  li { margin-bottom: 4px; }
+  li:last-child { margin-bottom: 0; }
+  strong { color: #111; font-weight: 700; }
+
+  /* ---------- project ---------- */
+  .proj-head { font-weight: 700; color: #111; }
+  .proj-stats { font-size: 9.5pt; color: #444; margin: 3px 0 5px; }
+
+  /* ---------- education ---------- */
+  .edu { margin-bottom: 8px; }
+  .edu:last-child { margin-bottom: 0; }
+  .edu .deg { font-weight: 700; color: #111; }
+  .edu .meta { color: #555; font-size: 9.5pt; }
+
+  @media screen {
+    body { background: #e8eaed; padding: 24px 0; }
+    .page { background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header>
+    <h1>สหัสวรรษ ทองมา (Sahatsawat Thongma)</h1>
+    <div class="role">Data Engineer</div>
+    <div class="contact">
+      <a href="mailto:sahatsawat.thongma@gmail.com">sahatsawat.thongma@gmail.com</a>
+      <span class="sep">|</span>
+      <a href="tel:+66836914296">+66 83-691-4296</a>
+      <span class="sep">|</span>
+      พันท้ายนรสิงห์, สมุทรสาคร (เปิดรับ remote / hybrid)
+      <br>
+      <a href="https://github.com/sthongma">github.com/sthongma</a>
+      <span class="sep">|</span>
+      <a href="https://sthongma.github.io/portfolio/resume.html">sthongma.github.io/portfolio/resume.html</a>
+    </div>
+  </header>
+
+  <!-- ============ SUMMARY ============ -->
+  <section>
+    <h2>Professional Summary</h2>
+    <p class="summary">Data Engineer ประสบการณ์ 3+ ปีในสาย e-commerce — ออกแบบ สร้าง และดูแล data platform เต็มระบบในตัวคนเดียว (end-to-end) ให้บริษัท e-commerce ระดับร้อยล้านบาทต่อเดือน ปัจจุบันดูแล data warehouse ขนาด 50 GB (44M+ rows) ที่ ingest 100K+ records/วัน ผ่าน ELT pipelines ด้วย 200+ dbt models และ 270+ data tests บน medallion architecture + dimensional (Kimball) modeling กำลัง re-platform warehouse ไปสู่ PostgreSQL on-prem (dbt-postgres) orchestrate ด้วย Apache Airflow ใน Docker งานที่สร้างช่วยให้ทีม 25 คนประหยัดเวลารวม 25–75 ชม./วัน และปิดปัญหาสต็อก/ตัวเลขไม่ตรงกันข้ามช่องทาง</p>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section>
+    <h2>Technical Skills</h2>
+    <p class="skills-row"><span class="label">Data Warehouse:</span> PostgreSQL, SQL Server, T-SQL, dbt, Medallion architecture, Kimball / star schema, SCD type 2</p>
+    <p class="skills-row"><span class="label">Data Engineering:</span> Python, Pandas, ETL / ELT, Apache Airflow, Docker, SQLAlchemy, orchestration, data quality &amp; testing</p>
+    <p class="skills-row"><span class="label">App Development:</span> FastAPI, React / TypeScript, HTMX, Alpine.js, Jinja2, Alembic, REST / JSON API</p>
+    <p class="skills-row"><span class="label">Ingestion &amp; BI:</span> Playwright (RPA), Power Automate, Power BI, Power Query, Excel (advanced)</p>
+    <p class="skills-row"><span class="label">Cloud — Azure:</span> Data Factory (ADF), App Service, Blob Storage, Document Intelligence</p>
+    <p class="skills-row"><span class="label">Developer Tooling:</span> Git, GitHub Actions, Docker, AI pair-programming (Claude Code, Cursor)</p>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section>
+    <h2>Professional Experience</h2>
+
+    <div class="job">
+      <div class="job-head">
+        <span class="co">EP Asia Group</span>
+        <span class="period">May 2025 – Present</span>
+      </div>
+      <div class="title">Data Engineer — E-Commerce Data Platform</div>
+      <ul>
+        <li>ออกแบบและสร้าง modern data warehouse บน dbt — <strong>medallion architecture</strong> (staging → silver → intermediate → gold) พร้อม <strong>270+ data tests</strong>, source-freshness checks และ <strong>SCD type-2 dimensional modeling</strong>; ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok และ Facebook (JST OMS) ป้อน operational dashboards (FastAPI + React) ให้ทีม exec, procurement, warehouse และ fulfillment</li>
+        <li>สร้าง <strong>ingestion &amp; orchestration layer</strong> — Python + Playwright RPA framework (<strong>26 flows</strong>) แทน Power Automate Desktop 40 flows, และ <strong>46 Azure Data Factory pipelines</strong> (รวม 25 reverse-ETL) ที่ sync legacy reporting; รันทุกคืนบน <strong>Apache Airflow ใน Docker</strong> พร้อม custom operators, freshness gates และ email/LINE alert ภาษาไทย พร้อม self-service config app ให้ผู้ใช้ที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง</li>
+        <li>กำลัง <strong>re-platform warehouse จาก Azure SQL Server → self-hosted PostgreSQL</strong> — port <strong>200+ dbt models</strong> (dbt-sqlserver → dbt-postgres) และ validate end-to-end ผ่าน Airflow/Docker เพื่อลด cloud cost โดยไม่กระทบ dashboard (dev port เสร็จแล้ว, production cutover กำลังดำเนินการ)</li>
+        <li><strong>แทนที่ vendor WMS ด้วย custom apps</strong> (WMS, barcode scanner, invoice OCR) ที่ป้อนข้อมูลเข้า warehouse — พนักงานคลัง (รวมที่ไม่ใช้ภาษาไทย) เรียนรู้ได้ใน 5 นาที รองรับ <strong>1,000+ orders/วัน</strong> พร้อม audit trail เต็มรูปแบบ</li>
+        <li><strong>ดูแล production stack ทั้งหมดคนเดียว</strong> — 7 ระบบ production end-to-end (data platform, WMS, barcode scanner, webhook receiver, OCR pipeline, file-sync, marketplace RPA): ตั้งแต่ architecture, build, deploy ไปจนถึง on-call</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <span class="co">Traveler Co., Ltd.</span>
+        <span class="period">2022 – 2025</span>
+      </div>
+      <div class="title">Accountant — ERP &amp; BI Analyst</div>
+      <ul>
+        <li>วาง <strong>Ecount ERP master data ตั้งแต่ศูนย์</strong> — กำหนด chart of accounts, customer/vendor master และมาตรฐาน SKU mapping เป็นรากฐานที่สะอาดสำหรับ finance, sales reporting และ BI</li>
+        <li>สร้าง <strong>Power BI reports</strong> และใช้ <strong>Power Query</strong> reconcile ข้อมูล ERP ระหว่างทีม sales และ finance — สร้าง monthly reporting ที่สม่ำเสมอ ปิด recurring discrepancy ที่เกิดซ้ำ</li>
+        <li>สร้าง <strong>product/SKU master data</strong> ข้าม marketplaces + ERP ให้เป็น single source of truth ของ catalog — ปิดปัญหา SKU mapping กำกวมที่ทำให้สต็อกไม่ตรงกันข้ามช่องทาง</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ KEY PROJECT ============ -->
+  <section>
+    <h2>Selected Project</h2>
+    <p class="proj-head">E-Commerce Data Pipeline &amp; Analytics Platform — built &amp; operated end-to-end (solo)</p>
+    <p class="proj-stats">50 GB warehouse · 44M+ rows · 9 business domains · 100K+ rows/day · 1,000+ orders/day · 200+ dbt models · 270+ data tests · 46 ADF pipelines</p>
+    <p>Data platform เต็มระบบ — ดึง raw data จาก 8 source systems (marketplaces, OMS, internal apps, logistics) ผ่าน Python + Playwright, Azure Data Factory และ dbt (กำลังย้ายไป Airflow) เข้าสู่ warehouse แบบ medallion แล้วเสิร์ฟผ่าน FastAPI + React dashboard (real-time KPIs, price alerts, procurement, drilldowns) แทนการที่เคยมีคนต้องนั่งโหลดและ refresh ไฟล์ด้วยมือทุกเช้า</p>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <section>
+    <h2>Education</h2>
+    <div class="edu">
+      <div class="deg">มัธยมศึกษาตอนปลาย (ม.6) — สายวิทย์-คณิต (Science–Math)</div>
+      <div class="meta">โรงเรียนเตรียมอุดมศึกษาพัฒนาการ อุดรธานี (Triam Udom Suksa Pattanakan Udon Thani) · จบปี 2562 / 2019</div>
+    </div>
+  </section>
+
+  <!-- ============ CERTIFICATIONS ============ -->
+  <section>
+    <h2>Certifications &amp; Continuous Learning</h2>
+    <div class="edu">
+      <div class="deg">Power BI &amp; Excel for Data Analysis</div>
+      <div class="meta">9Expert Online Training — Power BI modeling, DAX และ Power Query (ใช้จริงกับ finance &amp; sales reconciliation ที่ Traveler Co.)</div>
+    </div>
+    <div class="edu">
+      <div class="deg">Python Programming Foundations</div>
+      <div class="meta">Skooldio · Jun 2025 — Core Python สำหรับงานข้อมูล ใช้เป็นฐานของ ETL scripts, FastAPI services และ Airflow operators ใน production</div>
+    </div>
+    <div class="edu">
+      <div class="deg">Continuous Self-Directed Learning (Data Engineering)</div>
+      <div class="meta">Ongoing — dbt (medallion, incremental, tests), Apache Airflow, Docker, PostgreSQL, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript ผ่าน official docs และ AI pair-programming</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
