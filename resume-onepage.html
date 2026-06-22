@@ -185,7 +185,7 @@
     </div>
     <div class="id">
       <h1>สหัสวรรษ ทองมา</h1>
-      <div class="role">Data Analyst &amp; Data Engineer</div>
+      <div class="role">Data Engineer</div>
       <div class="contacts">
         <a href="mailto:sahatsawat.thongma@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
@@ -219,9 +219,9 @@
       <span>→</span>
       <span class="step">2024 — Accounting &amp; ERP admin</span>
       <span>→</span>
-      <span class="now">2025 — Data Analyst &amp; Engineer</span>
+      <span class="now">2025 — Data Engineer</span>
     </p>
-    <p class="cur">ประสบการณ์ 3+ ปี ในสาย e-commerce ปัจจุบันเป็น <b>Data Analyst &amp; Data Engineer</b> — สร้าง <b>fully-automated data pipeline + dashboard</b> ingest 100K+ records/วัน จาก Excel + SQL sources ผ่าน ELT pipelines พร้อม <b>190+ dbt models</b> · 240+ data tests · dimensional modeling ให้บริษัทระดับร้อยล้านบาทต่อเดือน</p>
+    <p class="cur">ประสบการณ์ 3+ ปี ในสาย e-commerce ปัจจุบันเป็น <b>Data Engineer</b> — สร้างและดูแล <b>data warehouse 50 GB + dashboard</b> ingest 100K+ records/วัน ผ่าน ELT pipelines พร้อม <b>200+ dbt models</b> · 270+ data tests · medallion + dimensional modeling กำลังย้าย warehouse → <b>PostgreSQL on-prem</b> (dbt-postgres) orchestrate ด้วย <b>Airflow ใน Docker</b> ให้บริษัทระดับร้อยล้านบาทต่อเดือน</p>
     <div class="hl">สร้าง <b>Data warehouse &amp; Web app</b> แทน Google Sheets / Excel / WMS เดิมที่ไม่เป็นระบบ ให้ทีม <b>25 คน</b> ประหยัดเวลารวม <span class="big">25–75 ชม./วัน</span> (1–3 ชม. ต่อคน) จบปัญหาสต็อก &amp; ตัวเลขไม่ตรงข้ามช่องทาง</div>
   </section>
 
@@ -229,16 +229,16 @@
   <section class="section prod" data-screen-label="Prod Project">
     <div class="eyebrow"><span class="tick"></span>Prod Project<span class="num">/ 02</span></div>
     <h2>E-Commerce Data Pipeline &amp; Analytics Platform</h2>
-    <p class="desc">Data platform เต็มระบบ — warehouse <b>50 GB · 44M rows</b> เสิร์ฟ <b>9 business domains</b> สร้างตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) รับ data Excel และ SQL จาก 4 marketplaces ดึง raw data จาก 10 source systems · 39 tables <span class="arrow">→</span> Power Automate, Pandas, dbt แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
+    <p class="desc">Data platform เต็มระบบ — warehouse <b>50 GB · 44M rows</b> เสิร์ฟ <b>9 business domains</b> สร้างตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) ดึง raw data จาก 8 source systems <span class="arrow">→</span> Python + Playwright, Airflow, dbt แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
 
     <div class="diagram">
       <!-- stats -->
       <div class="stats">
         <div class="stat"><span class="v">100K</span><span class="l">row / day</span></div>
-        <div class="stat"><span class="v">46+</span><span class="l">ADF flow</span></div>
-        <div class="stat"><span class="v">240+</span><span class="l">data test</span></div>
+        <div class="stat"><span class="v">46</span><span class="l">ADF pipeline</span></div>
+        <div class="stat"><span class="v">270+</span><span class="l">data test</span></div>
         <div class="stat"><span class="v">1,000+</span><span class="l">order / day</span></div>
-        <div class="stat"><span class="v">190+</span><span class="l">dbt model</span></div>
+        <div class="stat"><span class="v">200+</span><span class="l">dbt model</span></div>
       </div>
 
       <!-- zones -->
@@ -268,8 +268,8 @@
           <div class="zhead"><span>Ingestion</span><span class="zc">ELT</span></div>
           <div class="znodes">
             <div class="node">
-              <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-pa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F6FE5"/><stop offset="1" stop-color="#0A46B8"/></linearGradient><linearGradient id="g-pa2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#62B0FF"/><stop offset="1" stop-color="#2F86F5"/></linearGradient></defs><path d="M27 3 L11 26 L21 26 L19 45 L37 20 L27 20 Z" fill="url(#g-pa)"/><path d="M27 3 L11 26 L21 26 L19 45 L23 25 Z" fill="url(#g-pa2)"/></svg></div>
-              <div class="tx"><div class="nt">Power Automate</div><div class="ns">40 flows · portal scraping</div></div>
+              <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-py1" x1=".5" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#387EB8"/><stop offset="1" stop-color="#366994"/></linearGradient><linearGradient id="g-py2" x1=".5" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#FFE052"/><stop offset="1" stop-color="#FFC331"/></linearGradient></defs><path fill="url(#g-py1)" d="M23.8 4c-9.9 0-9.3 4.3-9.3 4.3v4.5h9.5v1.3H10.7s-6.4-.7-6.4 9.4 5.6 9.7 5.6 9.7h3.3v-4.7s-.2-5.6 5.5-5.6h9.4s5.3.1 5.3-5.1v-8.6S38.7 4 23.8 4zM18.6 7c.9 0 1.7.8 1.7 1.7s-.7 1.7-1.7 1.7c-.9 0-1.7-.8-1.7-1.7S17.6 7 18.6 7z"/><path fill="url(#g-py2)" d="M24.2 44c9.9 0 9.3-4.3 9.3-4.3v-4.5H24v-1.3h13.3s6.4.7 6.4-9.4-5.6-9.7-5.6-9.7h-3.3v4.7s.2 5.6-5.5 5.6h-9.4s-5.3-.1-5.3 5.1v8.6S9.3 44 24.2 44zM29.4 41c-.9 0-1.7-.8-1.7-1.7s.7-1.7 1.7-1.7c.9 0 1.7.8 1.7 1.7s-.8 1.7-1.7 1.7z"/></svg></div>
+              <div class="tx"><div class="nt">Python + Playwright</div><div class="ns">26 RPA flows · scraping</div></div>
             </div>
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-adf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#37C0F5"/><stop offset="1" stop-color="#1C72C8"/></linearGradient></defs><path d="M12 24 H37 M25 24 L31 13" stroke="#1C72C8" stroke-width="2.3" fill="none" stroke-linecap="round"/><circle cx="11" cy="24" r="4.7" fill="url(#g-adf)"/><circle cx="24" cy="24" r="4.7" fill="url(#g-adf)"/><circle cx="37" cy="24" r="4.7" fill="url(#g-adf)"/><circle cx="32" cy="12" r="3.9" fill="url(#g-adf)"/></svg></div>
@@ -291,7 +291,7 @@
               <div class="layer bronze"><div class="lt">Bronze Layer</div><div class="lm">CONFIG UI · AI MAPPING · 30+ FILE TYPES</div></div>
               <div class="layer staging"><div class="lt">dbt Staging</div><div class="lm">38 MODELS · CASTING · NULL STD</div></div>
               <div class="layer silver"><div class="lt">dbt Silver</div><div class="lm">42 INCREMENTAL · ROW-HASH DEDUP</div></div>
-              <div class="layer inter"><div class="lt">dbt Intermediate</div><div class="lm">76 VIEWS · JOINS · CALCULATIONS</div></div>
+              <div class="layer inter"><div class="lt">dbt Intermediate</div><div class="lm">77 VIEWS · JOINS · CALCULATIONS</div></div>
               <div class="layer gold"><div class="lt">dbt Gold</div><div class="lm">FACTS · DIMS · INCREMENTAL REFRESH</div></div>
             </div>
           </div>
@@ -319,12 +319,12 @@
     <div class="xp">
       <div class="xp-head">
         <span class="xp-co">EP Asia Group</span>
-        <span class="xp-role">Data Analyst &amp; Data Engineer · E-Commerce Data Platform</span>
+        <span class="xp-role">Data Engineer · E-Commerce Data Platform</span>
         <span class="xp-per">May 2025 – Present</span>
       </div>
       <ul class="xp-pts">
         <li class="bullet"><b>วิศวกรคนเดียว ออกแบบ + operate 7 ระบบ production แบบ end-to-end</b> — ตั้งแต่ architecture จนถึงดูแล production เองทั้งหมด</li>
-        <li class="xp-sys"><span class="sys">Data Platform / DPL</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">Webhook Receiver</span><span class="sys">OCR Pipeline</span><span class="sys">File-Sync</span><span class="sys">Marketplace Scraper</span></li>
+        <li class="xp-sys"><span class="sys">Data Platform / DPL</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">Webhook Receiver</span><span class="sys">OCR Pipeline</span><span class="sys">File-Sync</span><span class="sys">Playwright RPA</span></li>
       </ul>
     </div>
 
@@ -346,13 +346,13 @@
     <div class="eyebrow"><span class="tick"></span>Skills &amp; Certifications<span class="num">/ 04</span></div>
     <dl class="grid">
       <dt>Data Warehouse</dt>
-      <dd><span class="tok">SQL Server</span><span class="tok">T-SQL</span><span class="tok">dbt</span><span class="tok">Medallion</span><span class="tok">Kimball / Star schema</span><span class="tok">SCD type 2</span></dd>
+      <dd><span class="tok">PostgreSQL</span><span class="tok">SQL Server</span><span class="tok">T-SQL</span><span class="tok">dbt</span><span class="tok">Medallion</span><span class="tok">Kimball / Star schema</span><span class="tok">SCD type 2</span></dd>
       <dt>Data Engineering</dt>
-      <dd><span class="tok">Python</span><span class="tok">Pandas</span><span class="tok">ETL / ELT</span><span class="tok">Apache Airflow</span><span class="tok">SQLAlchemy</span><span class="tok">Orchestration</span><span class="tok">Data quality &amp; alerting</span></dd>
+      <dd><span class="tok">Python</span><span class="tok">Pandas</span><span class="tok">ETL / ELT</span><span class="tok">Apache Airflow</span><span class="tok">Docker</span><span class="tok">SQLAlchemy</span><span class="tok">Orchestration</span><span class="tok">Data quality &amp; testing</span></dd>
       <dt>App Development</dt>
       <dd><span class="tok">FastAPI</span><span class="tok">React / TypeScript</span><span class="tok">HTMX</span><span class="tok">Alpine.js</span><span class="tok">Jinja2</span><span class="tok">Alembic</span><span class="tok">REST / JSON API</span></dd>
-      <dt>BI &amp; Automation</dt>
-      <dd><span class="tok">Power BI</span><span class="tok">Power Query</span><span class="tok">Power Automate</span><span class="tok">Low-code / No-code</span><span class="tok">Excel (advanced)</span></dd>
+      <dt>Ingestion &amp; BI</dt>
+      <dd><span class="tok">Playwright (RPA)</span><span class="tok">Power Automate</span><span class="tok">Power BI</span><span class="tok">Power Query</span><span class="tok">Excel (advanced)</span></dd>
       <dt>Cloud · Azure</dt>
       <dd><span class="tok">Data Factory</span><span class="tok">App Service</span><span class="tok">Blob Storage</span><span class="tok">Document Intelligence</span></dd>
       <dt>Developer Tooling</dt>

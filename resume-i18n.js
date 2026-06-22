@@ -8,18 +8,18 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Data engineer building production data platforms.</strong> 3+ years in e-commerce, across data &amp; operations, currently shipping a <strong>50 GB warehouse processing 100K+ records/day</strong> via ELT pipelines, <strong>190+ dbt models with 240+ data tests</strong>, dimensional data modeling, and reverse-ETL to legacy systems — for a nine-figure monthly-revenue business. Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong>. Builds for non-technical business users (warehouse, procurement, exec)."
+        "<strong>Data engineer building production data platforms.</strong> 3+ years in e-commerce, across data &amp; operations, running a <strong>50 GB warehouse that processes 100K+ records/day</strong> through ELT pipelines — <strong>200+ dbt models with 270+ data tests</strong>, medallion + dimensional modeling, and reverse-ETL to legacy systems — for a nine-figure monthly-revenue business. Currently <strong>re-platforming the warehouse from Azure SQL Server to self-hosted PostgreSQL</strong> (dbt-sqlserver → dbt-postgres), orchestrated by <strong>Apache Airflow in Docker</strong>. Stack: <strong>dbt · Airflow · PostgreSQL / SQL Server · Python · Azure · FastAPI/React</strong>. Builds for non-technical business users — warehouse, procurement, exec."
       ],
       sectionExperience: "Experience",
       epPeriod: "May 2025 – Present",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>Built the company's first data warehouse</strong> — replaced messy Google Sheets/Excel for 25+ staff, saving <strong>25–75 person-hours/day across the team</strong> (1–3 hr/person) and eliminating cross-spreadsheet reconciliation errors.",
-        "<strong>Designed the data warehouse structure</strong> — 190+ transformation steps across business domains, processing <strong>100K+ records/day</strong> from Shopee, Lazada, TikTok, Facebook. Powers <strong>operational dashboards (FastAPI + React)</strong> for exec, procurement, warehouse, and fulfillment teams.",
-        "<strong>Built ETL pipelines</strong> pulling marketplace exports and internal data — <strong>40 Power Automate Desktop flows</strong> (Shopee, Lazada, TikTok, JST, DHL), Python ingestion, <strong>48 Azure Data Factory pipelines incl. 24 reverse-ETL</strong> keeping legacy reporting in sync. Plus a self-service config app so non-developers can add new data sources themselves.",
-        "<strong>Replaced the vendor WMS</strong> with custom apps (WMS, barcode scanner, invoice OCR) — warehouse staff (including non-Thai speakers) now learn in under 5 minutes; <strong>1,000+ orders/day</strong> with full audit trail.",
-        "<strong>Worked with procurement, warehouse &amp; executive teams</strong> to find work that could be automated — replaced manual processes with <strong>low-code / no-code tools and AI</strong>.",
-        "<strong>Operate 7 production systems end-to-end</strong> — data platform (DPL), WMS, barcode scanner, webhook receiver, OCR, file-sync utility, marketplace scraper — single-engineer ownership across data + warehouse + logistics stack."
+        "<strong>Built the company's first data warehouse</strong> — replaced scattered Google Sheets/Excel for 25+ staff, saving <strong>25–75 person-hours/day across the team</strong> (1–3 hr/person) and eliminating cross-spreadsheet reconciliation errors.",
+        "<strong>Designed &amp; built the warehouse</strong> — <strong>200+ dbt models</strong> across a 4-layer medallion architecture (staging → silver → intermediate → gold) with <strong>270+ data tests</strong>, source-freshness checks, and SCD-2 dimensional modeling; processes <strong>100K+ records/day</strong> from Shopee, Lazada, TikTok, Facebook. Powers <strong>operational dashboards (FastAPI + React)</strong> for exec, procurement, warehouse, and fulfillment.",
+        "<strong>Built the ingestion &amp; orchestration layer</strong> — a <strong>Python + Playwright RPA framework (26 flows)</strong> replacing 40 Power Automate Desktop flows, plus <strong>46 Azure Data Factory pipelines (incl. 25 reverse-ETL)</strong> keeping legacy reporting in sync. Runs nightly on <strong>Apache Airflow in Docker</strong> with custom operators, freshness gates, and Thai-language email/LINE alerting. A self-service config app lets non-developers onboard new data sources safely.",
+        "<strong>Re-platforming the warehouse from Azure SQL Server to self-hosted PostgreSQL</strong> — ported 200+ dbt models (<strong>dbt-sqlserver → dbt-postgres</strong>) and validated end-to-end through Airflow/Docker; driven by Azure cost, cutting cloud spend without touching the dashboard. <em>(dev port complete, production cutover in progress)</em>",
+        "<strong>Replaced the vendor WMS</strong> with custom apps (WMS, barcode scanner, invoice OCR) that feed the warehouse — warehouse staff (including non-Thai speakers) now learn in under 5 minutes; <strong>1,000+ orders/day</strong> with full audit trail.",
+        "<strong>Operate the full stack single-handed</strong> — 7 production systems end-to-end (data platform, WMS, barcode scanner, webhook receiver, OCR, file-sync, marketplace RPA): architecture, build, deploy, and on-call across the data + warehouse + logistics stack."
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
@@ -38,16 +38,17 @@ window.resumeI18n = {
       ],
       projectBullets: [
         [
-          "Ingests data from 8 sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.",
+          "Ingests from 8 source systems (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) via a <strong>Python + Playwright RPA framework (26 flows)</strong> and <strong>46 Azure Data Factory pipelines</strong> → a 4-layer <strong>dbt medallion</strong> warehouse (200+ models) — replacing a daily manual download routine that one person used to do every morning.",
           "<strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.",
           "Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.",
-          "Runs automatically outside business hours via <strong>custom Airflow operators</strong> (Bronze, dbt), with <strong>240+ dbt data tests</strong>, source freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data."
+          "Orchestrated by <strong>Apache Airflow in Docker</strong> (custom Bronze + dbt operators) with <strong>270+ dbt data tests</strong>, source-freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data.",
+          "<strong>Re-platforming the warehouse from Azure SQL Server to self-hosted PostgreSQL</strong> (dbt-sqlserver → dbt-postgres) — 200+ models ported and validated end-to-end to cut Azure cost; dev port complete, production cutover in progress."
         ],
         [
           "<strong>Replaced the previous WMS</strong> — staff (including foreign workers) now learn the system in under 5 minutes versus weeks of struggling with the prior tool, and stock movements are traceable for the first time (full audit trail per item).",
           "<strong>Interactive warehouse grid map</strong> (dynamic CSS Grid, server-side) with 4-level color-coded stock states (empty / low / ok / critical) that instantly surface low, incomplete, or misplaced slots — plus annotations for reserved zones and merged-cell support for pallet-sized locations.",
-          "Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with task chat, mobile barcode/QR scanning, and bilingual UI (Thai/English, 736 i18n keys).",
-          "19 granular permissions, 21 SQLAlchemy models, 62 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD."
+          "Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with AI task-chat (Azure OpenAI), mobile barcode/QR scanning, and bilingual UI (Thai/English, 2,400+ i18n keys).",
+          "22 granular permissions, 27 SQLAlchemy models, 81 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD."
         ],
         [
           "Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., \"Release\" before \"Outbound\") — replaces manual logs kept on paper, Google Sheets, and Excel.",
@@ -80,7 +81,7 @@ window.resumeI18n = {
         {
           title: "Continuous Self-Directed Learning",
           period: "Ongoing",
-          degree: "Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript."
+          degree: "Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Docker, PostgreSQL, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript."
         }
       ],
       demoLabels: {
@@ -99,18 +100,18 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 3+ ปี ในสาย e-commerce ทั้งงาน data &amp; operations ปัจจุบันส่งมอบ <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ผ่าน ELT pipelines, <strong>190+ dbt models พร้อม 240+ data tests</strong>, dimensional data modeling และ reverse-ETL กลับไประบบเดิม — ให้บริษัทระดับร้อยล้านบาทต่อเดือน Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python, SQL Server, FastAPI/React</strong> สร้าง app และ dashboard ให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
+        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 3+ ปี ในสาย e-commerce ทั้งงาน data &amp; operations ดูแล <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ผ่าน ELT pipelines — <strong>200+ dbt models พร้อม 270+ data tests</strong>, medallion + dimensional modeling และ reverse-ETL กลับไประบบเดิม — ให้บริษัทระดับร้อยล้านบาทต่อเดือน ตอนนี้กำลัง <strong>ย้าย warehouse จาก Azure SQL Server → PostgreSQL on-prem</strong> (dbt-sqlserver → dbt-postgres) orchestrate ด้วย <strong>Apache Airflow ใน Docker</strong> Stack: <strong>dbt · Airflow · PostgreSQL / SQL Server · Python · Azure · FastAPI/React</strong> สร้างให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
       epPeriod: "พ.ค. 2025 – ปัจจุบัน",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
         "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ให้ทีม 25+ คน ประหยัดเวลารวมทั้งทีม <strong>25–75 ชั่วโมง/วัน</strong> (1–3 ชม./คน) และตัดปัญหา reconcile ตัวเลขข้าม spreadsheet",
-        "<strong>ออกแบบโครงสร้าง data warehouse</strong> — 190+ transformation steps ครอบคลุม business domains หลายด้าน ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok, Facebook ป้อน <strong>operational dashboards (FastAPI + React)</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment",
-        "<strong>สร้าง ETL pipelines</strong> ดึงไฟล์ export จาก marketplace และข้อมูลจากระบบภายใน — <strong>Power Automate Desktop 40 flows</strong> (Shopee, Lazada, TikTok, JST, DHL), Python ingestion, <strong>Azure Data Factory 48 pipelines รวม 24 reverse-ETL</strong> เพื่อ sync รายงานกลับไประบบเดิม พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
-        "<strong>เปลี่ยน vendor WMS</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พนักงานคลัง (รวมพนักงานต่างชาติ) เรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,000+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
-        "<strong>ทำงานร่วมกับทีมจัดซื้อ คลัง และผู้บริหาร</strong> หา process ที่ automate ได้ แทนงานมือด้วย <strong>low-code / no-code และ AI</strong>",
-        "<strong>ดูแล 7 ระบบ production แบบ end-to-end</strong> — data platform (DPL), WMS, barcode scanner, webhook receiver, OCR, file-sync utility, marketplace scraper — รับผิดชอบคนเดียวครอบคลุม data + warehouse + logistics stack"
+        "<strong>ออกแบบและสร้าง warehouse</strong> — <strong>200+ dbt models</strong> บน medallion architecture 4 ชั้น (staging → silver → intermediate → gold) พร้อม <strong>270+ data tests</strong>, source-freshness checks และ SCD-2 dimensional modeling ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok, Facebook ป้อน <strong>operational dashboards (FastAPI + React)</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment",
+        "<strong>สร้าง ingestion &amp; orchestration layer</strong> — <strong>Python + Playwright RPA framework (26 flows)</strong> มาแทน Power Automate Desktop 40 flows เดิม พร้อม <strong>Azure Data Factory 46 pipelines (รวม 25 reverse-ETL)</strong> sync รายงานกลับไประบบเดิม รันกลางคืนด้วย <strong>Apache Airflow ใน Docker</strong> (custom operators, freshness gates, แจ้งเตือน email/LINE ภาษาไทย) พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
+        "<strong>กำลังย้าย warehouse จาก Azure SQL Server → PostgreSQL on-prem</strong> — port 200+ dbt models (<strong>dbt-sqlserver → dbt-postgres</strong>) validate ครบทั้งวงผ่าน Airflow/Docker เพื่อลดค่า Azure โดยไม่ต้องแตะ dashboard <em>(dev port เสร็จ, กำลัง cutover ขึ้น prod)</em>",
+        "<strong>เปลี่ยน vendor WMS</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) ที่ป้อนข้อมูลเข้า warehouse — พนักงานคลัง (รวมพนักงานต่างชาติ) เรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,000+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
+        "<strong>ดูแลทั้ง stack คนเดียวแบบ end-to-end</strong> — 7 ระบบ production (data platform, WMS, barcode scanner, webhook receiver, OCR, file-sync, marketplace RPA): ออกแบบ build deploy และดูแล production เองทั้งหมด"
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
@@ -129,16 +130,17 @@ window.resumeI18n = {
       ],
       projectBullets: [
         [
-          "ดึง raw data จาก 8 sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) → medallion architecture 4 ชั้นด้วย dbt — แทนการที่เคยมีคนนั่งโหลดไฟล์ทุกเช้า",
+          "ดึงข้อมูลจาก 8 source systems (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) ผ่าน <strong>Python + Playwright RPA framework (26 flows)</strong> และ <strong>Azure Data Factory 46 pipelines</strong> → <strong>dbt medallion</strong> warehouse 4 ชั้น (200+ models) — แทนการที่เคยมีคนนั่งโหลดไฟล์ทุกเช้า",
           "<strong>Bronze config web app</strong> (FastAPI + React) — self-service UI สำหรับ file types, validation rules และ AI-assisted column analysis/mapping suggestions ทำให้คนที่ไม่ใช่ developer เพิ่ม source ใหม่ได้เองอย่างปลอดภัย",
           "Serve <strong>FastAPI + React dashboards</strong> — real-time KPIs, price alerts, procurement tracking และ operational drilldowns ที่ฝ่ายจัดซื้อใช้ตัดสินใจซื้อสินค้าทุกวัน",
-          "รันอัตโนมัตินอกเวลาทำงานผ่าน <strong>custom Airflow operators</strong> (Bronze, dbt) พร้อม <strong>240+ dbt data tests</strong>, source freshness checks และ <strong>email + LINE notifications</strong> ภาษาไทย แจ้งเตือนเมื่อ pipeline fail หรือข้อมูลค้าง"
+          "orchestrate ด้วย <strong>Apache Airflow ใน Docker</strong> (custom Bronze + dbt operators) พร้อม <strong>270+ dbt data tests</strong>, source-freshness checks และ <strong>email + LINE notifications</strong> ภาษาไทย แจ้งเตือนเมื่อ pipeline fail หรือข้อมูลค้าง",
+          "<strong>กำลังย้าย warehouse จาก Azure SQL Server → PostgreSQL on-prem</strong> (dbt-sqlserver → dbt-postgres) — port 200+ models validate ครบทั้งวงเพื่อลดค่า Azure; dev port เสร็จ กำลัง cutover ขึ้น prod"
         ],
         [
           "<strong>มาแทนระบบ WMS เดิม</strong> — จากที่คนงาน (รวมคนงานต่างชาติ) ใช้ยากและสอนนาน เปลี่ยนเป็นเรียนไม่ถึง 5 นาทีก็ใช้ได้ และ track การเคลื่อนไหวของของทุกชิ้นได้ครบ ซึ่งเดิมทำไม่ได้เลย",
           "<strong>Interactive warehouse grid map</strong> (dynamic CSS Grid, server-side) แสดง stock 4 ระดับ (empty / low / ok / critical) เห็นจุดที่ของน้อย ไม่ครบ หรือวางไม่ตรงทันที — พร้อม annotation สำหรับ reserved zones และ merged-cell support",
-          "Real-time inventory tracking + task workflow 4 ประเภท (pick, count, move, receive) พร้อม task chat, mobile barcode/QR scanning และ bilingual UI (ไทย/อังกฤษ, 736 i18n keys)",
-          "19 granular permissions, 21 SQLAlchemy models, 62 Jinja2 templates — deploy บน Azure App Service ด้วย GitHub Actions CI/CD"
+          "Real-time inventory tracking + task workflow 4 ประเภท (pick, count, move, receive) พร้อม AI task-chat (Azure OpenAI), mobile barcode/QR scanning และ bilingual UI (ไทย/อังกฤษ, 2,400+ i18n keys)",
+          "22 granular permissions, 27 SQLAlchemy models, 81 Jinja2 templates — deploy บน Azure App Service ด้วย GitHub Actions CI/CD"
         ],
         [
           "ประมวลผล scan พร้อม validation + duplicate detection สำหรับ concurrent users และ enforce workflow ด้วย job dependency rules (เช่น \"Release\" ก่อน \"Outbound\") — แทนการจดมือในกระดาษ Google Sheet และ Excel",
@@ -171,7 +173,7 @@ window.resumeI18n = {
         {
           title: "เรียนรู้ต่อเนื่องด้วยตัวเอง",
           period: "ทำต่อเนื่อง",
-          degree: "ศึกษา stack ของ data engineering จาก official docs, YouTube และ AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript"
+          degree: "ศึกษา stack ของ data engineering จาก official docs, YouTube และ AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Docker, PostgreSQL, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript"
         }
       ],
       demoLabels: {

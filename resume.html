@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sahatsawat Thongma — Data Engineer</title>
-<meta name="description" content="Sahatsawat Thongma — Data Engineer building production data platforms. dbt · Airflow · Azure · Python · SQL Server · FastAPI/React. 50 GB warehouse, 100K+ records/day at EP Asia Group." />
+<meta name="description" content="Sahatsawat Thongma — Data Engineer building production data platforms. dbt · Airflow · PostgreSQL / SQL Server · Azure · Python · FastAPI/React. 50 GB warehouse, 200+ dbt models, 100K+ records/day at EP Asia Group." />
 <meta property="og:title" content="Sahatsawat Thongma — Data Engineer" />
-<meta property="og:description" content="Production data platforms — dbt · Airflow · Azure · Python. 50 GB warehouse, 100K+ records/day at EP Asia Group." />
+<meta property="og:description" content="Production data platforms — dbt · Airflow · PostgreSQL · Azure · Python. 50 GB warehouse, 200+ dbt models, 100K+ records/day at EP Asia Group." />
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/186543613" />
 <meta property="og:type" content="profile" />
 <meta name="twitter:card" content="summary" />
@@ -1304,14 +1304,17 @@
     <h2 data-i18n="sectionSummary">Summary</h2>
     <p data-i18n="summary[0]">
       <strong>Data engineer building production data platforms.</strong>
-      3+ years in e-commerce, across data &amp; operations, currently shipping a
-      <strong>50 GB warehouse processing 100K+ records/day</strong>
-      via ELT pipelines, <strong>190+ dbt models with 240+ data
-      tests</strong>, dimensional data modeling, and reverse-ETL to
+      3+ years in e-commerce, across data &amp; operations, running a
+      <strong>50 GB warehouse that processes 100K+ records/day</strong>
+      through ELT pipelines — <strong>200+ dbt models with 270+ data
+      tests</strong>, medallion + dimensional modeling, and reverse-ETL to
       legacy systems — for a nine-figure monthly-revenue business.
-      Stack: <strong>dbt, Airflow, Azure (ADF, App Service), Python,
-      SQL Server, FastAPI/React</strong>. Builds for non-technical
-      business users (warehouse, procurement, exec).
+      Currently <strong>re-platforming the warehouse from Azure SQL Server
+      to self-hosted PostgreSQL</strong> (dbt-sqlserver → dbt-postgres),
+      orchestrated by <strong>Apache Airflow in Docker</strong>.
+      Stack: <strong>dbt · Airflow · PostgreSQL / SQL Server · Python ·
+      Azure · FastAPI/React</strong>. Builds for non-technical
+      business users — warehouse, procurement, exec.
     </p>
   </section>
 
@@ -1326,45 +1329,54 @@
       <ul>
         <li data-i18n="epBullets[0]">
           <strong>Built the company's first data warehouse</strong> —
-          replaced messy Google Sheets/Excel for 25+ staff, saving
+          replaced scattered Google Sheets/Excel for 25+ staff, saving
           <strong>25–75 person-hours/day across the team</strong>
           (1–3 hr/person) and eliminating cross-spreadsheet
           reconciliation errors.
         </li>
         <li data-i18n="epBullets[1]">
-          <strong>Designed the data warehouse structure</strong> —
-          190+ transformation steps across business domains, processing
+          <strong>Designed &amp; built the warehouse</strong> —
+          <strong>200+ dbt models</strong> across a 4-layer medallion
+          architecture (staging → silver → intermediate → gold) with
+          <strong>270+ data tests</strong>, source-freshness checks, and
+          SCD-2 dimensional modeling; processes
           <strong>100K+ records/day</strong> from Shopee, Lazada,
           TikTok, Facebook. Powers <strong>operational dashboards
           (FastAPI + React)</strong> for exec, procurement, warehouse,
-          and fulfillment teams.
+          and fulfillment.
         </li>
         <li data-i18n="epBullets[2]">
-          <strong>Built ETL pipelines</strong> pulling marketplace
-          exports and internal data — <strong>40 Power Automate
-          Desktop flows</strong> (Shopee, Lazada, TikTok, JST, DHL),
-          Python ingestion, <strong>48 Azure Data Factory pipelines
-          incl. 24 reverse-ETL</strong> keeping legacy reporting in
-          sync. Plus a self-service config app so non-developers can
-          add new data sources themselves.
+          <strong>Built the ingestion &amp; orchestration layer</strong> —
+          a <strong>Python + Playwright RPA framework (26 flows)</strong>
+          replacing 40 Power Automate Desktop flows, plus
+          <strong>46 Azure Data Factory pipelines (incl. 25
+          reverse-ETL)</strong> keeping legacy reporting in sync. Runs
+          nightly on <strong>Apache Airflow in Docker</strong> with
+          custom operators, freshness gates, and Thai-language
+          email/LINE alerting. A self-service config app lets
+          non-developers onboard new data sources safely.
         </li>
         <li data-i18n="epBullets[3]">
-          <strong>Replaced the vendor WMS</strong> with custom apps
-          (WMS, barcode scanner, invoice OCR) — warehouse staff
-          (including non-Thai speakers) now learn in under 5 minutes;
-          <strong>1,000+ orders/day</strong> with full audit trail.
+          <strong>Re-platforming the warehouse from Azure SQL Server to
+          self-hosted PostgreSQL</strong> — ported 200+ dbt models
+          (<strong>dbt-sqlserver → dbt-postgres</strong>) and validated
+          end-to-end through Airflow/Docker; driven by Azure cost,
+          cutting cloud spend without touching the dashboard.
+          <em>(dev port complete, production cutover in progress)</em>
         </li>
         <li data-i18n="epBullets[4]">
-          <strong>Worked with procurement, warehouse &amp; executive
-          teams</strong> to find work that could be automated —
-          replaced manual processes with <strong>low-code / no-code
-          tools and AI</strong>.
+          <strong>Replaced the vendor WMS</strong> with custom apps
+          (WMS, barcode scanner, invoice OCR) that feed the warehouse —
+          warehouse staff (including non-Thai speakers) now learn in
+          under 5 minutes; <strong>1,000+ orders/day</strong> with full
+          audit trail.
         </li>
         <li data-i18n="epBullets[5]">
-          <strong>Operate 7 production systems end-to-end</strong> —
-          data platform (DPL), WMS, barcode scanner, webhook receiver,
-          OCR, file-sync utility, marketplace scraper — single-engineer
-          ownership across data + warehouse + logistics stack.
+          <strong>Operate the full stack single-handed</strong> —
+          7 production systems end-to-end (data platform, WMS, barcode
+          scanner, webhook receiver, OCR, file-sync, marketplace RPA):
+          architecture, build, deploy, and on-call across the data +
+          warehouse + logistics stack.
         </li>
       </ul>
     </div>
@@ -1403,6 +1415,7 @@
     <dl class="skills">
       <dt>Data Warehouse</dt>
       <dd>
+        <span class="skill-token">PostgreSQL</span>
         <span class="skill-token">SQL Server</span>
         <span class="skill-token">T-SQL</span>
         <span class="skill-token">dbt</span>
@@ -1417,9 +1430,10 @@
         <span class="skill-token">Pandas</span>
         <span class="skill-token">ETL / ELT pipelines</span>
         <span class="skill-token">Apache Airflow</span>
+        <span class="skill-token">Docker</span>
         <span class="skill-token">SQLAlchemy</span>
         <span class="skill-token">Pipeline orchestration</span>
-        <span class="skill-token">Data quality &amp; alerting</span>
+        <span class="skill-token">Data quality &amp; testing</span>
       </dd>
 
       <dt>App Development</dt>
@@ -1433,13 +1447,14 @@
         <span class="skill-token">REST / JSON API integration</span>
       </dd>
 
-      <dt>BI &amp; Automation</dt>
+      <dt>Ingestion &amp; Automation</dt>
       <dd>
+        <span class="skill-token">Playwright (RPA)</span>
+        <span class="skill-token">Power Automate</span>
+        <span class="skill-token">Config-driven source onboarding</span>
         <span class="skill-token">BI dashboards &amp; reports</span>
         <span class="skill-token">Power BI</span>
         <span class="skill-token">Power Query</span>
-        <span class="skill-token">Power Automate</span>
-        <span class="skill-token">Low-code / No-code</span>
         <span class="skill-token">Excel (advanced)</span>
       </dd>
 
@@ -1485,7 +1500,7 @@
       <h3 data-i18n="learningItems[2].title">Continuous Self-Directed Learning</h3>
       <span class="period" data-i18n="learningItems[2].period">Ongoing</span>
       <div class="degree" data-i18n="learningItems[2].degree">
-        Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript.
+        Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Docker, PostgreSQL, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript.
       </div>
     </div>
   </section>
@@ -1510,10 +1525,11 @@
         across 4 marketplaces.
       </p>
       <ul class="bullets">
-        <li data-i18n="projectBullets[0][0]">Ingests data from 8 sources (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) → 4-layer medallion architecture with dbt — replaces a daily manual download routine that one person used to do every morning.</li>
+        <li data-i18n="projectBullets[0][0]">Ingests from 8 source systems (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) via a <strong>Python + Playwright RPA framework (26 flows)</strong> and <strong>46 Azure Data Factory pipelines</strong> → a 4-layer <strong>dbt medallion</strong> warehouse (200+ models) — replacing a daily manual download routine that one person used to do every morning.</li>
         <li data-i18n="projectBullets[0][1]"><strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.</li>
         <li data-i18n="projectBullets[0][2]">Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.</li>
-        <li data-i18n="projectBullets[0][3]">Runs automatically outside business hours via <strong>custom Airflow operators</strong> (Bronze, dbt), with <strong>240+ dbt data tests</strong>, source freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data.</li>
+        <li data-i18n="projectBullets[0][3]">Orchestrated by <strong>Apache Airflow in Docker</strong> (custom Bronze + dbt operators) with <strong>270+ dbt data tests</strong>, source-freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data.</li>
+        <li data-i18n="projectBullets[0][4]"><strong>Re-platforming the warehouse from Azure SQL Server to self-hosted PostgreSQL</strong> (dbt-sqlserver → dbt-postgres) — 200+ models ported and validated end-to-end to cut Azure cost; dev port complete, production cutover in progress.</li>
       </ul>
 
       <div class="metrics" aria-label="Data platform metrics">
@@ -1526,7 +1542,7 @@
           <span class="label">orders / day</span>
         </div>
         <div class="metric">
-          <span class="val">190+</span>
+          <span class="val">200+</span>
           <span class="label">dbt models</span>
         </div>
         <div class="metric">
@@ -1534,7 +1550,7 @@
           <span class="label">business domains</span>
         </div>
         <div class="metric">
-          <span class="val">240+</span>
+          <span class="val">270+</span>
           <span class="label">dbt data tests</span>
         </div>
       </div>
@@ -1552,7 +1568,7 @@
                 <span data-diagram-open-label>Expand</span>
               </button>
             </div>
-            <p>Marketplace files and internal app databases move through controlled ingestion, dbt warehouse layers, operational dashboards, and a reverse-ETL bridge for legacy reporting.</p>
+            <p>Marketplace files and internal app databases move through controlled ingestion, dbt warehouse layers (PostgreSQL / SQL Server), operational dashboards, and a reverse-ETL bridge for legacy reporting.</p>
           </div>
           <div class="diagram-legend" aria-label="Diagram legend">
             <span class="legend-item"><span class="legend-swatch"></span>Source / Ingestion</span>
@@ -1585,8 +1601,8 @@
         <!-- Row 2: Integration layer (Power Automate + Azure Data Factory) -->
         <rect class="box box-ingest" x="20" y="140" width="380" height="64" rx="6" ry="6"/>
         <text class="box-kicker" x="210" y="160">INGESTION</text>
-        <text class="box-title" x="210" y="181">Power Automate</text>
-        <text class="box-sub" x="210" y="195">40 desktop flows · portal scraping</text>
+        <text class="box-title" x="210" y="181">Python + Playwright</text>
+        <text class="box-sub" x="210" y="195">26 RPA flows · headless scraping</text>
 
         <rect class="box box-ingest" x="420" y="140" width="380" height="64" rx="6" ry="6"/>
         <text class="box-kicker" x="610" y="160">INGESTION</text>
@@ -1625,7 +1641,7 @@
         <line class="edge-branch" x1="560" y1="520" x2="590" y2="520"/>
         <rect class="box box-side" x="590" y="479" width="230" height="100" rx="6" ry="6"/>
         <text class="box-kicker" x="705" y="501">REVERSE ETL</text>
-        <text class="box-title" x="705" y="522">24 ADF Pipelines</text>
+        <text class="box-title" x="705" y="522">25 ADF Pipelines</text>
         <text class="box-mono" x="705" y="543">~45 MIN NIGHTLY RUN</text>
         <text class="box-sub" x="705" y="563">Legacy stored procedures</text>
 
@@ -1644,7 +1660,7 @@
         <rect class="box box-layer" x="40" y="600" width="520" height="62" rx="6" ry="6"/>
         <text class="box-kicker" x="300" y="620">BUSINESS LOGIC</text>
         <text class="box-title" x="300" y="638">dbt Intermediate</text>
-        <text class="box-mono" x="300" y="653">75 VIEWS · JOINS · CALCULATIONS</text>
+        <text class="box-mono" x="300" y="653">77 VIEWS · JOINS · CALCULATIONS</text>
 
         <line class="edge" x1="300" y1="662" x2="300" y2="702"/>
 
@@ -1664,23 +1680,24 @@
         <text class="box-sub" x="300" y="891">Price alerts · procurement tracking · drilldowns</text>
 
         <!-- Airflow footer -->
-        <text class="arch-footer" x="418" y="944">Orchestrated by Airflow + ADF + Power Automate · daily schedule · freshness checks · email alerts</text>
+        <text class="arch-footer" x="418" y="944">Orchestrated by Airflow (Docker) + ADF · daily schedule · freshness checks · email + LINE alerts</text>
       </svg>
       </div>
       </div>
 
       <div class="chips">
         <span class="chip">dbt</span>
+        <span class="chip">PostgreSQL</span>
         <span class="chip">SQL Server</span>
         <span class="chip">Python</span>
         <span class="chip">Airflow</span>
+        <span class="chip">Docker</span>
         <span class="chip">Azure Data Factory</span>
-        <span class="chip">Stored Procedure</span>
+        <span class="chip">Playwright</span>
         <span class="chip">Power Automate</span>
         <span class="chip">FastAPI</span>
         <span class="chip">React / TypeScript</span>
         <span class="chip">Config-driven mapping</span>
-        <span class="chip">Docker</span>
       </div>
       <div class="demo-links" data-demo-links>
         <a class="demo-link" href="mockups/sales-insights.html" target="_blank" rel="noopener">
@@ -1714,8 +1731,8 @@
           reserved zones and merged-cell support for pallet-sized
           locations.
         </li>
-        <li data-i18n="projectBullets[1][2]">Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with task chat, mobile barcode/QR scanning, and bilingual UI (Thai/English, 736 i18n keys).</li>
-        <li data-i18n="projectBullets[1][3]">19 granular permissions, 21 SQLAlchemy models, 62 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD.</li>
+        <li data-i18n="projectBullets[1][2]">Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with AI task-chat (Azure OpenAI), mobile barcode/QR scanning, and bilingual UI (Thai/English, 2,400+ i18n keys).</li>
+        <li data-i18n="projectBullets[1][3]">22 granular permissions, 27 SQLAlchemy models, 81 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD.</li>
       </ul>
       <div class="chips">
         <span class="chip">FastAPI</span>
