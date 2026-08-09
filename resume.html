@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sahatsawat Thongma — Data Engineer</title>
-<meta name="description" content="Sahatsawat Thongma — Data Engineer building production data platforms. dbt · Airflow · PostgreSQL · Azure · Python · FastAPI/React. 59 GB PostgreSQL warehouse, 178 dbt models under 420 tests, 100K+ records/day at EP Asia Group." />
+<meta name="description" content="Sahatsawat Thongma — Data Engineer who single-handedly builds and runs the data platform behind a nine-figure monthly-revenue e-commerce business. Executives self-serve their numbers; a 30+ person team saves 30–90 hours a day. dbt · Airflow · PostgreSQL · Python · Azure." />
 <meta property="og:title" content="Sahatsawat Thongma — Data Engineer" />
-<meta property="og:description" content="Production data platforms — dbt · Airflow · PostgreSQL · Azure · Python. 59 GB warehouse, 178 dbt models, 420 data tests, 100K+ records/day at EP Asia Group." />
+<meta property="og:description" content="One engineer, the whole data platform — from raw marketplace data to the dashboards a nine-figure e-commerce business runs on. dbt · Airflow · PostgreSQL · Python." />
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/186543613" />
 <meta property="og:type" content="profile" />
 <meta name="twitter:card" content="summary" />
@@ -941,6 +941,12 @@
     letter-spacing: 0.02em;
     text-transform: none;
     color: var(--accent);
+    margin: 0 0 6px;
+  }
+
+  .hero .role-tagline {
+    font-size: 13.5px;
+    color: var(--fg-dim);
     margin: 0 0 15px;
   }
 
@@ -1595,6 +1601,7 @@
     <div class="hero-text">
     <h1 data-i18n="name">Sahatsawat Thongma</h1>
     <p class="title" data-i18n="roleTitle">Data Engineer</p>
+    <p class="role-tagline" data-i18n="roleTagline">I build the data systems an e-commerce business runs on — solo, end to end.</p>
     <address class="contact">
       <a href="mailto:sahatsawat.thongma@gmail.com">
         <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1661,19 +1668,17 @@
   <section class="summary">
     <h2 data-i18n="sectionSummary">Summary</h2>
     <p data-i18n="summary[0]">
-      <strong>Data engineer building production data platforms.</strong>
-      4 years in e-commerce, running a <strong>59 GB PostgreSQL
-      warehouse</strong> — 178 dbt models under 420 data tests, medallion
-      + dimensional modeling, 100K+ records/day — for a nine-figure
-      monthly-revenue business. In 2026 I completed two platform
-      migrations: the warehouse off Azure SQL Server onto self-hosted
-      PostgreSQL, and orchestration off Azure Data Factory onto
-      <strong>Apache Airflow in Docker</strong>. Current focus is
-      <strong>data reliability</strong> — catching the failure mode where
-      a pipeline runs green while the data silently goes missing.
-      Stack: <strong>dbt · Airflow · PostgreSQL · Python · Azure ·
-      FastAPI/React</strong>. Builds for non-technical business users —
-      warehouse, procurement, exec.
+      <strong>Data engineer who builds systems the whole company
+      actually uses.</strong> 4 years in e-commerce — today I run the
+      entire data platform of a nine-figure monthly-revenue business
+      single-handed. Executives check sales and stock themselves
+      instead of waiting for a spreadsheet, ~40 daily manual jobs now
+      run automatically from 5 a.m., and a team of 30+ gets back
+      <strong>30–90 hours every day</strong>. Current focus:
+      <strong>data reliability</strong> — catching the failure where
+      every job reports success but the numbers are silently wrong,
+      before anyone makes a decision on them. Tools: <strong>dbt ·
+      Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong>.
     </p>
   </section>
 
@@ -1687,59 +1692,44 @@
       <div class="role" data-i18n="epRole">Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform</div>
       <ul>
         <li data-i18n="epBullets[0]">
-          <strong>Built the company's first data warehouse</strong> —
-          replaced scattered Google Sheets/Excel for 25+ staff, saving
-          <strong>25–75 person-hours/day across the team</strong> and
-          ending cross-spreadsheet reconciliation errors.
+          <strong>Built the company's first data warehouse — and the
+          platform around it.</strong> Replaced scattered Google Sheets
+          and Excel for a 30+ person team, giving back <strong>30–90
+          hours every day</strong>; executives now pull their own sales,
+          stock and delivery numbers instead of waiting for reports, and
+          ~40 daily manual download jobs run themselves from 5 a.m.
+          (dbt, Apache Airflow, PostgreSQL, Python — data from 8 sources
+          incl. Shopee, Lazada, TikTok).
         </li>
         <li data-i18n="epBullets[1]">
-          <strong>Designed and built the whole platform</strong> —
-          <strong>178 dbt models</strong> on a 5-layer medallion
-          architecture with <strong>420 data tests</strong> and SCD-2
-          dimensional modeling, fed by a <strong>Python + Playwright
-          ingestion framework</strong> I wrote to replace 40 Power
-          Automate Desktop flows, orchestrated nightly by <strong>Apache
-          Airflow in Docker</strong>. Ingests <strong>100K+
-          records/day</strong> from 8 source systems and serves
-          <strong>FastAPI + React dashboards</strong> to exec,
-          procurement, warehouse and fulfillment — plus a read-only
-          self-service path so non-technical staff pull their own
-          numbers without going through me.
+          <strong>Caught data failures no one knew were happening — and
+          fixed them at the root.</strong> Recovered <strong>23,677
+          shipment tracking numbers</strong> the system had silently
+          deleted, and traced <strong>28.5% of a month's sales that were
+          attributed to no store</strong> down to zero — with automatic
+          checks that now raise the alarm before a bad number reaches a
+          business decision (data-reliability tests, freshness
+          monitoring).
         </li>
         <li data-i18n="epBullets[2]">
-          <strong>Completed two platform migrations in a single
-          quarter</strong> — moved the warehouse from <strong>Azure SQL
-          Server to self-hosted PostgreSQL</strong>, and
-          <strong>decommissioned all 46 Azure Data Factory pipelines I
-          had previously built</strong>, replacing them with Airflow
-          DAGs. Cut cloud spend with no dashboard downtime.
+          <strong>Cut recurring cloud costs and gave the company's data
+          its first safety net.</strong> Moved the warehouse and its
+          scheduling off two paid monthly cloud services onto self-run
+          infrastructure — done in a single quarter with zero dashboard
+          downtime — and shipped the first nightly, independently
+          verified backup the 59 GB warehouse ever had (Azure SQL Server
+          → PostgreSQL, Azure Data Factory → Airflow, pg_dump to Azure
+          Blob).
         </li>
         <li data-i18n="epBullets[3]">
-          <strong>Data reliability engineering</strong> — went after the
-          failure class where <em>the pipeline is green but the data is
-          missing</em>: freshness canaries measured against live source,
-          and value-presence gates enforced as hard failures.
-          <strong>Recovered 23,677 tracking numbers</strong> a dedup rule
-          had silently blanked, and fixed at the root a defect that left
-          <strong>28.5% of a month's sales revenue unattributed to a
-          store</strong> — now zero, with a test that stops it returning
-          unnoticed.
-        </li>
-        <li data-i18n="epBullets[4]">
-          <strong>Shipped the first backup the 59 GB warehouse ever
-          had</strong> — nightly <code>pg_dump</code> streamed to Azure
-          Blob with an independent verification task and 35-day
-          retention. Also moved bronze file transport off OneDrive onto
-          a <strong>Blob data lake</strong>, removing an entire class of
-          ingestion failures at the root.
-        </li>
-        <li data-i18n="epBullets[5]">
-          <strong>Replaced the vendor WMS</strong> with custom apps
-          (WMS, barcode scanner, invoice OCR) — warehouse staff,
-          including non-Thai speakers, learn it in under 5 minutes;
-          <strong>1,000+ orders/day</strong> with a full audit trail.
-          <strong>Operate all 7 production systems single-handed</strong>:
-          architecture, build, deploy and on-call.
+          <strong>Replaced the vendor warehouse system with apps I
+          built</strong> — from first line of code to live on the
+          warehouse floor in <strong>15 days</strong>; staff, including
+          non-Thai speakers, learn it in under 5 minutes, and it handles
+          <strong>1,000+ orders/day</strong> with a full audit trail. I
+          design, build, deploy and stay on call for <strong>all 7
+          production systems single-handed</strong> (WMS, barcode
+          scanner, invoice OCR — FastAPI/React).
         </li>
       </ul>
     </div>
@@ -1750,17 +1740,17 @@
       <div class="role" data-i18n="travelerRoles[0]">Accountant / ERP &amp; BI Analyst</div>
       <ul>
         <li data-i18n="travelerBullets[0]">
-          Set up <strong>Ecount ERP master data from scratch</strong> —
-          chart of accounts, customer/vendor master, and SKU mapping
-          standards across marketplaces and ERP, giving finance and
-          sales a single source of truth and ending the SKU ambiguity
-          that had caused stock misalignment across channels.
+          <strong>Ended the stock mismatches between sales
+          channels</strong> — set up the company's ERP master data from
+          scratch: chart of accounts, customer/vendor master, and one
+          SKU standard across every marketplace, so finance and sales
+          finally worked from the same numbers (Ecount ERP).
         </li>
         <li data-i18n="travelerBullets[1]">
-          Built <strong>Power BI reports</strong> and used
-          <strong>Power Query</strong> to reconcile ERP data across
-          sales and finance — established consistent monthly reporting
-          that closed recurring discrepancies between the two teams.
+          <strong>Closed the recurring gap between sales' numbers and
+          finance's numbers</strong> — built the monthly reports both
+          teams reconcile against, turning a monthly argument into a
+          routine check (Power BI, Power Query).
         </li>
       </ul>
     </div>

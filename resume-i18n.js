@@ -4,29 +4,28 @@ window.resumeI18n = {
       htmlLang: "en",
       name: "Sahatsawat Thongma",
       roleTitle: "Data Engineer",
+      roleTagline: "I build the data systems an e-commerce business runs on — solo, end to end.",
       location: "Samut Sakhon, Thailand",
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Data engineer building production data platforms.</strong> 4 years in e-commerce, running a <strong>59 GB PostgreSQL warehouse</strong> — 178 dbt models under 420 data tests, medallion + dimensional modeling, 100K+ records/day — for a nine-figure monthly-revenue business. In 2026 I completed two platform migrations: the warehouse off Azure SQL Server onto self-hosted PostgreSQL, and orchestration off Azure Data Factory onto <strong>Apache Airflow in Docker</strong>. Current focus is <strong>data reliability</strong> — catching the failure mode where a pipeline runs green while the data silently goes missing. Stack: <strong>dbt · Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong>. Builds for non-technical business users — warehouse, procurement, exec."
+        "<strong>Data engineer who builds systems the whole company actually uses.</strong> 4 years in e-commerce — today I run the entire data platform of a nine-figure monthly-revenue business single-handed. Executives check sales and stock themselves instead of waiting for a spreadsheet, ~40 daily manual jobs now run automatically from 5 a.m., and a team of 30+ gets back <strong>30–90 hours every day</strong>. Current focus: <strong>data reliability</strong> — catching the failure where every job reports success but the numbers are silently wrong, before anyone makes a decision on them. Tools: <strong>dbt · Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong>."
       ],
       sectionExperience: "Experience",
       epPeriod: "May 2025 – Present",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>Built the company's first data warehouse</strong> — replaced scattered Google Sheets/Excel for 25+ staff, saving <strong>25–75 person-hours/day across the team</strong> and ending cross-spreadsheet reconciliation errors.",
-        "<strong>Designed and built the whole platform</strong> — <strong>178 dbt models</strong> on a 5-layer medallion architecture with <strong>420 data tests</strong> and SCD-2 dimensional modeling, fed by a <strong>Python + Playwright ingestion framework</strong> I wrote to replace 40 Power Automate Desktop flows, orchestrated nightly by <strong>Apache Airflow in Docker</strong>. Ingests <strong>100K+ records/day</strong> from 8 source systems and serves <strong>FastAPI + React dashboards</strong> to exec, procurement, warehouse and fulfillment — plus a read-only self-service path so non-technical staff pull their own numbers without going through me.",
-        "<strong>Completed two platform migrations in a single quarter</strong> — moved the warehouse from <strong>Azure SQL Server to self-hosted PostgreSQL</strong>, and <strong>decommissioned all 46 Azure Data Factory pipelines I had previously built</strong>, replacing them with Airflow DAGs. Cut cloud spend with no dashboard downtime.",
-        "<strong>Data reliability engineering</strong> — went after the failure class where <em>the pipeline is green but the data is missing</em>: freshness canaries measured against live source, and value-presence gates enforced as hard failures. <strong>Recovered 23,677 tracking numbers</strong> a dedup rule had silently blanked, and fixed at the root a defect that left <strong>28.5% of a month's sales revenue unattributed to a store</strong> — now zero, with a test that stops it returning unnoticed.",
-        "<strong>Shipped the first backup the 59 GB warehouse ever had</strong> — nightly <code>pg_dump</code> streamed to Azure Blob with an independent verification task and 35-day retention. Also moved bronze file transport off OneDrive onto a <strong>Blob data lake</strong>, removing an entire class of ingestion failures at the root.",
-        "<strong>Replaced the vendor WMS</strong> with custom apps (WMS, barcode scanner, invoice OCR) — warehouse staff, including non-Thai speakers, learn it in under 5 minutes; <strong>1,000+ orders/day</strong> with a full audit trail. <strong>Operate all 7 production systems single-handed</strong>: architecture, build, deploy and on-call."
+        "<strong>Built the company's first data warehouse — and the platform around it.</strong> Replaced scattered Google Sheets and Excel for a 30+ person team, giving back <strong>30–90 hours every day</strong>; executives now pull their own sales, stock and delivery numbers instead of waiting for reports, and ~40 daily manual download jobs run themselves from 5 a.m. (dbt, Apache Airflow, PostgreSQL, Python — data from 8 sources incl. Shopee, Lazada, TikTok).",
+        "<strong>Caught data failures no one knew were happening — and fixed them at the root.</strong> Recovered <strong>23,677 shipment tracking numbers</strong> the system had silently deleted, and traced <strong>28.5% of a month's sales that were attributed to no store</strong> down to zero — with automatic checks that now raise the alarm before a bad number reaches a business decision (data-reliability tests, freshness monitoring).",
+        "<strong>Cut recurring cloud costs and gave the company's data its first safety net.</strong> Moved the warehouse and its scheduling off two paid monthly cloud services onto self-run infrastructure — done in a single quarter with zero dashboard downtime — and shipped the first nightly, independently verified backup the 59 GB warehouse ever had (Azure SQL Server → PostgreSQL, Azure Data Factory → Airflow, pg_dump to Azure Blob).",
+        "<strong>Replaced the vendor warehouse system with apps I built</strong> — from first line of code to live on the warehouse floor in <strong>15 days</strong>; staff, including non-Thai speakers, learn it in under 5 minutes, and it handles <strong>1,000+ orders/day</strong> with a full audit trail. I design, build, deploy and stay on call for <strong>all 7 production systems single-handed</strong> (WMS, barcode scanner, invoice OCR — FastAPI/React)."
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
       ],
       travelerBullets: [
-        "Set up <strong>Ecount ERP master data from scratch</strong> — chart of accounts, customer/vendor master, and SKU mapping standards across marketplaces and ERP, giving finance and sales a single source of truth and ending the SKU ambiguity that had caused stock misalignment across channels.",
-        "Built <strong>Power BI reports</strong> and used <strong>Power Query</strong> to reconcile ERP data across sales and finance — established consistent monthly reporting that closed recurring discrepancies between the two teams."
+        "<strong>Ended the stock mismatches between sales channels</strong> — set up the company's ERP master data from scratch: chart of accounts, customer/vendor master, and one SKU standard across every marketplace, so finance and sales finally worked from the same numbers (Ecount ERP).",
+        "<strong>Closed the recurring gap between sales' numbers and finance's numbers</strong> — built the monthly reports both teams reconcile against, turning a monthly argument into a routine check (Power BI, Power Query)."
       ],
       projectTaglines: [
         "Full data platform — a 59 GB PostgreSQL warehouse, 178 dbt models under 420 tests, 100K+ rows/day and 1,000+ orders/day across 4 marketplaces.",
@@ -90,29 +89,28 @@ window.resumeI18n = {
       htmlLang: "th",
       name: "สหัสวรรษ ทองมา",
       roleTitle: "Data Engineer",
+      roleTagline: "สร้างระบบข้อมูลให้ธุรกิจ e-commerce — คนเดียว ตั้งแต่ต้นจนจบ",
       location: "สมุทรสาคร, ประเทศไทย",
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 4 ปี ในสาย e-commerce ดูแล <strong>PostgreSQL warehouse ขนาด 59 GB</strong> — 178 dbt models ใต้ 420 data tests, medallion + dimensional modeling, ingest 100K+ records/วัน — ให้บริษัทระดับร้อยล้านบาทต่อเดือน · ปี 2026 ปิด migration ใหญ่ 2 ตัว: ย้าย warehouse ออกจาก Azure SQL Server มาอยู่บน PostgreSQL on-prem และย้าย orchestration ออกจาก Azure Data Factory มาเป็น <strong>Apache Airflow ใน Docker</strong> · ตอนนี้โฟกัสที่ <strong>data reliability</strong> — จับเคสที่ pipeline เขียวแต่ข้อมูลหายเงียบ ๆ · Stack: <strong>dbt · Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong> สร้างให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
+        "<strong>Data engineer ที่สร้างระบบให้คนทั้งบริษัทได้ใช้จริง</strong> — ประสบการณ์ 4 ปีในสาย e-commerce ปัจจุบันดูแล data platform ทั้งระบบของบริษัทระดับร้อยล้านบาทต่อเดือนคนเดียว · ผู้บริหารดูยอดขาย-สต็อกได้เอง ไม่ต้องรอใครทำ Excel ให้ · งานมือ ~40 งาน/วันหายไป ระบบทำเองตั้งแต่ตีห้า · ทีม 30+ คนได้เวลาคืนวันละ <strong>30–90 ชั่วโมง</strong> · ตอนนี้โฟกัส <strong>data reliability</strong> — จับปัญหาที่ระบบขึ้นว่าสำเร็จแต่ตัวเลขผิดเงียบ ๆ ก่อนที่ใครจะเอาไปตัดสินใจ · Tools: <strong>dbt · Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong>"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
       epPeriod: "พ.ค. 2025 – ปัจจุบัน",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ให้ทีม 25+ คน ประหยัดเวลารวมทั้งทีม <strong>25–75 ชั่วโมง/วัน</strong> และจบปัญหา reconcile ตัวเลขข้าม spreadsheet",
-        "<strong>ออกแบบและสร้าง platform ทั้งระบบ</strong> — <strong>178 dbt models</strong> บน medallion architecture 5 ชั้น พร้อม <strong>420 data tests</strong> และ SCD-2 dimensional modeling · ป้อนด้วย <strong>Python + Playwright ingestion framework</strong> ที่เขียนเองมาแทน Power Automate Desktop 40 flows เดิม · orchestrate ทุกคืนด้วย <strong>Apache Airflow ใน Docker</strong> · ingest <strong>100K+ records/วัน</strong> จาก 8 source systems แล้วเสิร์ฟ <strong>FastAPI + React dashboards</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment พร้อมทาง self-service แบบ read-only ให้คนที่ไม่ใช่สาย tech ดึงเลขเองได้โดยไม่ต้องผ่านเรา",
-        "<strong>ปิด platform migration ใหญ่ 2 ตัวจบในไตรมาสเดียว</strong> — ย้าย warehouse จาก <strong>Azure SQL Server → PostgreSQL on-prem</strong> และ<strong>ปลดระวาง Azure Data Factory ทั้ง 46 pipelines ที่เคยสร้างเอง</strong> แทนด้วย Airflow DAGs · ลดค่า cloud โดย dashboard ไม่ดาวน์เลย",
-        "<strong>Data reliability engineering</strong> — ไล่ปิดคลาสความพังที่ <em>pipeline เขียวแต่ข้อมูลหาย</em>: freshness canary ที่วัดเทียบ source สด และ value-presence gate ที่บังคับเป็น hard failure · <strong>กู้เลขพัสดุคืน 23,677 เลข</strong> ที่กฎ dedup ลบทิ้งไปเงียบ ๆ และแก้ที่รากจน <strong>28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้าน เหลือศูนย์</strong> พร้อม test กันไม่ให้กลับมาโดยไม่มีใครรู้",
-        "<strong>ทำ backup ตัวแรกของ warehouse 59 GB ที่ไม่เคยมี backup เลย</strong> — nightly <code>pg_dump</code> stream ขึ้น Azure Blob พร้อม task verify แยกต่างหาก และ retention 35 วัน · และย้ายเส้นทางไฟล์ของ bronze ออกจาก OneDrive มาเป็น <strong>Blob data lake</strong> ตัดรากของ ingestion failure ทั้งคลาส",
-        "<strong>เปลี่ยน vendor WMS</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พนักงานคลังรวมพนักงานต่างชาติเรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,000+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น · <strong>ดูแลระบบ production ทั้ง 7 ตัวคนเดียว</strong> ตั้งแต่ออกแบบ build deploy ไปจนถึง on-call"
+        "<strong>สร้าง data warehouse ตัวแรกของบริษัท พร้อม platform รอบตัวมัน</strong> — แทน Google Sheets/Excel ที่กระจัดกระจายให้ทีม 30+ คน คืนเวลาให้ทีมวันละ <strong>30–90 ชั่วโมง</strong> · ผู้บริหารดูยอดขาย สต็อก และงานจัดส่งได้เอง ไม่ต้องรอใครทำรายงานให้ · งานมือ ~40 งาน/วันหายไป ระบบทำเองตั้งแต่ตีห้า (dbt, Apache Airflow, PostgreSQL, Python — ข้อมูลจาก 8 แหล่ง เช่น Shopee, Lazada, TikTok)",
+        "<strong>จับปัญหาข้อมูลที่ไม่มีใครรู้ว่ากำลังเกิด แล้วแก้ให้จบที่ราก</strong> — กู้เลขพัสดุคืน <strong>23,677 เลข</strong> ที่ระบบลบทิ้งไปเงียบ ๆ และไล่จนเจอสาเหตุที่ <strong>28.5% ของยอดขายเดือนหนึ่งไม่ติดชื่อร้าน — ตอนนี้เหลือศูนย์</strong> พร้อมวางระบบตรวจอัตโนมัติที่เตือนก่อนตัวเลขผิดจะไปถึงการตัดสินใจ (data-reliability tests, freshness monitoring)",
+        "<strong>ลดค่าใช้จ่ายคลาวด์รายเดือน และทำให้ข้อมูลบริษัทมีที่สำรองเป็นครั้งแรก</strong> — ย้าย warehouse และระบบตั้งเวลางานออกจากบริการคลาวด์รายเดือน 2 ตัว มาอยู่บนเครื่องที่ดูแลเอง จบในไตรมาสเดียวโดย dashboard ไม่ดาวน์เลย และทำ backup รายคืนตัวแรกของ warehouse 59 GB พร้อมตรวจสอบผลทุกครั้ง (Azure SQL Server → PostgreSQL, Azure Data Factory → Airflow, pg_dump ขึ้น Azure Blob)",
+        "<strong>เปลี่ยนระบบคลังของ vendor เป็นแอปที่เขียนเอง</strong> — จากโค้ดบรรทัดแรกถึงพนักงานใช้หน้างานจริงใน <strong>15 วัน</strong> · พนักงาน (รวมคนไม่ใช้ภาษาไทย) เรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,000+ ออเดอร์/วัน</strong> พร้อมประวัติของทุกชิ้น · <strong>ดูแลระบบ production ทั้ง 7 ตัวคนเดียว</strong> ตั้งแต่ออกแบบ สร้าง deploy จนถึง on-call (WMS, barcode scanner, invoice OCR — FastAPI/React)"
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
       ],
       travelerBullets: [
-        "<strong>วาง master data ใน Ecount ERP ตั้งแต่ 0</strong> — chart of accounts, customer/vendor master และ SKU mapping standards ข้าม marketplaces + ERP ทำให้ finance กับ sales มี single source of truth เดียวกัน และตัดปัญหา SKU mapping กำกวมที่เคยทำให้สต็อกไม่ตรงระหว่างช่องทาง",
-        "สร้าง <strong>Power BI reports</strong> และใช้ <strong>Power Query</strong> reconcile ข้อมูล ERP ของ sales/finance — ทำให้ report รายเดือนตรงและ stable ปิดปัญหาตัวเลขไม่ตรงกันระหว่างสองทีมที่เคยเกิดประจำ"
+        "<strong>จบปัญหาสต็อกไม่ตรงกันข้ามช่องทางขาย</strong> — วาง master data ของ ERP ตั้งแต่ศูนย์: ผังบัญชี, ข้อมูลลูกค้า/ผู้ขาย และมาตรฐาน SKU เดียวกันทุก marketplace ให้ finance กับ sales ใช้ตัวเลขชุดเดียวกัน (Ecount ERP)",
+        "<strong>ปิดปัญหาตัวเลข sales กับ finance ไม่ตรงกันที่เกิดซ้ำทุกเดือน</strong> — สร้างรายงานรายเดือนกลางที่สองทีมใช้กระทบยอดร่วมกัน (Power BI, Power Query)"
       ],
       projectTaglines: [
         "Data platform เต็มระบบ — PostgreSQL warehouse 59 GB, 178 dbt models ใต้ 420 tests, รับ 100K+ rows/วัน และ 1,000+ orders/วัน จาก 4 marketplaces",

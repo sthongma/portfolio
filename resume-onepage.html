@@ -45,7 +45,7 @@
 
   /* ---------- consistent section header ---------- */
   .section { padding: 5px 0 0; }
-  .section + .section { margin-top: 4px; }
+  .section + .section { margin-top: 2px; }
   .eyebrow {
     display: flex; align-items: center; gap: 9px;
     font-family: var(--font-mono); font-size: 8.5px; font-weight: 600;
@@ -66,8 +66,11 @@
   .hero .id { flex: 1; min-width: 0; padding: 9px 15px; display: flex; flex-direction: column; justify-content: center; border-left: 3px solid var(--blue); }
   .hero h1 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.06; color: var(--ink); }
   .hero .role {
-    margin: 5px 0 9px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+    margin: 5px 0 2px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
     letter-spacing: 0.02em; color: var(--blue);
+  }
+  .hero .role-sub {
+    margin: 0 0 5px; font-size: 10px; color: var(--body);
   }
   .hero .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 22px; }
   .hero .contacts a, .hero .contacts span {
@@ -186,6 +189,7 @@
     <div class="id">
       <h1>สหัสวรรษ ทองมา</h1>
       <div class="role">Data Engineer</div>
+      <div class="role-sub">สร้างระบบข้อมูลให้ธุรกิจ e-commerce — คนเดียว ตั้งแต่ต้นจนจบ</div>
       <div class="contacts">
         <a href="mailto:sahatsawat.thongma@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
@@ -221,15 +225,15 @@
       <span>→</span>
       <span class="now">2025 — Data Engineer</span>
     </p>
-    <p class="cur">ประสบการณ์ 4 ปี ในสาย e-commerce ปัจจุบันเป็น <b>Data Engineer</b> — ดูแล <b>PostgreSQL warehouse 59 GB + dashboard</b> ingest 100K+ records/วัน ผ่าน ELT pipelines · <b>178 dbt models</b> ใต้ <b>420 data tests</b> · medallion 5 ชั้น + dimensional modeling · orchestrate ด้วย <b>Airflow ใน Docker</b> ให้บริษัทระดับร้อยล้านบาทต่อเดือน</p>
-    <div class="hl">สร้าง <b>Data warehouse &amp; Web app</b> แทน Google Sheets / Excel / WMS เดิมที่ไม่เป็นระบบ ให้ทีม <b>25 คน</b> ประหยัดเวลารวม <span class="big">25–75 ชม./วัน</span> (1–3 ชม. ต่อคน) จบปัญหาสต็อก &amp; ตัวเลขไม่ตรงข้ามช่องทาง</div>
+    <p class="cur">ประสบการณ์ 4 ปีในสาย e-commerce ปัจจุบันเป็น <b>Data Engineer</b> — สร้างและดูแล <b>ระบบ production ทั้ง 7 ตัว</b> ของบริษัทระดับร้อยล้านบาทต่อเดือน · ผู้บริหารดูยอดขายได้เองไม่ต้องรอรายงาน · งานมือ ~40 งาน/วันหายไป ระบบทำเองตั้งแต่ตีห้า (dbt · Airflow · PostgreSQL · Python)</p>
+    <div class="hl">สร้าง <b>Data warehouse &amp; Web app</b> แทน Google Sheets / Excel / WMS เดิมที่ไม่เป็นระบบ ให้ทีม <b>30 คน</b> ประหยัดเวลารวม <span class="big">30–90 ชม./วัน</span> (1–3 ชม. ต่อคน) จบปัญหาสต็อก &amp; ตัวเลขไม่ตรงข้ามช่องทาง</div>
   </section>
 
   <!-- ======= PROD PROJECT ======= -->
   <section class="section prod" data-screen-label="Prod Project">
     <div class="eyebrow"><span class="tick"></span>Prod Project<span class="num">/ 02</span></div>
     <h2>E-Commerce Data Pipeline &amp; Analytics Platform</h2>
-    <p class="desc">Data platform เต็มระบบ สร้างตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) — ดึง raw data จาก 8 source systems <span class="arrow">→</span> Python + Playwright, Azure Blob data lake, dbt, Airflow แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
+    <p class="desc">Data platform เต็มระบบ สร้างคนเดียวตั้งแต่ต้นจนจบ — เปลี่ยนงานโหลด/refresh ไฟล์ที่เคยมีคนนั่งทำทุกเช้า ให้ระบบดึงจาก 8 แหล่งเองอัตโนมัติ (Python + Playwright <span class="arrow">→</span> Azure Blob data lake → dbt → Airflow)</p>
 
     <div class="diagram">
       <!-- stats -->
@@ -323,9 +327,9 @@
         <span class="xp-per">May 2025 – Present</span>
       </div>
       <ul class="xp-pts">
-        <li class="bullet"><b>วิศวกรคนเดียว ออกแบบ + operate 7 ระบบ production แบบ end-to-end</b> — ตั้งแต่ architecture จนถึงดูแล production เองทั้งหมด</li>
-        <li class="bullet"><b>ปิด migration ใหญ่ 2 ตัวจบในไตรมาสเดียว</b> — warehouse <b>Azure SQL → PostgreSQL on-prem</b> และ<b>ปลดระวาง ADF ทั้ง 46 pipelines ที่เคยสร้างเอง</b> แทนด้วย Airflow DAGs · ลดค่า cloud โดย dashboard ไม่ดาวน์</li>
-        <li class="bullet"><b>Data reliability</b> — ไล่ปิดคลาส "pipeline เขียวแต่ข้อมูลหาย" ด้วย freshness canary + value-presence gate · <b>กู้เลขพัสดุคืน 23,677 เลข</b> · แก้ที่รากจน <b>28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้าน เหลือ 0</b> · และทำ <b>backup ตัวแรกของ warehouse 59 GB ที่ไม่เคยมี backup เลย</b></li>
+        <li class="bullet"><b>วิศวกรคนเดียว สร้าง + ดูแล 7 ระบบ production ทั้งบริษัท</b> — ทีม 30+ คนได้เวลาคืนวันละ <b>30–90 ชม.</b> งานมือ ~40 งาน/วันระบบทำแทนตั้งแต่ตีห้า · WMS จากโค้ดบรรทัดแรกถึงหน้างานจริงใน <b>15 วัน</b> พนักงานเรียนรู้ใน 5 นาที (รวมคนไม่ใช้ภาษาไทย)</li>
+        <li class="bullet"><b>จับปัญหาข้อมูลที่ไม่มีใครรู้ว่ากำลังเกิด</b> — กู้เลขพัสดุคืน <b>23,677 เลข</b> ที่ระบบลบทิ้งเงียบ ๆ · แก้ที่รากจน <b>28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้าน เหลือ 0</b> พร้อม test กันเกิดซ้ำ</li>
+        <li class="bullet"><b>ลดค่าคลาวด์รายเดือน + ทำ backup ตัวแรกของบริษัท</b> — ปิดบริการคลาวด์รายเดือน 2 ตัว จบในไตรมาสเดียวโดย dashboard ไม่ดาวน์ (Azure SQL → PostgreSQL on-prem · ADF → Airflow)</li>
         <li class="xp-sys"><span class="sys">Data Platform / DPL</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">Webhook Receiver</span><span class="sys">OCR Pipeline</span><span class="sys">Blob Data Lake</span><span class="sys">Playwright RPA</span></li>
       </ul>
     </div>
@@ -337,8 +341,8 @@
         <span class="xp-per">2022 – 2025</span>
       </div>
       <ul class="xp-pts">
-        <li class="bullet">วาง <b>Ecount ERP master data ตั้งแต่ศูนย์</b> — เป็น single source of truth ข้าม marketplaces + ERP (แก้ stock ไม่ตรงข้ามช่องทาง)</li>
-        <li class="bullet">สร้าง <b>Power BI + Power Query</b> reconcile ERP ระหว่างทีม sales &amp; finance ปิด recurring discrepancy ใน monthly reporting</li>
+        <li class="bullet"><b>จบปัญหาสต็อกไม่ตรงกันข้ามช่องทางขาย</b> — วาง master data ของ ERP ตั้งแต่ศูนย์ ให้ทุก marketplace ใช้มาตรฐาน SKU เดียวกัน (Ecount ERP)</li>
+        <li class="bullet"><b>ปิดปัญหาตัวเลข sales กับ finance ไม่ตรงกันทุกเดือน</b> — สร้างรายงานกลางที่สองทีมใช้กระทบยอดร่วมกัน (Power BI + Power Query)</li>
       </ul>
     </div>
   </section>
