@@ -28,7 +28,7 @@ window.resumeI18n = {
         "<strong>Closed the recurring gap between sales' numbers and finance's numbers</strong> — built the monthly reports both teams reconcile against, turning a monthly argument into a routine check (Power BI, Power Query)."
       ],
       projectTaglines: [
-        "Full data platform — a 59 GB PostgreSQL warehouse, 178 dbt models under 420 tests, 100K+ rows/day and 1,000+ orders/day across 4 marketplaces.",
+        "Full data platform — a 59 GB PostgreSQL warehouse rebuilt nightly (10.6M rows), 178 dbt models under 420 tests, 100K+ rows/day and 1,000+ orders/day across 4 sales channels.",
         "Custom WMS that replaced the previous third-party system — interactive visual map, foreign staff trained in under 5 min, full stock audit trail.",
         "Real-time multi-user barcode scanning system with workflow enforcement.",
         "AI-assisted invoice processing that reads Thai e-commerce PDF invoices and fills structured records automatically."
@@ -114,7 +114,7 @@ window.resumeI18n = {
         "<strong>ปิดปัญหาตัวเลข sales กับ finance ไม่ตรงกันที่เกิดซ้ำทุกเดือน</strong> — สร้างรายงานรายเดือนกลางที่สองทีมใช้กระทบยอดร่วมกัน (Power BI, Power Query)"
       ],
       projectTaglines: [
-        "Data platform เต็มระบบ — PostgreSQL warehouse 59 GB, 178 dbt models ใต้ 420 tests, รับ 100K+ rows/วัน และ 1,000+ orders/วัน จาก 4 marketplaces",
+        "Data platform เต็มระบบ — PostgreSQL warehouse 59 GB rebuild ทุกคืน (10.6M rows), 178 dbt models ใต้ 420 tests, รับ 100K+ rows/วัน และ 1,000+ orders/วัน จาก 4 ช่องทางขาย",
         "WMS ที่เขียนเองมาแทนระบบเดิม — แผนที่คลังกดดูของได้ คนงานต่างชาติเรียนไม่ถึง 5 นาทีก็ใช้ได้ track ของได้ทุกการเคลื่อนไหว",
         "ระบบ barcode scanner หลายคนใช้พร้อมกันแบบ real-time พร้อมบังคับลำดับงาน",
         "ระบบ AI อ่านไฟล์ invoice PDF ของ e-commerce ไทย แล้วลงข้อมูลเป็น structured records ให้อัตโนมัติ"
