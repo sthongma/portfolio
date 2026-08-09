@@ -464,57 +464,44 @@
     stroke-width: 2.2;
   }
 
-  /* Live-demo chips on the Resume tab — animated RGB ring pulls the eye
-     to the demos that used to be buried behind the Projects tab. */
-  .demo-chips {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    margin: 10px 0 4px;
-  }
-  .demo-chips .dc-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    color: var(--fg-dim);
-  }
-  @property --demo-chip-angle {
+  /* Projects tab — animated RGB ring + play glyph signal that the tab
+     is clickable (the live demos all live behind it). Ring shows only
+     while the tab is not selected. */
+  @property --rgb-ring-angle {
     syntax: "<angle>";
     initial-value: 0deg;
     inherits: false;
   }
-  .demo-chip {
-    display: inline-flex;
-    border-radius: 999px;
-    padding: 1.5px;
-    background: conic-gradient(from var(--demo-chip-angle), #ff2d55, #ffcc00, #34c759, #00b0ff, #af52de, #ff2d55);
-    animation: demo-chip-spin 3.2s linear infinite;
-    border-bottom: none;
-    text-decoration: none;
-  }
-  .demo-chip:hover { animation-duration: 1.1s; }
-  @keyframes demo-chip-spin { to { --demo-chip-angle: 360deg; } }
-  .demo-chip-in {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--bg-elev);
-    border-radius: inherit;
-    padding: 4px 12px;
-    font-size: 12.5px;
-    font-weight: 600;
+  @keyframes rgb-ring-spin { to { --rgb-ring-angle: 360deg; } }
+  #tab-projects:not(:checked) ~ .tabs label[for="tab-projects"] {
+    position: relative;
     color: var(--fg);
-    white-space: nowrap;
   }
-  .demo-chip-in svg {
-    width: 10px;
-    height: 10px;
+  #tab-projects:not(:checked) ~ .tabs label[for="tab-projects"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(from var(--rgb-ring-angle), #ff2d55, #ffcc00, #34c759, #00b0ff, #af52de, #ff2d55);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+    animation: rgb-ring-spin 3.2s linear infinite;
+    pointer-events: none;
+  }
+  #tab-projects:not(:checked) ~ .tabs label[for="tab-projects"]::after {
+    content: "▶";
+    margin-left: 8px;
+    font-size: 9px;
     color: var(--accent);
   }
+  #tab-projects:not(:checked) ~ .tabs label[for="tab-projects"]:hover {
+    background: rgba(15, 98, 254, 0.08);
+  }
   @media (prefers-reduced-motion: reduce) {
-    .demo-chip { animation: none; }
+    #tab-projects:not(:checked) ~ .tabs label[for="tab-projects"]::before { animation: none; }
   }
 
   /* Metric summary (project #1) */
@@ -1743,13 +1730,6 @@
       <h3>EP Asia Group</h3>
       <span class="period" data-i18n="epPeriod">May 2025 – Present</span>
       <div class="role" data-i18n="epRole">Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform</div>
-      <div class="demo-chips" aria-label="Live demos">
-        <span class="dc-label">LIVE DEMOS</span>
-        <a class="demo-chip" href="mockups/sales-insights.html" target="_blank" rel="noopener"><span class="demo-chip-in"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span data-demo-label="sales">Sales Insights demo</span></span></a>
-        <a class="demo-chip" href="mockups/wms.html" target="_blank" rel="noopener"><span class="demo-chip-in"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span data-demo-label="wms">Warehouse map demo</span></span></a>
-        <a class="demo-chip" href="mockups/bsn.html" target="_blank" rel="noopener"><span class="demo-chip-in"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span data-demo-label="bsn">Barcode scanner demo</span></span></a>
-        <a class="demo-chip" href="mockups/fulfillment.html" target="_blank" rel="noopener"><span class="demo-chip-in"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span data-demo-label="fulfillment">Fulfillment demo</span></span></a>
-      </div>
       <ul>
         <li data-i18n="epBullets[0]">
           <strong>Built the company's first data warehouse — and the
