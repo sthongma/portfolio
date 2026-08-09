@@ -547,14 +547,17 @@
   .av-warn  { background: var(--warn); }
   .av-ink   { background: var(--ink-600); }
   .chev { color: var(--ink-300); width: 15px; height: 15px; display: block; }
-  a.row-link { display: block; color: inherit; }
-  a.row-link .chev { color: var(--accent); }
-  tr.linked:hover { background: var(--accent-soft); cursor: pointer; }
-  /* The drill-in affordance lives in column 1 so it survives horizontal scroll —
+  /* Whole-row click, same as the app's onRowClick — a stretched anchor covers the
+     <tr> (which is the containing block), so any cell opens the drill-in. */
+  tr.linked { position: relative; cursor: pointer; }
+  tr.linked:hover { background: var(--accent-soft); }
+  .row-hit { position: absolute; inset: 0; display: block; z-index: 2; }
+  /* The colour cue lives in column 1 so it survives horizontal scroll —
      the chevron in the last column is off-screen on narrower viewports. */
   tr.linked .sku-cell { color: var(--accent); }
+  tr.linked .chev { color: var(--accent); }
   tr.linked .thumb { box-shadow: inset 0 0 0 1px rgba(193,18,31,0.35); color: var(--accent); }
-  tr.linked a.row-link:hover .sku-cell { text-decoration: underline; }
+  tr.linked:hover .sku-cell { text-decoration: underline; }
   .tl-icon { width: 13px; height: 13px; color: var(--accent); flex-shrink: 0; }
   .hint-chip {
     display: inline-flex;
@@ -1192,7 +1195,7 @@
         <div class="bar-right">
           <span class="hint-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>
-            SKUs in red open their stock timeline
+            Click a red row for its stock timeline
           </span>
           <span class="btn-ghost">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -1278,8 +1281,11 @@
 
             <!-- ↓ drill-in wired -->
             <tr class="linked">
-              <td><a class="row-link" href="#sku-el-wh-1024" title="Open stock timeline"><span class="sku-cell"><span class="thumb">E</span>EL-WH-1024<svg class="tl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></span></a></td>
-              <td><a class="row-link" href="#sku-el-wh-1024"><div class="prod">Premium Wireless Over-Ear Headphones · 40h battery</div></a></td>
+              <td>
+                <a class="row-hit" href="#sku-el-wh-1024" title="Open stock timeline" aria-label="Open stock timeline for EL-WH-1024"></a>
+                <span class="sku-cell"><span class="thumb">E</span>EL-WH-1024<svg class="tl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></span>
+              </td>
+              <td><div class="prod">Premium Wireless Over-Ear Headphones · 40h battery</div></td>
               <td class="tier"><span class="a">A</span><span class="slash">/</span><span>F</span></td>
               <td class="num">412</td>
               <td class="num">41.6</td>
@@ -1290,7 +1296,7 @@
               <td class="num strong">600</td>
               <td><span class="hbadge h-reorder">Reorder Now</span></td>
               <td><span class="avatars"><span class="av av-brand" title="SoundWave Ltd">S</span><span class="av av-info" title="Shenzhen Acoustic Co.">S</span></span></td>
-              <td><a class="row-link" href="#sku-el-wh-1024" title="Open stock timeline"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></a></td>
+              <td><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></td>
             </tr>
 
             <tr>
@@ -1391,8 +1397,11 @@
 
             <!-- ↓ drill-in wired -->
             <tr class="linked">
-              <td><a class="row-link" href="#sku-el-cb-5610" title="Open stock timeline"><span class="sku-cell"><span class="thumb">E</span>EL-CB-5610<svg class="tl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></span></a></td>
-              <td><a class="row-link" href="#sku-el-cb-5610"><div class="prod">USB-C to USB-C Cable 2m · 100W · braided</div></a></td>
+              <td>
+                <a class="row-hit" href="#sku-el-cb-5610" title="Open stock timeline" aria-label="Open stock timeline for EL-CB-5610"></a>
+                <span class="sku-cell"><span class="thumb">E</span>EL-CB-5610<svg class="tl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></span>
+              </td>
+              <td><div class="prod">USB-C to USB-C Cable 2m · 100W · braided</div></td>
               <td class="tier"><span class="a">A</span><span class="slash">/</span><span>F</span></td>
               <td class="num">2,480</td>
               <td class="num">16.6</td>
@@ -1403,7 +1412,7 @@
               <td class="num dim">—</td>
               <td><span class="hbadge h-over">Overstock</span></td>
               <td><span class="avatars"><span class="av av-ink" title="Voltix Trading">V</span></span></td>
-              <td><a class="row-link" href="#sku-el-cb-5610" title="Open stock timeline"><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></a></td>
+              <td><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></td>
             </tr>
 
             <tr>
