@@ -44,13 +44,13 @@
   .doc { flex: 1; display: flex; flex-direction: column; }
 
   /* ---------- consistent section header ---------- */
-  .section { padding: 7px 0 0; }
-  .section + .section { margin-top: 5px; }
+  .section { padding: 5px 0 0; }
+  .section + .section { margin-top: 4px; }
   .eyebrow {
     display: flex; align-items: center; gap: 9px;
     font-family: var(--font-mono); font-size: 8.5px; font-weight: 600;
     letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink);
-    margin: 0 0 5px;
+    margin: 0 0 3px;
   }
   .eyebrow .tick { width: 9px; height: 9px; background: var(--blue); flex: 0 0 auto; }
   .eyebrow .num { color: var(--muted); font-weight: 500; }
@@ -63,13 +63,13 @@
   }
   .hero .photo-wrap { flex: 0 0 auto; position: relative; }
   .hero .photo { width: 96px; height: 100%; object-fit: cover; display: block; }
-  .hero .id { flex: 1; min-width: 0; padding: 14px 16px; display: flex; flex-direction: column; justify-content: center; border-left: 3px solid var(--blue); }
-  .hero h1 { margin: 0; font-size: 27px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.06; color: var(--ink); }
+  .hero .id { flex: 1; min-width: 0; padding: 9px 15px; display: flex; flex-direction: column; justify-content: center; border-left: 3px solid var(--blue); }
+  .hero h1 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.06; color: var(--ink); }
   .hero .role {
-    margin: 7px 0 12px; font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    margin: 5px 0 9px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
     letter-spacing: 0.02em; color: var(--blue);
   }
-  .hero .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
+  .hero .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 22px; }
   .hero .contacts a, .hero .contacts span {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 10px; color: var(--body); text-decoration: none; min-width: 0;
@@ -77,42 +77,42 @@
   .hero .contacts a span, .hero .contacts > span span { display: inline; }
   .hero .contacts .txt { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .hero .contacts svg { width: 13px; height: 13px; flex: 0 0 auto; color: var(--muted); stroke-width: 1.8; }
-  .hero .qr { flex: 0 0 auto; width: 104px; text-align: center; padding: 12px 10px; background: var(--field-2); border-left: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; }
-  .hero .qr img { width: 72px; height: 72px; display: block; }
+  .hero .qr { flex: 0 0 auto; width: 100px; text-align: center; padding: 9px 9px; background: var(--field-2); border-left: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .hero .qr img { width: 64px; height: 64px; display: block; }
   .hero .qr .qlabel { margin-top: 7px; font-family: var(--font-mono); font-size: 7.5px; font-weight: 600; letter-spacing: 0.14em; color: var(--ink); }
   .hero .qr .qsub { font-family: var(--font-mono); font-size: 7px; font-weight: 500; letter-spacing: 0.08em; color: var(--muted); margin-top: 1px; }
 
   /* ---------------- SUMMARY ---------------- */
   .summary .tl {
     font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.02em;
-    color: var(--muted); margin: 0 0 9px; display: flex; flex-wrap: wrap; gap: 4px 8px;
+    color: var(--muted); margin: 0 0 6px; display: flex; flex-wrap: wrap; gap: 4px 8px;
   }
   .summary .tl .step { color: var(--ink-2); }
   .summary .tl .now { color: var(--blue); font-weight: 600; }
-  .summary .cur { font-size: 11.5px; color: var(--body); line-height: 1.55; margin: 0; }
+  .summary .cur { font-size: 11.3px; color: var(--body); line-height: 1.52; margin: 0; }
   .summary .cur b { color: var(--ink); font-weight: 600; }
   .summary .hl {
-    margin: 8px 0 0; padding: 8px 11px; background: var(--blue-soft);
+    margin: 6px 0 0; padding: 6px 10px; background: var(--blue-soft);
     border: 1px solid var(--blue-line); border-radius: var(--r);
-    font-size: 11.5px; color: var(--ink-2); line-height: 1.5;
+    font-size: 10.8px; color: var(--ink-2); line-height: 1.45;
   }
   .summary .hl b { color: var(--ink); font-weight: 600; }
   .summary .hl .big { font-family: var(--font-mono); font-weight: 700; color: var(--blue-70); }
 
   /* ---------------- PROD PROJECT ---------------- */
-  .prod h2 { margin: 0; font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
-  .prod .desc { margin: 6px 0 0; font-size: 10.6px; color: var(--body); line-height: 1.5; }
+  .prod h2 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .prod .desc { margin: 5px 0 0; font-size: 10.4px; color: var(--body); line-height: 1.5; }
   .prod .desc b { color: var(--ink); font-weight: 600; }
   .prod .desc .arrow { color: var(--blue); font-weight: 700; font-family: var(--font-mono); }
 
-  .diagram { margin-top: 7px; }
+  .diagram { margin-top: 5px; }
 
   /* stat strip */
-  .stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-bottom: 9px; }
-  .stat { padding: 8px 6px; border-left: 1px solid var(--line); text-align: left; }
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-bottom: 6px; }
+  .stat { padding: 6px 6px; border-left: 1px solid var(--line); text-align: left; }
   .stat:first-child { border-left: none; }
-  .stat .v { display: block; font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1; letter-spacing: -0.01em; }
-  .stat .l { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 7px; font-weight: 500; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; }
+  .stat .v { display: block; font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1; letter-spacing: -0.01em; }
+  .stat .l { display: block; margin-top: 3px; font-family: var(--font-mono); font-size: 7px; font-weight: 500; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; }
 
   /* zones */
   .stage-row { display: flex; align-items: stretch; gap: 0; }
@@ -121,21 +121,21 @@
   .zone.ingest    { width: 150px; }
   .zone.warehouse { width: 192px; }
   .zone.serving   { flex: 1; min-width: 0; }
-  .zhead { font-family: var(--font-mono); font-size: 7.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink); padding: 6px 9px; background: var(--field); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+  .zhead { font-family: var(--font-mono); font-size: 7.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink); padding: 4.5px 9px; background: var(--field); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
   .zhead .zc { color: var(--blue); font-weight: 700; }
   .zone.warehouse .zhead { background: var(--blue-soft); border-bottom-color: var(--blue-line); }
-  .znodes { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 5px; padding: 7px; }
+  .znodes { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 6px; }
   .zarrow { flex: 0 0 20px; display: flex; align-items: center; justify-content: center; color: var(--muted); }
   .zarrow svg { width: 16px; height: 12px; }
 
-  .node { display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid var(--line); border-radius: 3px; padding: 6px 8px; }
+  .node { display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid var(--line); border-radius: 3px; padding: 5.5px 8px; }
   .node .ic { flex: 0 0 auto; width: 22px; height: 22px; }
   .node .ic svg { width: 100%; height: 100%; display: block; }
   .node .nt { font-size: 10px; font-weight: 600; color: var(--ink); line-height: 1.15; }
   .node .ns { font-size: 8px; color: var(--body); margin-top: 2px; line-height: 1.3; }
 
   .medallion { display: flex; flex-direction: column; gap: 3px; }
-  .layer { background: var(--field-2); border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 3px; padding: 3px 9px; }
+  .layer { background: var(--field-2); border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 3px; padding: 2px 8px; }
   .layer .lt { font-size: 9.5px; font-weight: 600; color: var(--ink); line-height: 1.12; }
   .layer .lm { font-family: var(--font-mono); font-size: 6.6px; font-weight: 500; letter-spacing: 0.01em; color: var(--muted); margin-top: 1.5px; }
   .layer.bronze { border-left-color: #b06b2f; }
@@ -144,29 +144,29 @@
   .layer.inter  { border-left-color: #a8a8a8; }
   .layer.gold   { border-left-color: #c6a52c; }
 
-  .node.app { flex-direction: column; align-items: flex-start; gap: 8px; background: var(--blue-soft); border: 1px solid var(--blue-line); padding: 12px; height: 100%; justify-content: center; }
+  .node.app { flex-direction: column; align-items: flex-start; gap: 7px; background: var(--blue-soft); border: 1px solid var(--blue-line); padding: 10px; height: 100%; justify-content: center; }
   .node.app .ic { width: 28px; height: 28px; }
   .node.app .nt { font-size: 12px; color: var(--blue-70); }
   .node.app .ns { font-size: 8.4px; color: var(--ink-2); line-height: 1.45; }
 
   /* ---------------- EXPERIENCE ---------------- */
-  .experience .xp + .xp { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--line); }
+  .experience .xp + .xp { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); }
   .experience .xp-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 10px; }
   .experience .xp-co { font-size: 12.5px; font-weight: 600; color: var(--ink); }
   .experience .xp-role { font-size: 10.5px; font-weight: 500; color: var(--blue); letter-spacing: -0.005em; }
   .experience .xp-per { margin-left: auto; font-family: var(--font-mono); font-size: 9px; font-weight: 500; color: var(--muted); white-space: nowrap; }
-  .experience .xp-pts { margin: 6px 0 0; padding: 0; list-style: none; }
-  .experience .xp-pts li { font-size: 11px; color: var(--body); line-height: 1.45; position: relative; padding-left: 16px; }
+  .experience .xp-pts { margin: 4px 0 0; padding: 0; list-style: none; }
+  .experience .xp-pts li { font-size: 10.7px; color: var(--body); line-height: 1.44; position: relative; padding-left: 15px; }
   .experience .xp-pts li.bullet::before { content: ""; position: absolute; left: 1px; top: 7px; width: 5px; height: 5px; background: var(--blue); }
-  .experience .xp-pts li + li { margin-top: 5px; }
+  .experience .xp-pts li + li { margin-top: 4.5px; }
   .experience .xp-pts li b { color: var(--ink); font-weight: 600; }
-  .experience .xp-sys { list-style: none; padding-left: 0 !important; margin-top: 7px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .experience .xp-sys { list-style: none; padding-left: 0 !important; margin-top: 5px; display: flex; flex-wrap: wrap; gap: 5px; }
   .experience .sys { font-family: var(--font-mono); font-size: 8px; font-weight: 500; letter-spacing: 0.01em; padding: 3px 8px; background: var(--field); border: 1px solid var(--line); border-radius: 3px; color: var(--ink-2); white-space: nowrap; }
 
   /* ---------------- SKILLS ---------------- */
-  .skills .grid { display: grid; grid-template-columns: 118px 1fr; gap: 5px 16px; align-items: start; }
+  .skills .grid { display: grid; grid-template-columns: 118px 1fr; gap: 4.5px 16px; align-items: start; }
   .skills .grid .row { display: contents; }
-  .skills dt { font-size: 10px; font-weight: 600; color: var(--ink); padding-top: 3px; font-family: var(--font-mono); letter-spacing: 0.01em; }
+  .skills dt { font-size: 9.5px; font-weight: 600; color: var(--ink); padding-top: 3px; font-family: var(--font-mono); letter-spacing: 0.01em; }
   .skills dd { margin: 0; display: flex; flex-wrap: wrap; gap: 5px; }
   .tok { font-size: 8.5px; padding: 2.5px 8px; background: #fff; border: 1px solid var(--line); border-radius: 3px; color: var(--ink-2); white-space: nowrap; font-weight: 500; }
   .tok.cert { background: var(--field); }
@@ -221,7 +221,7 @@
       <span>→</span>
       <span class="now">2025 — Data Engineer</span>
     </p>
-    <p class="cur">ประสบการณ์ 3+ ปี ในสาย e-commerce ปัจจุบันเป็น <b>Data Engineer</b> — สร้างและดูแล <b>data warehouse 50 GB + dashboard</b> ingest 100K+ records/วัน ผ่าน ELT pipelines พร้อม <b>200+ dbt models</b> · 270+ data tests · medallion + dimensional modeling กำลังย้าย warehouse → <b>PostgreSQL on-prem</b> (dbt-postgres) orchestrate ด้วย <b>Airflow ใน Docker</b> ให้บริษัทระดับร้อยล้านบาทต่อเดือน</p>
+    <p class="cur">ประสบการณ์ 4 ปี ในสาย e-commerce ปัจจุบันเป็น <b>Data Engineer</b> — ดูแล <b>PostgreSQL warehouse 59 GB + dashboard</b> ingest 100K+ records/วัน ผ่าน ELT pipelines · <b>178 dbt models</b> ใต้ <b>420 data tests</b> · medallion 5 ชั้น + dimensional modeling · orchestrate ด้วย <b>Airflow ใน Docker</b> ให้บริษัทระดับร้อยล้านบาทต่อเดือน</p>
     <div class="hl">สร้าง <b>Data warehouse &amp; Web app</b> แทน Google Sheets / Excel / WMS เดิมที่ไม่เป็นระบบ ให้ทีม <b>25 คน</b> ประหยัดเวลารวม <span class="big">25–75 ชม./วัน</span> (1–3 ชม. ต่อคน) จบปัญหาสต็อก &amp; ตัวเลขไม่ตรงข้ามช่องทาง</div>
   </section>
 
@@ -229,23 +229,23 @@
   <section class="section prod" data-screen-label="Prod Project">
     <div class="eyebrow"><span class="tick"></span>Prod Project<span class="num">/ 02</span></div>
     <h2>E-Commerce Data Pipeline &amp; Analytics Platform</h2>
-    <p class="desc">Data platform เต็มระบบ — warehouse <b>50 GB · 44M rows</b> เสิร์ฟ <b>9 business domains</b> สร้างตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) ดึง raw data จาก 8 source systems <span class="arrow">→</span> Python + Playwright, ADF, dbt (กำลังย้าย → Airflow) แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
+    <p class="desc">Data platform เต็มระบบ สร้างตั้งแต่ต้นจนจบในตัวคนเดียว (End-to-End) — ดึง raw data จาก 8 source systems <span class="arrow">→</span> Python + Playwright, Azure Blob data lake, dbt, Airflow แทนการที่เคยมีคนนั่งโหลด / Refresh ไฟล์ทุกเช้า</p>
 
     <div class="diagram">
       <!-- stats -->
       <div class="stats">
         <div class="stat"><span class="v">100K</span><span class="l">row / day</span></div>
-        <div class="stat"><span class="v">46</span><span class="l">ADF pipeline</span></div>
-        <div class="stat"><span class="v">270+</span><span class="l">data test</span></div>
+        <div class="stat"><span class="v">59 GB</span><span class="l">warehouse</span></div>
+        <div class="stat"><span class="v">420</span><span class="l">data test</span></div>
         <div class="stat"><span class="v">1,000+</span><span class="l">order / day</span></div>
-        <div class="stat"><span class="v">200+</span><span class="l">dbt model</span></div>
+        <div class="stat"><span class="v">178</span><span class="l">dbt model</span></div>
       </div>
 
       <!-- zones -->
       <div class="stage-row">
         <!-- SOURCES -->
         <div class="zone sources">
-          <div class="zhead"><span>Sources</span><span class="zc">39 tables</span></div>
+          <div class="zhead"><span>Sources</span><span class="zc">40 tables</span></div>
           <div class="znodes">
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-xls" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#21a366"/><stop offset="1" stop-color="#107c41"/></linearGradient></defs><path d="M27 6H13a3 3 0 0 0-3 3v30a3 3 0 0 0 3 3h22a3 3 0 0 0 3-3V17L27 6z" fill="#fff" stroke="#d7e6dc"/><path d="M27 6l11 11h-8a3 3 0 0 1-3-3V6z" fill="#cae0d2"/><rect x="6" y="20" width="22" height="16" rx="2.5" fill="url(#g-xls)"/><path d="M12 24l8 8M20 24l-8 8" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/></svg></div>
@@ -269,15 +269,15 @@
           <div class="znodes">
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-py1" x1=".5" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#387EB8"/><stop offset="1" stop-color="#366994"/></linearGradient><linearGradient id="g-py2" x1=".5" y1="0" x2=".5" y2="1"><stop offset="0" stop-color="#FFE052"/><stop offset="1" stop-color="#FFC331"/></linearGradient></defs><path fill="url(#g-py1)" d="M23.8 4c-9.9 0-9.3 4.3-9.3 4.3v4.5h9.5v1.3H10.7s-6.4-.7-6.4 9.4 5.6 9.7 5.6 9.7h3.3v-4.7s-.2-5.6 5.5-5.6h9.4s5.3.1 5.3-5.1v-8.6S38.7 4 23.8 4zM18.6 7c.9 0 1.7.8 1.7 1.7s-.7 1.7-1.7 1.7c-.9 0-1.7-.8-1.7-1.7S17.6 7 18.6 7z"/><path fill="url(#g-py2)" d="M24.2 44c9.9 0 9.3-4.3 9.3-4.3v-4.5H24v-1.3h13.3s6.4.7 6.4-9.4-5.6-9.7-5.6-9.7h-3.3v4.7s.2 5.6-5.5 5.6h-9.4s-5.3-.1-5.3 5.1v8.6S9.3 44 24.2 44zM29.4 41c-.9 0-1.7-.8-1.7-1.7s.7-1.7 1.7-1.7c.9 0 1.7.8 1.7 1.7s-.8 1.7-1.7 1.7z"/></svg></div>
-              <div class="tx"><div class="nt">Python + Playwright</div><div class="ns">26 RPA flows · scraping</div></div>
+              <div class="tx"><div class="nt">Python + Playwright</div><div class="ns">34 RPA flows · scraping</div></div>
             </div>
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-adf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#37C0F5"/><stop offset="1" stop-color="#1C72C8"/></linearGradient></defs><path d="M12 24 H37 M25 24 L31 13" stroke="#1C72C8" stroke-width="2.3" fill="none" stroke-linecap="round"/><circle cx="11" cy="24" r="4.7" fill="url(#g-adf)"/><circle cx="24" cy="24" r="4.7" fill="url(#g-adf)"/><circle cx="37" cy="24" r="4.7" fill="url(#g-adf)"/><circle cx="32" cy="12" r="3.9" fill="url(#g-adf)"/></svg></div>
-              <div class="tx"><div class="nt">Azure Data Factory</div><div class="ns">Internal database sync</div></div>
+              <div class="tx"><div class="nt">Apache Airflow</div><div class="ns">11 DAGs · Docker · nightly</div></div>
             </div>
             <div class="node">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g-od" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#37c6f4"/><stop offset="1" stop-color="#1a8fe0"/></linearGradient></defs><path d="M20 16a9 9 0 0 1 16.4 3.2A7.5 7.5 0 0 1 38 34H15a8 8 0 0 1-1.2-15.9A9 9 0 0 1 20 16z" fill="url(#g-od)"/></svg></div>
-              <div class="tx"><div class="nt">OneDrive</div><div class="ns">Raw landing · backup</div></div>
+              <div class="tx"><div class="nt">Azure Blob Data Lake</div><div class="ns">Raw landing · content-keyed</div></div>
             </div>
           </div>
         </div>
@@ -288,11 +288,11 @@
           <div class="zhead"><span>Data Warehouse</span><span class="zc">dbt medallion</span></div>
           <div class="znodes">
             <div class="medallion">
-              <div class="layer bronze"><div class="lt">Bronze Layer</div><div class="lm">CONFIG UI · AI MAPPING · 30+ FILE TYPES</div></div>
-              <div class="layer staging"><div class="lt">dbt Staging</div><div class="lm">38 MODELS · CASTING · NULL STD</div></div>
-              <div class="layer silver"><div class="lt">dbt Silver</div><div class="lm">42 INCREMENTAL · ROW-HASH DEDUP</div></div>
-              <div class="layer inter"><div class="lt">dbt Intermediate</div><div class="lm">77 VIEWS · JOINS · CALCULATIONS</div></div>
-              <div class="layer gold"><div class="lt">dbt Gold</div><div class="lm">FACTS · DIMS · INCREMENTAL REFRESH</div></div>
+              <div class="layer bronze"><div class="lt">Bronze Layer</div><div class="lm">CONFIG UI · AI MAPPING · 32 FILE TYPES</div></div>
+              <div class="layer staging"><div class="lt">dbt Staging</div><div class="lm">39 VIEWS · CASTING · NULL STD</div></div>
+              <div class="layer silver"><div class="lt">dbt Silver</div><div class="lm">43 INCREMENTAL · ROW-HASH DEDUP</div></div>
+              <div class="layer inter"><div class="lt">dbt Intermediate</div><div class="lm">75 VIEWS · JOINS · CALCULATIONS</div></div>
+              <div class="layer gold"><div class="lt">dbt Gold</div><div class="lm">10 FACT · 6 DIM · INCREMENTAL</div></div>
             </div>
           </div>
         </div>
@@ -324,7 +324,9 @@
       </div>
       <ul class="xp-pts">
         <li class="bullet"><b>วิศวกรคนเดียว ออกแบบ + operate 7 ระบบ production แบบ end-to-end</b> — ตั้งแต่ architecture จนถึงดูแล production เองทั้งหมด</li>
-        <li class="xp-sys"><span class="sys">Data Platform / DPL</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">Webhook Receiver</span><span class="sys">OCR Pipeline</span><span class="sys">File-Sync</span><span class="sys">Playwright RPA</span></li>
+        <li class="bullet"><b>ปิด migration ใหญ่ 2 ตัวจบในไตรมาสเดียว</b> — warehouse <b>Azure SQL → PostgreSQL on-prem</b> และ<b>ปลดระวาง ADF ทั้ง 46 pipelines ที่เคยสร้างเอง</b> แทนด้วย Airflow DAGs · ลดค่า cloud โดย dashboard ไม่ดาวน์</li>
+        <li class="bullet"><b>Data reliability</b> — ไล่ปิดคลาส "pipeline เขียวแต่ข้อมูลหาย" ด้วย freshness canary + value-presence gate · <b>กู้เลขพัสดุคืน 23,677 เลข</b> · แก้ที่รากจน <b>28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้าน เหลือ 0</b> · และทำ <b>backup ตัวแรกของ warehouse 59 GB ที่ไม่เคยมี backup เลย</b></li>
+        <li class="xp-sys"><span class="sys">Data Platform / DPL</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">Webhook Receiver</span><span class="sys">OCR Pipeline</span><span class="sys">Blob Data Lake</span><span class="sys">Playwright RPA</span></li>
       </ul>
     </div>
 
@@ -346,19 +348,21 @@
     <div class="eyebrow"><span class="tick"></span>Skills &amp; Certifications<span class="num">/ 04</span></div>
     <dl class="grid">
       <dt>Data Warehouse</dt>
-      <dd><span class="tok">PostgreSQL</span><span class="tok">SQL Server</span><span class="tok">T-SQL</span><span class="tok">dbt</span><span class="tok">Medallion</span><span class="tok">Kimball / Star schema</span><span class="tok">SCD type 2</span></dd>
+      <dd><span class="tok">PostgreSQL</span><span class="tok">SQL Server</span><span class="tok">dbt</span><span class="tok">Medallion</span><span class="tok">Kimball / Star schema</span><span class="tok">SCD type 2</span></dd>
       <dt>Data Engineering</dt>
-      <dd><span class="tok">Python</span><span class="tok">Pandas</span><span class="tok">ETL / ELT</span><span class="tok">Apache Airflow</span><span class="tok">Docker</span><span class="tok">SQLAlchemy</span><span class="tok">Orchestration</span><span class="tok">Data quality &amp; testing</span></dd>
-      <dt>App Development</dt>
-      <dd><span class="tok">FastAPI</span><span class="tok">React / TypeScript</span><span class="tok">HTMX</span><span class="tok">Alpine.js</span><span class="tok">Jinja2</span><span class="tok">Alembic</span><span class="tok">REST / JSON API</span></dd>
-      <dt>Ingestion &amp; BI</dt>
-      <dd><span class="tok">Playwright (RPA)</span><span class="tok">Power Automate</span><span class="tok">Power BI</span><span class="tok">Power Query</span><span class="tok">Excel (advanced)</span></dd>
+      <dd><span class="tok">Python</span><span class="tok">Pandas</span><span class="tok">ETL / ELT</span><span class="tok">Apache Airflow</span><span class="tok">Docker</span><span class="tok">SQLAlchemy</span></dd>
+      <dt>Reliability &amp; Ops</dt>
+      <dd><span class="tok">dbt tests &amp; contracts</span><span class="tok">Source freshness SLA</span><span class="tok">Elementary Data</span><span class="tok">Monitoring &amp; alerting</span><span class="tok">Backup &amp; DR</span><span class="tok">PostgreSQL admin</span></dd>
+      <dt>App &amp; BI</dt>
+      <dd><span class="tok">FastAPI</span><span class="tok">React / TypeScript</span><span class="tok">REST / JSON API</span><span class="tok">Playwright (RPA)</span><span class="tok">Power BI</span><span class="tok">Power Query</span></dd>
       <dt>Cloud · Azure</dt>
-      <dd><span class="tok">Data Factory</span><span class="tok">App Service</span><span class="tok">Blob Storage</span><span class="tok">Document Intelligence</span></dd>
-      <dt>Developer Tooling</dt>
-      <dd><span class="tok">Git</span><span class="tok">GitHub Actions</span><span class="tok">Docker</span><span class="tok">AI pair-programming</span><span class="tok">Claude Code</span><span class="tok">Cursor</span></dd>
+      <dd><span class="tok">Blob Storage</span><span class="tok">App Service</span><span class="tok">Data Factory</span><span class="tok">Azure SQL</span><span class="tok">Document Intelligence</span></dd>
+      <dt>Tooling</dt>
+      <dd><span class="tok">Git</span><span class="tok">GitHub Actions</span><span class="tok">AI pair-programming</span></dd>
+      <dt>Education</dt>
+      <dd><span class="tok cert">วศ.บ. วิศวกรรมคอมพิวเตอร์ — ม.เอเชียอาคเนย์ (กำลังศึกษา · คาดจบ 2029)</span></dd>
       <dt>Certifications</dt>
-      <dd><span class="tok cert">Power BI &amp; Excel — 9Expert</span><span class="tok cert">Python — Skooldio (2025)</span><span class="tok cert">Self-directed Data Engineering</span></dd>
+      <dd><span class="tok cert">Power BI &amp; Excel — 9Expert</span><span class="tok cert">Python — Skooldio (2025)</span></dd>
     </dl>
   </section>
 

@@ -98,6 +98,12 @@
     body { background: #e8eaed; padding: 24px 0; }
     .page { background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
   }
+
+  /* In print the @page margin already provides the frame — the .page
+     padding would double it and cost ~28mm of vertical space. */
+  @media print {
+    .page { max-width: none; margin: 0; padding: 0; }
+  }
 </style>
 </head>
 <body>
@@ -123,18 +129,19 @@
   <!-- ============ SUMMARY ============ -->
   <section>
     <h2>Professional Summary</h2>
-    <p class="summary">Data Engineer ประสบการณ์ 3+ ปีในสาย e-commerce — ออกแบบ สร้าง และดูแล data platform เต็มระบบในตัวคนเดียว (end-to-end) ให้บริษัท e-commerce ระดับร้อยล้านบาทต่อเดือน ปัจจุบันดูแล data warehouse ขนาด 50 GB (44M+ rows) ที่ ingest 100K+ records/วัน ผ่าน ELT pipelines ด้วย 200+ dbt models และ 270+ data tests บน medallion architecture + dimensional (Kimball) modeling กำลัง re-platform warehouse ไปสู่ PostgreSQL on-prem (dbt-postgres) orchestrate ด้วย Apache Airflow ใน Docker งานที่สร้างช่วยให้ทีม 25 คนประหยัดเวลารวม 25–75 ชม./วัน และปิดปัญหาสต็อก/ตัวเลขไม่ตรงกันข้ามช่องทาง</p>
+    <p class="summary">Data Engineer ประสบการณ์ 4 ปีในสาย e-commerce — ออกแบบ สร้าง และดูแล data platform เต็มระบบในตัวคนเดียว (end-to-end) ให้บริษัท e-commerce ระดับร้อยล้านบาทต่อเดือน ปัจจุบันดูแล PostgreSQL data warehouse ขนาด 59 GB ที่ ingest 100K+ records/วัน ผ่าน ELT pipelines ด้วย 178 dbt models ใต้ 420 data tests บน medallion architecture 5 ชั้น + dimensional (Kimball) modeling orchestrate ด้วย Apache Airflow ใน Docker ปี 2026 ปิด migration ใหญ่ 2 ตัวจบในไตรมาสเดียว (Azure SQL Server → PostgreSQL on-prem และ Azure Data Factory → Airflow) ปัจจุบันโฟกัสที่ data reliability — จับเคสที่ pipeline เขียวแต่ข้อมูลหายเงียบ ๆ งานที่สร้างช่วยให้ทีม 25 คนประหยัดเวลารวม 25–75 ชม./วัน</p>
   </section>
 
   <!-- ============ SKILLS ============ -->
   <section>
     <h2>Technical Skills</h2>
     <p class="skills-row"><span class="label">Data Warehouse:</span> PostgreSQL, SQL Server, T-SQL, dbt, Medallion architecture, Kimball / star schema, SCD type 2</p>
-    <p class="skills-row"><span class="label">Data Engineering:</span> Python, Pandas, ETL / ELT, Apache Airflow, Docker, SQLAlchemy, orchestration, data quality &amp; testing</p>
-    <p class="skills-row"><span class="label">App Development:</span> FastAPI, React / TypeScript, HTMX, Alpine.js, Jinja2, Alembic, REST / JSON API</p>
-    <p class="skills-row"><span class="label">Ingestion &amp; BI:</span> Playwright (RPA), Power Automate, Power BI, Power Query, Excel (advanced)</p>
-    <p class="skills-row"><span class="label">Cloud — Azure:</span> Data Factory (ADF), App Service, Blob Storage, Document Intelligence</p>
-    <p class="skills-row"><span class="label">Developer Tooling:</span> Git, GitHub Actions, Docker, AI pair-programming (Claude Code, Cursor)</p>
+    <p class="skills-row"><span class="label">Data Engineering:</span> Python, Pandas, ETL / ELT, Apache Airflow, Docker, SQLAlchemy</p>
+    <p class="skills-row"><span class="label">Reliability &amp; Observability:</span> dbt tests &amp; data contracts, source freshness SLAs, Elementary Data, pipeline monitoring &amp; alerting, backup &amp; disaster recovery, PostgreSQL administration</p>
+    <p class="skills-row"><span class="label">App Development:</span> FastAPI, React / TypeScript, REST / JSON API</p>
+    <p class="skills-row"><span class="label">Ingestion &amp; BI:</span> Playwright (RPA), Power BI, Power Query</p>
+    <p class="skills-row"><span class="label">Cloud — Azure:</span> Blob Storage, App Service, Data Factory (ADF), Azure SQL, Document Intelligence</p>
+    <p class="skills-row"><span class="label">Developer Tooling:</span> Git, GitHub Actions, AI pair-programming (Claude Code, Cursor)</p>
   </section>
 
   <!-- ============ EXPERIENCE ============ -->
@@ -148,11 +155,12 @@
       </div>
       <div class="title">Data Engineer — E-Commerce Data Platform</div>
       <ul>
-        <li>ออกแบบและสร้าง modern data warehouse บน dbt — <strong>medallion architecture</strong> (staging → silver → intermediate → gold) พร้อม <strong>270+ data tests</strong>, source-freshness checks และ <strong>SCD type-2 dimensional modeling</strong>; ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok และ Facebook (JST OMS) ป้อน operational dashboards (FastAPI + React) ให้ทีม exec, procurement, warehouse และ fulfillment</li>
-        <li>สร้าง <strong>ingestion &amp; orchestration layer</strong> — Python + Playwright RPA framework (<strong>26 flows</strong>) แทน Power Automate Desktop 40 flows, และ <strong>46 Azure Data Factory pipelines</strong> (รวม 25 reverse-ETL) ที่ sync legacy reporting; รันทุกคืนบน <strong>Apache Airflow ใน Docker</strong> พร้อม custom operators, freshness gates และ email/LINE alert ภาษาไทย พร้อม self-service config app ให้ผู้ใช้ที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง</li>
-        <li>กำลัง <strong>re-platform warehouse จาก Azure SQL Server → self-hosted PostgreSQL</strong> — port <strong>200+ dbt models</strong> (dbt-sqlserver → dbt-postgres) และ validate end-to-end ผ่าน Airflow/Docker เพื่อลด cloud cost โดยไม่กระทบ dashboard (dev port เสร็จแล้ว, production cutover กำลังดำเนินการ)</li>
-        <li><strong>แทนที่ vendor WMS ด้วย custom apps</strong> (WMS, barcode scanner, invoice OCR) ที่ป้อนข้อมูลเข้า warehouse — พนักงานคลัง (รวมที่ไม่ใช้ภาษาไทย) เรียนรู้ได้ใน 5 นาที รองรับ <strong>1,000+ orders/วัน</strong> พร้อม audit trail เต็มรูปแบบ</li>
-        <li><strong>ดูแล production stack ทั้งหมดคนเดียว</strong> — 7 ระบบ production end-to-end (data platform, WMS, barcode scanner, webhook receiver, OCR pipeline, file-sync, marketplace RPA): ตั้งแต่ architecture, build, deploy ไปจนถึง on-call</li>
+<li>สร้าง <strong>data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ให้ทีม 25+ คน ประหยัดเวลารวมทั้งทีม <strong>25–75 ชั่วโมง/วัน</strong> และจบปัญหา reconcile ตัวเลขข้าม spreadsheet</li>
+        <li>ออกแบบและสร้าง <strong>platform ทั้งระบบ</strong> — <strong>178 dbt models</strong> บน medallion architecture 5 ชั้น (bronze → staging → silver → intermediate → gold) พร้อม <strong>420 data tests</strong>, source-freshness checks และ <strong>SCD type-2 dimensional modeling</strong>; ป้อนด้วย <strong>Python + Playwright ingestion framework</strong> ที่เขียนเองมาแทน Power Automate Desktop 40 flows เดิม orchestrate ทุกคืนด้วย <strong>Apache Airflow ใน Docker</strong>; ingest <strong>100K+ records/วัน</strong> จาก 8 source systems แล้วเสิร์ฟ <strong>FastAPI + React dashboards</strong> ให้ทีม exec, procurement, warehouse และ fulfillment พร้อมทาง self-service แบบ read-only ให้คนที่ไม่ใช่สาย tech ดึงเลขเองได้</li>
+        <li><strong>ปิด platform migration ใหญ่ 2 ตัวจบในไตรมาสเดียว</strong> — ย้าย warehouse จาก <strong>Azure SQL Server → self-hosted PostgreSQL</strong> (dbt-sqlserver → dbt-postgres) และ<strong>ปลดระวาง Azure Data Factory ทั้ง 46 pipelines ที่เคยสร้างเอง</strong> แทนด้วย Airflow DAGs ที่เขียนเอง ลด cloud cost โดย dashboard ไม่ดาวน์เลย</li>
+        <li><strong>Data reliability engineering</strong> — ไล่ปิดคลาสความพังแบบ "pipeline เขียวแต่ข้อมูลหาย": freshness canary ที่วัดเทียบ source สดแทนการเชื่อ exit code และ value-presence gate ที่บังคับเป็น hard failure; <strong>กู้เลขพัสดุคืน 23,677 เลข</strong> ที่กฎ dedup ลบทิ้งไปเงียบ ๆ และแก้ที่รากจน <strong>28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้านเหลือศูนย์</strong> พร้อม test กันไม่ให้กลับมาโดยไม่มีใครรู้</li>
+        <li>ทำ <strong>backup ตัวแรกของ warehouse ขนาด 59 GB ที่เดิมไม่เคยมี backup เลย</strong> — nightly pg_dump stream ขึ้น Azure Blob พร้อม verification task แยกและ retention 35 วัน; และย้ายเส้นทางไฟล์ของ bronze จาก OneDrive ไปเป็น <strong>Azure Blob data lake</strong> ตัดรากของ ingestion failure ทั้งคลาส</li>
+        <li><strong>แทนที่ vendor WMS ด้วย custom apps</strong> (WMS, barcode scanner, invoice OCR) ที่ป้อนข้อมูลเข้า warehouse — พนักงานคลัง (รวมที่ไม่ใช้ภาษาไทย) เรียนรู้ได้ใน 5 นาที รองรับ <strong>1,000+ orders/วัน</strong> พร้อม audit trail เต็มรูปแบบ; <strong>ดูแลระบบ production ทั้ง 7 ตัวคนเดียว</strong> ตั้งแต่ architecture, build, deploy ไปจนถึง on-call</li>
       </ul>
     </div>
 
@@ -163,9 +171,8 @@
       </div>
       <div class="title">Accountant — ERP &amp; BI Analyst</div>
       <ul>
-        <li>วาง <strong>Ecount ERP master data ตั้งแต่ศูนย์</strong> — กำหนด chart of accounts, customer/vendor master และมาตรฐาน SKU mapping เป็นรากฐานที่สะอาดสำหรับ finance, sales reporting และ BI</li>
+<li>วาง <strong>Ecount ERP master data ตั้งแต่ศูนย์</strong> — กำหนด chart of accounts, customer/vendor master และมาตรฐาน SKU mapping ข้าม marketplaces + ERP ให้เป็น single source of truth ของ catalog ปิดปัญหา SKU mapping กำกวมที่ทำให้สต็อกไม่ตรงกันข้ามช่องทาง</li>
         <li>สร้าง <strong>Power BI reports</strong> และใช้ <strong>Power Query</strong> reconcile ข้อมูล ERP ระหว่างทีม sales และ finance — สร้าง monthly reporting ที่สม่ำเสมอ ปิด recurring discrepancy ที่เกิดซ้ำ</li>
-        <li>สร้าง <strong>product/SKU master data</strong> ข้าม marketplaces + ERP ให้เป็น single source of truth ของ catalog — ปิดปัญหา SKU mapping กำกวมที่ทำให้สต็อกไม่ตรงกันข้ามช่องทาง</li>
       </ul>
     </div>
   </section>
@@ -174,13 +181,17 @@
   <section>
     <h2>Selected Project</h2>
     <p class="proj-head">E-Commerce Data Pipeline &amp; Analytics Platform — built &amp; operated end-to-end (solo)</p>
-    <p class="proj-stats">50 GB warehouse · 44M+ rows · 9 business domains · 100K+ rows/day · 1,000+ orders/day · 200+ dbt models · 270+ data tests · 46 ADF pipelines</p>
-    <p>Data platform เต็มระบบ — ดึง raw data จาก 8 source systems (marketplaces, OMS, internal apps, logistics) ผ่าน Python + Playwright, Azure Data Factory และ dbt (กำลังย้ายไป Airflow) เข้าสู่ warehouse แบบ medallion แล้วเสิร์ฟผ่าน FastAPI + React dashboard (real-time KPIs, price alerts, procurement, drilldowns) แทนการที่เคยมีคนต้องนั่งโหลดและ refresh ไฟล์ด้วยมือทุกเช้า</p>
+    <p class="proj-stats">59 GB PostgreSQL warehouse · 10.6M rows rebuilt nightly · 100K+ rows/day · 1,000+ orders/day · 178 dbt models · 420 data tests · 11 Airflow DAGs · 32 file types</p>
+    <p>Data platform เต็มระบบ — ดึง raw data จาก 8 source systems (marketplaces, OMS, internal apps, logistics) ผ่าน Python + Playwright และ direct database pull ลงใน Azure Blob data lake แล้วเข้า warehouse แบบ medallion 5 ชั้นบน PostgreSQL orchestrate ด้วย Apache Airflow ใน Docker แล้วเสิร์ฟผ่าน FastAPI + React dashboard (real-time KPIs, price alerts, procurement, drilldowns) แทนการที่เคยมีคนต้องนั่งโหลดและ refresh ไฟล์ด้วยมือทุกเช้า</p>
   </section>
 
   <!-- ============ EDUCATION ============ -->
   <section>
     <h2>Education</h2>
+    <div class="edu">
+      <div class="deg">วิศวกรรมศาสตรบัณฑิต (วศ.บ.) สาขาวิศวกรรมคอมพิวเตอร์ — กำลังศึกษา</div>
+      <div class="meta">มหาวิทยาลัยเอเชียอาคเนย์ (Southeast Asia University) · ระบบการศึกษาทางไกลทางอินเทอร์เน็ต · ส.ค. 2026 – คาดว่าจบปี 2029 · เรียนคู่กับงานประจำ (เข้าเรียนสดช่วงเย็นวันธรรมดาและวันหยุด)</div>
+    </div>
     <div class="edu">
       <div class="deg">มัธยมศึกษาตอนปลาย (ม.6) — สายวิทย์-คณิต (Science–Math)</div>
       <div class="meta">โรงเรียนเตรียมอุดมศึกษาพัฒนาการ อุดรธานี (Triam Udom Suksa Pattanakan Udon Thani) · จบปี 2562 / 2019</div>
@@ -189,7 +200,7 @@
 
   <!-- ============ CERTIFICATIONS ============ -->
   <section>
-    <h2>Certifications &amp; Continuous Learning</h2>
+    <h2>Certifications</h2>
     <div class="edu">
       <div class="deg">Power BI &amp; Excel for Data Analysis</div>
       <div class="meta">9Expert Online Training — Power BI modeling, DAX และ Power Query (ใช้จริงกับ finance &amp; sales reconciliation ที่ Traveler Co.)</div>
@@ -197,10 +208,6 @@
     <div class="edu">
       <div class="deg">Python Programming Foundations</div>
       <div class="meta">Skooldio · Jun 2025 — Core Python สำหรับงานข้อมูล ใช้เป็นฐานของ ETL scripts, FastAPI services และ Airflow operators ใน production</div>
-    </div>
-    <div class="edu">
-      <div class="deg">Continuous Self-Directed Learning (Data Engineering)</div>
-      <div class="meta">Ongoing — dbt (medallion, incremental, tests), Apache Airflow, Docker, PostgreSQL, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript ผ่าน official docs และ AI pair-programming</div>
     </div>
   </section>
 

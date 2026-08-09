@@ -8,80 +8,74 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "Summary",
       summary: [
-        "<strong>Data engineer building production data platforms.</strong> 3+ years in e-commerce, across data &amp; operations, running a <strong>50 GB warehouse that processes 100K+ records/day</strong> through ELT pipelines — <strong>200+ dbt models with 270+ data tests</strong>, medallion + dimensional modeling, and reverse-ETL to legacy systems — for a nine-figure monthly-revenue business. Currently <strong>re-platforming the warehouse from Azure SQL Server to self-hosted PostgreSQL</strong> (dbt-sqlserver → dbt-postgres), orchestrated by <strong>Apache Airflow in Docker</strong>. Stack: <strong>dbt · Airflow · PostgreSQL / SQL Server · Python · Azure · FastAPI/React</strong>. Builds for non-technical business users — warehouse, procurement, exec."
+        "<strong>Data engineer building production data platforms.</strong> 4 years in e-commerce, running a <strong>59 GB PostgreSQL warehouse</strong> — 178 dbt models under 420 data tests, medallion + dimensional modeling, 100K+ records/day — for a nine-figure monthly-revenue business. In 2026 I completed two platform migrations: the warehouse off Azure SQL Server onto self-hosted PostgreSQL, and orchestration off Azure Data Factory onto <strong>Apache Airflow in Docker</strong>. Current focus is <strong>data reliability</strong> — catching the failure mode where a pipeline runs green while the data silently goes missing. Stack: <strong>dbt · Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong>. Builds for non-technical business users — warehouse, procurement, exec."
       ],
       sectionExperience: "Experience",
       epPeriod: "May 2025 – Present",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>Built the company's first data warehouse</strong> — replaced scattered Google Sheets/Excel for 25+ staff, saving <strong>25–75 person-hours/day across the team</strong> (1–3 hr/person) and eliminating cross-spreadsheet reconciliation errors.",
-        "<strong>Designed &amp; built the warehouse</strong> — <strong>200+ dbt models</strong> across a 4-layer medallion architecture (staging → silver → intermediate → gold) with <strong>270+ data tests</strong>, source-freshness checks, and SCD-2 dimensional modeling; processes <strong>100K+ records/day</strong> from Shopee, Lazada, TikTok, Facebook. Powers <strong>operational dashboards (FastAPI + React)</strong> for exec, procurement, warehouse, and fulfillment.",
-        "<strong>Built the ingestion &amp; orchestration layer</strong> — a <strong>Python + Playwright RPA framework (26 flows)</strong> replacing 40 Power Automate Desktop flows, plus <strong>46 Azure Data Factory pipelines (incl. 25 reverse-ETL)</strong> keeping legacy reporting in sync. Runs nightly on <strong>Apache Airflow in Docker</strong> with custom operators, freshness gates, and Thai-language email/LINE alerting. A self-service config app lets non-developers onboard new data sources safely.",
-        "<strong>Re-platforming the warehouse from Azure SQL Server to self-hosted PostgreSQL</strong> — ported 200+ dbt models (<strong>dbt-sqlserver → dbt-postgres</strong>) and validated end-to-end through Airflow/Docker; driven by Azure cost, cutting cloud spend without touching the dashboard. <em>(dev port complete, production cutover in progress)</em>",
-        "<strong>Replaced the vendor WMS</strong> with custom apps (WMS, barcode scanner, invoice OCR) that feed the warehouse — warehouse staff (including non-Thai speakers) now learn in under 5 minutes; <strong>1,000+ orders/day</strong> with full audit trail.",
-        "<strong>Operate the full stack single-handed</strong> — 7 production systems end-to-end (data platform, WMS, barcode scanner, webhook receiver, OCR, file-sync, marketplace RPA): architecture, build, deploy, and on-call across the data + warehouse + logistics stack."
+        "<strong>Built the company's first data warehouse</strong> — replaced scattered Google Sheets/Excel for 25+ staff, saving <strong>25–75 person-hours/day across the team</strong> and ending cross-spreadsheet reconciliation errors.",
+        "<strong>Designed and built the whole platform</strong> — <strong>178 dbt models</strong> on a 5-layer medallion architecture with <strong>420 data tests</strong> and SCD-2 dimensional modeling, fed by a <strong>Python + Playwright ingestion framework</strong> I wrote to replace 40 Power Automate Desktop flows, orchestrated nightly by <strong>Apache Airflow in Docker</strong>. Ingests <strong>100K+ records/day</strong> from 8 source systems and serves <strong>FastAPI + React dashboards</strong> to exec, procurement, warehouse and fulfillment — plus a read-only self-service path so non-technical staff pull their own numbers without going through me.",
+        "<strong>Completed two platform migrations in a single quarter</strong> — moved the warehouse from <strong>Azure SQL Server to self-hosted PostgreSQL</strong>, and <strong>decommissioned all 46 Azure Data Factory pipelines I had previously built</strong>, replacing them with Airflow DAGs. Cut cloud spend with no dashboard downtime.",
+        "<strong>Data reliability engineering</strong> — went after the failure class where <em>the pipeline is green but the data is missing</em>: freshness canaries measured against live source, and value-presence gates enforced as hard failures. <strong>Recovered 23,677 tracking numbers</strong> a dedup rule had silently blanked, and fixed at the root a defect that left <strong>28.5% of a month's sales revenue unattributed to a store</strong> — now zero, with a test that stops it returning unnoticed.",
+        "<strong>Shipped the first backup the 59 GB warehouse ever had</strong> — nightly <code>pg_dump</code> streamed to Azure Blob with an independent verification task and 35-day retention. Also moved bronze file transport off OneDrive onto a <strong>Blob data lake</strong>, removing an entire class of ingestion failures at the root.",
+        "<strong>Replaced the vendor WMS</strong> with custom apps (WMS, barcode scanner, invoice OCR) — warehouse staff, including non-Thai speakers, learn it in under 5 minutes; <strong>1,000+ orders/day</strong> with a full audit trail. <strong>Operate all 7 production systems single-handed</strong>: architecture, build, deploy and on-call."
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
       ],
       travelerBullets: [
-        "Set up <strong>Ecount ERP master data from scratch</strong> — defined chart of accounts, customer/vendor master, and SKU mapping standards, giving the company a clean foundation for finance, sales reporting, and downstream BI.",
-        "Built <strong>Power BI reports</strong> and used <strong>Power Query</strong> to reconcile ERP data across sales and finance — established consistent monthly reporting that closed recurring discrepancies between the sales and finance teams.",
-        "Established product/SKU master data across marketplaces and ERP as a single source of truth for the catalog — eliminated the SKU-mapping ambiguity that had caused stock misalignment across channels."
+        "Set up <strong>Ecount ERP master data from scratch</strong> — chart of accounts, customer/vendor master, and SKU mapping standards across marketplaces and ERP, giving finance and sales a single source of truth and ending the SKU ambiguity that had caused stock misalignment across channels.",
+        "Built <strong>Power BI reports</strong> and used <strong>Power Query</strong> to reconcile ERP data across sales and finance — established consistent monthly reporting that closed recurring discrepancies between the two teams."
       ],
       projectTaglines: [
-        "Full data platform — 50 GB warehouse with 44M+ rows, serving 9 business domains, 1,000+ orders/day, and 100K+ rows/day across 4 marketplaces.",
+        "Full data platform — a 59 GB PostgreSQL warehouse, 178 dbt models under 420 tests, 100K+ rows/day and 1,000+ orders/day across 4 marketplaces.",
         "Custom WMS that replaced the previous third-party system — interactive visual map, foreign staff trained in under 5 min, full stock audit trail.",
         "Real-time multi-user barcode scanning system with workflow enforcement.",
-        "AI-assisted invoice processing that reads Thai e-commerce PDF invoices and fills structured records automatically.",
-        "Supporting utilities that feed and operate the data platform."
+        "AI-assisted invoice processing that reads Thai e-commerce PDF invoices and fills structured records automatically."
       ],
       projectBullets: [
         [
-          "Ingests from 8 source systems (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) via a <strong>Python + Playwright RPA framework (26 flows)</strong> and <strong>46 Azure Data Factory pipelines</strong> → a 4-layer <strong>dbt medallion</strong> warehouse (200+ models) — replacing a daily manual download routine that one person used to do every morning.",
-          "<strong>Bronze config web app</strong> (FastAPI + React) — self-service UI for file types, validation rules, and AI-assisted column analysis/mapping suggestions, so non-developers can onboard new sources safely.",
-          "Serves <strong>FastAPI + React dashboards</strong> with real-time KPIs, price alerts, procurement tracking, and operational drilldowns — driving daily restock decisions for procurement.",
-          "Orchestrated by <strong>Apache Airflow in Docker</strong> (custom Bronze + dbt operators) with <strong>270+ dbt data tests</strong>, source-freshness checks, and Thai-language <strong>email + LINE notifications</strong> on failure or stale data.",
-          "<strong>Re-platforming the warehouse from Azure SQL Server to self-hosted PostgreSQL</strong> (dbt-sqlserver → dbt-postgres) — 200+ models ported and validated end-to-end to cut Azure cost; dev port complete, production cutover in progress."
+          "Ingests from <strong>8 source systems</strong> (Shopee, Lazada, TikTok, Facebook, JST OMS, DHL, Flash Express, internal WMS/BSN) via a <strong>Python + Playwright RPA framework</strong> and direct database pulls, landing in an <strong>Azure Blob data lake</strong> → a 5-layer <strong>dbt medallion</strong> warehouse — replacing a daily manual download routine that one person used to do every morning.",
+          "Orchestrated by <strong>Apache Airflow in Docker</strong> — 11 DAGs with custom Bronze/dbt operators, <strong>420 dbt data tests</strong>, source-freshness checks, and <strong>Telegram alerts</strong> that fire on failure <em>and</em> on runs that finish green but moved no data.",
+          "<strong>Migrated off two platforms in one quarter</strong> — the warehouse from Azure SQL Server to self-hosted PostgreSQL, and the orchestration layer from 46 Azure Data Factory pipelines to Airflow DAGs, with no dashboard downtime.",
+          "<strong>Reliability &amp; DR</strong> — freshness canaries measured against live source, value-presence gates enforced as hard failures, and the first disaster-recovery backup the warehouse ever had: nightly <code>pg_dump</code> to Blob, independently verified, 35-day retention."
         ],
         [
-          "<strong>Replaced the previous WMS</strong> — staff (including foreign workers) now learn the system in under 5 minutes versus weeks of struggling with the prior tool, and stock movements are traceable for the first time (full audit trail per item).",
-          "<strong>Interactive warehouse grid map</strong> (dynamic CSS Grid, server-side) with 4-level color-coded stock states (empty / low / ok / critical) that instantly surface low, incomplete, or misplaced slots — plus annotations for reserved zones and merged-cell support for pallet-sized locations.",
-          "Real-time inventory tracking + 4-type task workflow (pick, count, move, receive) with AI task-chat (Azure OpenAI), mobile barcode/QR scanning, and bilingual UI (Thai/English, 2,400+ i18n keys).",
-          "22 granular permissions, 27 SQLAlchemy models, 81 Jinja2 templates — deployed on Azure App Service with GitHub Actions CI/CD."
+          "<strong>Replaced the previous WMS</strong> — staff including foreign workers learn it in under 5 minutes instead of weeks, and stock movements are traceable for the first time (full audit trail per item).",
+          "<strong>Interactive warehouse grid map</strong> with 4-level color-coded stock states that instantly surface low, incomplete or misplaced slots — plus a 4-type task workflow (pick, count, move, receive), mobile barcode/QR scanning, and a bilingual Thai/English UI."
         ],
         [
-          "Processes concurrent-user scans with validation + duplicate detection, and enforces workflow sequences through job dependency rules (e.g., \"Release\" before \"Outbound\") — replaces manual logs kept on paper, Google Sheets, and Excel.",
-          "Custom notifications + audio alerts, full scan history with filtering and Excel export."
+          "Processes concurrent-user scans with validation and duplicate detection, and enforces workflow sequences through job dependency rules (e.g. \"Release\" before \"Outbound\") — replacing manual logs kept on paper, Google Sheets and Excel."
         ],
         [
-          "Uses Azure Document Intelligence to read invoice files and automatically populate fields such as invoice number, dates, amounts, vendor/customer, tax IDs, and VAT.",
-          "Supports Thai-specific formats (Buddhist Era dates, Thai Baht, UTF-8), caches results by file hash, and exports completed records to branded Excel."
-        ],
-        [
-          "<strong>App Pipeline</strong> — generic Excel/CSV → SQL Server ETL tool with Tkinter GUI + CLI, shipped as Windows installer (PyInstaller). Replace/Upsert, auto-schema, batch processing.",
-          "<strong>Copy Files Utility</strong> — file-sync utility for staging raw files (any type) into landing folders. SQLite-backed dedup, CSV-configured mappings so non-devs update sources without code.",
-          "<strong>Logistics Webhook Receiver</strong> — Flask + pyodbc service streaming DHL eCommerce and Flash Express tracking events into Azure SQL — 6 webhook endpoints with signature verification.",
-          "<strong>Web Scraper</strong> — Python scraper for Flash Express seller-return parcels (logistics provider) via authenticated API, feeding the Bronze layer."
+          "Uses Azure Document Intelligence to read invoice files and populate structured records automatically — invoice number, dates, amounts, vendor/customer, tax IDs and VAT — with Thai-specific formats (Buddhist Era dates, Thai Baht) and hash-based caching."
         ]
       ],
       sectionSkills: "Technical Skills",
-      sectionLearning: "Learning &amp; Certifications",
+      sectionEducation: "Education",
+      educationItems: [
+        {
+          title: "B.Eng. Computer Engineering &nbsp;<em>(in progress)</em>",
+          period: "Southeast Asia University &nbsp;·&nbsp; Aug 2026 – 2029 (expected)",
+          degree: "Online degree program, studied alongside full-time work — live evening and weekend classes."
+        },
+        {
+          title: "High School — Science &amp; Mathematics",
+          period: "Triam Udom Suksa Pattanakan Udon Thani &nbsp;·&nbsp; 2019"
+        }
+      ],
+      sectionLearning: "Certifications",
       learningItems: [
         {
           title: "Power BI &amp; Excel for Data Analysis",
           period: "9Expert Online Training",
-          degree: "Hands-on coursework on Power BI modeling, DAX, and Power Query — applied to monthly finance &amp; sales reconciliation at Traveler Co."
+          degree: "Power BI modeling, DAX and Power Query — applied to monthly finance &amp; sales reconciliation at Traveler Co."
         },
         {
           title: "Python Programming Foundations",
           period: "Skooldio &nbsp;·&nbsp; Jun 2025",
-          degree: "Instructor: Soranapop Devapaticom (สรณภพ เทวปฏิคม). Core Python for data work — used as the base for ETL scripts, FastAPI services, and Airflow operators in production."
-        },
-        {
-          title: "Continuous Self-Directed Learning",
-          period: "Ongoing",
-          degree: "Data engineering stack via official docs, YouTube, and AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Docker, PostgreSQL, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript."
+          degree: "Core Python for data work — the base for the ETL scripts, FastAPI services and Airflow operators now running in production."
         }
       ],
       demoLabels: {
@@ -100,80 +94,74 @@ window.resumeI18n = {
       tabs: ["Resume", "Projects"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
-        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 3+ ปี ในสาย e-commerce ทั้งงาน data &amp; operations ดูแล <strong>data warehouse ขนาด 50 GB ประมวลผล 100K+ records/วัน</strong> ผ่าน ELT pipelines — <strong>200+ dbt models พร้อม 270+ data tests</strong>, medallion + dimensional modeling และ reverse-ETL กลับไประบบเดิม — ให้บริษัทระดับร้อยล้านบาทต่อเดือน ตอนนี้กำลัง <strong>ย้าย warehouse จาก Azure SQL Server → PostgreSQL on-prem</strong> (dbt-sqlserver → dbt-postgres) orchestrate ด้วย <strong>Apache Airflow ใน Docker</strong> Stack: <strong>dbt · Airflow · PostgreSQL / SQL Server · Python · Azure · FastAPI/React</strong> สร้างให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
+        "<strong>Data engineer สร้าง production data platforms</strong> — ประสบการณ์ 4 ปี ในสาย e-commerce ดูแล <strong>PostgreSQL warehouse ขนาด 59 GB</strong> — 178 dbt models ใต้ 420 data tests, medallion + dimensional modeling, ingest 100K+ records/วัน — ให้บริษัทระดับร้อยล้านบาทต่อเดือน · ปี 2026 ปิด migration ใหญ่ 2 ตัว: ย้าย warehouse ออกจาก Azure SQL Server มาอยู่บน PostgreSQL on-prem และย้าย orchestration ออกจาก Azure Data Factory มาเป็น <strong>Apache Airflow ใน Docker</strong> · ตอนนี้โฟกัสที่ <strong>data reliability</strong> — จับเคสที่ pipeline เขียวแต่ข้อมูลหายเงียบ ๆ · Stack: <strong>dbt · Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong> สร้างให้ user สายธุรกิจ (คลัง จัดซื้อ ผู้บริหาร)"
       ],
       sectionExperience: "ประสบการณ์ทำงาน",
       epPeriod: "พ.ค. 2025 – ปัจจุบัน",
       epRole: "Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform",
       epBullets: [
-        "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ให้ทีม 25+ คน ประหยัดเวลารวมทั้งทีม <strong>25–75 ชั่วโมง/วัน</strong> (1–3 ชม./คน) และตัดปัญหา reconcile ตัวเลขข้าม spreadsheet",
-        "<strong>ออกแบบและสร้าง warehouse</strong> — <strong>200+ dbt models</strong> บน medallion architecture 4 ชั้น (staging → silver → intermediate → gold) พร้อม <strong>270+ data tests</strong>, source-freshness checks และ SCD-2 dimensional modeling ประมวลผล <strong>100K+ records/วัน</strong> จาก Shopee, Lazada, TikTok, Facebook ป้อน <strong>operational dashboards (FastAPI + React)</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment",
-        "<strong>สร้าง ingestion &amp; orchestration layer</strong> — <strong>Python + Playwright RPA framework (26 flows)</strong> มาแทน Power Automate Desktop 40 flows เดิม พร้อม <strong>Azure Data Factory 46 pipelines (รวม 25 reverse-ETL)</strong> sync รายงานกลับไประบบเดิม รันกลางคืนด้วย <strong>Apache Airflow ใน Docker</strong> (custom operators, freshness gates, แจ้งเตือน email/LINE ภาษาไทย) พร้อม self-service config app ให้คนที่ไม่ใช่ developer เพิ่ม data source ใหม่ได้เอง",
-        "<strong>กำลังย้าย warehouse จาก Azure SQL Server → PostgreSQL on-prem</strong> — port 200+ dbt models (<strong>dbt-sqlserver → dbt-postgres</strong>) validate ครบทั้งวงผ่าน Airflow/Docker เพื่อลดค่า Azure โดยไม่ต้องแตะ dashboard <em>(dev port เสร็จ, กำลัง cutover ขึ้น prod)</em>",
-        "<strong>เปลี่ยน vendor WMS</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) ที่ป้อนข้อมูลเข้า warehouse — พนักงานคลัง (รวมพนักงานต่างชาติ) เรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,000+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น",
-        "<strong>ดูแลทั้ง stack คนเดียวแบบ end-to-end</strong> — 7 ระบบ production (data platform, WMS, barcode scanner, webhook receiver, OCR, file-sync, marketplace RPA): ออกแบบ build deploy และดูแล production เองทั้งหมด"
+        "<strong>สร้าง data warehouse ตัวแรกของบริษัท</strong> — แทน Google Sheets/Excel ที่กระจัดกระจาย ให้ทีม 25+ คน ประหยัดเวลารวมทั้งทีม <strong>25–75 ชั่วโมง/วัน</strong> และจบปัญหา reconcile ตัวเลขข้าม spreadsheet",
+        "<strong>ออกแบบและสร้าง platform ทั้งระบบ</strong> — <strong>178 dbt models</strong> บน medallion architecture 5 ชั้น พร้อม <strong>420 data tests</strong> และ SCD-2 dimensional modeling · ป้อนด้วย <strong>Python + Playwright ingestion framework</strong> ที่เขียนเองมาแทน Power Automate Desktop 40 flows เดิม · orchestrate ทุกคืนด้วย <strong>Apache Airflow ใน Docker</strong> · ingest <strong>100K+ records/วัน</strong> จาก 8 source systems แล้วเสิร์ฟ <strong>FastAPI + React dashboards</strong> ให้ผู้บริหาร จัดซื้อ คลัง และ fulfillment พร้อมทาง self-service แบบ read-only ให้คนที่ไม่ใช่สาย tech ดึงเลขเองได้โดยไม่ต้องผ่านเรา",
+        "<strong>ปิด platform migration ใหญ่ 2 ตัวจบในไตรมาสเดียว</strong> — ย้าย warehouse จาก <strong>Azure SQL Server → PostgreSQL on-prem</strong> และ<strong>ปลดระวาง Azure Data Factory ทั้ง 46 pipelines ที่เคยสร้างเอง</strong> แทนด้วย Airflow DAGs · ลดค่า cloud โดย dashboard ไม่ดาวน์เลย",
+        "<strong>Data reliability engineering</strong> — ไล่ปิดคลาสความพังที่ <em>pipeline เขียวแต่ข้อมูลหาย</em>: freshness canary ที่วัดเทียบ source สด และ value-presence gate ที่บังคับเป็น hard failure · <strong>กู้เลขพัสดุคืน 23,677 เลข</strong> ที่กฎ dedup ลบทิ้งไปเงียบ ๆ และแก้ที่รากจน <strong>28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้าน เหลือศูนย์</strong> พร้อม test กันไม่ให้กลับมาโดยไม่มีใครรู้",
+        "<strong>ทำ backup ตัวแรกของ warehouse 59 GB ที่ไม่เคยมี backup เลย</strong> — nightly <code>pg_dump</code> stream ขึ้น Azure Blob พร้อม task verify แยกต่างหาก และ retention 35 วัน · และย้ายเส้นทางไฟล์ของ bronze ออกจาก OneDrive มาเป็น <strong>Blob data lake</strong> ตัดรากของ ingestion failure ทั้งคลาส",
+        "<strong>เปลี่ยน vendor WMS</strong> เป็นแอปที่เขียนเอง (WMS, barcode scanner, invoice OCR) — พนักงานคลังรวมพนักงานต่างชาติเรียนไม่ถึง 5 นาทีก็ใช้ได้ รองรับ <strong>1,000+ orders/วัน</strong> พร้อมประวัติของทุกชิ้น · <strong>ดูแลระบบ production ทั้ง 7 ตัวคนเดียว</strong> ตั้งแต่ออกแบบ build deploy ไปจนถึง on-call"
       ],
       travelerRoles: [
         "Accountant / ERP &amp; BI Analyst"
       ],
       travelerBullets: [
-        "<strong>วาง master data ใน Ecount ERP ตั้งแต่ 0</strong> — กำหนด chart of accounts, customer/vendor master และ SKU mapping standards ทำให้บริษัทมีฐานข้อมูลที่สะอาดสำหรับ finance, sales reporting และ BI ในระยะยาว",
-        "สร้าง <strong>Power BI reports</strong> และใช้ <strong>Power Query</strong> reconcile ข้อมูล ERP ของ sales/finance — ทำให้ report รายเดือนตรงและ stable ปิดปัญหาตัวเลขไม่ตรงกันระหว่างทีม sales กับ finance ที่เคยเกิดประจำ",
-        "วาง product/SKU master data ระหว่าง marketplaces และ ERP ให้เป็น single source of truth ของ catalog — ตัดปัญหา SKU mapping ที่เคยทำให้สต็อกไม่ตรงระหว่างช่องทาง"
+        "<strong>วาง master data ใน Ecount ERP ตั้งแต่ 0</strong> — chart of accounts, customer/vendor master และ SKU mapping standards ข้าม marketplaces + ERP ทำให้ finance กับ sales มี single source of truth เดียวกัน และตัดปัญหา SKU mapping กำกวมที่เคยทำให้สต็อกไม่ตรงระหว่างช่องทาง",
+        "สร้าง <strong>Power BI reports</strong> และใช้ <strong>Power Query</strong> reconcile ข้อมูล ERP ของ sales/finance — ทำให้ report รายเดือนตรงและ stable ปิดปัญหาตัวเลขไม่ตรงกันระหว่างสองทีมที่เคยเกิดประจำ"
       ],
       projectTaglines: [
-        "Data platform เต็มระบบ — warehouse ขนาด 50 GB กว่า 44M แถว เสิร์ฟ 9 business domains รับ 1,000+ orders/วัน และ 100K+ rows/วัน จาก 4 marketplaces",
+        "Data platform เต็มระบบ — PostgreSQL warehouse 59 GB, 178 dbt models ใต้ 420 tests, รับ 100K+ rows/วัน และ 1,000+ orders/วัน จาก 4 marketplaces",
         "WMS ที่เขียนเองมาแทนระบบเดิม — แผนที่คลังกดดูของได้ คนงานต่างชาติเรียนไม่ถึง 5 นาทีก็ใช้ได้ track ของได้ทุกการเคลื่อนไหว",
         "ระบบ barcode scanner หลายคนใช้พร้อมกันแบบ real-time พร้อมบังคับลำดับงาน",
-        "ระบบ AI อ่านไฟล์ invoice PDF ของ e-commerce ไทย แล้วลงข้อมูลเป็น structured records ให้อัตโนมัติ",
-        "Utility ที่ feed และ operate data platform หลัก"
+        "ระบบ AI อ่านไฟล์ invoice PDF ของ e-commerce ไทย แล้วลงข้อมูลเป็น structured records ให้อัตโนมัติ"
       ],
       projectBullets: [
         [
-          "ดึงข้อมูลจาก 8 source systems (Shopee, Lazada, TikTok, Facebook, OMS, DHL, Flash Express, internal WMS/BSN) ผ่าน <strong>Python + Playwright RPA framework (26 flows)</strong> และ <strong>Azure Data Factory 46 pipelines</strong> → <strong>dbt medallion</strong> warehouse 4 ชั้น (200+ models) — แทนการที่เคยมีคนนั่งโหลดไฟล์ทุกเช้า",
-          "<strong>Bronze config web app</strong> (FastAPI + React) — self-service UI สำหรับ file types, validation rules และ AI-assisted column analysis/mapping suggestions ทำให้คนที่ไม่ใช่ developer เพิ่ม source ใหม่ได้เองอย่างปลอดภัย",
-          "Serve <strong>FastAPI + React dashboards</strong> — real-time KPIs, price alerts, procurement tracking และ operational drilldowns ที่ฝ่ายจัดซื้อใช้ตัดสินใจซื้อสินค้าทุกวัน",
-          "orchestrate ด้วย <strong>Apache Airflow ใน Docker</strong> (custom Bronze + dbt operators) พร้อม <strong>270+ dbt data tests</strong>, source-freshness checks และ <strong>email + LINE notifications</strong> ภาษาไทย แจ้งเตือนเมื่อ pipeline fail หรือข้อมูลค้าง",
-          "<strong>กำลังย้าย warehouse จาก Azure SQL Server → PostgreSQL on-prem</strong> (dbt-sqlserver → dbt-postgres) — port 200+ models validate ครบทั้งวงเพื่อลดค่า Azure; dev port เสร็จ กำลัง cutover ขึ้น prod"
+          "ดึงข้อมูลจาก <strong>8 source systems</strong> (Shopee, Lazada, TikTok, Facebook, JST OMS, DHL, Flash Express, internal WMS/BSN) ผ่าน <strong>Python + Playwright RPA framework</strong> และ direct database pull ลงใน <strong>Azure Blob data lake</strong> → <strong>dbt medallion</strong> warehouse 5 ชั้น — แทนการที่เคยมีคนนั่งโหลดไฟล์ทุกเช้า",
+          "orchestrate ด้วย <strong>Apache Airflow ใน Docker</strong> — 11 DAGs พร้อม custom Bronze/dbt operators, <strong>420 dbt data tests</strong>, source-freshness checks และ <strong>Telegram alert</strong> ที่ยิงทั้งตอน pipeline fail <em>และ</em> ตอนที่รันจบเขียวแต่ข้อมูลไม่ขยับ",
+          "<strong>ย้ายออกจาก 2 platform ในไตรมาสเดียว</strong> — warehouse จาก Azure SQL Server → PostgreSQL on-prem และ orchestration จาก Azure Data Factory 46 pipelines → Airflow DAGs โดย dashboard ไม่ดาวน์เลย",
+          "<strong>Reliability &amp; DR</strong> — freshness canary ที่วัดเทียบ source สด, value-presence gate ที่บังคับเป็น hard failure และ backup ตัวแรกของ warehouse: nightly <code>pg_dump</code> ขึ้น Blob พร้อม verify แยกและ retention 35 วัน"
         ],
         [
-          "<strong>มาแทนระบบ WMS เดิม</strong> — จากที่คนงาน (รวมคนงานต่างชาติ) ใช้ยากและสอนนาน เปลี่ยนเป็นเรียนไม่ถึง 5 นาทีก็ใช้ได้ และ track การเคลื่อนไหวของของทุกชิ้นได้ครบ ซึ่งเดิมทำไม่ได้เลย",
-          "<strong>Interactive warehouse grid map</strong> (dynamic CSS Grid, server-side) แสดง stock 4 ระดับ (empty / low / ok / critical) เห็นจุดที่ของน้อย ไม่ครบ หรือวางไม่ตรงทันที — พร้อม annotation สำหรับ reserved zones และ merged-cell support",
-          "Real-time inventory tracking + task workflow 4 ประเภท (pick, count, move, receive) พร้อม AI task-chat (Azure OpenAI), mobile barcode/QR scanning และ bilingual UI (ไทย/อังกฤษ, 2,400+ i18n keys)",
-          "22 granular permissions, 27 SQLAlchemy models, 81 Jinja2 templates — deploy บน Azure App Service ด้วย GitHub Actions CI/CD"
+          "<strong>มาแทนระบบ WMS เดิม</strong> — จากที่คนงาน (รวมคนงานต่างชาติ) ใช้ยากและสอนเป็นสัปดาห์ เปลี่ยนเป็นเรียนไม่ถึง 5 นาทีก็ใช้ได้ และ track การเคลื่อนไหวของของทุกชิ้นได้ครบ ซึ่งเดิมทำไม่ได้เลย",
+          "<strong>Interactive warehouse grid map</strong> แสดง stock 4 ระดับ เห็นจุดที่ของน้อย ไม่ครบ หรือวางไม่ตรงทันที — พร้อม task workflow 4 ประเภท (pick, count, move, receive), mobile barcode/QR scanning และ bilingual UI ไทย/อังกฤษ"
         ],
         [
-          "ประมวลผล scan พร้อม validation + duplicate detection สำหรับ concurrent users และ enforce workflow ด้วย job dependency rules (เช่น \"Release\" ก่อน \"Outbound\") — แทนการจดมือในกระดาษ Google Sheet และ Excel",
-          "Custom notifications + audio alerts, เก็บ scan history ครบพร้อม filter และ Excel export"
+          "ประมวลผล scan พร้อม validation + duplicate detection สำหรับ concurrent users และ enforce workflow ด้วย job dependency rules (เช่น \"Release\" ก่อน \"Outbound\") — แทนการจดมือในกระดาษ Google Sheet และ Excel"
         ],
         [
-          "ใช้ Azure Document Intelligence อ่านไฟล์ invoice แล้วกรอกข้อมูลให้อัตโนมัติ เช่น เลข invoice, วันที่, ยอดเงิน, vendor/customer, เลขผู้เสียภาษี และ VAT",
-          "รองรับ format เฉพาะไทย (พ.ศ., เงินบาท, UTF-8), cache ด้วย file hash เพื่อลดการเรียก API ซ้ำ และ export records ที่ลงข้อมูลแล้วเป็น Excel พร้อม branding"
-        ],
-        [
-          "<strong>App Pipeline</strong> — ETL tool โหลด Excel/CSV → SQL Server พร้อม Tkinter GUI + CLI, แพ็คเป็น Windows installer (PyInstaller) รองรับ Replace/Upsert, auto-schema, batch processing",
-          "<strong>Copy Files Utility</strong> — file-sync utility สำหรับ stage raw files ทุกประเภทเข้า landing folder พร้อม SQLite dedup, config ผ่าน CSV ไฟล์เดียวให้ user แก้ mapping ได้เอง",
-          "<strong>Logistics Webhook Receiver</strong> — Flask + pyodbc service รับ webhook events จาก DHL eCommerce และ Flash Express เข้า Azure SQL — 6 endpoints พร้อม signature verification",
-          "<strong>Web Scraper</strong> — Python scraper ดึง return parcels ของ Flash Express (บริษัทขนส่ง) ผ่าน authenticated API ส่งเข้า Bronze layer"
+          "ใช้ Azure Document Intelligence อ่านไฟล์ invoice แล้วลงข้อมูลเป็น structured records ให้อัตโนมัติ — เลข invoice, วันที่, ยอดเงิน, vendor/customer, เลขผู้เสียภาษี และ VAT — รองรับ format เฉพาะไทย (พ.ศ., เงินบาท) และ cache ด้วย file hash"
         ]
       ],
       sectionSkills: "ทักษะทางเทคนิค",
-      sectionLearning: "ประกาศนียบัตร &amp; การเรียนรู้ต่อเนื่อง",
+      sectionEducation: "การศึกษา",
+      educationItems: [
+        {
+          title: "วศ.บ. วิศวกรรมคอมพิวเตอร์ &nbsp;<em>(กำลังศึกษา)</em>",
+          period: "มหาวิทยาลัยเอเชียอาคเนย์ &nbsp;·&nbsp; ส.ค. 2026 – 2029 (คาดว่าจบ)",
+          degree: "หลักสูตรระบบการศึกษาทางไกลทางอินเทอร์เน็ต เรียนคู่กับงานประจำ — เข้าเรียนสดเย็นวันธรรมดาและวันหยุด"
+        },
+        {
+          title: "มัธยมศึกษาตอนปลาย — สายวิทย์-คณิต",
+          period: "โรงเรียนเตรียมอุดมศึกษาพัฒนาการ อุดรธานี &nbsp;·&nbsp; 2562 / 2019"
+        }
+      ],
+      sectionLearning: "ประกาศนียบัตร",
       learningItems: [
         {
           title: "Power BI &amp; Excel สำหรับงาน Data Analysis",
           period: "9Expert Online Training",
-          degree: "เรียน Power BI modeling, DAX และ Power Query แบบ hands-on — นำมาใช้จริงในการ reconcile ข้อมูล finance &amp; sales รายเดือนที่ Traveler Co."
+          degree: "Power BI modeling, DAX และ Power Query — นำมาใช้จริงในการ reconcile ข้อมูล finance &amp; sales รายเดือนที่ Traveler Co."
         },
         {
           title: "Python Programming Foundations",
           period: "Skooldio &nbsp;·&nbsp; มิ.ย. 2025",
-          degree: "สอนโดย สรณภพ เทวปฏิคม — Python พื้นฐานสำหรับงาน data ใช้เป็นฐานเขียน ETL scripts, FastAPI services และ Airflow operators ในงานจริง"
-        },
-        {
-          title: "เรียนรู้ต่อเนื่องด้วยตัวเอง",
-          period: "ทำต่อเนื่อง",
-          degree: "ศึกษา stack ของ data engineering จาก official docs, YouTube และ AI pair-programming — dbt (medallion, incremental, tests), Apache Airflow, Docker, PostgreSQL, Azure (ADF · App Service · Document Intelligence), FastAPI, React/TypeScript"
+          degree: "Python พื้นฐานสำหรับงาน data — เป็นฐานของ ETL scripts, FastAPI services และ Airflow operators ที่รันอยู่บน production ตอนนี้"
         }
       ],
       demoLabels: {
