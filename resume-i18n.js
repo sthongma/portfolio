@@ -80,6 +80,7 @@ window.resumeI18n = {
       demoLabels: {
         sales: "Sales Insights demo",
         fulfillment: "Fulfillment demo",
+        procurement: "Purchase Plan demo",
         wms: "Warehouse map demo",
         bsn: "Barcode scanner demo"
       }
@@ -165,6 +166,7 @@ window.resumeI18n = {
       demoLabels: {
         sales: "ดู Sales Insights",
         fulfillment: "ดู Fulfillment",
+        procurement: "ดู Purchase Plan",
         wms: "ดูแผนที่คลัง",
         bsn: "ดู Barcode scanner"
       }
