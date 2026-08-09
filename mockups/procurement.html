@@ -306,6 +306,87 @@
     white-space: nowrap;
   }
   .filter-pill:hover { border-color: var(--line-bold); }
+  /* [hidden] is display:none in the UA sheet, but anything we also give an
+     explicit display (grid/flex) would win over it — so state it outright. */
+  [hidden] { display: none !important; }
+  .tab { cursor: pointer; user-select: none; }
+  .tab:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+
+  /* ================= STATUS TAB ================= */
+  .status-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .sh-bar {
+    display: flex;
+    height: 14px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--paper-200);
+  }
+  .sh-bar span { display: block; height: 100%; }
+  .sh-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin-top: 10px;
+  }
+  .shl {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--ink-600);
+  }
+  .shl i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+  .shl b {
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--ink-900);
+    font-weight: 500;
+    margin-left: 2px;
+  }
+  .tier-row { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; }
+  .t-badge {
+    width: 19px; height: 19px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .t-badge.a { background: var(--bad-bg);  color: var(--bad); }
+  .t-badge.b { background: var(--warn-bg); color: var(--warn); }
+  .t-badge.c { background: var(--good-bg); color: var(--good); }
+  .t-bar {
+    flex: 1;
+    height: 7px;
+    border-radius: 4px;
+    background: var(--paper-200);
+    overflow: hidden;
+    min-width: 40px;
+  }
+  .t-bar i { display: block; height: 100%; border-radius: 4px; }
+  .t-val { font-size: 10.5px; color: var(--ink-600); width: 96px; flex-shrink: 0; }
+  .t-n {
+    font-family: var(--f-mono);
+    font-size: 10.5px;
+    color: var(--ink-400);
+    width: 66px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .po-table .dim { color: var(--ink-300); }
+  .status-body { padding: 12px 14px 14px; }
+  @media (max-width: 1200px) { .status-grid { grid-template-columns: 1fr; } }
+
+  .filter-pill[role="button"] { cursor: pointer; user-select: none; }
+  .filter-pill[role="button"]:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
   .filter-pill .caret { color: var(--ink-400); font-size: 9px; }
   .filter-pill svg { width: 13px; height: 13px; color: var(--ink-400); }
   .filter-pill.toggle-on { background: var(--bad-bg); border-color: rgba(193,18,31,0.3); color: var(--bad); }
@@ -527,6 +608,10 @@
   .h-healthy  { background: var(--good-bg);     color: var(--good); }
   .h-over     { background: var(--accent-soft); color: var(--accent); }
   .h-none     { background: var(--paper-200);   color: var(--ink-500); }
+  .h-disc     { background: var(--paper-200);   color: var(--ink-400); text-decoration: line-through; }
+  /* discontinued SKUs are hidden until the "Show Discontinued" pill is on */
+  tr[data-discontinued] { display: none; }
+  tr[data-discontinued] .sku-cell { color: var(--ink-400); }
   .avatars { display: flex; align-items: center; }
   .av {
     width: 24px; height: 24px;
@@ -1130,15 +1215,167 @@
       <div class="sh-title">
         <span class="sh-index">02 · Procurement</span>
         <h1>Procurement</h1>
-        <span class="sub">Inventory status, PO tracking, and purchase planning · on-hand as of 11 Jun 2026 05:12 ICT</span>
+        <span class="sub">Inventory status, PO tracking, and purchase planning · on-hand as of <span data-day-offset="0">9 Aug 2026</span> 05:12 ICT</span>
       </div>
     </div>
 
     <!-- TABS -->
-    <div class="tabs">
-      <div class="tab">Status</div>
-      <div class="tab active">Purchase Planning</div>
+    <div class="tabs" role="tablist">
+      <div class="tab" role="tab" data-tab="status" aria-selected="false" tabindex="0">Status</div>
+      <div class="tab active" role="tab" data-tab="plan" aria-selected="true" tabindex="0">Purchase Planning</div>
     </div>
+
+    <!-- ================= STATUS PANEL ================= -->
+    <div data-panel="status" id="status" hidden>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">SKUs tracked</span><span class="delta delta-neutral">·</span></div>
+          <div class="kpi-value">1,284</div>
+          <div class="kpi-sub">with demand in 90d</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Out of stock</span><span class="delta delta-bad">+6</span></div>
+          <div class="kpi-value" style="color:var(--bad)">38</div>
+          <div class="kpi-sub">on hand = 0</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Below reorder pt</span><span class="delta delta-bad">+11</span></div>
+          <div class="kpi-value" style="color:var(--warn)">217</div>
+          <div class="kpi-sub">16.9% of tracked</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Overstock</span><span class="delta delta-good">-4</span></div>
+          <div class="kpi-value">146</div>
+          <div class="kpi-sub">&gt; target days cover</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Open POs</span><span class="delta delta-neutral">·</span></div>
+          <div class="kpi-value">52</div>
+          <div class="kpi-sub">18 containers in transit</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Overdue ETA</span><span class="delta delta-bad">+2</span></div>
+          <div class="kpi-value" style="color:var(--bad)">9</div>
+          <div class="kpi-sub">still counted as on-order</div>
+        </div>
+      </div>
+
+      <div class="status-grid">
+        <!-- the five stock_health branches, in the order the engine evaluates them -->
+        <div class="card">
+          <div class="table-bar">
+            <div class="left">
+              <div class="eyebrow">Distribution</div>
+              <div class="title">Stock health</div>
+            </div>
+            <div class="bar-right">
+              <span class="count-note">1,284 SKUs</span>
+            </div>
+          </div>
+          <div class="status-body">
+            <div class="sh-bar">
+              <span style="width:16.9%; background:var(--bad);"          title="Reorder Now · 217"></span>
+              <span style="width:9.7%;  background:var(--warn);"         title="Low · 124"></span>
+              <span style="width:52.3%; background:var(--good);"         title="Healthy · 672"></span>
+              <span style="width:11.4%; background:var(--accent-navy);"  title="Overstock · 146"></span>
+              <span style="width:9.7%;  background:var(--ink-300);"      title="No Demand · 125"></span>
+            </div>
+            <div class="sh-legend">
+              <span class="shl"><i style="background:var(--bad)"></i>Reorder Now<b>217</b></span>
+              <span class="shl"><i style="background:var(--warn)"></i>Low<b>124</b></span>
+              <span class="shl"><i style="background:var(--good)"></i>Healthy<b>672</b></span>
+              <span class="shl"><i style="background:var(--accent-navy)"></i>Overstock<b>146</b></span>
+              <span class="shl"><i style="background:var(--ink-300)"></i>No Demand<b>125</b></span>
+            </div>
+
+            <div class="dp-sec-title" style="margin-top:16px;">By ABC tier</div>
+            <div class="tier-row"><span class="t-badge a">A</span><span class="t-bar"><i style="width:34%; background:var(--bad)"></i></span><span class="t-val">34% below RoP</span><span class="t-n">206 SKUs</span></div>
+            <div class="tier-row"><span class="t-badge b">B</span><span class="t-bar"><i style="width:19%; background:var(--warn)"></i></span><span class="t-val">19% below RoP</span><span class="t-n">412 SKUs</span></div>
+            <div class="tier-row"><span class="t-badge c">C</span><span class="t-bar"><i style="width:11%; background:var(--good)"></i></span><span class="t-val">11% below RoP</span><span class="t-n">666 SKUs</span></div>
+          </div>
+        </div>
+
+        <!-- FCL tracking — the real Procurement page tracks containers, not just POs -->
+        <div class="card">
+          <div class="table-bar">
+            <div class="left">
+              <div class="eyebrow">Inbound</div>
+              <div class="title">Containers in transit</div>
+            </div>
+            <div class="bar-right">
+              <span class="count-note">FCL · 18 open</span>
+            </div>
+          </div>
+          <div>
+            <div class="table-scroll">
+              <table class="po-table" style="min-width:520px;">
+                <thead>
+                  <tr>
+                    <th>Container</th>
+                    <th>Supplier</th>
+                    <th class="r">SKUs</th>
+                    <th class="r">Units</th>
+                    <th>ETA</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="mono" style="color:var(--ink-900)">FCL-2608-11</td>
+                    <td>Voltix Trading</td>
+                    <td class="mono r">14</td>
+                    <td class="mono r">8,400</td>
+                    <td class="mono" data-day-offset="5">14 Aug 2026</td>
+                    <td><span class="po-chip po-locked">In transit</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono" style="color:var(--ink-900)">FCL-2608-09</td>
+                    <td>SoundWave Ltd</td>
+                    <td class="mono r">6</td>
+                    <td class="mono r">3,120</td>
+                    <td class="mono" data-day-offset="13">22 Aug 2026</td>
+                    <td><span class="po-chip po-locked">In transit</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono" style="color:var(--ink-900)">FCL-2607-24</td>
+                    <td>ChefPro Kitchenware</td>
+                    <td class="mono r">22</td>
+                    <td class="mono r">11,860</td>
+                    <td class="mono" data-day-offset="-2">7 Aug 2026</td>
+                    <td><span class="po-chip po-open">At port</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono" style="color:var(--ink-900)">FCL-2606-18</td>
+                    <td>Shenzhen Acoustic Co.</td>
+                    <td class="mono r">4</td>
+                    <td class="mono r">1,600</td>
+                    <td class="mono">30 Nov 2025 <span class="tiny-bad">overdue</span></td>
+                    <td><span class="po-chip po-locked">No update</span></td>
+                  </tr>
+                  <tr>
+                    <td class="mono" style="color:var(--ink-900)">FCL-2608-14</td>
+                    <td>UrbanCloth Apparel</td>
+                    <td class="mono r">9</td>
+                    <td class="mono r">4,780</td>
+                    <td class="mono dim">—</td>
+                    <td><span class="po-chip po-open">No ETA</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="nodate-note" style="margin:10px 14px 12px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v3.75m0 3.75h.008M10.363 3.591 2.257 17.91a1.5 1.5 0 0 0 1.302 2.249h16.882a1.5 1.5 0 0 0 1.302-2.25L13.636 3.592a1.5 1.5 0 0 0-2.273 0z"/></svg>
+              <span>A container with no ETA still contributes its units to <em>on order</em>, which suppresses suggested order qty for every SKU inside it.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /status panel -->
+
+    <!-- ================= PURCHASE PLANNING PANEL ================= -->
+    <div data-panel="plan">
 
     <!-- PLAN FILTER BAR -->
     <div class="filter-bar">
@@ -1323,7 +1560,7 @@
               <td class="num">32.7</td>
               <td class="num">21.0</td>
               <td class="num muted">60<span class="open-sub">Open 60</span></td>
-              <td class="num muted" style="text-align:left;">29 Jun 2026</td>
+              <td class="num muted" style="text-align:left;" data-day-offset="18">27 Aug 2026</td>
               <td class="num">599</td>
               <td class="num strong">360</td>
               <td><span class="hbadge h-low">Low</span></td>
@@ -1339,7 +1576,7 @@
               <td class="num">28.5</td>
               <td class="num warn">18.4</td>
               <td class="num muted">600</td>
-              <td class="num muted" style="text-align:left;">24 Jun 2026</td>
+              <td class="num muted" style="text-align:left;" data-day-offset="13">22 Aug 2026</td>
               <td class="num">1,075</td>
               <td class="num strong">350</td>
               <td><span class="hbadge h-low">Low</span></td>
@@ -1355,7 +1592,7 @@
               <td class="num">9.4</td>
               <td class="num">34.0</td>
               <td class="num muted">480<span class="open-sub">Open 480</span></td>
-              <td class="num muted" style="text-align:left;">5 Aug 2026</td>
+              <td class="num muted" style="text-align:left;" data-day-offset="55">3 Oct 2026</td>
               <td class="num">476</td>
               <td class="num strong">99</td>
               <td><span class="hbadge h-healthy">Healthy</span></td>
@@ -1371,7 +1608,7 @@
               <td class="num">20.4</td>
               <td class="num warn">12.2</td>
               <td class="num muted">900<span class="open-sub">Open 900</span></td>
-              <td class="num muted" style="text-align:left;">18 Jun 2026</td>
+              <td class="num muted" style="text-align:left;" data-day-offset="7">16 Aug 2026</td>
               <td class="num">429</td>
               <td class="num dim">—</td>
               <td><span class="hbadge h-healthy">Healthy</span></td>
@@ -1407,7 +1644,7 @@
               <td class="num">16.6</td>
               <td class="num">149.4</td>
               <td class="num muted">3,000</td>
-              <td class="num muted" style="text-align:left;">16 Jun 2026</td>
+              <td class="num muted" style="text-align:left;" data-day-offset="5">14 Aug 2026</td>
               <td class="num">623</td>
               <td class="num dim">—</td>
               <td><span class="hbadge h-over">Overstock</span></td>
@@ -1431,6 +1668,39 @@
               <td><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></td>
             </tr>
 
+            <!-- discontinued: excluded from the plan, revealed by "Show Discontinued" -->
+            <tr data-discontinued>
+              <td><span class="sku-cell"><span class="thumb">F</span>FA-JK-8815</span></td>
+              <td><div class="prod">Lightweight Windbreaker Jacket · unisex</div></td>
+              <td class="tier"><span class="c">C</span><span class="slash">/</span><span>S</span></td>
+              <td class="num">218</td>
+              <td class="num dim">0.4</td>
+              <td class="num dim">—</td>
+              <td class="num dim">0</td>
+              <td class="num dim" style="text-align:left;">—</td>
+              <td class="num dim">0</td>
+              <td class="num dim">—</td>
+              <td><span class="hbadge h-disc">Discontinued</span></td>
+              <td><span class="avatars"><span class="av av-ink" title="UrbanCloth Apparel">U</span></span></td>
+              <td><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></td>
+            </tr>
+
+            <tr data-discontinued>
+              <td><span class="sku-cell"><span class="thumb">B</span>BT-SH-1450</span></td>
+              <td><div class="prod">Argan Oil Shampoo Duo · 2 × 400ml</div></td>
+              <td class="tier"><span class="c">C</span><span class="slash">/</span><span>S</span></td>
+              <td class="num">57</td>
+              <td class="num dim">0.0</td>
+              <td class="num dim">—</td>
+              <td class="num dim">0</td>
+              <td class="num dim" style="text-align:left;">—</td>
+              <td class="num dim">0</td>
+              <td class="num dim">—</td>
+              <td><span class="hbadge h-disc">Discontinued</span></td>
+              <td><span class="avatars"><span class="av av-good" title="SilkRoot Beauty">S</span></span></td>
+              <td><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></td>
+            </tr>
+
           </tbody>
         </table>
       </div>
@@ -1444,6 +1714,8 @@
         </span>
       </div>
     </div>
+
+    </div><!-- /purchase planning panel -->
 
     <!-- FOOTER -->
     <div class="footer">
@@ -1495,13 +1767,13 @@
         <tr><td>HL-ST-4402</td><td>6.3 d</td><td>26 d</td></tr>
         <tr><td>EL-WH-1024</td><td>9.9 d</td><td>22 d</td></tr>
       </table>
-      <p>For <strong>EL-WH-1024</strong> the fastest channel is <strong>SoundWave Ltd</strong> at 22 days — a stockout gap from <strong>1 Jul</strong> is already locked in.</p>
+      <p>For <strong>EL-WH-1024</strong> the fastest channel is <strong>SoundWave Ltd</strong> at 22 days — a stockout gap from <strong data-day-offset="20" data-fmt="dm">29 Aug</strong> is already locked in.</p>
     </div>
 
     <div class="msg user">Why is EL-WH-1024 still counting 400 units as incoming?</div>
 
     <div class="msg bot">
-      <p>PO <strong>INV-2512-903</strong> (Shenzhen Acoustic Co., 400 units) has an ETA of <strong>30 Nov 2025</strong> — 193 days overdue and never received.</p>
+      <p>PO <strong>INV-2512-903</strong> (Shenzhen Acoustic Co., 400 units) has an ETA of <strong>30 Nov 2025</strong> — <span data-days-since="2025-11-30">252</span> days overdue and never received.</p>
       <p>The engine still treats it as on-order, which pushes <em>on hand + on order</em> to 1,036 and suppresses ~400 units of suggested order qty. Either close the PO or let the overdue-ETA rule drop it.</p>
     </div>
 
@@ -1548,11 +1820,11 @@
       <div class="verdict v-bad">
         <div class="line1">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v3.75m0 3.75h.008M10.363 3.591 2.257 17.91a1.5 1.5 0 0 0 1.302 2.249h16.882a1.5 1.5 0 0 0 1.302-2.25L13.636 3.592a1.5 1.5 0 0 0-2.273 0z"/></svg>
-          <span>Lasts ~33 more days · runs out ~14 Jul 2026</span>
+          <span>Lasts ~33 more days · runs out ~<span data-day-offset="33">11 Sep 2026</span></span>
         </div>
         <div class="line2">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v3.75m0 3.75h.008M10.363 3.591 2.257 17.91a1.5 1.5 0 0 0 1.302 2.249h16.882a1.5 1.5 0 0 0 1.302-2.25L13.636 3.592a1.5 1.5 0 0 0-2.273 0z"/></svg>
-          <span>But a stockout gap starts 1 Jul 2026 (supply arrives late)</span>
+          <span>But a stockout gap starts <span data-day-offset="20">29 Aug 2026</span> (supply arrives late)</span>
         </div>
       </div>
 
@@ -1605,14 +1877,14 @@
           <!-- with-order projection: +384 lands d22 (SoundWave), +216 lands d41 (Shenzhen) -->
           <polyline class="l-order" points="56.0,26.5 289.0,84.8 300.1,61.9 344.5,73.0 355.6,66.2 499.9,102.3 511.0,90.6 744.0,148.9"/>
 
-          <!-- x labels, every 10 days from 11 Jun 2026 -->
-          <text class="axis" x="56.0"  y="232" text-anchor="middle">11 Jun</text>
-          <text class="axis" x="167.0" y="232" text-anchor="middle">21 Jun</text>
-          <text class="axis" x="277.9" y="232" text-anchor="middle">1 Jul</text>
-          <text class="axis" x="388.9" y="232" text-anchor="middle">11 Jul</text>
-          <text class="axis" x="499.9" y="232" text-anchor="middle">21 Jul</text>
-          <text class="axis" x="610.8" y="232" text-anchor="middle">31 Jul</text>
-          <text class="axis" x="721.8" y="232" text-anchor="middle">10 Aug</text>
+          <!-- x labels, every 10 days from the on-hand date -->
+          <text class="axis" x="56.0"  y="232" text-anchor="middle" data-day-offset="0"  data-fmt="dm">9 Aug</text>
+          <text class="axis" x="167.0" y="232" text-anchor="middle" data-day-offset="10" data-fmt="dm">19 Aug</text>
+          <text class="axis" x="277.9" y="232" text-anchor="middle" data-day-offset="20" data-fmt="dm">29 Aug</text>
+          <text class="axis" x="388.9" y="232" text-anchor="middle" data-day-offset="30" data-fmt="dm">8 Sep</text>
+          <text class="axis" x="499.9" y="232" text-anchor="middle" data-day-offset="40" data-fmt="dm">18 Sep</text>
+          <text class="axis" x="610.8" y="232" text-anchor="middle" data-day-offset="50" data-fmt="dm">28 Sep</text>
+          <text class="axis" x="721.8" y="232" text-anchor="middle" data-day-offset="60" data-fmt="dm">8 Oct</text>
         </svg>
 
         <div class="chart-legend">
@@ -1679,7 +1951,7 @@
                 <td><span class="po-chip po-locked">Booked</span></td>
                 <td class="mono r" style="color:var(--ink-900)">400</td>
                 <td class="mono">30 Nov 2025 <span class="tiny-bad">overdue</span></td>
-                <td class="mono">1 Jul 2026</td>
+                <td class="mono" data-day-offset="20">29 Aug 2026</td>
               </tr>
               <tr>
                 <td class="mono" style="color:var(--ink-900)">
@@ -1689,8 +1961,8 @@
                 <td>SoundWave Ltd</td>
                 <td><span class="po-chip po-open">Adjustable</span></td>
                 <td class="mono r" style="color:var(--ink-900)">144</td>
-                <td class="mono">8 Jul 2026</td>
-                <td class="mono">4 Jul 2026</td>
+                <td class="mono" data-day-offset="27">5 Sep 2026</td>
+                <td class="mono" data-day-offset="23">1 Sep 2026</td>
               </tr>
             </tbody>
           </table>
@@ -1728,7 +2000,7 @@
       <div class="verdict v-good">
         <div class="line1">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
-          <span>Lasts ~331 more days · runs out ~8 May 2027</span>
+          <span>Lasts ~331 more days · runs out ~<span data-day-offset="331">6 Jul 2027</span></span>
         </div>
       </div>
 
@@ -1775,14 +2047,14 @@
           <!-- 2480 @d0 → 2413.6 @d4 → 5397 @d5 (PO +3,000) → -247 @d345 -->
           <polyline class="l-stock" points="56.0,114.6 64.0,116.5 66.0,31.2 744.0,192.5"/>
 
-          <!-- x labels, every 50 days from 11 Jun 2026 -->
-          <text class="axis" x="56.0"  y="232" text-anchor="middle">11 Jun 26</text>
-          <text class="axis" x="155.7" y="232" text-anchor="middle">31 Jul 26</text>
-          <text class="axis" x="255.4" y="232" text-anchor="middle">19 Sep 26</text>
-          <text class="axis" x="355.1" y="232" text-anchor="middle">8 Nov 26</text>
-          <text class="axis" x="454.8" y="232" text-anchor="middle">28 Dec 26</text>
-          <text class="axis" x="554.5" y="232" text-anchor="middle">16 Feb 27</text>
-          <text class="axis" x="654.2" y="232" text-anchor="middle">7 Apr 27</text>
+          <!-- x labels, every 50 days from the on-hand date -->
+          <text class="axis" x="56.0"  y="232" text-anchor="middle" data-day-offset="0"   data-fmt="dmy2">9 Aug 26</text>
+          <text class="axis" x="155.7" y="232" text-anchor="middle" data-day-offset="50"  data-fmt="dmy2">28 Sep 26</text>
+          <text class="axis" x="255.4" y="232" text-anchor="middle" data-day-offset="100" data-fmt="dmy2">17 Nov 26</text>
+          <text class="axis" x="355.1" y="232" text-anchor="middle" data-day-offset="150" data-fmt="dmy2">6 Jan 27</text>
+          <text class="axis" x="454.8" y="232" text-anchor="middle" data-day-offset="200" data-fmt="dmy2">25 Feb 27</text>
+          <text class="axis" x="554.5" y="232" text-anchor="middle" data-day-offset="250" data-fmt="dmy2">16 Apr 27</text>
+          <text class="axis" x="654.2" y="232" text-anchor="middle" data-day-offset="300" data-fmt="dmy2">5 Jun 27</text>
         </svg>
 
         <div class="chart-legend">
@@ -1830,8 +2102,8 @@
                 <td>Voltix Trading</td>
                 <td><span class="po-chip po-locked">In transit</span></td>
                 <td class="mono r" style="color:var(--ink-900)">3,000</td>
-                <td class="mono">16 Jun 2026</td>
-                <td class="mono">7 May 2027</td>
+                <td class="mono" data-day-offset="5">14 Aug 2026</td>
+                <td class="mono" data-day-offset="330">5 Jul 2027</td>
               </tr>
             </tbody>
           </table>
@@ -1841,6 +2113,141 @@
     </div>
   </aside>
 </div>
+
+<!-- =====================================================================
+     Evergreen dates + light interactivity.
+
+     Every date on this page is derived from TODAY, so the mock never reads
+     as stale. The markup keeps a correct hardcoded fallback, so with JS off
+     the page still makes sense — it just ages like any static page.
+     No libraries, no network. Same block ships in the sibling mockups.
+     ===================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  var M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var DAY = 86400000;
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function shift(n) { return new Date(today.getTime() + n * DAY); }
+
+  function fmt(d, f) {
+    var day = d.getDate(), mon = M[d.getMonth()], yr = d.getFullYear();
+    if (f === 'dm')   return day + ' ' + mon;
+    if (f === 'dmy2') return day + ' ' + mon + ' ' + String(yr).slice(2);
+    if (f === 'md')   return mon + ' ' + day;
+    if (f === 'mdy')  return mon + ' ' + day + ', ' + yr;
+    if (f === 'ddmm') return pad(day) + '/' + pad(d.getMonth() + 1);
+    return day + ' ' + mon + ' ' + yr;                     /* 'dmy', default */
+  }
+
+  /* data-day-offset="20" [data-fmt] — a date N days either side of today */
+  document.querySelectorAll('[data-day-offset]').forEach(function (el) {
+    el.textContent = fmt(shift(+el.getAttribute('data-day-offset')),
+                         el.getAttribute('data-fmt'));
+  });
+
+  /* data-days-since="2025-11-30" — whole days from a fixed past date to today.
+     Driving the count from the date itself means the two can never disagree,
+     which is how the overdue-PO figure stays honest as the page ages. */
+  document.querySelectorAll('[data-days-since]').forEach(function (el) {
+    var p = el.getAttribute('data-days-since').split('-');
+    var from = new Date(+p[0], +p[1] - 1, +p[2]);
+    from.setHours(0, 0, 0, 0);
+    el.textContent = Math.round((today - from) / DAY).toLocaleString('en-US');
+  });
+
+  /* ---- tabs ------------------------------------------------------------
+     Both panels are authored in the HTML; this only flips which is visible.
+     Without it the Status tab is a dead label. */
+  var tabs = document.querySelectorAll('.tabs [data-tab]');
+  function selectTab(name) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('data-tab') === name;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', String(on));
+    });
+    document.querySelectorAll('[data-panel]').forEach(function (p) {
+      p.hidden = p.getAttribute('data-panel') !== name;
+    });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { selectTab(t.getAttribute('data-tab')); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectTab(t.getAttribute('data-tab'));
+      }
+    });
+  });
+  if (location.hash === '#status') selectTab('status');
+
+  /* ---- plan filter toggles ------------------------------------------- */
+  var table = document.querySelector('.plan-table');
+  if (!table) return;
+
+  var rows = Array.prototype.slice.call(table.tBodies[0].rows);
+  var state = { belowRop: false, discontinued: false };
+
+  function num(td) {
+    var v = parseFloat((td.textContent || '').replace(/[^0-9.\-]/g, ''));
+    return isNaN(v) ? null : v;
+  }
+
+  function apply() {
+    var shown = 0;
+    rows.forEach(function (tr) {
+      var onHand = num(tr.cells[3]);
+      var rop = num(tr.cells[8]);
+      var show = true;
+      if (tr.hasAttribute('data-discontinued') && !state.discontinued) show = false;
+      if (state.belowRop && !(onHand !== null && rop !== null && onHand < rop)) show = false;
+      tr.style.display = show ? '' : 'none';
+      if (show) shown++;
+    });
+
+    /* the counters have to move too, or the filter reads as decorative */
+    var filtered = state.belowRop || state.discontinued;
+    var note = document.querySelector('.count-note');
+    if (note) note.textContent = filtered
+      ? shown + ' of 1,284 rows'
+      : '1,284 rows';
+    var foot = document.querySelector('.table-foot span');
+    if (foot) foot.textContent = filtered
+      ? 'Showing ' + shown + ' filtered of 1,284'
+      : 'Showing 1–12 of 1,284 · 12 per page';
+  }
+
+  document.querySelectorAll('.filter-bar .filter-pill').forEach(function (pill) {
+    var label = (pill.textContent || '').trim();
+    var key = label.indexOf('Below Reorder Point') === 0 ? 'belowRop'
+            : label.indexOf('Show Discontinued') === 0 ? 'discontinued'
+            : null;
+    if (!key) return;
+
+    pill.setAttribute('role', 'button');
+    pill.setAttribute('tabindex', '0');
+    pill.setAttribute('aria-pressed', 'false');
+
+    function toggle() {
+      state[key] = !state[key];
+      pill.classList.toggle('toggle-on', state[key]);
+      pill.setAttribute('aria-pressed', String(state[key]));
+      apply();
+    }
+
+    pill.addEventListener('click', toggle);
+    pill.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  apply();
+})();
+</script>
 
 </body>
 </html>

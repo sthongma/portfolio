@@ -403,6 +403,17 @@
   .swatch.s-reserved {
     background: repeating-linear-gradient(45deg, rgba(127, 29, 29, 0.55), rgba(127, 29, 29, 0.55) 2px, transparent 2px, transparent 5px);
   }
+  /* [hidden] is display:none in the UA sheet, but anything we also give an
+     explicit display (the popover is a flex column) would win over it. */
+  [hidden] { display: none !important; }
+  .swatch.s-flag { background: rgb(var(--c-danger-500)); }
+  .legend-sep {
+    width: 1px;
+    height: 12px;
+    background: rgb(var(--c-slate-300) / 0.7);
+    display: inline-block;
+  }
+  .legend-flag { color: rgb(var(--c-danger-600)); font-weight: 600; }
 
   /* Floating gear (top right) */
   .floating-gear {
@@ -513,13 +524,16 @@
     background: rgba(0, 0, 0, 0.25);
     color: #fff;
     border-radius: 2px;
-    padding: 1px 3px;
-    font-size: 7px;
+    padding: 1px 1.5px;
+    /* {row}-{lot}-{level} is 8 characters where the old labels were 7, so this is
+       sized to fit the full code — a silently clipped location code is worse than
+       a small one, because it still looks like a valid code. */
+    font-size: 6px;
     font-weight: 600;
-    letter-spacing: -0.02em;
-    max-width: calc(100% - 2px);
+    letter-spacing: -0.05em;
+    max-width: 100%;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: clip;
     white-space: nowrap;
     line-height: 1.2;
   }
@@ -573,12 +587,21 @@
       repeating-linear-gradient(0deg, rgba(127, 29, 29, 0.55), rgba(127, 29, 29, 0.55) 2px, transparent 2px, transparent 6px),
       repeating-linear-gradient(90deg, rgba(127, 29, 29, 0.55), rgba(127, 29, 29, 0.55) 2px, transparent 2px, transparent 6px);
   }
+  /* Not a zone on the floor — a hole in the process. Solid red so it reads as
+     an alarm rather than as another storage area. */
+  .rz-flag {
+    background: rgb(var(--c-danger-500) / 0.14);
+    border-style: dashed;
+    border-color: rgb(var(--c-danger-500) / 0.85);
+    color: rgb(var(--c-danger-600));
+  }
   .rz span {
     background: rgba(255, 255, 255, 0.92);
     padding: 2px 6px;
     border-radius: 4px;
     border: 1px solid rgba(127, 29, 29, 0.5);
   }
+  .rz-flag span { border-color: rgb(var(--c-danger-500) / 0.7); }
 
   /* ==========================================================
      Floating cell detail popover (matches real MW pattern)
@@ -791,7 +814,7 @@
     gap: 8px;
     flex-shrink: 0;
   }
-  .popover-footer button {
+  .popover-footer .pf-btn {
     flex: 1;
     padding: 7px 10px;
     border-radius: 8px;
@@ -807,13 +830,257 @@
     gap: 5px;
     transition: all 120ms;
   }
-  .popover-footer button:hover { background: rgb(var(--c-chrome) / 0.4); }
-  .popover-footer button.primary {
+  .popover-footer .pf-btn:hover { background: rgb(var(--c-chrome) / 0.4); }
+  .popover-footer .pf-btn.primary {
     border: none;
     background: rgb(var(--c-info-600));
     color: #fff;
   }
-  .popover-footer button.primary:hover { background: rgb(var(--c-info-700)); }
+  .popover-footer .pf-btn.primary:hover { background: rgb(var(--c-info-700)); }
+
+  /* ==================== BELOW-MAP PANELS ==================== */
+  .mw-panels {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 14px;
+    padding: 14px 18px 0;
+  }
+  .mw-card {
+    border: 1px solid rgb(var(--c-border));
+    border-radius: 10px;
+    background: #fff;
+    padding: 12px 14px;
+  }
+  .mw-card-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .mw-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    color: rgb(var(--c-text-mute));
+  }
+  .mw-title { font-size: 14px; font-weight: 600; color: rgb(var(--c-text)); }
+  .mw-range {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgb(var(--c-text-mute));
+    white-space: nowrap;
+  }
+  .kstrip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  .kbox {
+    border: 1px solid rgb(var(--c-border));
+    border-radius: 8px;
+    padding: 7px 9px;
+    min-width: 0;
+  }
+  .kl {
+    font-size: 9.5px;
+    color: rgb(var(--c-text-mute));
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .kv {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(var(--c-text));
+    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .kv.good { color: rgb(var(--c-success-600)); }
+  .kv.warn { color: rgb(var(--c-warning-600)); }
+  .kv.bad  { color: rgb(var(--c-danger-600)); }
+  .mw-note {
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: rgb(var(--c-chrome) / 0.5);
+    font-size: 11px;
+    line-height: 1.5;
+    color: rgb(var(--c-text-dim));
+  }
+  .mw-note svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; color: rgb(var(--c-text-mute)); }
+  .mw-note b { color: rgb(var(--c-text)); font-weight: 600; }
+
+  .abc-list { display: flex; flex-direction: column; gap: 8px; }
+  .abc-row { display: flex; align-items: center; gap: 9px; }
+  .abc-tier {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .t-a { background: rgb(var(--c-danger-500) / 0.14);  color: rgb(var(--c-danger-600)); }
+  .t-b { background: rgb(var(--c-warning-600) / 0.14); color: rgb(var(--c-warning-600)); }
+  .t-c { background: rgb(var(--c-success-600) / 0.12); color: rgb(var(--c-success-600)); }
+  .abc-cad { font-size: 10.5px; color: rgb(var(--c-text-mute)); width: 148px; flex-shrink: 0; }
+  .abc-bar {
+    flex: 1;
+    height: 7px;
+    border-radius: 4px;
+    background: rgb(var(--c-chrome));
+    overflow: hidden;
+    min-width: 40px;
+  }
+  .abc-bar i { display: block; height: 100%; background: rgb(var(--c-info-600)); border-radius: 4px; }
+  .abc-val {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgb(var(--c-text));
+    width: 34px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .abc-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 11px;
+    padding-top: 10px;
+    border-top: 1px solid rgb(var(--c-border));
+  }
+  .af-item { display: flex; align-items: baseline; gap: 6px; }
+  .af-item .l { font-size: 10.5px; color: rgb(var(--c-text-mute)); }
+  .af-item .v { font-family: var(--font-mono); font-size: 12px; color: rgb(var(--c-text)); }
+  .af-item .v.bad { color: rgb(var(--c-danger-600)); }
+
+  @media (max-width: 1100px) {
+    .mw-panels { grid-template-columns: 1fr; }
+    .kstrip { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .kstrip { grid-template-columns: repeat(2, 1fr); }
+    .abc-cad { display: none; }
+  }
+
+  /* ============= DRILL-IN SLIDE PANEL (CSS :target, no JS) ============= */
+  .drill { position: fixed; inset: 0; z-index: 90; overflow: hidden; pointer-events: none; }
+  .drill:target { pointer-events: auto; }
+  .drill-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(15, 23, 42, 0.32);
+    opacity: 0;
+    transition: opacity 280ms ease;
+    display: block;
+  }
+  .drill:target .drill-backdrop { opacity: 1; }
+  .drill-panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 100%;
+    max-width: 560px;
+    background: #fff;
+    border-left: 1px solid rgb(var(--c-border));
+    box-shadow: 0 12px 48px -12px rgba(15, 23, 42, 0.35);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 300ms ease-in-out;
+  }
+  .drill:target .drill-panel { transform: translateX(0); }
+  .dp-head {
+    padding: 11px 14px;
+    border-bottom: 1px solid rgb(var(--c-border));
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .dp-head .meta { flex: 1; min-width: 0; }
+  .dp-head .kicker {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgb(var(--c-text-mute));
+    margin-bottom: 2px;
+  }
+  .dp-head h2 {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(var(--c-text));
+    line-height: 1.15;
+  }
+  .dp-head .pname { font-size: 11px; color: rgb(var(--c-text-mute)); margin-top: 2px; }
+  .dp-close {
+    width: 28px; height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: rgb(var(--c-text-mute));
+    flex-shrink: 0;
+  }
+  .dp-close:hover { background: rgb(var(--c-chrome)); color: rgb(var(--c-text)); }
+  .dp-body { overflow-y: auto; padding: 14px; }
+  .dp-sec-title {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgb(var(--c-text-mute));
+    margin: 0 0 8px;
+  }
+  .mv-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  .mv-table thead th {
+    text-align: left;
+    padding: 7px 8px;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgb(var(--c-text-mute));
+    background: rgb(var(--c-chrome) / 0.6);
+    border-bottom: 1px solid rgb(var(--c-border));
+    white-space: nowrap;
+  }
+  .mv-table tbody td {
+    padding: 7px 8px;
+    border-bottom: 1px solid rgb(var(--c-border) / 0.7);
+    color: rgb(var(--c-text-dim));
+    white-space: nowrap;
+  }
+  .mv-table .mono { font-family: var(--font-mono); color: rgb(var(--c-text)); }
+  .mv-table .r { text-align: right; font-family: var(--font-mono); }
+  .mv-table .pos { color: rgb(var(--c-success-600)); font-weight: 600; }
+  .mv-table .neg { color: rgb(var(--c-danger-600)); font-weight: 600; }
+  .mv-chip {
+    display: inline-flex;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .mv-pick { background: rgb(var(--c-info-600) / 0.12);    color: rgb(var(--c-info-600)); }
+  .mv-move { background: rgb(var(--c-warning-600) / 0.14); color: rgb(var(--c-warning-600)); }
+  .mv-recv { background: rgb(var(--c-success-600) / 0.12); color: rgb(var(--c-success-600)); }
+  .mv-count{ background: rgb(var(--c-slate-300) / 0.5);    color: rgb(var(--c-text-dim)); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .drill-backdrop, .drill-panel { transition: none; }
+  }
 
   /* Footer note */
   .footer-note {
@@ -952,8 +1219,8 @@
     </button>
     <div class="title-block">
       <div class="eyebrow">Warehouse</div>
-      <h1>BIGT Floor 1 <span class="mock-badge">Fictional data</span></h1>
-      <div class="subtitle">412 locations · 18 × 32 grid · last sync 09:42 ICT</div>
+      <h1>PJ1 · Floor 1 <span class="mock-badge">Fictional data</span></h1>
+      <div class="subtitle">1,020 active locations · 18 × 32 grid · last sync 09:42 ICT</div>
     </div>
     <div class="header-actions">
       <button class="ui-btn-sm chrome" title="Copy map">
@@ -983,6 +1250,8 @@
       <span class="legend-item"><span class="swatch s-crit"></span>At capacity (≥70%)</span>
       <span class="legend-item"><span class="swatch s-mismatch"></span>Mismatch</span>
       <span class="legend-item"><span class="swatch s-reserved"></span>Reserved</span>
+      <span class="legend-sep"></span>
+      <span class="legend-item legend-flag"><span class="swatch s-flag"></span>No real location</span>
     </div>
 
     <!-- Color settings gear (top-right floating button) -->
@@ -1009,7 +1278,7 @@
         <div class="c c-low" style="grid-row:1;grid-column:4;"></div>
         <div class="c c-warn" style="grid-row:1;grid-column:5;"></div>
         <div class="c c-warn" style="grid-row:1;grid-column:6;"></div>
-        <div class="c c-crit" style="grid-row:1;grid-column:7;"><span class="lc">A-01-07</span></div>
+        <div class="c c-crit" style="grid-row:1;grid-column:7;"><span class="lc">A1-07-01</span></div>
         <div class="c c-aisle" style="grid-row:1;grid-column:8;"></div>
         <div class="c c-empty" style="grid-row:1;grid-column:9;"></div>
         <div class="c c-low" style="grid-row:1;grid-column:10;"></div>
@@ -1017,7 +1286,7 @@
         <div class="c c-empty" style="grid-row:1;grid-column:12;"></div>
         <div class="c c-low" style="grid-row:1;grid-column:13;"></div>
         <div class="c c-empty" style="grid-row:1;grid-column:14;"></div>
-        <div class="c c-empty" style="grid-row:1;grid-column:15;"><span class="lc">B-01-15</span></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:15;"><span class="lc">B1-15-01</span></div>
         <div class="c c-aisle" style="grid-row:1;grid-column:16;"></div>
         <div class="c c-warn" style="grid-row:1;grid-column:17;"></div>
         <div class="c c-warn" style="grid-row:1;grid-column:18;"></div>
@@ -1025,7 +1294,7 @@
         <div class="c c-warn" style="grid-row:1;grid-column:20;"></div>
         <div class="c c-crit" style="grid-row:1;grid-column:21;"></div>
         <div class="c c-empty" style="grid-row:1;grid-column:22;"></div>
-        <div class="c c-crit" style="grid-row:1;grid-column:23;"><span class="lc">C-01-23</span></div>
+        <div class="c c-crit" style="grid-row:1;grid-column:23;"><span class="lc">C1-23-01</span></div>
         <div class="c c-aisle" style="grid-row:1;grid-column:24;"></div>
         <div class="c c-warn" style="grid-row:1;grid-column:25;"></div>
         <div class="c c-low" style="grid-row:1;grid-column:26;"></div>
@@ -1033,14 +1302,14 @@
         <div class="c c-mismatch" style="grid-row:1;grid-column:28;"></div>
         <div class="c c-low" style="grid-row:1;grid-column:29;"></div>
         <div class="c c-empty" style="grid-row:1;grid-column:30;"></div>
-        <div class="c c-empty" style="grid-row:1;grid-column:31;"><span class="lc">D-01-31</span></div>
+        <div class="c c-empty" style="grid-row:1;grid-column:31;"><span class="lc">W1-31-01</span></div>
         <div class="c c-crit" style="grid-row:1;grid-column:32;"></div>
         <div class="c c-warn" style="grid-row:2;grid-column:1;"></div>
-        <div class="c c-warn" style="grid-row:2;grid-column:2;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">A-02-02</span></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:2;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">A1-02-02</span></div>
         <div class="c c-warn" style="grid-row:2;grid-column:3;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-warn" style="grid-row:2;grid-column:4;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
         <div class="c c-mismatch" style="grid-row:2;grid-column:5;"></div>
-        <div class="c c-low" style="grid-row:2;grid-column:6;"><span class="lc">A-02-06</span></div>
+        <div class="c c-low" style="grid-row:2;grid-column:6;"><span class="lc">A1-06-02</span></div>
         <div class="c c-warn" style="grid-row:2;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:2;grid-column:8;"></div>
         <div class="c c-crit" style="grid-row:2;grid-column:9;"></div>
@@ -1048,7 +1317,7 @@
         <div class="c c-crit" style="grid-row:2;grid-column:11;"></div>
         <div class="c c-warn" style="grid-row:2;grid-column:12;"></div>
         <div class="c c-warn" style="grid-row:2;grid-column:13;"></div>
-        <div class="c c-empty" style="grid-row:2;grid-column:14;"><span class="lc">B-02-14</span></div>
+        <div class="c c-empty" style="grid-row:2;grid-column:14;"><span class="lc">B1-14-02</span></div>
         <div class="c c-low" style="grid-row:2;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:2;grid-column:16;"></div>
         <div class="c c-low" style="grid-row:2;grid-column:17;"></div>
@@ -1056,7 +1325,7 @@
         <div class="c c-low" style="grid-row:2;grid-column:19;"></div>
         <div class="c c-empty" style="grid-row:2;grid-column:20;"></div>
         <div class="c c-low" style="grid-row:2;grid-column:21;"></div>
-        <div class="c c-warn" style="grid-row:2;grid-column:22;"><span class="lc">C-02-22</span></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:22;"><span class="lc">C1-22-02</span></div>
         <div class="c c-low" style="grid-row:2;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:2;grid-column:24;"></div>
         <div class="c c-low" style="grid-row:2;grid-column:25;"></div>
@@ -1064,22 +1333,22 @@
         <div class="c c-low" style="grid-row:2;grid-column:27;"></div>
         <div class="c c-crit" style="grid-row:2;grid-column:28;"></div>
         <div class="c c-warn" style="grid-row:2;grid-column:29;"></div>
-        <div class="c c-warn" style="grid-row:2;grid-column:30;"><span class="lc">D-02-30</span></div>
+        <div class="c c-warn" style="grid-row:2;grid-column:30;"><span class="lc">W1-30-02</span></div>
         <div class="c c-empty" style="grid-row:2;grid-column:31;"></div>
         <div class="c c-warn" style="grid-row:2;grid-column:32;"></div>
         <div class="c c-empty" style="grid-row:3;grid-column:1;"></div>
         <div class="c c-low" style="grid-row:3;grid-column:2;"></div>
         <div class="c c-mismatch" style="grid-row:3;grid-column:3;"></div>
         <div class="c c-warn" style="grid-row:3;grid-column:4;"></div>
-        <div class="c c-warn" style="grid-row:3;grid-column:5;"><span class="lc">A-03-05</span></div>
+        <div class="c c-warn" style="grid-row:3;grid-column:5;"><span class="lc">A1-05-03</span></div>
         <div class="c c-warn" style="grid-row:3;grid-column:6;"></div>
         <div class="c c-crit" style="grid-row:3;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:3;grid-column:8;"></div>
         <div class="c c-warn" style="grid-row:3;grid-column:9;"></div>
         <div class="c c-low" style="grid-row:3;grid-column:10;"></div>
-        <div class="c c-crit" style="grid-row:3;grid-column:11;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">B-03-11</span></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:11;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">B1-11-03</span></div>
         <div class="c c-crit" style="grid-row:3;grid-column:12;border-radius:0 6px 0 0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;"></div>
-        <div class="c c-low" style="grid-row:3;grid-column:13;"><span class="lc">B-03-13</span></div>
+        <div class="c c-low" style="grid-row:3;grid-column:13;"><span class="lc">B1-13-03</span></div>
         <div class="c c-empty" style="grid-row:3;grid-column:14;"></div>
         <div class="c c-mismatch" style="grid-row:3;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:3;grid-column:16;"></div>
@@ -1087,7 +1356,7 @@
         <div class="c c-low" style="grid-row:3;grid-column:18;"></div>
         <div class="c c-warn" style="grid-row:3;grid-column:19;"></div>
         <div class="c c-low" style="grid-row:3;grid-column:20;"></div>
-        <div class="c c-crit" style="grid-row:3;grid-column:21;"><span class="lc">C-03-21</span></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:21;"><span class="lc">C1-21-03</span></div>
         <div class="c c-low" style="grid-row:3;grid-column:22;"></div>
         <div class="c c-low" style="grid-row:3;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:3;grid-column:24;"></div>
@@ -1095,14 +1364,14 @@
         <div class="c c-warn" style="grid-row:3;grid-column:26;"></div>
         <div class="c c-low" style="grid-row:3;grid-column:27;"></div>
         <div class="c c-warn" style="grid-row:3;grid-column:28;"></div>
-        <div class="c c-crit" style="grid-row:3;grid-column:29;"><span class="lc">D-03-29</span></div>
+        <div class="c c-crit" style="grid-row:3;grid-column:29;"><span class="lc">W1-29-03</span></div>
         <div class="c c-low" style="grid-row:3;grid-column:30;"></div>
         <div class="c c-empty" style="grid-row:3;grid-column:31;"></div>
         <div class="c c-mismatch" style="grid-row:3;grid-column:32;"></div>
         <div class="c c-low" style="grid-row:4;grid-column:1;"></div>
         <div class="c c-empty" style="grid-row:4;grid-column:2;"></div>
         <div class="c c-empty" style="grid-row:4;grid-column:3;"></div>
-        <div class="c c-empty" style="grid-row:4;grid-column:4;"><span class="lc">A-04-04</span></div>
+        <div class="c c-empty" style="grid-row:4;grid-column:4;"><span class="lc">A1-04-04</span></div>
         <div class="c c-warn" style="grid-row:4;grid-column:5;"></div>
         <div class="c c-warn" style="grid-row:4;grid-column:6;"></div>
         <div class="c c-low" style="grid-row:4;grid-column:7;"></div>
@@ -1118,7 +1387,7 @@
         <div class="c c-warn" style="grid-row:4;grid-column:17;"></div>
         <div class="c c-warn" style="grid-row:4;grid-column:18;"></div>
         <div class="c c-low" style="grid-row:4;grid-column:19;"></div>
-        <div class="c c-low" style="grid-row:4;grid-column:20;"><span class="lc">C-04-20</span></div>
+        <div class="c c-low" style="grid-row:4;grid-column:20;"><span class="lc">C1-20-04</span></div>
         <div class="c c-warn" style="grid-row:4;grid-column:21;"></div>
         <div class="c c-empty" style="grid-row:4;grid-column:22;"></div>
         <div class="c c-low" style="grid-row:4;grid-column:23;"></div>
@@ -1126,14 +1395,14 @@
         <div class="c c-low" style="grid-row:4;grid-column:25;"></div>
         <div class="c c-mismatch" style="grid-row:4;grid-column:26;"></div>
         <div class="c c-crit" style="grid-row:4;grid-column:27;"></div>
-        <div class="c c-low" style="grid-row:4;grid-column:28;"><span class="lc">D-04-28</span></div>
+        <div class="c c-low" style="grid-row:4;grid-column:28;"><span class="lc">W1-28-04</span></div>
         <div class="c c-low" style="grid-row:4;grid-column:29;"></div>
         <div class="c c-empty" style="grid-row:4;grid-column:30;"></div>
         <div class="c c-crit" style="grid-row:4;grid-column:31;"></div>
         <div class="c c-crit" style="grid-row:4;grid-column:32;"></div>
         <div class="c c-low" style="grid-row:5;grid-column:1;"></div>
         <div class="c c-warn" style="grid-row:5;grid-column:2;"></div>
-        <div class="c c-warn" style="grid-row:5;grid-column:3;"><span class="lc">A-05-03</span></div>
+        <div class="c c-warn" style="grid-row:5;grid-column:3;"><span class="lc">A1-03-01</span></div>
         <div class="c c-empty" style="grid-row:5;grid-column:4;"></div>
         <div class="c c-warn" style="grid-row:5;grid-column:5;"></div>
         <div class="c c-low" style="grid-row:5;grid-column:6;"></div>
@@ -1141,7 +1410,7 @@
         <div class="c c-aisle" style="grid-row:5;grid-column:8;"></div>
         <div class="c c-low" style="grid-row:5;grid-column:9;"></div>
         <div class="c c-empty" style="grid-row:5;grid-column:10;"></div>
-        <div class="c c-low" style="grid-row:5;grid-column:11;"><span class="lc">B-05-11</span></div>
+        <div class="c c-low" style="grid-row:5;grid-column:11;"><span class="lc">B1-11-01</span></div>
         <div class="c c-empty" style="grid-row:5;grid-column:12;"></div>
         <div class="c c-crit" style="grid-row:5;grid-column:13;"></div>
         <div class="c c-crit" style="grid-row:5;grid-column:14;"></div>
@@ -1149,7 +1418,7 @@
         <div class="c c-aisle" style="grid-row:5;grid-column:16;"></div>
         <div class="c c-low" style="grid-row:5;grid-column:17;"></div>
         <div class="c c-empty" style="grid-row:5;grid-column:18;"></div>
-        <div class="c c-crit" style="grid-row:5;grid-column:19;"><span class="lc">C-05-19</span></div>
+        <div class="c c-crit" style="grid-row:5;grid-column:19;"><span class="lc">C1-19-01</span></div>
         <div class="c c-mismatch" style="grid-row:5;grid-column:20;"></div>
         <div class="c c-empty" style="grid-row:5;grid-column:21;"></div>
         <div class="c c-low" style="grid-row:5;grid-column:22;"></div>
@@ -1157,7 +1426,7 @@
         <div class="c c-aisle" style="grid-row:5;grid-column:24;"></div>
         <div class="c c-warn" style="grid-row:5;grid-column:25;"></div>
         <div class="c c-warn" style="grid-row:5;grid-column:26;"></div>
-        <div class="c c-empty" style="grid-row:5;grid-column:27;"><span class="lc">D-05-27</span></div>
+        <div class="c c-empty" style="grid-row:5;grid-column:27;"><span class="lc">W1-27-01</span></div>
         <div class="c c-low" style="grid-row:5;grid-column:28;"></div>
         <div class="c c-warn" style="grid-row:5;grid-column:29;"></div>
         <div class="c c-low" style="grid-row:5;grid-column:30;"></div>
@@ -1195,7 +1464,7 @@
         <div class="c c-aisle" style="grid-row:6;grid-column:30;"></div>
         <div class="c c-aisle" style="grid-row:6;grid-column:31;"></div>
         <div class="c c-aisle" style="grid-row:6;grid-column:32;"></div>
-        <div class="c c-low" style="grid-row:7;grid-column:1;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">A-07-01</span></div>
+        <div class="c c-low" style="grid-row:7;grid-column:1;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">A2-01-03</span></div>
         <div class="c c-low" style="grid-row:7;grid-column:2;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:3;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:4;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
@@ -1204,7 +1473,7 @@
         <div class="c c-warn" style="grid-row:7;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:7;grid-column:8;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:9;"></div>
-        <div class="c c-low cell-active" style="grid-row:7;grid-column:10;"><span class="lc">B-07-10</span></div>
+        <div class="c c-low cell-active" style="grid-row:7;grid-column:10;"><span class="lc">B2-10-03</span></div>
         <div class="c c-empty" style="grid-row:7;grid-column:11;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:12;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:13;"></div>
@@ -1212,7 +1481,7 @@
         <div class="c c-low" style="grid-row:7;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:7;grid-column:16;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:17;"></div>
-        <div class="c c-empty" style="grid-row:7;grid-column:18;"><span class="lc">C-07-18</span></div>
+        <div class="c c-empty" style="grid-row:7;grid-column:18;"><span class="lc">C2-18-03</span></div>
         <div class="c c-warn" style="grid-row:7;grid-column:19;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:20;"></div>
         <div class="c c-crit" style="grid-row:7;grid-column:21;"></div>
@@ -1220,14 +1489,14 @@
         <div class="c c-empty" style="grid-row:7;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:7;grid-column:24;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:25;"></div>
-        <div class="c c-warn" style="grid-row:7;grid-column:26;"><span class="lc">D-07-26</span></div>
+        <div class="c c-warn" style="grid-row:7;grid-column:26;"><span class="lc">W2-26-03</span></div>
         <div class="c c-empty" style="grid-row:7;grid-column:27;"></div>
         <div class="c c-empty" style="grid-row:7;grid-column:28;"></div>
         <div class="c c-crit" style="grid-row:7;grid-column:29;"></div>
         <div class="c c-warn" style="grid-row:7;grid-column:30;"></div>
         <div class="c c-low" style="grid-row:7;grid-column:31;"></div>
         <div class="c c-warn" style="grid-row:7;grid-column:32;"></div>
-        <div class="c c-crit" style="grid-row:8;grid-column:1;"><span class="lc">A-08-01</span></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:1;"><span class="lc">A2-01-04</span></div>
         <div class="c c-empty" style="grid-row:8;grid-column:2;"></div>
         <div class="c c-empty" style="grid-row:8;grid-column:3;"></div>
         <div class="c c-low" style="grid-row:8;grid-column:4;"></div>
@@ -1235,7 +1504,7 @@
         <div class="c c-low" style="grid-row:8;grid-column:6;"></div>
         <div class="c c-warn" style="grid-row:8;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:8;grid-column:8;"></div>
-        <div class="c c-warn" style="grid-row:8;grid-column:9;"><span class="lc">B-08-09</span></div>
+        <div class="c c-warn" style="grid-row:8;grid-column:9;"><span class="lc">B2-09-04</span></div>
         <div class="c c-mismatch" style="grid-row:8;grid-column:10;"></div>
         <div class="c c-empty" style="grid-row:8;grid-column:11;"></div>
         <div class="c c-low" style="grid-row:8;grid-column:12;"></div>
@@ -1243,29 +1512,29 @@
         <div class="c c-crit" style="grid-row:8;grid-column:14;"></div>
         <div class="c c-low" style="grid-row:8;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:8;grid-column:16;"></div>
-        <div class="c c-empty" style="grid-row:8;grid-column:17;"><span class="lc">C-08-17</span></div>
-        <div class="c c-warn" style="grid-row:8;grid-column:18;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">C-08-18</span></div>
+        <div class="c c-empty" style="grid-row:8;grid-column:17;"><span class="lc">C2-17-04</span></div>
+        <div class="c c-warn" style="grid-row:8;grid-column:18;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">C2-18-04</span></div>
         <div class="c c-warn" style="grid-row:8;grid-column:19;border-radius:0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-warn" style="grid-row:8;grid-column:20;border-radius:0 6px 0 0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;"></div>
         <div class="c c-low" style="grid-row:8;grid-column:21;"></div>
         <div class="c c-crit" style="grid-row:8;grid-column:22;"></div>
         <div class="c c-low" style="grid-row:8;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:8;grid-column:24;"></div>
-        <div class="c c-crit" style="grid-row:8;grid-column:25;"><span class="lc">D-08-25</span></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:25;"><span class="lc">W2-25-04</span></div>
         <div class="c c-warn" style="grid-row:8;grid-column:26;"></div>
         <div class="c c-empty" style="grid-row:8;grid-column:27;"></div>
         <div class="c c-mismatch" style="grid-row:8;grid-column:28;"></div>
         <div class="c c-crit" style="grid-row:8;grid-column:29;"></div>
         <div class="c c-mismatch" style="grid-row:8;grid-column:30;"></div>
         <div class="c c-crit" style="grid-row:8;grid-column:31;"></div>
-        <div class="c c-crit" style="grid-row:8;grid-column:32;"><span class="lc">D-08-32</span></div>
+        <div class="c c-crit" style="grid-row:8;grid-column:32;"><span class="lc">W2-32-04</span></div>
         <div class="c c-empty" style="grid-row:9;grid-column:1;"></div>
         <div class="c c-low" style="grid-row:9;grid-column:2;"></div>
         <div class="c c-empty" style="grid-row:9;grid-column:3;"></div>
         <div class="c c-low" style="grid-row:9;grid-column:4;"></div>
         <div class="c c-empty" style="grid-row:9;grid-column:5;"></div>
         <div class="c c-low" style="grid-row:9;grid-column:6;"></div>
-        <div class="c c-mismatch" style="grid-row:9;grid-column:7;"><span class="lc">A-09-07</span></div>
+        <div class="c c-mismatch" style="grid-row:9;grid-column:7;"><span class="lc">A2-07-01</span></div>
         <div class="c c-aisle" style="grid-row:9;grid-column:8;"></div>
         <div class="c c-low" style="grid-row:9;grid-column:9;"></div>
         <div class="c c-warn" style="grid-row:9;grid-column:10;"></div>
@@ -1273,7 +1542,7 @@
         <div class="c c-low" style="grid-row:9;grid-column:12;"></div>
         <div class="c c-mismatch" style="grid-row:9;grid-column:13;"></div>
         <div class="c c-mismatch" style="grid-row:9;grid-column:14;"></div>
-        <div class="c c-warn" style="grid-row:9;grid-column:15;"><span class="lc">B-09-15</span></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:15;"><span class="lc">B2-15-01</span></div>
         <div class="c c-aisle" style="grid-row:9;grid-column:16;"></div>
         <div class="c c-warn" style="grid-row:9;grid-column:17;"></div>
         <div class="c c-warn" style="grid-row:9;grid-column:18;border-radius:0 0 0 6px;margin-top:0;border-top-width:0;margin-right:0;border-right-width:0;"></div>
@@ -1281,7 +1550,7 @@
         <div class="c c-warn" style="grid-row:9;grid-column:20;border-radius:0 0 6px 0;margin-top:0;border-top-width:0;margin-left:0;border-left-width:0;"></div>
         <div class="c c-warn" style="grid-row:9;grid-column:21;"></div>
         <div class="c c-warn" style="grid-row:9;grid-column:22;"></div>
-        <div class="c c-warn" style="grid-row:9;grid-column:23;"><span class="lc">C-09-23</span></div>
+        <div class="c c-warn" style="grid-row:9;grid-column:23;"><span class="lc">C2-23-01</span></div>
         <div class="c c-aisle" style="grid-row:9;grid-column:24;"></div>
         <div class="c c-empty" style="grid-row:9;grid-column:25;"></div>
         <div class="c c-warn" style="grid-row:9;grid-column:26;"></div>
@@ -1289,14 +1558,14 @@
         <div class="c c-crit" style="grid-row:9;grid-column:28;"></div>
         <div class="c c-empty" style="grid-row:9;grid-column:29;"></div>
         <div class="c c-mismatch" style="grid-row:9;grid-column:30;"></div>
-        <div class="c c-empty" style="grid-row:9;grid-column:31;"><span class="lc">D-09-31</span></div>
+        <div class="c c-empty" style="grid-row:9;grid-column:31;"><span class="lc">W2-31-01</span></div>
         <div class="c c-empty" style="grid-row:9;grid-column:32;"></div>
         <div class="c c-warn" style="grid-row:10;grid-column:1;"></div>
         <div class="c c-warn" style="grid-row:10;grid-column:2;"></div>
         <div class="c c-low" style="grid-row:10;grid-column:3;"></div>
         <div class="c c-empty" style="grid-row:10;grid-column:4;"></div>
         <div class="c c-crit" style="grid-row:10;grid-column:5;"></div>
-        <div class="c c-low" style="grid-row:10;grid-column:6;"><span class="lc">A-10-06</span></div>
+        <div class="c c-low" style="grid-row:10;grid-column:6;"><span class="lc">A2-06-02</span></div>
         <div class="c c-warn" style="grid-row:10;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:10;grid-column:8;"></div>
         <div class="c c-warn" style="grid-row:10;grid-column:9;"></div>
@@ -1304,7 +1573,7 @@
         <div class="c c-warn" style="grid-row:10;grid-column:11;"></div>
         <div class="c c-low" style="grid-row:10;grid-column:12;"></div>
         <div class="c c-crit" style="grid-row:10;grid-column:13;"></div>
-        <div class="c c-empty" style="grid-row:10;grid-column:14;"><span class="lc">B-10-14</span></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:14;"><span class="lc">B2-14-02</span></div>
         <div class="c c-warn" style="grid-row:10;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:10;grid-column:16;"></div>
         <div class="c c-low" style="grid-row:10;grid-column:17;"></div>
@@ -1312,22 +1581,22 @@
         <div class="c c-warn" style="grid-row:10;grid-column:19;"></div>
         <div class="c c-low" style="grid-row:10;grid-column:20;"></div>
         <div class="c c-low" style="grid-row:10;grid-column:21;"></div>
-        <div class="c c-warn" style="grid-row:10;grid-column:22;"><span class="lc">C-10-22</span></div>
+        <div class="c c-warn" style="grid-row:10;grid-column:22;"><span class="lc">C2-22-02</span></div>
         <div class="c c-empty" style="grid-row:10;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:10;grid-column:24;"></div>
         <div class="c c-low" style="grid-row:10;grid-column:25;"></div>
-        <div class="c c-empty" style="grid-row:10;grid-column:26;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">D-10-26</span></div>
+        <div class="c c-empty" style="grid-row:10;grid-column:26;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">W2-26-02</span></div>
         <div class="c c-empty" style="grid-row:10;grid-column:27;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-empty" style="grid-row:10;grid-column:28;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-empty" style="grid-row:10;grid-column:29;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
-        <div class="c c-low" style="grid-row:10;grid-column:30;"><span class="lc">D-10-30</span></div>
+        <div class="c c-low" style="grid-row:10;grid-column:30;"><span class="lc">W2-30-02</span></div>
         <div class="c c-crit" style="grid-row:10;grid-column:31;"></div>
         <div class="c c-crit" style="grid-row:10;grid-column:32;"></div>
         <div class="c c-crit" style="grid-row:11;grid-column:1;"></div>
         <div class="c c-low" style="grid-row:11;grid-column:2;"></div>
         <div class="c c-empty" style="grid-row:11;grid-column:3;"></div>
         <div class="c c-crit" style="grid-row:11;grid-column:4;"></div>
-        <div class="c c-warn" style="grid-row:11;grid-column:5;"><span class="lc">A-11-05</span></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:5;"><span class="lc">A2-05-03</span></div>
         <div class="c c-warn" style="grid-row:11;grid-column:6;"></div>
         <div class="c c-mismatch" style="grid-row:11;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:11;grid-column:8;"></div>
@@ -1335,7 +1604,7 @@
         <div class="c c-empty" style="grid-row:11;grid-column:10;"></div>
         <div class="c c-crit" style="grid-row:11;grid-column:11;"></div>
         <div class="c c-low" style="grid-row:11;grid-column:12;"></div>
-        <div class="c c-warn" style="grid-row:11;grid-column:13;"><span class="lc">B-11-13</span></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:13;"><span class="lc">B2-13-03</span></div>
         <div class="c c-crit" style="grid-row:11;grid-column:14;"></div>
         <div class="c c-empty" style="grid-row:11;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:11;grid-column:16;"></div>
@@ -1343,7 +1612,7 @@
         <div class="c c-empty" style="grid-row:11;grid-column:18;"></div>
         <div class="c c-warn" style="grid-row:11;grid-column:19;"></div>
         <div class="c c-low" style="grid-row:11;grid-column:20;"></div>
-        <div class="c c-warn" style="grid-row:11;grid-column:21;"><span class="lc">C-11-21</span></div>
+        <div class="c c-warn" style="grid-row:11;grid-column:21;"><span class="lc">C2-21-03</span></div>
         <div class="c c-warn" style="grid-row:11;grid-column:22;"></div>
         <div class="c c-empty" style="grid-row:11;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:11;grid-column:24;"></div>
@@ -1351,7 +1620,7 @@
         <div class="c c-low" style="grid-row:11;grid-column:26;"></div>
         <div class="c c-low" style="grid-row:11;grid-column:27;"></div>
         <div class="c c-crit" style="grid-row:11;grid-column:28;"></div>
-        <div class="c c-crit" style="grid-row:11;grid-column:29;"><span class="lc">D-11-29</span></div>
+        <div class="c c-crit" style="grid-row:11;grid-column:29;"><span class="lc">W2-29-03</span></div>
         <div class="c c-empty" style="grid-row:11;grid-column:30;"></div>
         <div class="c c-low" style="grid-row:11;grid-column:31;"></div>
         <div class="c c-low" style="grid-row:11;grid-column:32;"></div>
@@ -1390,15 +1659,15 @@
         <div class="c c-empty" style="grid-row:13;grid-column:1;"></div>
         <div class="c c-warn" style="grid-row:13;grid-column:2;"></div>
         <div class="c c-warn" style="grid-row:13;grid-column:3;"></div>
-        <div class="c c-low" style="grid-row:13;grid-column:4;"><span class="lc">A-13-04</span></div>
-        <div class="c c-crit" style="grid-row:13;grid-column:5;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">A-13-05</span></div>
+        <div class="c c-low" style="grid-row:13;grid-column:4;"><span class="lc">A3-04-01</span></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:5;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">A3-05-01</span></div>
         <div class="c c-crit" style="grid-row:13;grid-column:6;border-radius:0 6px 0 0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;"></div>
         <div class="c c-low" style="grid-row:13;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:13;grid-column:8;"></div>
         <div class="c c-empty" style="grid-row:13;grid-column:9;"></div>
         <div class="c c-empty" style="grid-row:13;grid-column:10;"></div>
         <div class="c c-crit" style="grid-row:13;grid-column:11;"></div>
-        <div class="c c-crit" style="grid-row:13;grid-column:12;"><span class="lc">B-13-12</span></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:12;"><span class="lc">B3-12-01</span></div>
         <div class="c c-warn" style="grid-row:13;grid-column:13;"></div>
         <div class="c c-crit" style="grid-row:13;grid-column:14;"></div>
         <div class="c c-warn" style="grid-row:13;grid-column:15;"></div>
@@ -1406,7 +1675,7 @@
         <div class="c c-empty" style="grid-row:13;grid-column:17;"></div>
         <div class="c c-empty" style="grid-row:13;grid-column:18;"></div>
         <div class="c c-low" style="grid-row:13;grid-column:19;"></div>
-        <div class="c c-crit" style="grid-row:13;grid-column:20;"><span class="lc">C-13-20</span></div>
+        <div class="c c-crit" style="grid-row:13;grid-column:20;"><span class="lc">C3-20-01</span></div>
         <div class="c c-warn" style="grid-row:13;grid-column:21;"></div>
         <div class="c c-crit" style="grid-row:13;grid-column:22;"></div>
         <div class="c c-crit" style="grid-row:13;grid-column:23;"></div>
@@ -1414,20 +1683,20 @@
         <div class="c c-empty" style="grid-row:13;grid-column:25;"></div>
         <div class="c c-low" style="grid-row:13;grid-column:26;"></div>
         <div class="c c-empty" style="grid-row:13;grid-column:27;"></div>
-        <div class="c c-warn" style="grid-row:13;grid-column:28;"><span class="lc">D-13-28</span></div>
+        <div class="c c-warn" style="grid-row:13;grid-column:28;"><span class="lc">W3-28-01</span></div>
         <div class="c c-crit" style="grid-row:13;grid-column:29;"></div>
         <div class="c c-low" style="grid-row:13;grid-column:30;"></div>
         <div class="c c-warn" style="grid-row:13;grid-column:31;"></div>
         <div class="c c-empty" style="grid-row:13;grid-column:32;"></div>
         <div class="c c-crit" style="grid-row:14;grid-column:1;"></div>
         <div class="c c-crit" style="grid-row:14;grid-column:2;"></div>
-        <div class="c c-mismatch" style="grid-row:14;grid-column:3;"><span class="lc">A-14-03</span></div>
+        <div class="c c-mismatch" style="grid-row:14;grid-column:3;"><span class="lc">A3-03-02</span></div>
         <div class="c c-crit" style="grid-row:14;grid-column:4;"></div>
         <div class="c c-crit" style="grid-row:14;grid-column:5;border-radius:0 0 0 6px;margin-top:0;border-top-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-crit" style="grid-row:14;grid-column:6;border-radius:0 0 6px 0;margin-top:0;border-top-width:0;margin-left:0;border-left-width:0;"></div>
         <div class="c c-warn" style="grid-row:14;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:14;grid-column:8;"></div>
-        <div class="c c-warn" style="grid-row:14;grid-column:9;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">B-14-09</span></div>
+        <div class="c c-warn" style="grid-row:14;grid-column:9;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">B3-09-02</span></div>
         <div class="c c-warn" style="grid-row:14;grid-column:10;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-warn" style="grid-row:14;grid-column:11;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
         <div class="c c-crit" style="grid-row:14;grid-column:12;"></div>
@@ -1437,7 +1706,7 @@
         <div class="c c-aisle" style="grid-row:14;grid-column:16;"></div>
         <div class="c c-empty" style="grid-row:14;grid-column:17;"></div>
         <div class="c c-crit" style="grid-row:14;grid-column:18;"></div>
-        <div class="c c-crit" style="grid-row:14;grid-column:19;"><span class="lc">C-14-19</span></div>
+        <div class="c c-crit" style="grid-row:14;grid-column:19;"><span class="lc">C3-19-02</span></div>
         <div class="c c-low" style="grid-row:14;grid-column:20;"></div>
         <div class="c c-crit" style="grid-row:14;grid-column:21;"></div>
         <div class="c c-low" style="grid-row:14;grid-column:22;"></div>
@@ -1445,14 +1714,14 @@
         <div class="c c-aisle" style="grid-row:14;grid-column:24;"></div>
         <div class="c c-warn" style="grid-row:14;grid-column:25;"></div>
         <div class="c c-low" style="grid-row:14;grid-column:26;"></div>
-        <div class="c c-empty" style="grid-row:14;grid-column:27;"><span class="lc">D-14-27</span></div>
+        <div class="c c-empty" style="grid-row:14;grid-column:27;"><span class="lc">W3-27-02</span></div>
         <div class="c c-empty" style="grid-row:14;grid-column:28;"></div>
         <div class="c c-low" style="grid-row:14;grid-column:29;"></div>
         <div class="c c-crit" style="grid-row:14;grid-column:30;"></div>
         <div class="c c-mismatch" style="grid-row:14;grid-column:31;"></div>
         <div class="c c-low" style="grid-row:14;grid-column:32;"></div>
         <div class="c c-warn" style="grid-row:15;grid-column:1;"></div>
-        <div class="c c-low" style="grid-row:15;grid-column:2;"><span class="lc">A-15-02</span></div>
+        <div class="c c-low" style="grid-row:15;grid-column:2;"><span class="lc">A3-02-03</span></div>
         <div class="c c-mismatch" style="grid-row:15;grid-column:3;"></div>
         <div class="c c-low" style="grid-row:15;grid-column:4;"></div>
         <div class="c c-crit" style="grid-row:15;grid-column:5;"></div>
@@ -1460,7 +1729,7 @@
         <div class="c c-mismatch" style="grid-row:15;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:15;grid-column:8;"></div>
         <div class="c c-empty" style="grid-row:15;grid-column:9;"></div>
-        <div class="c c-mismatch" style="grid-row:15;grid-column:10;"><span class="lc">B-15-10</span></div>
+        <div class="c c-mismatch" style="grid-row:15;grid-column:10;"><span class="lc">B3-10-03</span></div>
         <div class="c c-low" style="grid-row:15;grid-column:11;"></div>
         <div class="c c-empty" style="grid-row:15;grid-column:12;"></div>
         <div class="c c-low" style="grid-row:15;grid-column:13;"></div>
@@ -1468,7 +1737,7 @@
         <div class="c c-low" style="grid-row:15;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:15;grid-column:16;"></div>
         <div class="c c-warn" style="grid-row:15;grid-column:17;"></div>
-        <div class="c c-low" style="grid-row:15;grid-column:18;"><span class="lc">C-15-18</span></div>
+        <div class="c c-low" style="grid-row:15;grid-column:18;"><span class="lc">C3-18-03</span></div>
         <div class="c c-low" style="grid-row:15;grid-column:19;"></div>
         <div class="c c-warn" style="grid-row:15;grid-column:20;"></div>
         <div class="c c-low" style="grid-row:15;grid-column:21;"></div>
@@ -1476,14 +1745,14 @@
         <div class="c c-empty" style="grid-row:15;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:15;grid-column:24;"></div>
         <div class="c c-crit" style="grid-row:15;grid-column:25;"></div>
-        <div class="c c-low" style="grid-row:15;grid-column:26;"><span class="lc">D-15-26</span></div>
+        <div class="c c-low" style="grid-row:15;grid-column:26;"><span class="lc">W3-26-03</span></div>
         <div class="c c-warn" style="grid-row:15;grid-column:27;"></div>
         <div class="c c-warn" style="grid-row:15;grid-column:28;"></div>
         <div class="c c-warn" style="grid-row:15;grid-column:29;"></div>
-        <div class="c c-low" style="grid-row:15;grid-column:30;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">D-15-30</span></div>
+        <div class="c c-low" style="grid-row:15;grid-column:30;border-radius:6px 0 0 0;margin-bottom:0;border-bottom-width:0;margin-right:0;border-right-width:0;"><span class="lc">W3-30-03</span></div>
         <div class="c c-low" style="grid-row:15;grid-column:31;border-radius:0 6px 0 0;margin-bottom:0;border-bottom-width:0;margin-left:0;border-left-width:0;"></div>
         <div class="c c-warn" style="grid-row:15;grid-column:32;"></div>
-        <div class="c c-low" style="grid-row:16;grid-column:1;"><span class="lc">A-16-01</span></div>
+        <div class="c c-low" style="grid-row:16;grid-column:1;"><span class="lc">A3-01-04</span></div>
         <div class="c c-low" style="grid-row:16;grid-column:2;"></div>
         <div class="c c-crit" style="grid-row:16;grid-column:3;"></div>
         <div class="c c-warn" style="grid-row:16;grid-column:4;"></div>
@@ -1491,7 +1760,7 @@
         <div class="c c-low" style="grid-row:16;grid-column:6;"></div>
         <div class="c c-low" style="grid-row:16;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:16;grid-column:8;"></div>
-        <div class="c c-low" style="grid-row:16;grid-column:9;"><span class="lc">B-16-09</span></div>
+        <div class="c c-low" style="grid-row:16;grid-column:9;"><span class="lc">B3-09-04</span></div>
         <div class="c c-low" style="grid-row:16;grid-column:10;"></div>
         <div class="c c-empty" style="grid-row:16;grid-column:11;"></div>
         <div class="c c-low" style="grid-row:16;grid-column:12;"></div>
@@ -1499,7 +1768,7 @@
         <div class="c c-warn" style="grid-row:16;grid-column:14;"></div>
         <div class="c c-crit" style="grid-row:16;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:16;grid-column:16;"></div>
-        <div class="c c-warn" style="grid-row:16;grid-column:17;"><span class="lc">C-16-17</span></div>
+        <div class="c c-warn" style="grid-row:16;grid-column:17;"><span class="lc">C3-17-04</span></div>
         <div class="c c-low" style="grid-row:16;grid-column:18;"></div>
         <div class="c c-warn" style="grid-row:16;grid-column:19;"></div>
         <div class="c c-empty" style="grid-row:16;grid-column:20;"></div>
@@ -1507,21 +1776,21 @@
         <div class="c c-low" style="grid-row:16;grid-column:22;"></div>
         <div class="c c-warn" style="grid-row:16;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:16;grid-column:24;"></div>
-        <div class="c c-empty" style="grid-row:16;grid-column:25;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">D-16-25</span></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:25;border-radius:6px 0 0 6px;margin-right:0;border-right-width:0;"><span class="lc">W3-25-04</span></div>
         <div class="c c-empty" style="grid-row:16;grid-column:26;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-empty" style="grid-row:16;grid-column:27;border-radius:0;margin-left:0;border-left-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-empty" style="grid-row:16;grid-column:28;border-radius:0 6px 6px 0;margin-left:0;border-left-width:0;"></div>
         <div class="c c-low" style="grid-row:16;grid-column:29;"></div>
         <div class="c c-low" style="grid-row:16;grid-column:30;border-radius:0 0 0 6px;margin-top:0;border-top-width:0;margin-right:0;border-right-width:0;"></div>
         <div class="c c-low" style="grid-row:16;grid-column:31;border-radius:0 0 6px 0;margin-top:0;border-top-width:0;margin-left:0;border-left-width:0;"></div>
-        <div class="c c-empty" style="grid-row:16;grid-column:32;"><span class="lc">D-16-32</span></div>
+        <div class="c c-empty" style="grid-row:16;grid-column:32;"><span class="lc">W3-32-04</span></div>
         <div class="c c-empty" style="grid-row:17;grid-column:1;"></div>
         <div class="c c-low" style="grid-row:17;grid-column:2;"></div>
         <div class="c c-warn" style="grid-row:17;grid-column:3;"></div>
         <div class="c c-low" style="grid-row:17;grid-column:4;"></div>
         <div class="c c-crit" style="grid-row:17;grid-column:5;"></div>
         <div class="c c-warn" style="grid-row:17;grid-column:6;"></div>
-        <div class="c c-warn" style="grid-row:17;grid-column:7;"><span class="lc">A-17-07</span></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:7;"><span class="lc">A3-07-01</span></div>
         <div class="c c-aisle" style="grid-row:17;grid-column:8;"></div>
         <div class="c c-low" style="grid-row:17;grid-column:9;"></div>
         <div class="c c-empty" style="grid-row:17;grid-column:10;"></div>
@@ -1529,7 +1798,7 @@
         <div class="c c-low" style="grid-row:17;grid-column:12;"></div>
         <div class="c c-low" style="grid-row:17;grid-column:13;"></div>
         <div class="c c-crit" style="grid-row:17;grid-column:14;"></div>
-        <div class="c c-empty" style="grid-row:17;grid-column:15;"><span class="lc">B-17-15</span></div>
+        <div class="c c-empty" style="grid-row:17;grid-column:15;"><span class="lc">B3-15-01</span></div>
         <div class="c c-aisle" style="grid-row:17;grid-column:16;"></div>
         <div class="c c-low" style="grid-row:17;grid-column:17;"></div>
         <div class="c c-warn" style="grid-row:17;grid-column:18;"></div>
@@ -1537,7 +1806,7 @@
         <div class="c c-warn" style="grid-row:17;grid-column:20;"></div>
         <div class="c c-low" style="grid-row:17;grid-column:21;"></div>
         <div class="c c-low" style="grid-row:17;grid-column:22;"></div>
-        <div class="c c-warn" style="grid-row:17;grid-column:23;"><span class="lc">C-17-23</span></div>
+        <div class="c c-warn" style="grid-row:17;grid-column:23;"><span class="lc">C3-23-01</span></div>
         <div class="c c-aisle" style="grid-row:17;grid-column:24;"></div>
         <div class="c c-empty" style="grid-row:17;grid-column:25;"></div>
         <div class="c c-warn" style="grid-row:17;grid-column:26;"></div>
@@ -1545,14 +1814,14 @@
         <div class="c c-empty" style="grid-row:17;grid-column:28;"></div>
         <div class="c c-low" style="grid-row:17;grid-column:29;"></div>
         <div class="c c-empty" style="grid-row:17;grid-column:30;"></div>
-        <div class="c c-mismatch" style="grid-row:17;grid-column:31;"><span class="lc">D-17-31</span></div>
+        <div class="c c-mismatch" style="grid-row:17;grid-column:31;"><span class="lc">W3-31-01</span></div>
         <div class="c c-low" style="grid-row:17;grid-column:32;"></div>
         <div class="c c-empty" style="grid-row:18;grid-column:1;"></div>
         <div class="c c-low" style="grid-row:18;grid-column:2;"></div>
         <div class="c c-crit" style="grid-row:18;grid-column:3;"></div>
         <div class="c c-low" style="grid-row:18;grid-column:4;"></div>
         <div class="c c-crit" style="grid-row:18;grid-column:5;"></div>
-        <div class="c c-warn" style="grid-row:18;grid-column:6;"><span class="lc">A-18-06</span></div>
+        <div class="c c-warn" style="grid-row:18;grid-column:6;"><span class="lc">A3-06-02</span></div>
         <div class="c c-mismatch" style="grid-row:18;grid-column:7;"></div>
         <div class="c c-aisle" style="grid-row:18;grid-column:8;"></div>
         <div class="c c-warn" style="grid-row:18;grid-column:9;"></div>
@@ -1560,7 +1829,7 @@
         <div class="c c-crit" style="grid-row:18;grid-column:11;"></div>
         <div class="c c-warn" style="grid-row:18;grid-column:12;"></div>
         <div class="c c-warn" style="grid-row:18;grid-column:13;"></div>
-        <div class="c c-low" style="grid-row:18;grid-column:14;"><span class="lc">B-18-14</span></div>
+        <div class="c c-low" style="grid-row:18;grid-column:14;"><span class="lc">B3-14-02</span></div>
         <div class="c c-crit" style="grid-row:18;grid-column:15;"></div>
         <div class="c c-aisle" style="grid-row:18;grid-column:16;"></div>
         <div class="c c-warn" style="grid-row:18;grid-column:17;"></div>
@@ -1568,7 +1837,7 @@
         <div class="c c-warn" style="grid-row:18;grid-column:19;"></div>
         <div class="c c-low" style="grid-row:18;grid-column:20;"></div>
         <div class="c c-low" style="grid-row:18;grid-column:21;"></div>
-        <div class="c c-low" style="grid-row:18;grid-column:22;"><span class="lc">C-18-22</span></div>
+        <div class="c c-low" style="grid-row:18;grid-column:22;"><span class="lc">C3-22-02</span></div>
         <div class="c c-warn" style="grid-row:18;grid-column:23;"></div>
         <div class="c c-aisle" style="grid-row:18;grid-column:24;"></div>
         <div class="c c-warn" style="grid-row:18;grid-column:25;"></div>
@@ -1576,13 +1845,17 @@
         <div class="c c-warn" style="grid-row:18;grid-column:27;"></div>
         <div class="c c-low" style="grid-row:18;grid-column:28;"></div>
         <div class="c c-empty" style="grid-row:18;grid-column:29;"></div>
-        <div class="c c-low" style="grid-row:18;grid-column:30;"><span class="lc">D-18-30</span></div>
+        <div class="c c-low" style="grid-row:18;grid-column:30;"><span class="lc">W3-30-02</span></div>
         <div class="c c-low" style="grid-row:18;grid-column:31;"></div>
         <div class="c c-low" style="grid-row:18;grid-column:32;"></div>
         <div class="rz rz-hachure" style="grid-row:1/3;grid-column:26/32;"><span>PALLET ZONE A &middot; RESERVED</span></div>
-        <div class="rz rz-cross-hatch" style="grid-row:14/18;grid-column:28/32;"><span>COLD STORAGE</span></div>
+        <div class="rz rz-cross-hatch" style="grid-row:14/18;grid-column:28/32;"><span>PJ1-SM &middot; SMALL ITEMS</span></div>
         <div class="rz rz-hachure" style="grid-row:8/10;grid-column:18/23;"><span>QC HOLD</span></div>
         <div class="rz rz-hachure" style="grid-row:17/18;grid-column:9/16;"><span>INBOUND STAGING</span></div>
+        <!-- The two pseudo-locations. Neither is a place — they are what the system
+             records when a scan skips the location step, and both leak stock. -->
+        <div class="rz rz-flag" style="grid-row:11/13;grid-column:2/7;"><span>DEFAULT &middot; NO LOCATION</span></div>
+        <div class="rz rz-flag" style="grid-row:5/7;grid-column:24/28;"><span>RECEIVING-ZONE</span></div>
       </div>
     </div>
 
@@ -1592,7 +1865,7 @@
       <div class="popover-header">
         <div class="left">
           <span class="live-dot"></span>
-          <a class="popover-loc">B-07-10</a>
+          <a class="popover-loc">B2-10-03</a>
           <span class="popover-tag">SHELF</span>
         </div>
         <button class="popover-close" title="Close">
@@ -1611,49 +1884,131 @@
         <div class="popover-section-label">SKUs at this location</div>
         <div class="sku-list">
           <div class="sku-item">
-            <span class="sku">SHE-1234-BLU</span>
-            <span class="name">Sneaker Classic Blue (M)</span>
+            <span class="sku">EL-WH-1024</span>
+            <span class="name">Wireless Over-Ear Headphones</span>
             <span class="qty">620</span>
           </div>
           <div class="sku-item">
-            <span class="sku">SHE-1234-RED</span>
-            <span class="name">Sneaker Classic Red (M)</span>
+            <span class="sku">EL-CB-5610</span>
+            <span class="name">USB-C Cable 2m 100W</span>
             <span class="qty">340</span>
           </div>
           <div class="sku-item">
-            <span class="sku">SHE-1289-BLK</span>
-            <span class="name">Sneaker Sport Black (L)</span>
+            <span class="sku">EL-PH-0856</span>
+            <span class="name">Power Bank 20,000mAh</span>
             <span class="qty">180</span>
           </div>
           <div class="sku-item">
-            <span class="sku">SHE-1311-WHT</span>
-            <span class="name">Sneaker Lite White (S)</span>
+            <span class="sku">EL-MS-2078</span>
+            <span class="name">Silent Wireless Mouse</span>
             <span class="qty">100</span>
           </div>
         </div>
 
         <div class="popover-section-label">Active tasks</div>
         <div class="task-list">
+          <!-- A picking ใบงาน carries the JST document number; every other type is
+               generated by MW as {prefix}{YYYYMMDD}{NNNN}. -->
           <div class="task-item">
-            <span class="task-chip pick">Pick</span>
-            <span class="task-id">TSK-4521</span>
+            <span class="task-chip pick">หยิบ</span>
+            <span class="task-id">TP-574107</span>
             <span class="task-flow">→ Outbound</span>
             <span class="task-due today">Today 16:00</span>
           </div>
           <div class="task-item">
-            <span class="task-chip move">Move</span>
-            <span class="task-id">TSK-4517</span>
-            <span class="task-flow">← from B-03-15</span>
-            <span class="task-due">Done</span>
+            <span class="task-chip move">ย้าย</span>
+            <span class="task-id" data-task-date>TM202608090014</span>
+            <span class="task-flow">← from B1-15-03</span>
+            <span class="task-due">MOVED</span>
           </div>
         </div>
       </div>
       <div class="popover-footer">
-        <button>Movement history</button>
-        <button class="primary">View detail →</button>
+        <a class="pf-btn" href="#loc-history">Movement history</a>
+        <a class="pf-btn primary" href="#loc-history">View detail →</a>
       </div>
     </div>
   </div><!-- /.map-container -->
+
+  <!-- ==================== BELOW-MAP PANELS ==================== -->
+  <div class="mw-panels">
+
+    <!-- Real MW dashboard KPI names, English side of the bilingual UI -->
+    <div class="mw-card">
+      <div class="mw-card-head">
+        <div>
+          <div class="mw-eyebrow">Dashboard</div>
+          <div class="mw-title">This week · PJ1</div>
+        </div>
+        <span class="mw-range">Mon–Sat · <span data-day-offset="-5" data-fmt="dm">4 Aug</span> – <span data-day-offset="0" data-fmt="dm">9 Aug</span></span>
+      </div>
+      <div class="kstrip">
+        <div class="kbox"><div class="kl">ใบงาน · Tasks</div><div class="kv">318</div></div>
+        <div class="kbox"><div class="kl">รายการ · Items</div><div class="kv">7,412</div></div>
+        <div class="kbox"><div class="kl">อัตราเสร็จสิ้น · Completion</div><div class="kv good">94.3%</div></div>
+        <div class="kbox"><div class="kl">ยอดหยิบ · Picked</div><div class="kv">5,128</div></div>
+        <div class="kbox"><div class="kl">ยอดย้าย · Moved</div><div class="kv">642</div></div>
+        <div class="kbox"><div class="kl">ยอดรับเข้า · Received</div><div class="kv">1,642</div></div>
+        <div class="kbox"><div class="kl">ช่องที่นับ · Locations counted</div><div class="kv">184</div></div>
+        <div class="kbox"><div class="kl">SKU ที่นับ · SKUs counted</div><div class="kv">512</div></div>
+        <div class="kbox"><div class="kl">SKU ที่ไม่ตรง · Mismatch</div><div class="kv warn">223</div></div>
+        <div class="kbox"><div class="kl">Short %</div><div class="kv bad">1.94%</div></div>
+      </div>
+      <div class="mw-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>
+          <b>99.3%</b> of short picks carry the reason <b>“ว่าง”</b> — the shelf was verified empty.
+          In a count that is good data; on a pick it means the stock record was already wrong before
+          anyone walked to the shelf.
+        </span>
+      </div>
+    </div>
+
+    <!-- ไม้ค้ำกิ่ง — cadence and coverage, deliberately not framed as an accuracy trend -->
+    <div class="mw-card">
+      <div class="mw-card-head">
+        <div>
+          <div class="mw-eyebrow">Cycle count</div>
+          <div class="mw-title">ABC coverage</div>
+        </div>
+        <span class="mw-range">nightly retag · 90-day lookback</span>
+      </div>
+      <div class="abc-list">
+        <div class="abc-row">
+          <span class="abc-tier t-a">A</span>
+          <span class="abc-cad">weekly · Mon 06:00</span>
+          <span class="abc-bar"><i style="width:96%"></i></span>
+          <span class="abc-val">96%</span>
+        </div>
+        <div class="abc-row">
+          <span class="abc-tier t-b">B</span>
+          <span class="abc-cad">monthly · 1st</span>
+          <span class="abc-bar"><i style="width:78%"></i></span>
+          <span class="abc-val">78%</span>
+        </div>
+        <div class="abc-row">
+          <span class="abc-tier t-c">C</span>
+          <span class="abc-cad">quarterly · Jan/Apr/Jul/Oct</span>
+          <span class="abc-bar"><i style="width:54%"></i></span>
+          <span class="abc-val">54%</span>
+        </div>
+      </div>
+      <div class="abc-foot">
+        <div class="af-item"><span class="l">Locations ever counted</span><span class="v">869 / 1,020</span></div>
+        <div class="af-item"><span class="l">Never counted</span><span class="v bad">151</span></div>
+        <div class="af-item"><span class="l">SKU × location pairs</span><span class="v">7,032</span></div>
+      </div>
+      <div class="mw-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>
+          Coverage and cadence only. Counting <em>resets</em> stock to reality on a schedule — it is a
+          standing operating cost, not a fix, so none of this should be read as the warehouse getting
+          more accurate over time.
+        </span>
+      </div>
+    </div>
+
+  </div>
 
   <div class="footer-note">
     <strong>All data is fictional.</strong> Static mock that replicates the real Minimal Warehouse (MW) UI from EP Asia Group — same color tokens, layout, and grid logic as production.<br>
@@ -1661,6 +2016,261 @@
   </div>
 
 </div><!-- /.main-content -->
+
+<!-- ============================================================= -->
+<!-- DRILL-IN — movement ledger for the selected location           -->
+<!-- ============================================================= -->
+<div class="drill" id="loc-history">
+  <a class="drill-backdrop" href="#" aria-label="Close movement history"></a>
+  <aside class="drill-panel">
+    <div class="dp-head">
+      <div class="meta">
+        <div class="kicker">Movement history</div>
+        <h2 data-loc-title>B2-10-03</h2>
+        <div class="pname">SHELF · PJ1 · row B2, lot 10, level 03</div>
+      </div>
+      <a class="dp-close" href="#" aria-label="Close">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+      </a>
+    </div>
+
+    <div class="dp-body">
+      <p class="dp-sec-title">Ledger · newest first</p>
+      <table class="mv-table">
+        <thead>
+          <tr>
+            <th>When</th>
+            <th>Type</th>
+            <th>ใบงาน</th>
+            <th>SKU</th>
+            <th class="r">Δ Qty</th>
+            <th class="r">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono"><span data-day-offset="0" data-fmt="ddmm">09/08</span> 14:12</td>
+            <td><span class="mv-chip mv-pick">หยิบ</span></td>
+            <td class="mono">TP-574107</td>
+            <td class="mono">EL-WH-1024</td>
+            <td class="r neg">−40</td>
+            <td class="r">620</td>
+          </tr>
+          <tr>
+            <td class="mono"><span data-day-offset="0" data-fmt="ddmm">09/08</span> 09:38</td>
+            <td><span class="mv-chip mv-move">ย้าย</span></td>
+            <td class="mono">TM202608090014</td>
+            <td class="mono">EL-CB-5610</td>
+            <td class="r pos">+120</td>
+            <td class="r">340</td>
+          </tr>
+          <tr>
+            <td class="mono"><span data-day-offset="-1" data-fmt="ddmm">08/08</span> 16:55</td>
+            <td><span class="mv-chip mv-pick">หยิบ</span></td>
+            <td class="mono">TP-573988</td>
+            <td class="mono">EL-PH-0856</td>
+            <td class="r neg">−24</td>
+            <td class="r">180</td>
+          </tr>
+          <tr>
+            <td class="mono"><span data-day-offset="-3" data-fmt="ddmm">06/08</span> 11:02</td>
+            <td><span class="mv-chip mv-count">นับ</span></td>
+            <td class="mono">TC202608060003</td>
+            <td class="mono">EL-MS-2078</td>
+            <td class="r neg">−6</td>
+            <td class="r">100</td>
+          </tr>
+          <tr>
+            <td class="mono"><span data-day-offset="-3" data-fmt="ddmm">06/08</span> 11:01</td>
+            <td><span class="mv-chip mv-count">นับ</span></td>
+            <td class="mono">TC202608060003</td>
+            <td class="mono">EL-WH-1024</td>
+            <td class="r">0</td>
+            <td class="r">660</td>
+          </tr>
+          <tr>
+            <td class="mono"><span data-day-offset="-6" data-fmt="ddmm">03/08</span> 08:20</td>
+            <td><span class="mv-chip mv-recv">รับเข้า</span></td>
+            <td class="mono">TR202608030008</td>
+            <td class="mono">EL-WH-1024</td>
+            <td class="r pos">+300</td>
+            <td class="r">660</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="mw-note" style="margin-top:14px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>
+          The count on <span data-day-offset="-3" data-fmt="ddmm">06/08</span> found <b>EL-MS-2078</b> six
+          units short of book. Movements are append-only, so the correction is a new row rather than an
+          edit — the balance column is what the snapshot is rebuilt from.
+        </span>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- =====================================================================
+     Evergreen dates + light interactivity.
+
+     Every date on this page is derived from TODAY, so the mock never reads
+     as stale. The markup keeps a correct hardcoded fallback, so with JS off
+     the page still makes sense — it just ages like any static page.
+     No libraries, no network. Same block ships in the sibling mockups.
+     ===================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  var M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var DAY = 86400000;
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function shift(n) { return new Date(today.getTime() + n * DAY); }
+
+  function fmt(d, f) {
+    var day = d.getDate(), mon = M[d.getMonth()], yr = d.getFullYear();
+    if (f === 'dm')   return day + ' ' + mon;
+    if (f === 'dmy2') return day + ' ' + mon + ' ' + String(yr).slice(2);
+    if (f === 'md')   return mon + ' ' + day;
+    if (f === 'mdy')  return mon + ' ' + day + ', ' + yr;
+    if (f === 'ddmm') return pad(day) + '/' + pad(d.getMonth() + 1);
+    return day + ' ' + mon + ' ' + yr;                     /* 'dmy', default */
+  }
+
+  document.querySelectorAll('[data-day-offset]').forEach(function (el) {
+    el.textContent = fmt(shift(+el.getAttribute('data-day-offset')),
+                         el.getAttribute('data-fmt'));
+  });
+
+  /* MW generates non-picking ใบงาน numbers as {prefix}{YYYYMMDD}{NNNN} */
+  document.querySelectorAll('[data-task-date]').forEach(function (el) {
+    var t = el.textContent.trim();
+    el.textContent = t.slice(0, 2)
+      + today.getFullYear() + pad(today.getMonth() + 1) + pad(today.getDate())
+      + t.slice(10);
+  });
+
+  /* ---- map cell selection -------------------------------------------
+     Each cell carries its own summary, so clicking one repoints the
+     popover instead of leaving a single hard-coded cell selected. */
+  var popover = document.querySelector('.cell-popover');
+  var grid = document.querySelector('.map-grid') || document.querySelector('.map-wrap');
+  if (popover && grid) {
+    var locEl   = popover.querySelector('.popover-loc');
+    var tagEl   = popover.querySelector('.popover-tag');
+    var sumEls  = popover.querySelectorAll('.popover-summary .value');
+    var titleEl = document.querySelector('[data-loc-title]');
+
+    /* Capacity/fill are implied by the colour class the cell already has,
+       so the popover can be filled from the class without per-cell data. */
+    var PROFILE = {
+      'c-empty':    { tag: 'SHELF', fill: '0/1,800',     skus: '0',  seen: 'today' },
+      'c-low':      { tag: 'SHELF', fill: '1,240/1,800', skus: '4',  seen: '3d ago' },
+      'c-warn':     { tag: 'SHELF', fill: '1,020/1,800', skus: '6',  seen: '9d ago' },
+      'c-crit':     { tag: 'SHELF', fill: '1,684/1,800', skus: '9',  seen: '2d ago' },
+      'c-mismatch': { tag: 'MISMATCH', fill: '412/1,800', skus: '3', seen: '31d ago' }
+    };
+
+    grid.addEventListener('click', function (e) {
+      var cell = e.target.closest('.c');
+      if (!cell) return;
+      var label = cell.querySelector('.lc');
+      if (!label) return;                        /* aisles carry no location */
+
+      var prev = grid.querySelector('.cell-active');
+      if (prev) prev.classList.remove('cell-active');
+      cell.classList.add('cell-active');
+
+      var code = label.textContent.trim();
+      if (locEl) locEl.textContent = code;
+      if (titleEl) titleEl.textContent = code;
+
+      var key = ['c-empty','c-low','c-warn','c-crit','c-mismatch'].filter(function (k) {
+        return cell.classList.contains(k);
+      })[0];
+      var p = PROFILE[key] || PROFILE['c-low'];
+      if (tagEl) tagEl.textContent = p.tag;
+      if (sumEls.length >= 3) {
+        sumEls[0].textContent = p.fill;
+        sumEls[1].textContent = p.skus;
+        sumEls[2].textContent = p.seen;
+      }
+      popover.hidden = false;
+    });
+  }
+
+  var closeBtn = popover && popover.querySelector('.popover-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function () { popover.hidden = true; });
+  }
+
+  /* ---- zoom ------------------------------------------------------------
+     The grid is already sized off a --cell-size custom property (that's how
+     the responsive breakpoints shrink it), so drive the same property rather
+     than layering a transform on top of it. The middle button is the readout
+     and resets to the default. */
+  var zoomBtns = document.querySelectorAll('.floating-zoom button');
+  if (grid && zoomBtns.length === 3) {
+    var DEFAULT_SIZE = 32, MIN = 16, MAX = 56, STEP = 4;
+    var size = DEFAULT_SIZE;
+    var readout = zoomBtns[1];
+
+    function applyZoom() {
+      grid.style.setProperty('--cell-size', size + 'px');
+      readout.textContent = size;
+    }
+    zoomBtns[0].addEventListener('click', function () { size = Math.min(MAX, size + STEP); applyZoom(); });
+    zoomBtns[2].addEventListener('click', function () { size = Math.max(MIN, size - STEP); applyZoom(); });
+    readout.addEventListener('click', function () { size = DEFAULT_SIZE; applyZoom(); });
+  }
+
+  /* ---- legend filter --------------------------------------------------
+     Clicking a legend swatch dims every cell that isn't in that state, which
+     is how you actually find the mismatches on a floor this size. */
+  var CLASS_FOR = {
+    'Available': 'c-empty',
+    'Light': 'c-low',
+    'Heavy': 'c-warn',
+    'At capacity': 'c-crit',
+    'Mismatch': 'c-mismatch'
+  };
+  var active = null;
+  document.querySelectorAll('.map-legend-bar .legend-item').forEach(function (item) {
+    var name = Object.keys(CLASS_FOR).filter(function (k) {
+      return item.textContent.trim().indexOf(k) === 0;
+    })[0];
+    if (!name) return;
+    item.style.cursor = 'pointer';
+    item.setAttribute('role', 'button');
+    item.setAttribute('tabindex', '0');
+
+    function toggle() {
+      var cls = CLASS_FOR[name];
+      var on = active !== cls;
+      active = on ? cls : null;
+      document.querySelectorAll('.map-legend-bar .legend-item').forEach(function (i) {
+        i.style.opacity = '';
+      });
+      if (on) {
+        document.querySelectorAll('.map-legend-bar .legend-item').forEach(function (i) {
+          if (i !== item) i.style.opacity = '0.45';
+        });
+      }
+      document.querySelectorAll('.map-wrap .c').forEach(function (c) {
+        c.style.opacity = (!on || c.classList.contains(cls)) ? '' : '0.12';
+      });
+    }
+    item.addEventListener('click', toggle);
+    item.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fulfillment Overview — Mock Dashboard · Sahatsawat Thongma</title>
-<meta name="description" content="Mock fulfillment dashboard replicating the real UI from the E-Commerce Data Platform at EP Asia Group. Built with Fraunces + IBM Plex on a neutral paper/ink palette. All data fictional." />
+<meta name="description" content="Mock fulfillment dashboard replicating the real UI from the E-Commerce Data Platform at EP Asia Group: FFR / FFR+ KPIs, platform and shipping performance, pipeline stages, order tracking. All data fictional." />
 <meta property="og:title" content="Fulfillment Overview — Mock Dashboard · Sahatsawat Thongma" />
 <meta property="og:description" content="Mock dashboard for the Fulfillment Overview view from EP Asia Group's E-Commerce Data Platform: KPIs, platform performance, pipeline stages. All data fictional." />
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/186543613" />
@@ -52,6 +52,8 @@
     --line-soft: rgba(15,23,42,0.05);
     --line-bold: rgba(15,23,42,0.18);
     --shadow-pop: 0 1px 0 rgba(15,23,42,0.04), 0 8px 24px -8px rgba(15,23,42,0.18);
+    --shadow-modal: 0 12px 48px -12px rgba(15,23,42,0.35);
+    --accent-soft: rgba(193,18,31,0.08);
 
     /* Fonts — system sans, matches bsn/wms */
     --f-display: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
@@ -546,9 +548,12 @@
   /* ============= PIPELINE ============= */
   .pipeline-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 12px;
     margin-bottom: 16px;
+  }
+  @media (max-width: 1560px) {
+    .pipeline-grid { grid-template-columns: repeat(3, 1fr); }
   }
   .stage-card {
     background: var(--paper-50);
@@ -935,6 +940,296 @@
     .chart-grid { grid-template-columns: 1fr; }
     .section-header { flex-direction: column; align-items: stretch; }
   }
+  /* ================= ORDER TRACKING TAB ================= */
+  /* [hidden] is display:none in the UA sheet, but any element we also give an
+     explicit display (grid/flex) would win over it — so state it outright. */
+  [hidden] { display: none !important; }
+  .tab { cursor: pointer; user-select: none; }
+  .tab:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .seg { cursor: pointer; user-select: none; }
+
+  .paste-box {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    background: var(--paper-100);
+  }
+  .paste-box textarea {
+    flex: 1;
+    min-height: 34px;
+    resize: vertical;
+    padding: 7px 10px;
+    border: 1px solid var(--line-bold);
+    border-radius: 4px;
+    background: var(--paper-50);
+    font-family: var(--f-mono);
+    font-size: 11px;
+    color: var(--ink-800);
+  }
+  .paste-box textarea::placeholder { color: var(--ink-400); }
+  .paste-box .pb-side { display: flex; flex-direction: column; gap: 6px; }
+  .btn-solid {
+    padding: 7px 14px;
+    border: none;
+    border-radius: 4px;
+    background: var(--brand);
+    color: #fff;
+    font-family: var(--f-sans);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn-solid:hover { background: var(--brand-hover); }
+  .pb-hint { font-size: 10px; color: var(--ink-500); white-space: nowrap; }
+
+  .table-scroll { overflow-x: auto; }
+  .trk-table { width: 100%; border-collapse: collapse; font-size: 11.5px; min-width: 1080px; }
+  .trk-table thead th {
+    padding: 8px 10px;
+    text-align: left;
+    font-family: var(--f-mono);
+    font-size: 9.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-500);
+    background: var(--paper-100);
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .trk-table thead th.r { text-align: right; }
+  .trk-table tbody td {
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--line-soft);
+    color: var(--ink-700);
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .trk-table tbody tr:last-child td { border-bottom: none; }
+  .trk-table tbody tr:hover { background: var(--paper-100); }
+  .trk-table .mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; color: var(--ink-900); }
+  .trk-table .r { text-align: right; font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+  .trk-table .dim { color: var(--ink-400); }
+  .trk-table .prodcell { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* status chips — the real fulfillment_status ladder */
+  .st {
+    display: inline-flex;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .st-collected  { background: var(--good-bg);   color: var(--good); }
+  .st-loading    { background: var(--warn-bg);   color: var(--warn); }
+  .st-released   { background: var(--brand-soft); color: var(--brand); }
+  .st-processing { background: var(--info-bg);   color: var(--info); }
+  .st-repack     { background: var(--info-bg);   color: var(--info); }
+  .st-pending    { background: var(--paper-200); color: var(--ink-500); }
+  .st-bad        { background: var(--bad-bg);    color: var(--bad); }
+
+  .days-warn { color: var(--warn); font-weight: 500; }
+  .days-bad  { color: var(--bad);  font-weight: 500; }
+
+  /* source-system chips */
+  .src-chips { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+  .src-chip {
+    padding: 2px 7px;
+    border: 1px solid var(--line-bold);
+    border-radius: 3px;
+    font-family: var(--f-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-500);
+    background: var(--paper-50);
+    white-space: nowrap;
+  }
+
+  /* FFR definition strip */
+  .def-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    padding: 9px 14px;
+    margin-bottom: 14px;
+    background: var(--paper-100);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--ink-600);
+  }
+  .def-strip b { color: var(--ink-900); font-weight: 500; }
+  .def-strip .d-item { display: inline-flex; align-items: baseline; gap: 6px; }
+
+  /* whole-row click, same as the app's onRowClick */
+  tr.linked { position: relative; cursor: pointer; }
+  tr.linked:hover { background: var(--accent-soft); }
+  .row-hit { position: absolute; inset: 0; display: block; z-index: 2; }
+  tr.linked .mono:first-child,
+  tr.linked td:first-child .mono { color: var(--accent); }
+  tr.linked:hover td:first-child .mono { text-decoration: underline; }
+  .hint-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 9px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(193,18,31,0.22);
+    border-radius: 4px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .hint-chip svg { width: 12px; height: 12px; }
+
+  /* ============= DRILL-IN SLIDE PANEL (CSS :target, no JS) ============= */
+  .drill { position: fixed; inset: 0; z-index: 80; overflow: hidden; pointer-events: none; }
+  .drill:target { pointer-events: auto; }
+  .drill-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(15,23,42,0.32);
+    opacity: 0;
+    transition: opacity 280ms ease;
+    display: block;
+  }
+  .drill:target .drill-backdrop { opacity: 1; }
+  .drill-panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 100%;
+    max-width: 620px;
+    background: var(--paper-50);
+    border-left: 1px solid var(--line);
+    box-shadow: var(--shadow-modal);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 300ms ease-in-out;
+  }
+  .drill:target .drill-panel { transform: translateX(0); }
+  .dp-head {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .dp-head .meta { flex: 1; min-width: 0; }
+  .dp-head .kicker {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-500);
+    margin-bottom: 2px;
+  }
+  .dp-head h2 {
+    margin: 0;
+    font-family: var(--f-mono);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink-900);
+    line-height: 1.15;
+  }
+  .dp-head .pname { font-size: 11px; color: var(--ink-500); margin-top: 2px; }
+  .dp-close {
+    width: 28px; height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: var(--ink-500);
+    flex-shrink: 0;
+  }
+  .dp-close:hover { background: var(--paper-200); color: var(--ink-900); }
+  .dp-close svg { width: 16px; height: 16px; }
+  .dp-body { overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 16px; }
+  .dp-sec-title {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-500);
+    margin-bottom: 8px;
+  }
+  .dp-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .dp-tile { border: 1px solid var(--line); border-radius: 5px; padding: 8px 10px; }
+  .dp-tile .l {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-500);
+  }
+  .dp-tile .v {
+    font-family: var(--f-mono);
+    font-size: 16px;
+    color: var(--ink-900);
+    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .verdict { border: 1px solid; border-radius: 6px; padding: 9px 12px; }
+  .verdict .line1 { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; }
+  .verdict .line2 {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; margin-top: 5px; color: var(--ink-600);
+  }
+  .verdict svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .verdict .line2 svg { width: 13px; height: 13px; }
+  .v-goodbox { background: var(--good-bg); border-color: rgba(22,163,74,0.3);  color: var(--good); }
+  .v-warnbox { background: var(--warn-bg); border-color: rgba(217,119,6,0.3);  color: var(--warn); }
+  .v-badbox  { background: var(--bad-bg);  border-color: rgba(193,18,31,0.3);  color: var(--bad); }
+
+  /* event timeline inside the drill-in */
+  .tl { list-style: none; margin: 0; padding: 0 0 0 18px; position: relative; }
+  .tl::before {
+    content: "";
+    position: absolute;
+    left: 4px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: var(--line-bold);
+  }
+  .tl li { position: relative; padding: 0 0 14px 0; }
+  .tl li:last-child { padding-bottom: 0; }
+  .tl li::before {
+    content: "";
+    position: absolute;
+    left: -18px; top: 4px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--paper-50);
+    border: 2px solid var(--ink-300);
+  }
+  .tl li.done::before  { border-color: var(--good); background: var(--good); }
+  .tl li.now::before   { border-color: var(--warn); background: var(--warn); }
+  .tl li.fail::before  { border-color: var(--bad);  background: var(--bad); }
+  .tl .ev-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .tl .ev-name { font-size: 12px; font-weight: 500; color: var(--ink-900); }
+  .tl .ev-time { font-family: var(--f-mono); font-size: 10px; color: var(--ink-500); }
+  .tl .ev-src {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--paper-200);
+    color: var(--ink-600);
+  }
+  .tl .ev-note { font-size: 11px; color: var(--ink-500); margin-top: 2px; }
+
+  @media (max-width: 760px) {
+    .dp-tiles { grid-template-columns: repeat(2, 1fr); }
+    .paste-box { flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .drill-backdrop, .drill-panel { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -1003,19 +1298,22 @@
       <div class="sh-filters">
         <span class="filter-pill">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          May 12 – Jun 11, 2026
+          <span data-date-range>Jul 11 – Aug 9, 2026</span>
           <span class="caret">▾</span>
         </span>
-        <span class="filter-pill">All platforms (6) <span class="caret">▾</span></span>
-        <span class="filter-pill">All shipping (5) <span class="caret">▾</span></span>
+        <span class="filter-pill">All platforms (5) <span class="caret">▾</span></span>
+        <span class="filter-pill">All shipping (3) <span class="caret">▾</span></span>
       </div>
     </div>
 
     <!-- TABS -->
-    <div class="tabs">
-      <div class="tab active">Overview</div>
-      <div class="tab">Order Tracking</div>
+    <div class="tabs" role="tablist">
+      <div class="tab active" role="tab" data-tab="overview" aria-selected="true" tabindex="0">Overview</div>
+      <div class="tab" role="tab" data-tab="tracking" aria-selected="false" tabindex="0">Order Tracking</div>
     </div>
+
+    <!-- ================= OVERVIEW PANEL ================= -->
+    <div data-panel="overview">
 
     <!-- ===== OVERVIEW KPIs ===== -->
     <div class="kpi-grid">
@@ -1069,6 +1367,13 @@
       </div>
     </div>
 
+    <!-- Why FFR+ is always ≤ FFR. Without this the two numbers read as arbitrary. -->
+    <div class="def-strip">
+      <span class="d-item"><b>FFR</b> deadline = end of the next working day (23:59:59)</span>
+      <span class="d-item"><b>FFR+</b> deadline = stricter — an order placed before noon on a working day must release the same day</span>
+      <span class="d-item">so <b>FFR+ ≤ FFR</b>, always</span>
+    </div>
+
     <!-- ===== PLATFORM / SHIPPING PERFORMANCE ===== -->
     <div class="card card-block">
       <div class="card-head">
@@ -1076,13 +1381,13 @@
           <div class="eyebrow">Performance</div>
           <div class="title">FFR+ by channel</div>
         </div>
-        <div class="seg-tabs">
-          <div class="seg active">Platform</div>
-          <div class="seg">Shipping</div>
+        <div class="seg-tabs" data-seg-group="perf">
+          <div class="seg active" data-seg="platform" role="button" tabindex="0">Platform</div>
+          <div class="seg" data-seg="shipping" role="button" tabindex="0">Shipping</div>
         </div>
       </div>
       <div class="card-body">
-        <div class="perf-grid">
+        <div class="perf-grid" data-perf="platform">
           <div class="perf-tile">
             <div class="perf-tile-head">
               <span class="pname"><svg class="plogo shopee" viewBox="0 0 24 24" fill="currentColor"><path d="M15.9414 17.9633c.229-1.879-.981-3.077-4.1758-4.0969-1.548-.528-2.277-1.22-2.26-2.1719.065-1.056 1.048-1.825 2.352-1.85a5.2898 5.2898 0 0 1 2.8838.89c.116.072.197.06.263-.039.09-.145.315-.494.39-.62.051-.081.061-.187-.068-.281-.185-.1369-.704-.4149-.983-.5319a6.4697 6.4697 0 0 0-2.5118-.514c-1.909.008-3.4129 1.215-3.5389 2.826-.082 1.1629.494 2.1078 1.73 2.8278.262.152 1.6799.716 2.2438.892 1.774.552 2.695 1.5419 2.478 2.6969-.197 1.047-1.299 1.7239-2.818 1.7439-1.2039-.046-2.2878-.537-3.1278-1.19l-.141-.11c-.104-.08-.218-.075-.287.03-.05.077-.376.547-.458.67-.077.108-.035.168.045.234.35.293.817.613 1.134.775a6.7097 6.7097 0 0 0 2.8289.727 4.9048 4.9048 0 0 0 2.0759-.354c1.095-.465 1.8029-1.394 1.9449-2.554zM11.9986 1.4009c-2.068 0-3.7539 1.95-3.8329 4.3899h7.6657c-.08-2.44-1.765-4.3899-3.8328-4.3899zm7.8516 22.5981-.08.001-15.7843-.002c-1.074-.04-1.863-.91-1.971-1.991l-.01-.195L1.298 6.2858a.459.459 0 0 1 .45-.494h4.9748C6.8448 2.568 9.1607 0 11.9996 0c2.8388 0 5.1537 2.5689 5.2757 5.7898h4.9678a.459.459 0 0 1 .458.483l-.773 15.5883-.007.131c-.094 1.094-.979 1.9769-2.0709 2.0059z"/></svg>Shopee</span>
@@ -1127,8 +1432,8 @@
           </div>
           <div class="perf-tile">
             <div class="perf-tile-head">
-              <span class="pname"><span class="dot" style="background:#E60012"></span>Central Online</span>
-              <span class="ratio">312</span>
+              <span class="pname"><span class="dot" style="background:#1877F2"></span>Facebook</span>
+              <span class="ratio">412</span>
             </div>
             <div class="mini-row">
               <div class="mini-lab"><span class="nm">Outbound</span><span class="pct v-warn">85.3%</span></div>
@@ -1139,32 +1444,66 @@
               <div class="mini-bar"><div class="bar-bad" style="width:79%"></div></div>
             </div>
           </div>
+          <!-- B2B is platform "facebook" with a store name containing B2B — a store
+               split, not a separate marketplace. Self-collect, so Collect runs low. -->
           <div class="perf-tile">
             <div class="perf-tile-head">
-              <span class="pname"><span class="dot" style="background:#E2231A"></span>JD Central</span>
-              <span class="ratio">184</span>
+              <span class="pname"><span class="dot" style="background:#003049"></span>B2B Epasiagroup</span>
+              <span class="ratio">200</span>
             </div>
             <div class="mini-row">
-              <div class="mini-lab"><span class="nm">Outbound</span><span class="pct v-brand">91.2%</span></div>
-              <div class="mini-bar"><div class="bar-brand" style="width:91%"></div></div>
+              <div class="mini-lab"><span class="nm">Outbound</span><span class="pct v-good">98.5%</span></div>
+              <div class="mini-bar"><div class="bar-good" style="width:98%"></div></div>
             </div>
             <div class="mini-row">
-              <div class="mini-lab"><span class="nm">Collect</span><span class="pct v-warn">86.4%</span></div>
-              <div class="mini-bar"><div class="bar-warn" style="width:86%"></div></div>
+              <div class="mini-lab"><span class="nm">Collect</span><span class="pct v-warn">88.0%</span></div>
+              <div class="mini-bar"><div class="bar-warn" style="width:88%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping view — swapped in by the Platform / Shipping seg toggle -->
+        <div class="perf-grid" data-perf="shipping" hidden>
+          <div class="perf-tile">
+            <div class="perf-tile-head">
+              <span class="pname"><span class="dot" style="background:#FFCC00"></span>DHL eCommerce</span>
+              <span class="ratio">7,240</span>
+            </div>
+            <div class="mini-row">
+              <div class="mini-lab"><span class="nm">Outbound</span><span class="pct v-good">96.1%</span></div>
+              <div class="mini-bar"><div class="bar-good" style="width:96%"></div></div>
+            </div>
+            <div class="mini-row">
+              <div class="mini-lab"><span class="nm">Collect</span><span class="pct v-brand">92.4%</span></div>
+              <div class="mini-bar"><div class="bar-brand" style="width:92%"></div></div>
             </div>
           </div>
           <div class="perf-tile">
             <div class="perf-tile-head">
-              <span class="pname"><span class="dot" style="background:#1E4B8C"></span>Website (D2C)</span>
-              <span class="ratio">116</span>
+              <span class="pname"><span class="dot" style="background:#FF5722"></span>Flash Express</span>
+              <span class="ratio">5,018</span>
             </div>
             <div class="mini-row">
-              <div class="mini-lab"><span class="nm">Outbound</span><span class="pct v-good">97.4%</span></div>
-              <div class="mini-bar"><div class="bar-good" style="width:97%"></div></div>
+              <div class="mini-lab"><span class="nm">Outbound</span><span class="pct v-brand">93.7%</span></div>
+              <div class="mini-bar"><div class="bar-brand" style="width:94%"></div></div>
             </div>
             <div class="mini-row">
-              <div class="mini-lab"><span class="nm">Collect</span><span class="pct v-good">95.6%</span></div>
-              <div class="mini-bar"><div class="bar-good" style="width:96%"></div></div>
+              <div class="mini-lab"><span class="nm">Collect</span><span class="pct v-warn">89.8%</span></div>
+              <div class="mini-bar"><div class="bar-warn" style="width:90%"></div></div>
+            </div>
+          </div>
+          <div class="perf-tile">
+            <div class="perf-tile-head">
+              <span class="pname"><span class="dot" style="background:#003049"></span>Self-collect (B2B)</span>
+              <span class="ratio">200</span>
+            </div>
+            <div class="mini-row">
+              <div class="mini-lab"><span class="nm">Outbound</span><span class="pct v-good">98.5%</span></div>
+              <div class="mini-bar"><div class="bar-good" style="width:98%"></div></div>
+            </div>
+            <div class="mini-row">
+              <div class="mini-lab"><span class="nm">Collect</span><span class="pct v-warn">88.0%</span></div>
+              <div class="mini-bar"><div class="bar-warn" style="width:88%"></div></div>
             </div>
           </div>
         </div>
@@ -1186,9 +1525,9 @@
         <span class="stage-badge badge-ink">In Process</span>
         <div class="stage-count"><span class="n">12,150</span><span class="p">(97.53%)</span></div>
         <div class="stage-subs">
-          <div class="stage-sub"><span class="sd sd-ink"></span><span class="nm">Inprocess</span><span class="ct">11,892</span><span class="pc">95.46%</span></div>
-          <div class="stage-sub"><span class="sd sd-warn"></span><span class="nm">Wrong Transport</span><span class="ct">195</span><span class="pc">1.56%</span></div>
-          <div class="stage-sub"><span class="sd sd-bad"></span><span class="nm">Out Of Stock</span><span class="ct">63</span><span class="pc">0.51%</span></div>
+          <div class="stage-sub"><span class="sd sd-ink"></span><span class="nm">Processing</span><span class="ct">11,892</span><span class="pc">95.46%</span></div>
+          <div class="stage-sub"><span class="sd sd-warn"></span><span class="nm">Order Wrong Transport</span><span class="ct">195</span><span class="pc">1.56%</span></div>
+          <div class="stage-sub"><span class="sd sd-bad"></span><span class="nm">Item Out Of Stock</span><span class="ct">63</span><span class="pc">0.51%</span></div>
         </div>
       </div>
       <div class="stage-card">
@@ -1216,6 +1555,38 @@
           <div class="stage-sub"><span class="sd sd-bad"></span><span class="nm">Not Met FFR</span><span class="ct">396</span><span class="pc">3.18%</span></div>
         </div>
       </div>
+      <!-- Everything that leaves the happy path. These are real fulfillment_status
+           values and they are the reason the ladder never sums to 100%. -->
+      <div class="stage-card">
+        <span class="stage-badge badge-bad">Returns &amp; Repack</span>
+        <div class="stage-count"><span class="n">742</span><span class="p">(5.96%)</span></div>
+        <div class="stage-subs">
+          <div class="stage-sub"><span class="sd sd-info"></span><span class="nm">Repacking</span><span class="ct">318</span><span class="pc">2.55%</span></div>
+          <div class="stage-sub"><span class="sd sd-info"></span><span class="nm">Pre-Repacking</span><span class="ct">46</span><span class="pc">0.37%</span></div>
+          <div class="stage-sub"><span class="sd sd-warn"></span><span class="nm">Returning</span><span class="ct">168</span><span class="pc">1.35%</span></div>
+          <div class="stage-sub"><span class="sd sd-bad"></span><span class="nm">Sent to BK</span><span class="ct">142</span><span class="pc">1.14%</span></div>
+          <div class="stage-sub"><span class="sd sd-ink"></span><span class="nm">Returned to Warehouse</span><span class="ct">68</span><span class="pc">0.55%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Each event axis carries its own source system — the status a row shows
+         depends on which of these last reported, which is why they're listed. -->
+    <div class="def-strip" style="align-items:center;">
+      <span class="d-item"><b>Event sources</b></span>
+      <span class="src-chips">
+        <span class="src-chip">JST</span>
+        <span class="src-chip">JST_ACTION</span>
+        <span class="src-chip">JST_LOGISTICS</span>
+        <span class="src-chip">JST_AFTERSALE</span>
+        <span class="src-chip">BSN</span>
+        <span class="src-chip">DHL</span>
+        <span class="src-chip">DHL_SCANNED</span>
+        <span class="src-chip">FLASH_PICKUPLIST</span>
+        <span class="src-chip">SHOPEE</span>
+        <span class="src-chip">LAZADA</span>
+        <span class="src-chip">TIKTOK</span>
+      </span>
     </div>
 
     <!-- ===== TREND ROW: Release+Loading | FFR+ Trend ===== -->
@@ -1258,10 +1629,10 @@
             <text class="axis" x="585" y="154">25%</text>
             <text class="axis" x="585" y="194">0%</text>
 
-            <text class="axis" x="70" y="208" text-anchor="middle">May 12</text>
-            <text class="axis" x="210" y="208" text-anchor="middle">May 20</text>
-            <text class="axis" x="350" y="208" text-anchor="middle">May 28</text>
-            <text class="axis" x="490" y="208" text-anchor="middle">Jun 5</text>
+            <text class="axis" x="70" y="208" text-anchor="middle"  data-day-offset="-29" data-fmt="md">Jul 11</text>
+            <text class="axis" x="210" y="208" text-anchor="middle" data-day-offset="-21" data-fmt="md">Jul 19</text>
+            <text class="axis" x="350" y="208" text-anchor="middle" data-day-offset="-13" data-fmt="md">Jul 27</text>
+            <text class="axis" x="490" y="208" text-anchor="middle" data-day-offset="-5"  data-fmt="md">Aug 4</text>
 
             <g fill="#003049" fill-opacity="0.85">
               <rect x="45"  y="90" width="14" height="100" rx="1"/>
@@ -1341,10 +1712,10 @@
             <text class="axis" x="35" y="154" text-anchor="end">70%</text>
             <text class="axis" x="35" y="194" text-anchor="end">60%</text>
 
-            <text class="axis" x="70" y="208" text-anchor="middle">May 12</text>
-            <text class="axis" x="210" y="208" text-anchor="middle">May 20</text>
-            <text class="axis" x="350" y="208" text-anchor="middle">May 28</text>
-            <text class="axis" x="490" y="208" text-anchor="middle">Jun 5</text>
+            <text class="axis" x="70" y="208" text-anchor="middle"  data-day-offset="-29" data-fmt="md">Jul 11</text>
+            <text class="axis" x="210" y="208" text-anchor="middle" data-day-offset="-21" data-fmt="md">Jul 19</text>
+            <text class="axis" x="350" y="208" text-anchor="middle" data-day-offset="-13" data-fmt="md">Jul 27</text>
+            <text class="axis" x="490" y="208" text-anchor="middle" data-day-offset="-5"  data-fmt="md">Aug 4</text>
 
             <line class="ref" x1="40" y1="70" x2="580" y2="70"/>
             <text class="ref-lab" x="575" y="66" text-anchor="end">90% target</text>
@@ -1392,12 +1763,12 @@
           <text class="axis" x="45" y="194" text-anchor="end">60%</text>
           <text class="axis" x="45" y="234" text-anchor="end">50%</text>
 
-          <text class="axis" x="130"  y="250" text-anchor="middle">May 12</text>
-          <text class="axis" x="320"  y="250" text-anchor="middle">May 16</text>
-          <text class="axis" x="510"  y="250" text-anchor="middle">May 20</text>
-          <text class="axis" x="700"  y="250" text-anchor="middle">May 24</text>
-          <text class="axis" x="890"  y="250" text-anchor="middle">May 28</text>
-          <text class="axis" x="1080" y="250" text-anchor="middle">Jun 1</text>
+          <text class="axis" x="130"  y="250" text-anchor="middle" data-day-offset="-29" data-fmt="md">Jul 11</text>
+          <text class="axis" x="320"  y="250" text-anchor="middle" data-day-offset="-25" data-fmt="md">Jul 15</text>
+          <text class="axis" x="510"  y="250" text-anchor="middle" data-day-offset="-21" data-fmt="md">Jul 19</text>
+          <text class="axis" x="700"  y="250" text-anchor="middle" data-day-offset="-17" data-fmt="md">Jul 23</text>
+          <text class="axis" x="890"  y="250" text-anchor="middle" data-day-offset="-13" data-fmt="md">Jul 27</text>
+          <text class="axis" x="1080" y="250" text-anchor="middle" data-day-offset="-9"  data-fmt="md">Jul 31</text>
 
           <line class="ref" x1="50" y1="70" x2="1180" y2="70"/>
           <text class="ref-lab" x="1175" y="66" text-anchor="end">90% target</text>
@@ -1452,12 +1823,12 @@
           <text class="axis" x="45" y="184" text-anchor="end">20</text>
           <text class="axis" x="45" y="214" text-anchor="end">0</text>
 
-          <text class="axis" x="130"  y="230" text-anchor="middle">May 12</text>
-          <text class="axis" x="320"  y="230" text-anchor="middle">May 16</text>
-          <text class="axis" x="510"  y="230" text-anchor="middle">May 20</text>
-          <text class="axis" x="700"  y="230" text-anchor="middle">May 24</text>
-          <text class="axis" x="890"  y="230" text-anchor="middle">May 28</text>
-          <text class="axis" x="1080" y="230" text-anchor="middle">Jun 1</text>
+          <text class="axis" x="130"  y="230" text-anchor="middle" data-day-offset="-29" data-fmt="md">Jul 11</text>
+          <text class="axis" x="320"  y="230" text-anchor="middle" data-day-offset="-25" data-fmt="md">Jul 15</text>
+          <text class="axis" x="510"  y="230" text-anchor="middle" data-day-offset="-21" data-fmt="md">Jul 19</text>
+          <text class="axis" x="700"  y="230" text-anchor="middle" data-day-offset="-17" data-fmt="md">Jul 23</text>
+          <text class="axis" x="890"  y="230" text-anchor="middle" data-day-offset="-13" data-fmt="md">Jul 27</text>
+          <text class="axis" x="1080" y="230" text-anchor="middle" data-day-offset="-9"  data-fmt="md">Jul 31</text>
 
           <!-- Stacked areas: bottom→top -->
           <path fill="#64748b" fill-opacity="0.85"
@@ -1480,6 +1851,212 @@
         </div>
       </div>
     </div>
+
+    </div><!-- /overview panel -->
+
+    <!-- ================= ORDER TRACKING PANEL ================= -->
+    <div data-panel="tracking" id="track" hidden>
+
+      <div class="card card-block">
+        <div class="card-head">
+          <div class="left">
+            <div class="eyebrow">Lookup</div>
+            <div class="title">Order Tracking</div>
+          </div>
+          <span class="hint-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+            Click a row for its event timeline
+          </span>
+        </div>
+
+        <div class="paste-box">
+          <textarea rows="1" placeholder="Paste tracking or order numbers — one per line, or comma separated&#10;793360714543, TH2655693796589, 583079503677785860"></textarea>
+          <div class="pb-side">
+            <button class="btn-solid" type="button">Look up</button>
+            <span class="pb-hint">up to 500 per batch</span>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="trk-table">
+            <thead>
+              <tr>
+                <th>Track No</th>
+                <th>Order No</th>
+                <th>Platform</th>
+                <th>Shipping</th>
+                <th>Status</th>
+                <th>Release Date</th>
+                <th class="r">Days</th>
+                <th>Last Event</th>
+                <th>Products</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <!-- ↓ drill-in wired -->
+              <tr class="linked">
+                <td>
+                  <a class="row-hit" href="#trk-583079503677785860" title="Open event timeline" aria-label="Open event timeline for 583079503677785860"></a>
+                  <span class="mono">583079503677785860</span>
+                </td>
+                <td class="mono">SO-2608-41127</td>
+                <td>TikTok Shop</td>
+                <td>Flash Express</td>
+                <td><span class="st st-bad">Order Wrong Transport</span></td>
+                <td class="mono" data-day-offset="-4" data-fmt="md">Aug 5</td>
+                <td class="r days-bad">4</td>
+                <td>Carrier rejected · re-book pending</td>
+                <td class="prodcell dim">EL-WH-1024 ×1</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">793360714543</span></td>
+                <td class="mono">SO-2608-41180</td>
+                <td>Shopee</td>
+                <td>DHL eCommerce</td>
+                <td><span class="st st-collected">Collected</span></td>
+                <td class="mono" data-day-offset="-3" data-fmt="md">Aug 6</td>
+                <td class="r">1</td>
+                <td>Collected by carrier</td>
+                <td class="prodcell dim">BT-SK-2210 ×2, EL-CB-5610 ×1</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">TH2655693796589</span></td>
+                <td class="mono">SO-2608-41192</td>
+                <td>Lazada</td>
+                <td>Flash Express</td>
+                <td><span class="st st-collected">Collected</span></td>
+                <td class="mono" data-day-offset="-3" data-fmt="md">Aug 6</td>
+                <td class="r">1</td>
+                <td>Collected by carrier</td>
+                <td class="prodcell dim">HL-KT-9981 ×1</td>
+              </tr>
+
+              <!-- ↓ drill-in wired -->
+              <tr class="linked">
+                <td>
+                  <a class="row-hit" href="#trk-793361882094" title="Open event timeline" aria-label="Open event timeline for 793361882094"></a>
+                  <span class="mono">793361882094</span>
+                </td>
+                <td class="mono">SO-2608-41204</td>
+                <td>Shopee</td>
+                <td>DHL eCommerce</td>
+                <td><span class="st st-bad">Sent to BK</span></td>
+                <td class="mono" data-day-offset="-6" data-fmt="md">Aug 3</td>
+                <td class="r days-bad">6</td>
+                <td>Claim parcel · forwarded to BK</td>
+                <td class="prodcell dim">EL-PH-0856 ×1</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">TH2655701134872</span></td>
+                <td class="mono">SO-2608-41210</td>
+                <td>Lazada</td>
+                <td>Flash Express</td>
+                <td><span class="st st-loading">Loading</span></td>
+                <td class="mono" data-day-offset="-1" data-fmt="md">Aug 8</td>
+                <td class="r">1</td>
+                <td>Handed to loading bay</td>
+                <td class="prodcell dim">SP-YG-7720 ×1</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">583079511240663</span></td>
+                <td class="mono">SO-2608-41233</td>
+                <td>TikTok Shop</td>
+                <td>Flash Express</td>
+                <td><span class="st st-repack">Repacking</span></td>
+                <td class="mono" data-day-offset="-2" data-fmt="md">Aug 7</td>
+                <td class="r days-warn">2</td>
+                <td>Damaged carton · re-boxing</td>
+                <td class="prodcell dim">HL-ST-4402 ×2</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">793362004518</span></td>
+                <td class="mono">SO-2608-41247</td>
+                <td>Shopee</td>
+                <td>DHL eCommerce</td>
+                <td><span class="st st-processing">Processing</span></td>
+                <td class="mono" data-day-offset="-1" data-fmt="md">Aug 8</td>
+                <td class="r">1</td>
+                <td>Picked · awaiting pack</td>
+                <td class="prodcell dim">FA-TS-3344 ×3</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono dim">—</span></td>
+                <td class="mono">SO-2608-41258</td>
+                <td>B2B Epasiagroup</td>
+                <td>Self-collect</td>
+                <td><span class="st st-released">Released</span></td>
+                <td class="mono" data-day-offset="0" data-fmt="md">Aug 9</td>
+                <td class="r">0</td>
+                <td>Awaiting customer pickup</td>
+                <td class="prodcell dim">EL-CB-5610 ×48, BT-SK-2210 ×24</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">TH2655712008431</span></td>
+                <td class="mono">SO-2608-41266</td>
+                <td>Lazada</td>
+                <td>Flash Express</td>
+                <td><span class="st st-bad">Item Out Of Stock</span></td>
+                <td class="mono" data-day-offset="-5" data-fmt="md">Aug 4</td>
+                <td class="r days-bad">5</td>
+                <td>Short pick · reason "ว่าง"</td>
+                <td class="prodcell dim">EL-MS-2078 ×1</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">793362117740</span></td>
+                <td class="mono">SO-2608-41271</td>
+                <td>Facebook</td>
+                <td>DHL eCommerce</td>
+                <td><span class="st st-pending">Pending</span></td>
+                <td class="mono dim">—</td>
+                <td class="r dim">—</td>
+                <td>Need confirm · unpaid COD</td>
+                <td class="prodcell dim">BT-LP-6633 ×1</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">583079522871095</span></td>
+                <td class="mono">SO-2608-41288</td>
+                <td>TikTok Shop</td>
+                <td>Flash Express</td>
+                <td><span class="st st-collected">Collected</span></td>
+                <td class="mono" data-day-offset="-7" data-fmt="md">Aug 2</td>
+                <td class="r">2</td>
+                <td>Collected by carrier</td>
+                <td class="prodcell dim">EL-WH-1024 ×1, EL-CB-5610 ×1</td>
+              </tr>
+
+              <tr>
+                <td><span class="mono">793362203994</span></td>
+                <td class="mono">SO-2608-41295</td>
+                <td>Shopee</td>
+                <td>DHL eCommerce</td>
+                <td><span class="st st-bad">Returning</span></td>
+                <td class="mono" data-day-offset="-11" data-fmt="md">Jul 29</td>
+                <td class="r days-bad">11</td>
+                <td>Refused on delivery · in return leg</td>
+                <td class="prodcell dim">HL-KT-9981 ×1</td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <div class="paste-box" style="border-bottom:none; border-top:1px solid var(--line); justify-content:space-between; align-items:center;">
+          <span class="pb-hint">Showing 12 of 12,458 orders in range · grain is one row per <span class="mono" style="font-family:var(--f-mono)">internal_order_number</span></span>
+          <span class="pb-hint">Child parcels roll up to their parent tracking number</span>
+        </div>
+      </div>
+
+    </div><!-- /tracking panel -->
 
     <!-- FOOTER -->
     <div class="footer">
@@ -1521,11 +2098,11 @@
   </div>
 
   <div class="chat-body">
-    <div class="msg user">Why did Central Online drop below 80% today?</div>
+    <div class="msg user">Why did Facebook drop below 80% today?</div>
 
     <div class="msg bot">
-      <p>Central Online's outbound FFR+ fell to <strong>85.3%</strong> (Collect <strong>79.1%</strong>) — both below the 90% target.</p>
-      <p>Main driver: <strong>52 orders stuck at Need Confirm</strong> in the In-Process stage between 14:00–16:00 ICT. The merchant CS team hasn't responded to confirmation requests for the past 3 hours.</p>
+      <p>Facebook's outbound FFR+ fell to <strong>85.3%</strong> (Collect <strong>79.1%</strong>) — both below the 90% target.</p>
+      <p>Main driver: <strong>52 orders stuck at Need Confirm</strong> in the In-Process stage between 14:00–16:00 ICT. Chat orders are keyed into JST by hand, so an unanswered confirmation blocks the release.</p>
       <p>Suggested action: escalate the confirmation queue before tomorrow's morning batch, or auto-cancel orders past the 24h SLA.</p>
     </div>
 
@@ -1564,6 +2141,303 @@
     <div class="chat-disclaimer">Powered by AI · uses data on this page</div>
   </div>
 </aside>
+
+<!-- ============================================================= -->
+<!-- DRILL-IN 1 — wrong transport, still stuck                      -->
+<!-- ============================================================= -->
+<div class="drill" id="trk-583079503677785860">
+  <a class="drill-backdrop" href="#track" aria-label="Close event timeline"></a>
+  <aside class="drill-panel">
+    <div class="dp-head">
+      <div class="meta">
+        <div class="kicker">Event Timeline</div>
+        <h2>583079503677785860</h2>
+        <div class="pname">SO-2608-41127 · TikTok Shop · Flash Express</div>
+      </div>
+      <a class="dp-close" href="#track" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+      </a>
+    </div>
+
+    <div class="dp-body">
+
+      <div class="verdict v-badbox">
+        <div class="line1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v3.75m0 3.75h.008M10.363 3.591 2.257 17.91a1.5 1.5 0 0 0 1.302 2.249h16.882a1.5 1.5 0 0 0 1.302-2.25L13.636 3.592a1.5 1.5 0 0 0-2.273 0z"/></svg>
+          <span>Missed FFR+ and FFR · reason <b>Order Wrong Transport</b></span>
+        </div>
+        <div class="line2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+          <span>Sitting 4 days at In Process — the carrier booked on the order can't serve the destination</span>
+        </div>
+      </div>
+
+      <div class="dp-tiles">
+        <div class="dp-tile"><div class="l">Days open</div><div class="v">4</div></div>
+        <div class="dp-tile"><div class="l">FFR+</div><div class="v" style="color:var(--bad)">Miss</div></div>
+        <div class="dp-tile"><div class="l">FFR</div><div class="v" style="color:var(--bad)">Miss</div></div>
+        <div class="dp-tile"><div class="l">Parcels</div><div class="v">1</div></div>
+      </div>
+
+      <section>
+        <div class="dp-sec-title">Event history</div>
+        <ul class="tl">
+          <li class="done">
+            <div class="ev-head">
+              <span class="ev-name">Order placed</span>
+              <span class="ev-time" data-day-offset="-5" data-fmt="md">Aug 4</span>
+              <span class="ev-time">18:42</span>
+              <span class="ev-src">TIKTOK</span>
+            </div>
+            <div class="ev-note">Marketplace order pushed to JST via API</div>
+          </li>
+          <li class="done">
+            <div class="ev-head">
+              <span class="ev-name">Released</span>
+              <span class="ev-time" data-day-offset="-4" data-fmt="md">Aug 5</span>
+              <span class="ev-time">09:12</span>
+              <span class="ev-src">JST</span>
+            </div>
+            <div class="ev-note">ใบกำกับ printed · uploaded to MW as a pick task</div>
+          </li>
+          <li class="done">
+            <div class="ev-head">
+              <span class="ev-name">Scanned · 1-RELEASE</span>
+              <span class="ev-time" data-day-offset="-4" data-fmt="md">Aug 5</span>
+              <span class="ev-time">10:26</span>
+              <span class="ev-src">BSN</span>
+            </div>
+          </li>
+          <li class="fail">
+            <div class="ev-head">
+              <span class="ev-name">Wrong transport flagged</span>
+              <span class="ev-time" data-day-offset="-4" data-fmt="md">Aug 5</span>
+              <span class="ev-time">14:03</span>
+              <span class="ev-src">FLASH_PICKUPLIST</span>
+            </div>
+            <div class="ev-note">Destination postcode outside the booked carrier's service area — parcel pulled from the pickup list</div>
+          </li>
+          <li class="now">
+            <div class="ev-head">
+              <span class="ev-name">Awaiting re-book</span>
+              <span class="ev-time">now</span>
+              <span class="ev-src">JST_ACTION</span>
+            </div>
+            <div class="ev-note">No status change for 4 days · needs a manual carrier swap in JST</div>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="dp-sec-title">Contents</div>
+        <div class="table-scroll">
+          <table class="trk-table" style="min-width:0">
+            <thead><tr><th>SKU</th><th>Product</th><th class="r">Qty</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">EL-WH-1024</td><td>Premium Wireless Over-Ear Headphones · 40h battery</td><td class="r">1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </aside>
+</div>
+
+<!-- ============================================================= -->
+<!-- DRILL-IN 2 — claim parcel, child tracking, forwarded to BK     -->
+<!-- ============================================================= -->
+<div class="drill" id="trk-793361882094">
+  <a class="drill-backdrop" href="#track" aria-label="Close event timeline"></a>
+  <aside class="drill-panel">
+    <div class="dp-head">
+      <div class="meta">
+        <div class="kicker">Event Timeline</div>
+        <h2>793361882094</h2>
+        <div class="pname">SO-2608-41204 · Shopee · DHL eCommerce</div>
+      </div>
+      <a class="dp-close" href="#track" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+      </a>
+    </div>
+
+    <div class="dp-body">
+
+      <div class="verdict v-warnbox">
+        <div class="line1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v3.75m0 3.75h.008M10.363 3.591 2.257 17.91a1.5 1.5 0 0 0 1.302 2.249h16.882a1.5 1.5 0 0 0 1.302-2.25L13.636 3.592a1.5 1.5 0 0 0-2.273 0z"/></svg>
+          <span>Met FFR+ on release · now a claim, status <b>Sent to BK</b></span>
+        </div>
+        <div class="line2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          <span>JST only sees the parent tracking number — the child parcel below is visible because BSN scans it separately</span>
+        </div>
+      </div>
+
+      <div class="dp-tiles">
+        <div class="dp-tile"><div class="l">Days open</div><div class="v">6</div></div>
+        <div class="dp-tile"><div class="l">FFR+</div><div class="v" style="color:var(--good)">Met</div></div>
+        <div class="dp-tile"><div class="l">FFR</div><div class="v" style="color:var(--good)">Met</div></div>
+        <div class="dp-tile"><div class="l">Parcels</div><div class="v">2</div></div>
+      </div>
+
+      <section>
+        <div class="dp-sec-title">Event history</div>
+        <ul class="tl">
+          <li class="done">
+            <div class="ev-head">
+              <span class="ev-name">Released</span>
+              <span class="ev-time" data-day-offset="-6" data-fmt="md">Aug 3</span>
+              <span class="ev-time">08:55</span>
+              <span class="ev-src">JST</span>
+            </div>
+          </li>
+          <li class="done">
+            <div class="ev-head">
+              <span class="ev-name">Scanned · 3-OUTBOUND</span>
+              <span class="ev-time" data-day-offset="-6" data-fmt="md">Aug 3</span>
+              <span class="ev-time">15:31</span>
+              <span class="ev-src">BSN</span>
+            </div>
+            <div class="ev-note">2 parcels · child <span class="mono" style="font-family:var(--f-mono)">793361882094-02</span> scanned separately</div>
+          </li>
+          <li class="done">
+            <div class="ev-head">
+              <span class="ev-name">Collected by carrier</span>
+              <span class="ev-time" data-day-offset="-5" data-fmt="md">Aug 4</span>
+              <span class="ev-time">11:07</span>
+              <span class="ev-src">DHL_SCANNED</span>
+            </div>
+          </li>
+          <li class="fail">
+            <div class="ev-head">
+              <span class="ev-name">Delivery failed · damaged</span>
+              <span class="ev-time" data-day-offset="-2" data-fmt="md">Aug 7</span>
+              <span class="ev-time">16:20</span>
+              <span class="ev-src">DHL</span>
+            </div>
+            <div class="ev-note">Customer refused one of two parcels</div>
+          </li>
+          <li class="now">
+            <div class="ev-head">
+              <span class="ev-name">Scanned · 7-CLAIM-TO-BK</span>
+              <span class="ev-time" data-day-offset="-1" data-fmt="md">Aug 8</span>
+              <span class="ev-time">09:48</span>
+              <span class="ev-src">BSN</span>
+            </div>
+            <div class="ev-note">Separated from normal returns and forwarded — this split is the reason BSN exists</div>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="dp-sec-title">Contents</div>
+        <div class="table-scroll">
+          <table class="trk-table" style="min-width:0">
+            <thead><tr><th>SKU</th><th>Product</th><th class="r">Qty</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">EL-PH-0856</td><td>Power Bank 20,000mAh · 22.5W fast charge</td><td class="r">1</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </aside>
+</div>
+
+<!-- =====================================================================
+     Evergreen dates + light interactivity.
+
+     Every date on this page is derived from TODAY, so the mock never reads
+     as stale. The markup keeps a correct hardcoded fallback, so with JS off
+     the page still makes sense — it just ages like any static page.
+     No libraries, no network. Same block ships in the sibling mockups.
+     ===================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  var M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var DAY = 86400000;
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function shift(n) { return new Date(today.getTime() + n * DAY); }
+
+  function fmt(d, f) {
+    var day = d.getDate(), mon = M[d.getMonth()], yr = d.getFullYear();
+    if (f === 'dm')   return day + ' ' + mon;
+    if (f === 'dmy2') return day + ' ' + mon + ' ' + String(yr).slice(2);
+    if (f === 'md')   return mon + ' ' + day;
+    if (f === 'mdy')  return mon + ' ' + day + ', ' + yr;
+    if (f === 'ddmm') return pad(day) + '/' + pad(d.getMonth() + 1);
+    return day + ' ' + mon + ' ' + yr;                     /* 'dmy', default */
+  }
+
+  /* data-day-offset="-4" [data-fmt] — a date N days either side of today */
+  document.querySelectorAll('[data-day-offset]').forEach(function (el) {
+    el.textContent = fmt(shift(+el.getAttribute('data-day-offset')),
+                         el.getAttribute('data-fmt'));
+  });
+
+  /* the 30-day window in the filter pill, ending today */
+  document.querySelectorAll('[data-date-range]').forEach(function (el) {
+    el.textContent = fmt(shift(-29), 'md') + ' – ' + fmt(today, 'mdy');
+  });
+
+  /* ---- tabs ------------------------------------------------------------
+     The panels are both authored in the HTML; this only flips which is
+     visible. Without it the second tab is a dead label, which is the
+     fastest way for a viewer to tell a mock from an app. */
+  var tabs = document.querySelectorAll('.tabs [data-tab]');
+  function selectTab(name) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('data-tab') === name;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', String(on));
+    });
+    document.querySelectorAll('[data-panel]').forEach(function (p) {
+      p.hidden = p.getAttribute('data-panel') !== name;
+    });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { selectTab(t.getAttribute('data-tab')); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectTab(t.getAttribute('data-tab'));
+      }
+    });
+  });
+
+  /* deep link: opening a drill-in URL directly should land on the right tab */
+  if (location.hash.indexOf('#trk-') === 0 || location.hash === '#track') {
+    selectTab('tracking');
+  }
+
+  /* ---- segmented toggles ---------------------------------------------- */
+  document.querySelectorAll('[data-seg-group]').forEach(function (group) {
+    var key = group.getAttribute('data-seg-group');
+    group.querySelectorAll('[data-seg]').forEach(function (seg) {
+      function pick() {
+        var val = seg.getAttribute('data-seg');
+        group.querySelectorAll('[data-seg]').forEach(function (s) {
+          s.classList.toggle('active', s === seg);
+        });
+        document.querySelectorAll('[data-' + key + ']').forEach(function (view) {
+          view.hidden = view.getAttribute('data-' + key) !== val;
+        });
+      }
+      seg.addEventListener('click', pick);
+      seg.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); }
+      });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

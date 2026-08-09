@@ -49,6 +49,9 @@
     --line-soft: rgba(15,23,42,0.05);
     --line-bold: rgba(15,23,42,0.18);
     --shadow-pop: 0 1px 0 rgba(15,23,42,0.04), 0 8px 24px -8px rgba(15,23,42,0.18);
+    /* was referenced by .chat-panel but never defined — the panel had no shadow */
+    --shadow-modal: 0 12px 48px -12px rgba(15,23,42,0.35);
+    --accent-soft: rgba(193,18,31,0.08);
     /* Fonts — system sans, matches bsn/wms */
     --f-display: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
     --f-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
@@ -1080,6 +1083,171 @@
     .section-header { flex-direction: column; align-items: stretch; }
     .donut-grid { grid-template-columns: 1fr; }
   }
+  /* ================= TABS / WHOLESALE ================= */
+  /* [hidden] is display:none in the UA sheet, but any element we also give an
+     explicit display (grid/flex) would win over it — so state it outright. */
+  [hidden] { display: none !important; }
+  .tab { cursor: pointer; user-select: none; }
+  .tab:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .seg { cursor: pointer; user-select: none; }
+
+  /* risk chips — the concentration-risk cue on Top Customer % */
+  .risk {
+    display: inline-flex;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--f-mono);
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .risk-med  { background: var(--warn-bg); color: var(--warn); }
+  .risk-high { background: rgba(217,119,6,0.2); color: #b45309; }
+  .risk-crit { background: var(--bad-bg);  color: var(--bad); }
+
+  /* customer status chips */
+  .cst { display: inline-flex; padding: 2px 7px; border-radius: 3px; font-size: 10px; font-weight: 500; }
+  .cst-active   { background: var(--good-bg);   color: var(--good); }
+  .cst-slipping { background: var(--warn-bg);   color: var(--warn); }
+  .cst-lost     { background: var(--bad-bg);    color: var(--bad); }
+
+  .pmix-wide { grid-column: 1 / -1; }
+  .ws-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .ws-note {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 9px 12px;
+    margin-bottom: 14px;
+    background: var(--paper-100);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--ink-600);
+  }
+  .ws-note b { color: var(--ink-900); font-weight: 500; }
+  .ws-note .mono { font-family: var(--f-mono); }
+
+  /* whole-row click, matching the pattern in procurement.html */
+  tr.linked { position: relative; cursor: pointer; }
+  tr.linked:hover { background: var(--accent-soft) !important; }
+  .row-hit { position: absolute; inset: 0; display: block; z-index: 2; }
+  tr.linked .sku { color: var(--accent); display: inline-flex; align-items: center; gap: 5px; }
+  tr.linked:hover .sku { text-decoration: underline; }
+  .tl-icon { width: 12px; height: 12px; color: var(--accent); flex-shrink: 0; }
+  .hint-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 9px;
+    background: var(--accent-soft);
+    border: 1px solid rgba(193,18,31,0.22);
+    border-radius: 4px;
+    font-family: var(--f-mono);
+    font-size: 10px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .hint-chip svg { width: 12px; height: 12px; }
+
+  /* ============= DRILL-IN SLIDE PANEL (CSS :target, no JS) ============= */
+  .drill { position: fixed; inset: 0; z-index: 80; overflow: hidden; pointer-events: none; }
+  .drill:target { pointer-events: auto; }
+  .drill-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(15,23,42,0.32);
+    opacity: 0;
+    transition: opacity 280ms ease;
+    display: block;
+  }
+  .drill:target .drill-backdrop { opacity: 1; }
+  .drill-panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 100%;
+    max-width: 660px;
+    background: var(--paper-50);
+    border-left: 1px solid var(--line);
+    box-shadow: var(--shadow-modal);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 300ms ease-in-out;
+  }
+  .drill:target .drill-panel { transform: translateX(0); }
+  .dp-head {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .dp-head .meta { flex: 1; min-width: 0; }
+  .dp-head .kicker {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-500);
+    margin-bottom: 2px;
+  }
+  .dp-head h2 {
+    margin: 0;
+    font-family: var(--f-mono);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink-900);
+    line-height: 1.15;
+  }
+  .dp-head .pname { font-size: 11px; color: var(--ink-500); margin-top: 2px; }
+  .dp-close {
+    width: 28px; height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: var(--ink-500);
+    flex-shrink: 0;
+  }
+  .dp-close:hover { background: var(--paper-200); color: var(--ink-900); }
+  .dp-close svg { width: 16px; height: 16px; }
+  .dp-body { overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 16px; }
+  .dp-sec-title {
+    font-family: var(--f-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-500);
+    margin-bottom: 8px;
+  }
+  .dp-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .dp-tile { border: 1px solid var(--line); border-radius: 5px; padding: 8px 10px; }
+  .dp-tile .l {
+    font-family: var(--f-mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--ink-500);
+  }
+  .dp-tile .v {
+    font-family: var(--f-mono);
+    font-size: 16px;
+    color: var(--ink-900);
+    margin-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .dp-chart { width: 100%; height: auto; display: block; }
+  .dp-chart .grid { stroke: var(--line); stroke-width: 1; }
+  .dp-chart .axis { font-family: var(--f-mono); font-size: 9px; fill: var(--ink-400); }
+  .dp-chart .ax-line { stroke: var(--line-bold); stroke-width: 1; }
+
+  @media (max-width: 1200px) { .ws-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 760px)  { .dp-tiles { grid-template-columns: repeat(2, 1fr); } }
+  @media (prefers-reduced-motion: reduce) {
+    .drill-backdrop, .drill-panel { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -1162,21 +1330,25 @@
       <div class="sh-filters">
         <span class="filter-pill">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          May 12 – Jun 11, 2026
+          <span data-date-range>Jul 11 – Aug 9, 2026</span>
           <span class="caret">▾</span>
         </span>
-        <span class="filter-pill">All stores (4) <span class="caret">▾</span></span>
-        <span class="filter-pill">All platforms (6) <span class="caret">▾</span></span>
+        <span class="filter-pill">All stores (5) <span class="caret">▾</span></span>
+        <span class="filter-pill">All platforms (5) <span class="caret">▾</span></span>
         <span class="filter-pill">All categories <span class="caret">▾</span></span>
+        <span class="filter-pill">All brands <span class="caret">▾</span></span>
         <span class="filter-pill">All regions <span class="caret">▾</span></span>
       </div>
     </div>
 
     <!-- TABS -->
-    <div class="tabs">
-      <div class="tab active">Online</div>
-      <div class="tab">Wholesale</div>
+    <div class="tabs" role="tablist">
+      <div class="tab active" role="tab" data-tab="online" aria-selected="true" tabindex="0">Online</div>
+      <div class="tab" role="tab" data-tab="wholesale" aria-selected="false" tabindex="0">Wholesale</div>
     </div>
+
+    <!-- ================= ONLINE PANEL ================= -->
+    <div data-panel="online">
 
     <!-- ===== OVERVIEW KPIs ===== -->
     <div class="kpi-grid">
@@ -1239,12 +1411,12 @@
           <text class="axis" x="45" y="184" text-anchor="end">500</text>
           <text class="axis" x="45" y="234" text-anchor="end">0</text>
 
-          <text class="axis" x="130"  y="248" text-anchor="middle">May 12</text>
-          <text class="axis" x="320"  y="248" text-anchor="middle">May 16</text>
-          <text class="axis" x="510"  y="248" text-anchor="middle">May 20</text>
-          <text class="axis" x="700"  y="248" text-anchor="middle">May 24</text>
-          <text class="axis" x="890"  y="248" text-anchor="middle">May 28</text>
-          <text class="axis" x="1080" y="248" text-anchor="middle">Jun 1</text>
+          <text class="axis" x="130"  y="248" text-anchor="middle" data-day-offset="-29" data-fmt="md">Jul 11</text>
+          <text class="axis" x="320"  y="248" text-anchor="middle" data-day-offset="-25" data-fmt="md">Jul 15</text>
+          <text class="axis" x="510"  y="248" text-anchor="middle" data-day-offset="-21" data-fmt="md">Jul 19</text>
+          <text class="axis" x="700"  y="248" text-anchor="middle" data-day-offset="-17" data-fmt="md">Jul 23</text>
+          <text class="axis" x="890"  y="248" text-anchor="middle" data-day-offset="-13" data-fmt="md">Jul 27</text>
+          <text class="axis" x="1080" y="248" text-anchor="middle" data-day-offset="-9"  data-fmt="md">Jul 31</text>
 
           <!-- Shopee -->
           <polyline fill="none" stroke="#EE4D2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1255,23 +1427,19 @@
           <!-- TikTok -->
           <polyline fill="none" stroke="#111111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             points="60,148 110,138 160,152 210,132 260,128 310,138 360,128 410,142 460,120 510,128 560,138 610,122 660,118 710,130 760,138 810,112 860,122 910,138 960,108 1010,118 1060,128 1110,115 1160,108"/>
-          <!-- Central -->
-          <polyline fill="none" stroke="#E60012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          <!-- Facebook — chat orders, keyed into JST by hand -->
+          <polyline fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             points="60,178 110,172 160,180 210,168 260,162 310,170 360,160 410,168 460,150 510,158 560,165 610,150 660,148 710,158 760,165 810,138 860,148 910,158 960,135 1010,142 1060,152 1110,140 1160,132"/>
-          <!-- JD -->
-          <polyline fill="none" stroke="#E2231A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          <!-- B2B Epasiagroup — the wholesale store, flat weekday rhythm -->
+          <polyline fill="none" stroke="#003049" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             points="60,192 110,188 160,195 210,182 260,178 310,185 360,178 410,185 460,168 510,175 560,182 610,170 660,165 710,175 760,180 810,158 860,168 910,175 960,152 1010,162 1060,170 1110,158 1160,150"/>
-          <!-- Website -->
-          <polyline fill="none" stroke="#1E4B8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            points="60,210 110,205 160,212 210,200 260,195 310,205 360,198 410,205 460,188 510,195 560,202 610,192 660,188 710,200 760,205 810,178 860,188 910,198 960,175 1010,185 1060,195 1110,180 1160,172"/>
         </svg>
         <div class="legend">
           <span class="lg-item"><span class="sw" style="background:#EE4D2D"></span>Shopee</span>
           <span class="lg-item"><span class="sw" style="background:#0F146E"></span>Lazada</span>
           <span class="lg-item"><span class="sw" style="background:#111111"></span>TikTok Shop</span>
-          <span class="lg-item"><span class="sw" style="background:#E60012"></span>Central Online</span>
-          <span class="lg-item"><span class="sw" style="background:#E2231A"></span>JD Central</span>
-          <span class="lg-item"><span class="sw" style="background:#1E4B8C"></span>Website (D2C)</span>
+          <span class="lg-item"><span class="sw" style="background:#1877F2"></span>Facebook</span>
+          <span class="lg-item"><span class="sw" style="background:#003049"></span>B2B Epasiagroup</span>
         </div>
       </div>
     </div>
@@ -1390,7 +1558,7 @@
               <span class="val">12</span>
             </div>
             <div class="item">
-              <span class="lab">Top RI</span>
+              <span class="lab">Top vs Avg</span>
               <span class="val">+56%</span>
             </div>
           </div>
@@ -1405,8 +1573,47 @@
         </div>
       </div>
 
-      <!-- Set vs Single -->
+      <!-- Top Brands — component_brand, the sibling breakdown to categories -->
       <div class="card">
+        <div class="card-head">
+          <div class="left">
+            <div class="eyebrow">Product mix</div>
+            <div class="title">Top brands</div>
+          </div>
+          <div style="font-family:var(--f-mono); font-size:10px; color:var(--ink-500);">8 of 64</div>
+        </div>
+        <div class="card-body">
+          <div class="cat-summary">
+            <div class="item">
+              <span class="lab">Top</span>
+              <span class="val">SoundWave</span>
+            </div>
+            <div class="item">
+              <span class="lab">Brands</span>
+              <span class="val">64</span>
+            </div>
+            <div class="item">
+              <span class="lab">Top 5 share</span>
+              <span class="val">48.2%</span>
+            </div>
+            <div class="item">
+              <span class="lab">Unbranded</span>
+              <span class="val">6.1%</span>
+            </div>
+          </div>
+          <div class="hbar-row"><span class="lab">SoundWave</span><span class="bar"><div style="width:100%"></div></span><span class="val">184%</span></div>
+          <div class="hbar-row"><span class="lab">GlowLab</span><span class="bar"><div style="width:81%"></div></span><span class="val">149%</span></div>
+          <div class="hbar-row"><span class="lab">Voltix</span><span class="bar"><div style="width:69%"></div></span><span class="val">127%</span></div>
+          <div class="hbar-row"><span class="lab">ChefPro</span><span class="bar"><div style="width:52%"></div></span><span class="val">96%</span></div>
+          <div class="hbar-row"><span class="lab">UrbanCloth</span><span class="bar"><div style="width:41%"></div></span><span class="val">75%</span></div>
+          <div class="hbar-row"><span class="lab">SilkRoot</span><span class="bar"><div style="width:33%"></div></span><span class="val">61%</span></div>
+          <div class="hbar-row"><span class="lab">FlowGear</span><span class="bar"><div style="width:26%"></div></span><span class="val">48%</span></div>
+          <div class="hbar-row"><span class="lab">(unbranded)</span><span class="bar"><div style="width:18%"></div></span><span class="val">33%</span></div>
+        </div>
+      </div>
+
+      <!-- Set vs Single — spans the row it shares with nothing else -->
+      <div class="card pmix-wide">
         <div class="card-head">
           <div class="left">
             <div class="eyebrow">Mix</div>
@@ -1460,12 +1667,16 @@
     </div>
 
     <!-- ===== TOP SKUs TABLE ===== -->
-    <div class="card card-block">
+    <div class="card card-block" id="top-skus">
       <div class="card-head">
         <div class="left">
           <div class="eyebrow">Catalog</div>
           <div class="title">Top SKUs · by items sold</div>
         </div>
+        <span class="hint-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>
+          Click a red row for its SKU detail
+        </span>
         <div style="font-family:var(--f-mono); font-size:10px; color:var(--ink-500);">8 of 834 SKUs</div>
       </div>
       <div class="table-scroll" style="padding:0;">
@@ -1481,12 +1692,14 @@
               <th style="text-align:right;">Orders</th>
               <th style="text-align:right;">Buyers</th>
               <th>Platforms</th>
-              <th style="text-align:right;">RI %</th>
+              <th style="text-align:right;" title="revenue_index_pct — 100 × this SKU's allocated revenue ÷ the average across all SKUs">vs Avg</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="rank">1</td><td class="sku">EL-WH-1024</td>
+            <!-- ↓ drill-in wired -->
+            <tr class="linked">
+              <td class="rank">1<a class="row-hit" href="#sku-el-wh-1024" title="Open SKU timeline" aria-label="Open SKU timeline for EL-WH-1024"></a></td>
+              <td class="sku">EL-WH-1024<svg class="tl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></td>
               <td class="truncate">Premium Wireless Over-Ear Headphones · 40h battery</td>
               <td>Electronics</td><td>SoundWave</td>
               <td class="num">1,248</td><td class="num">624</td><td class="num">512</td>
@@ -1501,12 +1714,14 @@
               <td><span class="platforms-inline"><svg class="plogo shopee" fill="currentColor"><use href="#lg-shopee"/></svg><svg class="plogo lazada" fill="currentColor"><use href="#lg-lazada"/></svg></span></td>
               <td class="ri-cell">278</td>
             </tr>
-            <tr>
-              <td class="rank">3</td><td class="sku">EL-PH-0856</td>
+            <!-- ↓ drill-in wired -->
+            <tr class="linked">
+              <td class="rank">3<a class="row-hit" href="#sku-el-ph-0856" title="Open SKU timeline" aria-label="Open SKU timeline for EL-PH-0856"></a></td>
+              <td class="sku">EL-PH-0856<svg class="tl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg></td>
               <td class="truncate">Fast-charge Power Bank 20,000mAh · USB-C PD</td>
               <td>Electronics</td><td>Voltix</td>
               <td class="num">856</td><td class="num">412</td><td class="num">380</td>
-              <td><span class="platforms-inline"><svg class="plogo shopee" fill="currentColor"><use href="#lg-shopee"/></svg><svg class="plogo lazada" fill="currentColor"><use href="#lg-lazada"/></svg><svg class="plogo tiktok" fill="currentColor"><use href="#lg-tiktok"/></svg><span class="pchip" style="background:#1E4B8C">W</span></span></td>
+              <td><span class="platforms-inline"><svg class="plogo shopee" fill="currentColor"><use href="#lg-shopee"/></svg><svg class="plogo lazada" fill="currentColor"><use href="#lg-lazada"/></svg><svg class="plogo tiktok" fill="currentColor"><use href="#lg-tiktok"/></svg><span class="pchip" style="background:#1877F2">F</span></span></td>
               <td class="ri-cell">234</td>
             </tr>
             <tr>
@@ -1522,7 +1737,7 @@
               <td class="truncate">Non-stick Frying Pan Set · 24cm + 28cm + spatula</td>
               <td>Home &amp; Living</td><td>ChefPro</td>
               <td class="num">688</td><td class="num">344</td><td class="num">312</td>
-              <td><span class="platforms-inline"><svg class="plogo lazada" fill="currentColor"><use href="#lg-lazada"/></svg><span class="pchip" style="background:#E60012">C</span><span class="pchip" style="background:#1E4B8C">W</span></span></td>
+              <td><span class="platforms-inline"><svg class="plogo lazada" fill="currentColor"><use href="#lg-lazada"/></svg><span class="pchip" style="background:#003049">B</span><span class="pchip" style="background:#1877F2">F</span></span></td>
               <td class="ri-cell">182</td>
             </tr>
             <tr>
@@ -1538,7 +1753,7 @@
               <td class="truncate">Eco Yoga Mat 6mm · TPE · with carrying strap</td>
               <td>Sports</td><td>FlowGear</td>
               <td class="num">524</td><td class="num">312</td><td class="num">285</td>
-              <td><span class="platforms-inline"><svg class="plogo shopee" fill="currentColor"><use href="#lg-shopee"/></svg><svg class="plogo tiktok" fill="currentColor"><use href="#lg-tiktok"/></svg><span class="pchip" style="background:#1E4B8C">W</span></span></td>
+              <td><span class="platforms-inline"><svg class="plogo shopee" fill="currentColor"><use href="#lg-shopee"/></svg><svg class="plogo tiktok" fill="currentColor"><use href="#lg-tiktok"/></svg><span class="pchip" style="background:#1877F2">F</span></span></td>
               <td class="ri-cell">144</td>
             </tr>
             <tr>
@@ -1573,36 +1788,36 @@
               <th style="text-align:right;">Sets sold</th>
               <th style="text-align:right;">Orders</th>
               <th style="text-align:right;">Components</th>
-              <th style="text-align:right;">RI %</th>
+              <th style="text-align:right;" title="revenue_index_pct — 100 × this SKU's allocated revenue ÷ the average across all SKUs">vs Avg</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="rank">1</td><td class="sku">SET-EL-001</td>
+              <td class="rank">1</td><td class="sku">ST-EL-001</td>
               <td class="truncate">Work-from-home essentials bundle (headphones + power bank + cable)</td>
               <td class="num">312</td><td class="num">298</td><td class="num">3</td>
               <td class="ri-cell">412</td>
             </tr>
             <tr>
-              <td class="rank">2</td><td class="sku">SET-BT-002</td>
+              <td class="rank">2</td><td class="sku">ST-BT-002</td>
               <td class="truncate">Glow-up beauty trio (serum + cream + cleanser)</td>
               <td class="num">248</td><td class="num">242</td><td class="num">3</td>
               <td class="ri-cell">348</td>
             </tr>
             <tr>
-              <td class="rank">3</td><td class="sku">SET-HL-003</td>
+              <td class="rank">3</td><td class="sku">ST-HL-003</td>
               <td class="truncate">Kitchen starter kit (pan set + knife + cutting board)</td>
               <td class="num">186</td><td class="num">182</td><td class="num">4</td>
               <td class="ri-cell">288</td>
             </tr>
             <tr>
-              <td class="rank">4</td><td class="sku">SET-FA-004</td>
+              <td class="rank">4</td><td class="sku">ST-FA-004</td>
               <td class="truncate">Cotton tee 3-pack · mixed colors</td>
               <td class="num">142</td><td class="num">138</td><td class="num">3</td>
               <td class="ri-cell">214</td>
             </tr>
             <tr>
-              <td class="rank">5</td><td class="sku">SET-SP-005</td>
+              <td class="rank">5</td><td class="sku">ST-SP-005</td>
               <td class="truncate">Yoga starter (mat + block + strap + towel)</td>
               <td class="num">98</td><td class="num">95</td><td class="num">4</td>
               <td class="ri-cell">186</td>
@@ -1630,9 +1845,8 @@
                 <th>Shopee</th>
                 <th>Lazada</th>
                 <th>TikTok</th>
-                <th>Central</th>
-                <th>JD Central</th>
-                <th>Website</th>
+                <th>Facebook</th>
+                <th>B2B</th>
               </tr>
             </thead>
             <tbody>
@@ -1642,8 +1856,7 @@
                 <td><div class="mcell" style="background:rgba(184,36,46,0.62); color:#fff;">5,612</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.48); color:#fff;">3,948</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.18); color:var(--ink-900);">412</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.14); color:var(--ink-900);">282</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.22); color:var(--ink-900);">658</div></td>
+                <td><div class="mcell" style="background:rgba(184,36,46,0.26); color:var(--ink-900);">940</div></td>
               </tr>
               <tr>
                 <td class="row-head">Beauty</td>
@@ -1651,8 +1864,7 @@
                 <td><div class="mcell" style="background:rgba(184,36,46,0.52); color:#fff;">4,348</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.42); color:#fff;">3,142</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.16); color:var(--ink-900);">342</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.12); color:var(--ink-900);">198</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.20); color:var(--ink-900);">512</div></td>
+                <td><div class="mcell" style="background:rgba(184,36,46,0.24); color:var(--ink-900);">710</div></td>
               </tr>
               <tr>
                 <td class="row-head">Fashion</td>
@@ -1660,8 +1872,7 @@
                 <td><div class="mcell" style="background:rgba(184,36,46,0.40); color:#fff;">2,952</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.55); color:#fff;">4,732</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.14); color:var(--ink-900);">218</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.10); color:var(--ink-900);">142</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.16); color:var(--ink-900);">328</div></td>
+                <td><div class="mcell" style="background:rgba(184,36,46,0.20); color:var(--ink-900);">470</div></td>
               </tr>
               <tr>
                 <td class="row-head">Home &amp; Living</td>
@@ -1669,8 +1880,7 @@
                 <td><div class="mcell" style="background:rgba(184,36,46,0.38); color:#fff;">2,612</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.28); color:var(--ink-900);">1,548</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.22); color:var(--ink-900);">682</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.18); color:var(--ink-900);">412</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.24); color:var(--ink-900);">792</div></td>
+                <td><div class="mcell" style="background:rgba(184,36,46,0.28); color:var(--ink-900);">1,204</div></td>
               </tr>
               <tr>
                 <td class="row-head">Sports</td>
@@ -1678,8 +1888,7 @@
                 <td><div class="mcell" style="background:rgba(184,36,46,0.22); color:var(--ink-900);">1,142</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.26); color:var(--ink-900);">1,348</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.12); color:var(--ink-900);">162</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.10); color:var(--ink-900);">98</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.16); color:var(--ink-900);">348</div></td>
+                <td><div class="mcell" style="background:rgba(184,36,46,0.20); color:var(--ink-900);">446</div></td>
               </tr>
               <tr>
                 <td class="row-head">Food &amp; Beverage</td>
@@ -1687,8 +1896,7 @@
                 <td><div class="mcell" style="background:rgba(184,36,46,0.18); color:var(--ink-900);">428</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.16); color:var(--ink-900);">312</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.20); color:var(--ink-900);">548</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.10); color:var(--ink-900);">82</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.14); color:var(--ink-900);">238</div></td>
+                <td><div class="mcell" style="background:rgba(184,36,46,0.18); color:var(--ink-900);">320</div></td>
               </tr>
               <tr>
                 <td class="row-head">Books</td>
@@ -1696,8 +1904,7 @@
                 <td><div class="mcell" style="background:rgba(184,36,46,0.14); color:var(--ink-900);">218</div></td>
                 <td><div class="mcell" style="background:var(--paper-200); color:var(--ink-400);">·</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.12); color:var(--ink-900);">142</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.10); color:var(--ink-900);">62</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.16); color:var(--ink-900);">388</div></td>
+                <td><div class="mcell" style="background:rgba(184,36,46,0.20); color:var(--ink-900);">450</div></td>
               </tr>
               <tr>
                 <td class="row-head">Toys</td>
@@ -1705,8 +1912,7 @@
                 <td><div class="mcell" style="background:rgba(184,36,46,0.18); color:var(--ink-900);">412</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.14); color:var(--ink-900);">228</div></td>
                 <td><div class="mcell" style="background:rgba(184,36,46,0.10); color:var(--ink-900);">98</div></td>
-                <td><div class="mcell" style="background:var(--paper-200); color:var(--ink-400);">·</div></td>
-                <td><div class="mcell" style="background:rgba(184,36,46,0.12); color:var(--ink-900);">142</div></td>
+                <td><div class="mcell" style="background:rgba(184,36,46,0.16); color:var(--ink-900);">142</div></td>
               </tr>
             </tbody>
           </table>
@@ -1746,9 +1952,8 @@
               <rect x="76"  y="30"  width="60" height="60"  fill="#EE4D2D" opacity="0.85"/>
               <rect x="76"  y="90"  width="60" height="50"  fill="#0F146E" opacity="0.85"/>
               <rect x="76"  y="140" width="60" height="35"  fill="#111111" opacity="0.85"/>
-              <rect x="76"  y="175" width="60" height="22"  fill="#E60012" opacity="0.85"/>
-              <rect x="76"  y="197" width="60" height="12"  fill="#E2231A" opacity="0.85"/>
-              <rect x="76"  y="209" width="60" height="11"  fill="#1E4B8C" opacity="0.85"/>
+              <rect x="76"  y="175" width="60" height="22"  fill="#1877F2" opacity="0.85"/>
+              <rect x="76" y="197" width="60" height="23" fill="#003049" opacity="0.85"/>
             </g>
             <text class="axis" x="106" y="240" text-anchor="middle">Bangkok</text>
             <text class="axis" x="106" y="254" text-anchor="middle" style="fill:var(--ink-900); font-weight:500;">3,812</text>
@@ -1758,9 +1963,8 @@
               <rect x="176" y="70"  width="60" height="48"  fill="#EE4D2D" opacity="0.85"/>
               <rect x="176" y="118" width="60" height="38"  fill="#0F146E" opacity="0.85"/>
               <rect x="176" y="156" width="60" height="25"  fill="#111111" opacity="0.85"/>
-              <rect x="176" y="181" width="60" height="16"  fill="#E60012" opacity="0.85"/>
-              <rect x="176" y="197" width="60" height="11"  fill="#E2231A" opacity="0.85"/>
-              <rect x="176" y="208" width="60" height="12"  fill="#1E4B8C" opacity="0.85"/>
+              <rect x="176" y="181" width="60" height="16"  fill="#1877F2" opacity="0.85"/>
+              <rect x="176" y="197" width="60" height="23" fill="#003049" opacity="0.85"/>
             </g>
             <text class="axis" x="206" y="240" text-anchor="middle">Central</text>
             <text class="axis" x="206" y="254" text-anchor="middle" style="fill:var(--ink-900); font-weight:500;">2,748</text>
@@ -1770,9 +1974,8 @@
               <rect x="276" y="115" width="60" height="32" fill="#EE4D2D" opacity="0.85"/>
               <rect x="276" y="147" width="60" height="26" fill="#0F146E" opacity="0.85"/>
               <rect x="276" y="173" width="60" height="20" fill="#111111" opacity="0.85"/>
-              <rect x="276" y="193" width="60" height="14" fill="#E60012" opacity="0.85"/>
-              <rect x="276" y="207" width="60" height="7"  fill="#E2231A" opacity="0.85"/>
-              <rect x="276" y="214" width="60" height="6"  fill="#1E4B8C" opacity="0.85"/>
+              <rect x="276" y="193" width="60" height="14" fill="#1877F2" opacity="0.85"/>
+              <rect x="276" y="207" width="60" height="13" fill="#003049" opacity="0.85"/>
             </g>
             <text class="axis" x="306" y="240" text-anchor="middle">North</text>
             <text class="axis" x="306" y="254" text-anchor="middle" style="fill:var(--ink-900); font-weight:500;">1,892</text>
@@ -1782,9 +1985,8 @@
               <rect x="376" y="100" width="60" height="38" fill="#EE4D2D" opacity="0.85"/>
               <rect x="376" y="138" width="60" height="30" fill="#0F146E" opacity="0.85"/>
               <rect x="376" y="168" width="60" height="22" fill="#111111" opacity="0.85"/>
-              <rect x="376" y="190" width="60" height="14" fill="#E60012" opacity="0.85"/>
-              <rect x="376" y="204" width="60" height="9"  fill="#E2231A" opacity="0.85"/>
-              <rect x="376" y="213" width="60" height="7"  fill="#1E4B8C" opacity="0.85"/>
+              <rect x="376" y="190" width="60" height="14" fill="#1877F2" opacity="0.85"/>
+              <rect x="376" y="204" width="60" height="16" fill="#003049" opacity="0.85"/>
             </g>
             <text class="axis" x="406" y="240" text-anchor="middle">N-East</text>
             <text class="axis" x="406" y="254" text-anchor="middle" style="fill:var(--ink-900); font-weight:500;">2,148</text>
@@ -1794,9 +1996,8 @@
               <rect x="476" y="148" width="60" height="22" fill="#EE4D2D" opacity="0.85"/>
               <rect x="476" y="170" width="60" height="18" fill="#0F146E" opacity="0.85"/>
               <rect x="476" y="188" width="60" height="13" fill="#111111" opacity="0.85"/>
-              <rect x="476" y="201" width="60" height="9"  fill="#E60012" opacity="0.85"/>
-              <rect x="476" y="210" width="60" height="6"  fill="#E2231A" opacity="0.85"/>
-              <rect x="476" y="216" width="60" height="4"  fill="#1E4B8C" opacity="0.85"/>
+              <rect x="476" y="201" width="60" height="9"  fill="#1877F2" opacity="0.85"/>
+              <rect x="476" y="210" width="60" height="10" fill="#003049" opacity="0.85"/>
             </g>
             <text class="axis" x="506" y="240" text-anchor="middle">East</text>
             <text class="axis" x="506" y="254" text-anchor="middle" style="fill:var(--ink-900); font-weight:500;">1,194</text>
@@ -1806,9 +2007,8 @@
             <span class="lg-item"><span class="swsq" style="background:#EE4D2D"></span>Shopee</span>
             <span class="lg-item"><span class="swsq" style="background:#0F146E"></span>Lazada</span>
             <span class="lg-item"><span class="swsq" style="background:#111"></span>TikTok</span>
-            <span class="lg-item"><span class="swsq" style="background:#E60012"></span>Central</span>
-            <span class="lg-item"><span class="swsq" style="background:#E2231A"></span>JD</span>
-            <span class="lg-item"><span class="swsq" style="background:#1E4B8C"></span>Website</span>
+            <span class="lg-item"><span class="swsq" style="background:#1877F2"></span>Facebook</span>
+            <span class="lg-item"><span class="swsq" style="background:#003049"></span>B2B Epasiagroup</span>
           </div>
         </div>
       </div>
@@ -1937,6 +2137,271 @@
       </div>
     </div>
 
+    </div><!-- /online panel -->
+
+    <!-- ================= WHOLESALE PANEL ================= -->
+    <div data-panel="wholesale" id="wholesale" hidden>
+
+      <div class="ws-note">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;color:var(--ink-400)"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>
+          Wholesale is not a marketplace — it is JST platform <span class="mono">facebook</span> filtered to
+          store <b>B2B Epasiagroup</b>. One order per document, so the analysis is about
+          <b>customers</b>, not products: who is concentrated, who is slipping away.
+          Money is shown as <b>vs Avg</b> index, never as an amount.
+        </span>
+      </div>
+
+      <!-- ===== WHOLESALE KPIs ===== -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Total Orders</span><span class="delta delta-good">+6.2%</span></div>
+          <div class="kpi-value">1,842</div>
+          <div class="kpi-sub">orders</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Items Sold</span><span class="delta delta-good">+11.4%</span></div>
+          <div class="kpi-value">38,610</div>
+          <div class="kpi-sub">items</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Active Customers</span><span class="delta delta-bad">-3</span></div>
+          <div class="kpi-value">148</div>
+          <div class="kpi-sub">ordered in range</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Repeat Rate</span><span class="delta delta-good">+1.8 pts</span></div>
+          <div class="kpi-value">72.4%</div>
+          <div class="kpi-sub">107 of 148 returning</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Avg / Order</span><span class="delta delta-neutral">·</span></div>
+          <div class="kpi-value">20.96</div>
+          <div class="kpi-sub">items/order</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-row"><span class="kpi-label">Top Customer %</span><span class="delta delta-bad">+2.1 pts</span></div>
+          <div class="kpi-value">18.7%<span class="risk risk-high">HIGH</span></div>
+          <div class="kpi-sub">of wholesale revenue</div>
+        </div>
+      </div>
+
+      <!-- ===== PARETO + REPEAT ===== -->
+      <div class="ws-grid">
+        <div class="card">
+          <div class="card-head">
+            <div class="left">
+              <div class="eyebrow">Concentration risk</div>
+              <div class="title">Customer Pareto</div>
+            </div>
+            <div style="font-family:var(--f-mono); font-size:10px; color:var(--ink-500);">cumulative % of revenue</div>
+          </div>
+          <div class="card-body">
+            <svg class="chart-svg" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
+              <line class="grid" x1="46" y1="30"  x2="580" y2="30"/>
+              <line class="grid" x1="46" y1="75"  x2="580" y2="75"/>
+              <line class="grid" x1="46" y1="120" x2="580" y2="120"/>
+              <line class="grid" x1="46" y1="165" x2="580" y2="165"/>
+              <line class="ax-line" x1="46" y1="210" x2="580" y2="210"/>
+
+              <text class="axis" x="41" y="34"  text-anchor="end">100%</text>
+              <text class="axis" x="41" y="79"  text-anchor="end">75%</text>
+              <text class="axis" x="41" y="124" text-anchor="end">50%</text>
+              <text class="axis" x="41" y="169" text-anchor="end">25%</text>
+              <text class="axis" x="41" y="214" text-anchor="end">0</text>
+
+              <!-- 80% reference -->
+              <line class="ref" x1="46" y1="66" x2="580" y2="66" stroke="#d97706" stroke-width="1" stroke-dasharray="4 4"/>
+              <text class="axis" x="576" y="61" text-anchor="end" fill="#d97706">80% of revenue</text>
+
+              <!-- cumulative curve: top 20% of customers reach ~80% -->
+              <path fill="url(#pareto-area)" d="M 46 210 L 46 176 L 100 130 L 154 104 L 207 86 L 261 74 L 314 66 L 368 55 L 421 47 L 475 40 L 528 34 L 580 30 L 580 210 Z"/>
+              <polyline fill="none" stroke="#003049" stroke-width="2"
+                points="46,176 100,130 154,104 207,86 261,74 314,66 368,55 421,47 475,40 528,34 580,30"/>
+              <defs>
+                <linearGradient id="pareto-area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#003049" stop-opacity="0.16"/>
+                  <stop offset="100%" stop-color="#003049" stop-opacity="0.01"/>
+                </linearGradient>
+              </defs>
+              <!-- the 20% marker -->
+              <line x1="314" y1="30" x2="314" y2="210" stroke="#c1121f" stroke-width="1" stroke-dasharray="3 3"/>
+              <circle cx="314" cy="66" r="4" fill="#c1121f"/>
+
+              <text class="axis" x="46"  y="228" text-anchor="middle">0%</text>
+              <text class="axis" x="154" y="228" text-anchor="middle">10%</text>
+              <text class="axis" x="314" y="228" text-anchor="middle">20%</text>
+              <text class="axis" x="421" y="228" text-anchor="middle">35%</text>
+              <text class="axis" x="580" y="228" text-anchor="middle">100%</text>
+              <text class="axis" x="300" y="245" text-anchor="middle">top X% of customers</text>
+            </svg>
+            <div class="ws-note" style="margin:10px 0 0 0;">
+              <span>The top <b>20%</b> of wholesale customers carry <b>~80%</b> of revenue, and the single
+              largest carries <b>18.7%</b> on its own. Losing one account is a material event, which is
+              why the at-risk list below is the page's real output.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="left">
+              <div class="eyebrow">Loyalty</div>
+              <div class="title">Orders per customer</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="cat-summary">
+              <div class="item"><span class="lab">New</span><span class="val">41</span></div>
+              <div class="item"><span class="lab">Returning</span><span class="val">107</span></div>
+              <div class="item"><span class="lab">Median</span><span class="val">6</span></div>
+              <div class="item"><span class="lab">Max</span><span class="val">54</span></div>
+            </div>
+            <div class="hbar-row"><span class="lab">1 order</span><span class="bar"><div style="width:38%"></div></span><span class="val">41</span></div>
+            <div class="hbar-row"><span class="lab">2–3 orders</span><span class="bar"><div style="width:100%"></div></span><span class="val">52</span></div>
+            <div class="hbar-row"><span class="lab">4–10 orders</span><span class="bar"><div style="width:63%"></div></span><span class="val">33</span></div>
+            <div class="hbar-row"><span class="lab">11–30 orders</span><span class="bar"><div style="width:33%"></div></span><span class="val">17</span></div>
+            <div class="hbar-row"><span class="lab">30+ orders</span><span class="bar"><div style="width:10%"></div></span><span class="val">5</span></div>
+
+            <div class="dp-sec-title" style="margin-top:16px;">Order size distribution</div>
+            <div class="hbar-row"><span class="lab">1–5 items</span><span class="bar"><div style="width:24%"></div></span><span class="val">218</span></div>
+            <div class="hbar-row"><span class="lab">6–20 items</span><span class="bar"><div style="width:100%"></div></span><span class="val">906</span></div>
+            <div class="hbar-row"><span class="lab">21–50 items</span><span class="bar"><div style="width:57%"></div></span><span class="val">518</span></div>
+            <div class="hbar-row"><span class="lab">51–100 items</span><span class="bar"><div style="width:17%"></div></span><span class="val">152</span></div>
+            <div class="hbar-row"><span class="lab">100+ items</span><span class="bar"><div style="width:5%"></div></span><span class="val">48</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== AT-RISK CUSTOMERS ===== -->
+      <div class="card card-block">
+        <div class="card-head">
+          <div class="left">
+            <div class="eyebrow">Retention</div>
+            <div class="title">At-risk customers</div>
+          </div>
+          <span class="hint-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+            Slipping = past its own normal cadence
+          </span>
+        </div>
+        <div class="table-scroll" style="padding:0;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Group</th>
+                <th style="text-align:right;">Orders</th>
+                <th style="text-align:right;">Normal cadence (days)</th>
+                <th style="text-align:right;">Days since</th>
+                <th style="text-align:right;" title="revenue_index_pct — 100 × this customer's allocated revenue ÷ the average">vs Avg</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="sku">Customer A-14</td><td>VIP</td>
+                <td class="num">54</td><td class="num">7</td><td class="num">31</td>
+                <td class="ri-cell">642</td>
+                <td><span class="cst cst-lost">Lost</span></td>
+              </tr>
+              <tr>
+                <td class="sku">Customer B-03</td><td>VIP</td>
+                <td class="num">38</td><td class="num">9</td><td class="num">24</td>
+                <td class="ri-cell">418</td>
+                <td><span class="cst cst-slipping">Slipping</span></td>
+              </tr>
+              <tr>
+                <td class="sku">Customer C-27</td><td>Active</td>
+                <td class="num">22</td><td class="num">14</td><td class="num">33</td>
+                <td class="ri-cell">286</td>
+                <td><span class="cst cst-slipping">Slipping</span></td>
+              </tr>
+              <tr>
+                <td class="sku">Customer A-08</td><td>VIP</td>
+                <td class="num">47</td><td class="num">6</td><td class="num">5</td>
+                <td class="ri-cell">512</td>
+                <td><span class="cst cst-active">Active</span></td>
+              </tr>
+              <tr>
+                <td class="sku">Customer D-51</td><td>At-Risk</td>
+                <td class="num">11</td><td class="num">21</td><td class="num">58</td>
+                <td class="ri-cell">142</td>
+                <td><span class="cst cst-lost">Lost</span></td>
+              </tr>
+              <tr>
+                <td class="sku">Customer B-19</td><td>Active</td>
+                <td class="num">19</td><td class="num">12</td><td class="num">19</td>
+                <td class="ri-cell">198</td>
+                <td><span class="cst cst-slipping">Slipping</span></td>
+              </tr>
+              <tr>
+                <td class="sku">Customer E-06</td><td>New</td>
+                <td class="num">2</td><td class="num">—</td><td class="num">4</td>
+                <td class="ri-cell">64</td>
+                <td><span class="cst cst-active">Active</span></td>
+              </tr>
+              <tr>
+                <td class="sku">Customer C-44</td><td>Active</td>
+                <td class="num">16</td><td class="num">15</td><td class="num">16</td>
+                <td class="ri-cell">176</td>
+                <td><span class="cst cst-active">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== MONTHLY TREND: NEW vs RETURNING ===== -->
+      <div class="card card-block">
+        <div class="card-head">
+          <div class="left">
+            <div class="eyebrow">Trend</div>
+            <div class="title">Orders by month · new vs returning</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <svg class="chart-svg" viewBox="0 0 1200 250" xmlns="http://www.w3.org/2000/svg">
+            <line class="grid" x1="50" y1="30"  x2="1180" y2="30"/>
+            <line class="grid" x1="50" y1="75"  x2="1180" y2="75"/>
+            <line class="grid" x1="50" y1="120" x2="1180" y2="120"/>
+            <line class="grid" x1="50" y1="165" x2="1180" y2="165"/>
+            <line class="ax-line" x1="50" y1="210" x2="1180" y2="210"/>
+
+            <text class="axis" x="45" y="34"  text-anchor="end">2,000</text>
+            <text class="axis" x="45" y="79"  text-anchor="end">1,500</text>
+            <text class="axis" x="45" y="124" text-anchor="end">1,000</text>
+            <text class="axis" x="45" y="169" text-anchor="end">500</text>
+            <text class="axis" x="45" y="214" text-anchor="end">0</text>
+
+            <!-- returning (base) + new (stacked on top) -->
+            <g>
+              <rect x="90"   y="112" width="62" height="98" fill="#003049"/><rect x="90"   y="94"  width="62" height="18" fill="#5287a8"/>
+              <rect x="248"  y="106" width="62" height="104" fill="#003049"/><rect x="248"  y="86"  width="62" height="20" fill="#5287a8"/>
+              <rect x="406"  y="118" width="62" height="92" fill="#003049"/><rect x="406"  y="102" width="62" height="16" fill="#5287a8"/>
+              <rect x="564"  y="98"  width="62" height="112" fill="#003049"/><rect x="564"  y="76"  width="62" height="22" fill="#5287a8"/>
+              <rect x="722"  y="92"  width="62" height="118" fill="#003049"/><rect x="722"  y="72"  width="62" height="20" fill="#5287a8"/>
+              <rect x="880"  y="86"  width="62" height="124" fill="#003049"/><rect x="880"  y="62"  width="62" height="24" fill="#5287a8"/>
+              <rect x="1038" y="80"  width="62" height="130" fill="#003049"/><rect x="1038" y="54"  width="62" height="26" fill="#5287a8"/>
+            </g>
+
+            <text class="axis" x="121"  y="230" text-anchor="middle" data-month-offset="-6">Feb</text>
+            <text class="axis" x="279"  y="230" text-anchor="middle" data-month-offset="-5">Mar</text>
+            <text class="axis" x="437"  y="230" text-anchor="middle" data-month-offset="-4">Apr</text>
+            <text class="axis" x="595"  y="230" text-anchor="middle" data-month-offset="-3">May</text>
+            <text class="axis" x="753"  y="230" text-anchor="middle" data-month-offset="-2">Jun</text>
+            <text class="axis" x="911"  y="230" text-anchor="middle" data-month-offset="-1">Jul</text>
+            <text class="axis" x="1069" y="230" text-anchor="middle" data-month-offset="0">Aug</text>
+          </svg>
+          <div class="legend">
+            <span class="lg-item"><span class="sw" style="background:#003049"></span>Returning</span>
+            <span class="lg-item"><span class="sw" style="background:#5287a8"></span>New</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /wholesale panel -->
+
     <!-- FOOTER -->
     <div class="footer">
       <span class="em">Fictional data</span> · static twin of the Sales Insights UI from the E-Commerce Data Platform at EP Asia Group.<br>
@@ -1979,8 +2444,8 @@
     <div class="msg user">Which platform grew fastest in the last 30 days?</div>
 
     <div class="msg bot">
-      <p><strong>Shopee</strong> led with <strong>+18% items sold</strong> vs the prior 30-day window, driven mostly by the <strong>Electronics</strong> category (RI 312).</p>
-      <p>Closing the gap fastest: <strong>TikTok Shop</strong> in Fashion (RI 198 vs avg 98) — set order ratio there jumped from 18% to 24.5%.</p>
+      <p><strong>Shopee</strong> led with <strong>+18% items sold</strong> vs the prior 30-day window, driven mostly by the <strong>Electronics</strong> category (312 vs avg).</p>
+      <p>Closing the gap fastest: <strong>TikTok Shop</strong> in Fashion (198 vs the 98 category average) — set order ratio there jumped from 18% to 24.5%.</p>
     </div>
 
     <div class="msg user">Show me the peak hour spikes.</div>
@@ -2014,6 +2479,263 @@
     <div class="chat-disclaimer">Powered by AI · uses data on this page</div>
   </div>
 </aside>
+
+<!-- ============================================================= -->
+<!-- DRILL-IN 1 — EL-WH-1024 · the rank-1 SKU                       -->
+<!-- ============================================================= -->
+<div class="drill" id="sku-el-wh-1024">
+  <a class="drill-backdrop" href="#top-skus" aria-label="Close SKU timeline"></a>
+  <aside class="drill-panel">
+    <div class="dp-head">
+      <div class="meta">
+        <div class="kicker">SKU Detail</div>
+        <h2>EL-WH-1024</h2>
+        <div class="pname">Premium Wireless Over-Ear Headphones · 40h battery · Electronics / SoundWave</div>
+      </div>
+      <a class="dp-close" href="#top-skus" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+      </a>
+    </div>
+
+    <div class="dp-body">
+
+      <div class="dp-tiles">
+        <div class="dp-tile"><div class="l">Items sold</div><div class="v">1,248</div></div>
+        <div class="dp-tile"><div class="l">Orders</div><div class="v">624</div></div>
+        <div class="dp-tile"><div class="l">Buyers</div><div class="v">512</div></div>
+        <div class="dp-tile"><div class="l">vs Avg</div><div class="v" style="color:var(--good)">312</div></div>
+      </div>
+
+      <section>
+        <div class="dp-sec-title">Items sold · daily</div>
+        <svg class="dp-chart" viewBox="0 0 600 190" xmlns="http://www.w3.org/2000/svg">
+          <line class="grid" x1="42" y1="20"  x2="586" y2="20"/>
+          <line class="grid" x1="42" y1="60"  x2="586" y2="60"/>
+          <line class="grid" x1="42" y1="100" x2="586" y2="100"/>
+          <line class="ax-line" x1="42" y1="140" x2="586" y2="140"/>
+          <text class="axis" x="37" y="24"  text-anchor="end">80</text>
+          <text class="axis" x="37" y="64"  text-anchor="end">55</text>
+          <text class="axis" x="37" y="104" text-anchor="end">30</text>
+          <text class="axis" x="37" y="144" text-anchor="end">0</text>
+          <defs>
+            <linearGradient id="sku-area" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#003049" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#003049" stop-opacity="0.01"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#sku-area)" d="M 42 112 L 96 104 L 150 108 L 204 92 L 258 84 L 312 96 L 366 62 L 420 54 L 474 76 L 530 48 L 586 40 L 586 140 L 42 140 Z"/>
+          <polyline fill="none" stroke="#003049" stroke-width="2"
+            points="42,112 96,104 150,108 204,92 258,84 312,96 366,62 420,54 474,76 530,48 586,40"/>
+          <!-- the payday spike the timing heatmap also shows -->
+          <circle cx="366" cy="62" r="3.5" fill="#c1121f"/>
+          <circle cx="586" cy="40" r="3.5" fill="#c1121f"/>
+          <text class="axis" x="42"  y="160" text-anchor="middle" data-day-offset="-29" data-fmt="md">Jul 11</text>
+          <text class="axis" x="204" y="160" text-anchor="middle" data-day-offset="-20" data-fmt="md">Jul 20</text>
+          <text class="axis" x="366" y="160" text-anchor="middle" data-day-offset="-11" data-fmt="md">Jul 29</text>
+          <text class="axis" x="586" y="160" text-anchor="middle" data-day-offset="0"   data-fmt="md">Aug 9</text>
+        </svg>
+      </section>
+
+      <section>
+        <div class="dp-sec-title">Platform mix</div>
+        <div class="hbar-row"><span class="lab">Shopee</span><span class="bar"><div style="width:100%"></div></span><span class="val">612</span></div>
+        <div class="hbar-row"><span class="lab">Lazada</span><span class="bar"><div style="width:62%"></div></span><span class="val">378</span></div>
+        <div class="hbar-row"><span class="lab">TikTok Shop</span><span class="bar"><div style="width:40%"></div></span><span class="val">244</span></div>
+        <div class="hbar-row"><span class="lab">Facebook</span><span class="bar"><div style="width:2%"></div></span><span class="val">14</span></div>
+      </section>
+
+      <section>
+        <div class="dp-sec-title">Sold as part of a SET</div>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead><tr><th>Set</th><th>Name</th><th style="text-align:right;">Sets</th><th style="text-align:right;">Units drawn</th></tr></thead>
+            <tbody>
+              <tr><td class="sku">ST-EL-001</td><td>Work-from-home essentials bundle</td><td class="num">312</td><td class="num">312</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ws-note" style="margin:10px 0 0 0;">
+          <span>Of 1,248 units, <b>312</b> were pulled through a SET rather than bought on their own.
+          <span class="mono">fact_sales</span> is grained at sales-line × BOM component, so the set is
+          exploded into components — counting orders here needs
+          <span class="mono">COUNT(DISTINCT order_number)</span>, not a row count.</span>
+        </div>
+      </section>
+
+    </div>
+  </aside>
+</div>
+
+<!-- ============================================================= -->
+<!-- DRILL-IN 2 — EL-PH-0856 · the one with a stock problem         -->
+<!-- ============================================================= -->
+<div class="drill" id="sku-el-ph-0856">
+  <a class="drill-backdrop" href="#top-skus" aria-label="Close SKU timeline"></a>
+  <aside class="drill-panel">
+    <div class="dp-head">
+      <div class="meta">
+        <div class="kicker">SKU Detail</div>
+        <h2>EL-PH-0856</h2>
+        <div class="pname">Fast-charge Power Bank 20,000mAh · USB-C PD · Electronics / Voltix</div>
+      </div>
+      <a class="dp-close" href="#top-skus" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18L18 6M6 6l12 12"/></svg>
+      </a>
+    </div>
+
+    <div class="dp-body">
+
+      <div class="dp-tiles">
+        <div class="dp-tile"><div class="l">Items sold</div><div class="v">856</div></div>
+        <div class="dp-tile"><div class="l">Orders</div><div class="v">412</div></div>
+        <div class="dp-tile"><div class="l">Buyers</div><div class="v">380</div></div>
+        <div class="dp-tile"><div class="l">vs Avg</div><div class="v" style="color:var(--good)">234</div></div>
+      </div>
+
+      <section>
+        <div class="dp-sec-title">Items sold · daily</div>
+        <svg class="dp-chart" viewBox="0 0 600 190" xmlns="http://www.w3.org/2000/svg">
+          <line class="grid" x1="42" y1="20"  x2="586" y2="20"/>
+          <line class="grid" x1="42" y1="60"  x2="586" y2="60"/>
+          <line class="grid" x1="42" y1="100" x2="586" y2="100"/>
+          <line class="ax-line" x1="42" y1="140" x2="586" y2="140"/>
+          <text class="axis" x="37" y="24"  text-anchor="end">60</text>
+          <text class="axis" x="37" y="64"  text-anchor="end">40</text>
+          <text class="axis" x="37" y="104" text-anchor="end">20</text>
+          <text class="axis" x="37" y="144" text-anchor="end">0</text>
+          <defs>
+            <linearGradient id="sku-area-2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#003049" stop-opacity="0.18"/>
+              <stop offset="100%" stop-color="#003049" stop-opacity="0.01"/>
+            </linearGradient>
+          </defs>
+          <!-- demand collapses once the shelf empties — not a demand signal, a supply one -->
+          <path fill="url(#sku-area-2)" d="M 42 74 L 96 68 L 150 80 L 204 64 L 258 70 L 312 60 L 366 96 L 420 124 L 474 132 L 530 136 L 586 134 L 586 140 L 42 140 Z"/>
+          <polyline fill="none" stroke="#003049" stroke-width="2"
+            points="42,74 96,68 150,80 204,64 258,70 312,60 366,96 420,124 474,132 530,136 586,134"/>
+          <line x1="366" y1="20" x2="366" y2="140" stroke="#c1121f" stroke-width="1" stroke-dasharray="3 3"/>
+          <text class="axis" x="372" y="30" fill="#c1121f">stockout</text>
+          <text class="axis" x="42"  y="160" text-anchor="middle" data-day-offset="-29" data-fmt="md">Jul 11</text>
+          <text class="axis" x="204" y="160" text-anchor="middle" data-day-offset="-20" data-fmt="md">Jul 20</text>
+          <text class="axis" x="366" y="160" text-anchor="middle" data-day-offset="-11" data-fmt="md">Jul 29</text>
+          <text class="axis" x="586" y="160" text-anchor="middle" data-day-offset="0"   data-fmt="md">Aug 9</text>
+        </svg>
+        <div class="ws-note" style="margin:10px 0 0 0;">
+          <span>The drop from <span class="mono" data-day-offset="-11" data-fmt="md">Jul 29</span> is a
+          <b>supply</b> event, not a demand one — this SKU is on the procurement reorder list and hit
+          <b>Item Out Of Stock</b> 7 times in the fulfillment pipeline this period. Read it as lost sales,
+          not falling interest.</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="dp-sec-title">Platform mix</div>
+        <div class="hbar-row"><span class="lab">Shopee</span><span class="bar"><div style="width:100%"></div></span><span class="val">402</span></div>
+        <div class="hbar-row"><span class="lab">Lazada</span><span class="bar"><div style="width:58%"></div></span><span class="val">232</span></div>
+        <div class="hbar-row"><span class="lab">TikTok Shop</span><span class="bar"><div style="width:44%"></div></span><span class="val">178</span></div>
+        <div class="hbar-row"><span class="lab">Facebook</span><span class="bar"><div style="width:11%"></div></span><span class="val">44</span></div>
+      </section>
+
+    </div>
+  </aside>
+</div>
+
+<!-- =====================================================================
+     Evergreen dates + light interactivity.
+
+     Every date on this page is derived from TODAY, so the mock never reads
+     as stale. The markup keeps a correct hardcoded fallback, so with JS off
+     the page still makes sense — it just ages like any static page.
+     No libraries, no network. Same block ships in the sibling mockups.
+     ===================================================================== -->
+<script>
+(function () {
+  'use strict';
+
+  var M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var DAY = 86400000;
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function shift(n) { return new Date(today.getTime() + n * DAY); }
+
+  function fmt(d, f) {
+    var day = d.getDate(), mon = M[d.getMonth()], yr = d.getFullYear();
+    if (f === 'dm')   return day + ' ' + mon;
+    if (f === 'dmy2') return day + ' ' + mon + ' ' + String(yr).slice(2);
+    if (f === 'md')   return mon + ' ' + day;
+    if (f === 'mdy')  return mon + ' ' + day + ', ' + yr;
+    if (f === 'ddmm') return pad(day) + '/' + pad(d.getMonth() + 1);
+    return day + ' ' + mon + ' ' + yr;                     /* 'dmy', default */
+  }
+
+  /* data-day-offset="-20" [data-fmt] — a date N days either side of today */
+  document.querySelectorAll('[data-day-offset]').forEach(function (el) {
+    el.textContent = fmt(shift(+el.getAttribute('data-day-offset')),
+                         el.getAttribute('data-fmt'));
+  });
+
+  /* data-month-offset="-3" — a month label N months back */
+  document.querySelectorAll('[data-month-offset]').forEach(function (el) {
+    var d = new Date(today.getFullYear(), today.getMonth() + (+el.getAttribute('data-month-offset')), 1);
+    el.textContent = M[d.getMonth()];
+  });
+
+  /* the 30-day window in the filter pill, ending today */
+  document.querySelectorAll('[data-date-range]').forEach(function (el) {
+    el.textContent = fmt(shift(-29), 'md') + ' – ' + fmt(today, 'mdy');
+  });
+
+  /* ---- tabs ------------------------------------------------------------
+     Both panels are authored in the HTML; this only flips which is visible.
+     Without it the second tab is a dead label, which is the fastest way for
+     a viewer to tell a mock from an app. */
+  var tabs = document.querySelectorAll('.tabs [data-tab]');
+  function selectTab(name) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('data-tab') === name;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', String(on));
+    });
+    document.querySelectorAll('[data-panel]').forEach(function (p) {
+      p.hidden = p.getAttribute('data-panel') !== name;
+    });
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { selectTab(t.getAttribute('data-tab')); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectTab(t.getAttribute('data-tab'));
+      }
+    });
+  });
+
+  /* deep link: land on the right tab when a drill-in URL is opened directly */
+  if (location.hash === '#wholesale') selectTab('wholesale');
+
+  /* ---- segmented toggles ---------------------------------------------- */
+  document.querySelectorAll('[data-seg-group]').forEach(function (group) {
+    var key = group.getAttribute('data-seg-group');
+    group.querySelectorAll('[data-seg]').forEach(function (seg) {
+      function pick() {
+        var val = seg.getAttribute('data-seg');
+        group.querySelectorAll('[data-seg]').forEach(function (s) {
+          s.classList.toggle('active', s === seg);
+        });
+        document.querySelectorAll('[data-' + key + ']').forEach(function (view) {
+          view.hidden = view.getAttribute('data-' + key) !== val;
+        });
+      }
+      seg.addEventListener('click', pick);
+      seg.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); }
+      });
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
