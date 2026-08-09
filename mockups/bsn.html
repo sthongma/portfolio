@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Scanner — BSN · Sahatsawat Thongma</title>
-<meta name="description" content="Mock scanner page replicating the real Barcode Scanner Network (BSN) UI from EP Asia Group: dark notebook scan workspace, real-time scan result feedback, recent-scans table with workflow validation. All data fictional." />
+<meta name="description" content="Mock scanner page replicating the real Barcode Scanner Network (BSN v2) UI from EP Asia Group: light paper theme, guided scan form, live scan-result banner, today summary and recent-scans table. All data fictional." />
 <meta property="og:title" content="Barcode Scanner (BSN) — Mock UI · Sahatsawat Thongma" />
 <meta property="og:description" content="Mock UI for the real-time multi-user Barcode Scanner Network from EP Asia Group's E-Commerce Data Platform. All data fictional." />
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/186543613" />
@@ -12,80 +12,84 @@
 <meta name="twitter:card" content="summary" />
 <link rel="canonical" href="https://sthongma.github.io/portfolio/mockups/bsn.html" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231f2937'/><text x='50' y='72' font-size='66' font-family='sans-serif' font-weight='700' fill='white' text-anchor='middle'>S</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   /* ==========================================================
-     BSN design tokens (matches templates/base.html in real app)
+     BSN v2 design tokens — copied from templates/base.html
+     in the real app (light "paper" theme, shipped 2026-06-19)
      ========================================================== */
   :root {
-    --c-dark-bg: 248 250 252;
-    --c-dark-card: 255 255 255;
-    --c-dark-border: 229 231 235;
-    --c-text: 15 23 42;
-    --c-text-sub: 71 85 105;
-    --c-text-dim: 148 163 184;
-    --c-chrome: 241 245 249;
-    --c-chrome-h: 226 232 240;
+    --c-dark-bg: 244 243 239;     /* #F4F3EF paper page bg */
+    --c-dark-card: 255 255 255;   /* #FFFFFF surface */
+    --c-dark-border: 237 234 226; /* #EDEAE2 soft card border */
+    --c-line: 231 228 220;        /* #E7E4DC input / line border */
+    --c-nav: 25 26 23;            /* #191A17 dark sidebar */
+    --c-text: 27 27 23;           /* #1B1B17 ink */
+    --c-text-sub: 94 93 85;       /* #5E5D55 sub */
+    --c-text-dim: 168 166 157;    /* #A8A69D dim */
+    --c-chrome: 240 238 232;      /* #F0EEE8 neutral chip */
+    --c-chrome-h: 231 228 220;    /* #E7E4DC hover */
 
-    --c-success-50: 240 253 244;
-    --c-success-400: 34 197 94;
-    --c-success-500: 22 163 74;
-    --c-success-600: 22 163 74;
-    --c-success-700: 21 128 61;
+    --c-success-50: 231 245 236;
+    --c-success-400: 31 157 87;   /* #1F9D57 */
+    --c-success-500: 31 157 87;
+    --c-success-600: 31 157 87;
+    --c-success-700: 23 128 67;
 
-    --c-danger-50: 254 236 236;
-    --c-danger-400: 210 50 55;
-    --c-danger-500: 193 18 31;
-    --c-danger-600: 193 18 31;
-    --c-danger-700: 120 0 0;
+    --c-danger-50: 251 233 231;
+    --c-danger-400: 216 69 58;    /* #D8453A */
+    --c-danger-500: 216 69 58;
+    --c-danger-600: 216 69 58;
+    --c-danger-700: 176 40 32;
 
-    --c-warning-50: 255 251 235;
-    --c-warning-400: 251 191 36;
-    --c-warning-500: 245 158 11;
-    --c-warning-600: 217 119 6;
-    --c-warning-700: 180 83 9;
+    --c-warning-50: 251 240 220;
+    --c-warning-400: 176 122 14;
+    --c-warning-500: 224 160 18;  /* #E0A012 */
+    --c-warning-600: 224 160 18;
+    --c-warning-700: 176 122 14;
 
-    --c-info-50: 232 242 250;
-    --c-info-400: 102 155 188;
-    --c-info-500: 82 135 168;
-    --c-info-600: 0 48 73;
-    --c-info-700: 0 48 73;
+    --c-info-50: 234 240 255;     /* #EAF0FF accent-soft */
+    --c-info-100: 218 228 255;
+    --c-info-400: 47 107 255;     /* #2F6BFF accent */
+    --c-info-500: 47 107 255;
+    --c-info-600: 47 107 255;
+    --c-info-700: 30 79 208;      /* #1E4FD0 accent-ink */
 
-    --c-slate-400: 148 163 184;
-    --c-slate-500: 100 116 139;
-    --c-slate-600: 71 85 105;
-    --c-slate-700: 51 65 85;
+    --o-badge: 0.14;
 
-    --o-tint: 0.08;
-    --o-badge: 0.12;
-    --o-border: 0.2;
+    --sidebar-w: 15.5rem;
 
-    --sidebar-w: 16rem;
-
-    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Noto Sans Thai", Roboto, sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --font-sans: 'IBM Plex Sans Thai', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   }
 
   * { box-sizing: border-box; }
-  html, body {
+  html { font-size: 16px; }
+  body {
     margin: 0;
-    padding: 0;
     background: rgb(var(--c-dark-bg));
     color: rgb(var(--c-text));
     font-family: var(--font-sans);
-    font-size: 14px;
-    line-height: 1.5;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; }
+  button { font-family: inherit; border: none; background: none; cursor: pointer; }
+  .font-mono { font-family: var(--font-mono); }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--c-chrome-h)); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-text-dim)); }
 
   /* ==========================================================
-     Sidebar — dark navy (info-700) — matches real BSN
+     Sidebar — #191A17, desktop fixed / mobile drawer
      ========================================================== */
   .sidebar {
     width: var(--sidebar-w);
-    background: rgb(var(--c-info-700));
+    background: rgb(var(--c-nav));
     height: 100vh;
     position: fixed;
     top: 0; left: 0;
@@ -95,522 +99,554 @@
     overflow-y: auto;
   }
   .sb-brand {
-    padding: 20px;
+    padding: 1.25rem;
     display: flex;
     align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(255 255 255 / 0.1);
   }
   .sb-logo {
-    width: 32px; height: 32px;
-    border-radius: 8px;
+    width: 2rem; height: 2rem;
+    border-radius: 0.5rem;
     background: rgb(var(--c-info-500));
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    font-weight: 700;
-    font-size: 12px;
     flex-shrink: 0;
-    letter-spacing: 0.04em;
   }
-  .sb-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.2;
-  }
-  .sb-subtitle {
-    font-size: 11.5px;
-    color: rgba(255, 255, 255, 0.5);
-    margin-top: 1px;
-  }
-  .sb-section-label {
-    font-size: 11px;
+  .sb-logo svg { width: 1.125rem; height: 1.125rem; color: #fff; }
+  .sb-title { font-size: 1rem; font-weight: 700; color: #fff; line-height: 1.25; }
+  .sb-subtitle { font-size: 0.75rem; color: rgba(255 255 255 / 0.5); margin-top: -0.125rem; }
+
+  .sb-nav-list { flex: 1; padding: 0.75rem 0; }
+  .sidebar-section-label {
+    font-size: 0.6875rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255 255 255 / 0.4);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding: 14px 20px 6px;
+    padding: 0.75rem 1.25rem 0.375rem;
   }
-  .sb-nav-list {
-    flex: 1;
-    padding: 8px 0;
-  }
-  .sb-nav {
+  .sidebar-nav-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 16px;
-    margin: 2px 8px;
-    border-radius: 8px;
-    font-size: 14px;
+    gap: 0.75rem;
+    padding: 0.6875rem 0.75rem;
+    margin: 0.1875rem 0.75rem;
+    border-radius: 0.6875rem;
+    font-size: 0.875rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.7);
-    cursor: pointer;
-    transition: all 120ms;
+    color: rgba(255 255 255 / 0.62);
+    transition: all 0.15s ease;
   }
-  .sb-nav:hover {
-    background: rgba(255, 255, 255, 0.1);
+  .sidebar-nav-item:hover { background: rgba(255 255 255 / 0.08); color: #fff; }
+  .sidebar-nav-item.active {
+    background: rgb(var(--c-info-500) / 0.18);
     color: #fff;
+    font-weight: 600;
   }
-  .sb-nav.active {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+  .sidebar-nav-item.active svg { color: #5B8BFF; }
+  .sidebar-nav-item svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; }
+
+  .sb-footer { border-top: 1px solid rgba(255 255 255 / 0.1); padding: 1rem; }
+  .sb-user { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.75rem; }
+  .sb-avatar {
+    width: 2rem; height: 2rem;
+    background: rgba(255 255 255 / 0.2);
+    border-radius: 9999px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0;
   }
-  .sb-nav svg { width: 18px; height: 18px; flex-shrink: 0; }
-  .sb-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 16px;
-  }
-  .user-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-  }
-  .user-avatar {
-    width: 32px; height: 32px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
+  .sb-avatar svg { width: 1rem; height: 1rem; }
+  .sb-user-name { display: flex; align-items: center; gap: 0.375rem; }
+  .sb-user-name span:first-child { font-size: 0.875rem; font-weight: 500; color: #fff; }
+  .sb-admin-badge {
+    font-size: 0.5625rem;
+    font-weight: 600;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    background: rgb(var(--c-info-500) / 0.25);
+    color: #9DBBFF;
     flex-shrink: 0;
+    letter-spacing: 0.02em;
   }
-  .user-avatar svg { width: 16px; height: 16px; }
-  .user-name {
-    font-size: 13px;
-    font-weight: 500;
-    color: #fff;
-    line-height: 1.3;
-  }
-  .user-role {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.5);
-  }
-  .lang-row {
-    display: flex;
-    gap: 8px;
-  }
-  .lang-row a {
+  .sb-user-role { font-size: 0.75rem; color: rgba(255 255 255 / 0.5); }
+  .sb-actions { display: flex; align-items: center; gap: 0.5rem; }
+  .sb-actions a {
     flex: 1;
     text-align: center;
-    font-size: 12px;
-    padding: 6px 0;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.7);
-    transition: all 120ms;
+    font-size: 0.75rem;
+    padding: 0.375rem 0;
+    border-radius: 0.375rem;
+    background: rgba(255 255 255 / 0.1);
+    color: rgba(255 255 255 / 0.7);
+    transition: all 0.15s ease;
   }
-  .lang-row a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-  }
+  .sb-actions a:hover { background: rgba(255 255 255 / 0.2); color: #fff; }
+  .sb-version { font-size: 0.625rem; color: rgba(255 255 255 / 0.3); text-align: center; margin: 0.5rem 0 0; }
 
   /* ==========================================================
-     Main content
+     Mobile top bar (hamburger → drawer in the real app)
      ========================================================== */
-  .main-content {
-    margin-left: var(--sidebar-w);
-    min-height: 100vh;
+  .mobile-topbar {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgb(var(--c-nav));
+    color: #fff;
+    padding: 0.625rem 0.875rem;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
   }
+  .mt-left { display: flex; align-items: center; gap: 0.625rem; min-width: 0; }
+  .mt-burger { padding: 0.25rem; margin-left: -0.25rem; border-radius: 0.5rem; color: #fff; display: flex; }
+  .mt-burger svg { width: 1.5rem; height: 1.5rem; }
+  .mt-logo {
+    width: 1.75rem; height: 1.75rem;
+    border-radius: 0.375rem;
+    background: rgb(var(--c-info-500));
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .mt-logo svg { width: 1rem; height: 1rem; color: #fff; }
+  .mt-title { font-size: 0.875rem; font-weight: 700; color: #fff; line-height: 1.2; }
+  .mt-sub { font-size: 0.625rem; color: rgba(255 255 255 / 0.5); margin-top: -0.125rem; }
+  .mt-user {
+    display: flex; align-items: center; gap: 0.375rem;
+    background: rgba(255 255 255 / 0.1);
+    border-radius: 9999px;
+    padding: 0.25rem 0.625rem 0.25rem 0.5rem;
+    max-width: 45%;
+  }
+  .mt-user svg { width: 1rem; height: 1rem; color: rgba(255 255 255 / 0.7); flex-shrink: 0; }
+  .mt-user span { font-size: 0.75rem; color: rgba(255 255 255 / 0.9); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-  /* Page header */
+  /* ==========================================================
+     Layout
+     ========================================================== */
+  .main-content { margin-left: var(--sidebar-w); min-height: 100vh; }
+
   .page-header {
-    padding: 24px 24px 16px;
-  }
-  .page-header-inner {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: #fff;
+    border-bottom: 1px solid rgb(var(--c-line));
+    padding: 1rem 1.75rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 12px;
-    border-bottom: 2px solid rgb(var(--c-info-500) / 0.3);
+    gap: 0.75rem;
   }
-  .page-header-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .page-header-title svg {
-    width: 22px; height: 22px;
-    color: rgb(var(--c-info-500));
-  }
-  .page-header-title h1 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 700;
-    color: rgb(var(--c-text));
-  }
+  .ph-left { display: flex; align-items: center; gap: 0.625rem; min-width: 0; }
+  .ph-left > svg { width: 1.5rem; height: 1.5rem; color: rgb(var(--c-info-500)); flex-shrink: 0; }
+  .ph-left h1 { margin: 0; font-size: 1.25rem; font-weight: 700; color: rgb(var(--c-text)); }
   .mock-badge {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    padding: 3px 8px;
-    background: #fff7ed;
-    border: 1px solid #fed7aa;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    color: rgb(var(--c-warning-600));
-    margin-left: 8px;
+    gap: 0.375rem;
+    background: rgb(var(--c-warning-500) / var(--o-badge));
+    color: rgb(var(--c-warning-700));
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    white-space: nowrap;
   }
   .mock-badge::before {
     content: '';
-    width: 5px;
-    height: 5px;
-    background: rgb(var(--c-warning-600));
-    border-radius: 50%;
+    width: 0.375rem; height: 0.375rem;
+    border-radius: 9999px;
+    background: rgb(var(--c-warning-500));
   }
+
+  .page-body { padding: 1.5rem; }
+  .scan-grid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .col-left { grid-column: span 3 / span 3; display: flex; flex-direction: column; gap: 1rem; }
+  .col-right { grid-column: span 7 / span 7; }
 
   /* ==========================================================
-     The notebook (dark slate-700 container — iconic BSN)
+     UI primitives (.ui-card / .ui-input / .ui-tag-*)
      ========================================================== */
-  .notebook {
-    margin: 0 24px 24px;
-    background: rgb(var(--c-slate-700));
-    border-radius: 16px;
-    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
-    padding: 24px;
+  .ui-card {
+    background-color: rgb(var(--c-dark-card));
+    border: 1px solid rgb(var(--c-dark-border));
+    border-radius: 1rem;
+    padding: 1.25rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
   }
-  .notebook-grid {
-    display: grid;
-    grid-template-columns: 3fr 7fr;
-    gap: 16px;
-  }
-  .left-col {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  /* Inner panels (slate-600/50 with slate-500/30 border) */
-  .panel {
-    background: rgb(var(--c-slate-600) / 0.5);
-    border: 1px solid rgb(var(--c-slate-500) / 0.3);
-    border-radius: 12px;
-    padding: 18px;
-  }
-  .panel.summary-panel {
-    background: rgb(var(--c-info-600) / 0.2);
-    border: 1px solid rgb(var(--c-info-500) / 0.3);
-  }
-  .panel-title {
+  .card-title {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
+    gap: 0.5rem;
+    font-size: 0.875rem;
     font-weight: 600;
-    color: #fff;
-    margin: 0 0 14px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgb(var(--c-slate-500) / 0.4);
+    color: rgb(var(--c-text));
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgb(var(--c-dark-border));
   }
-  .panel-title svg {
-    width: 16px; height: 16px;
-    color: rgb(var(--c-info-400));
-  }
-  .panel.summary-panel .panel-title { border-bottom: none; padding-bottom: 0; margin-bottom: 12px; }
+  .card-title svg { width: 1rem; height: 1rem; color: rgb(var(--c-info-500)); flex-shrink: 0; }
+  .card-title.no-rule { border-bottom: none; padding-bottom: 0; margin-bottom: 0.75rem; }
 
-  /* ==========================================================
-     Form inputs (dark variant — scan-dark)
-     ========================================================== */
   .ui-label {
     display: block;
-    font-size: 11px;
+    color: rgb(var(--c-text-dim));
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 0.375rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: rgb(226, 232, 240);
-    margin-bottom: 5px;
-    font-weight: 600;
+    letter-spacing: 0.025em;
   }
   .ui-input {
     width: 100%;
-    background: rgb(var(--c-slate-600));
-    border: 1.5px solid rgb(var(--c-slate-500) / 0.5);
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: rgb(226, 232, 240);
-    font-size: 14px;
+    background-color: rgb(var(--c-dark-card));
+    border: 1.5px solid rgb(var(--c-line));
+    border-radius: 0.8125rem;
+    padding: 0.6875rem 0.875rem;
+    color: rgb(var(--c-text));
+    font-size: 0.9375rem;
     font-family: inherit;
-    transition: border-color 120ms, box-shadow 120ms;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
-  .ui-input::placeholder { color: rgb(148, 163, 184); }
+  .ui-input::placeholder { color: rgb(var(--c-text-dim)); }
   .ui-input:focus {
     outline: none;
     border-color: rgb(var(--c-info-500));
-    box-shadow: 0 0 0 3px rgb(var(--c-info-500) / 0.2);
+    box-shadow: 0 0 0 3px rgb(var(--c-info-500) / 0.12);
   }
-  textarea.ui-input { min-height: 64px; resize: vertical; }
-  .form-row { margin-bottom: 12px; }
+  textarea.ui-input { min-height: 4rem; resize: vertical; }
   select.ui-input {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A8A69D' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 32px;
+    background-position: right 0.9375rem center;
+    background-size: 1.05rem;
+    padding-right: 2.75rem;
   }
+  .field { margin-bottom: 0.75rem; }
 
-  /* Barcode input — large, mono, centered, glowing */
-  .barcode-row {
-    display: flex;
-    gap: 8px;
-    margin-top: 4px;
+  .ui-tag-info {
+    background: rgb(var(--c-info-600) / var(--o-badge));
+    color: rgb(var(--c-info-700));
+    font-weight: 600;
   }
-  .barcode-wrap {
-    flex: 1;
-    position: relative;
+  .ui-tag-neutral {
+    background: rgb(var(--c-chrome));
+    color: rgb(var(--c-text-sub));
+    font-weight: 600;
   }
-  .barcode-input {
-    width: 100%;
-    background: rgb(var(--c-slate-600)) !important;
-    border: 2px solid rgb(var(--c-info-500));
-    border-radius: 8px;
-    padding: 10px 12px;
-    color: #fff;
-    font-size: 16px;
-    font-family: var(--font-mono);
-    text-align: center;
-    letter-spacing: 0.04em;
-    box-shadow: 0 0 0 3px rgb(var(--c-info-500) / 0.18), 0 1px 3px rgba(0, 0, 0, 0.2);
-    animation: barcode-glow 2.4s ease-in-out infinite;
+  .pill {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    white-space: nowrap;
   }
-  .barcode-input::placeholder { color: rgb(148, 163, 184); letter-spacing: 0.05em; }
-  .barcode-input:focus { outline: none; }
-  @keyframes barcode-glow {
-    0%, 100% { box-shadow: 0 0 0 3px rgb(var(--c-info-500) / 0.18), 0 1px 3px rgba(0, 0, 0, 0.2); }
-    50% { box-shadow: 0 0 0 5px rgb(var(--c-info-500) / 0.28), 0 1px 3px rgba(0, 0, 0, 0.2); }
-  }
-  .camera-btn {
-    background: rgb(var(--c-info-500));
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 0 14px;
-    cursor: pointer;
-    transition: all 120ms;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    flex-shrink: 0;
-  }
-  .camera-btn:hover { background: rgb(var(--c-info-600)); }
-  .camera-btn:active { transform: scale(0.95); }
-  .camera-btn svg { width: 18px; height: 18px; }
 
   /* ==========================================================
-     Scan Result toast (success-600 = green)
+     Barcode row + confirm button (the "ready" state)
+     ========================================================== */
+  .barcode-row { display: flex; gap: 0.5rem; }
+  .barcode-input {
+    width: 100%;
+    height: 62px;
+    background: #fff;
+    border: 2px solid rgb(var(--c-info-500));
+    border-radius: 1rem;
+    padding: 0 0.875rem;
+    color: rgb(var(--c-text));
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(47, 107, 255, 0.12);
+    transition: border-color 0.15s ease;
+    /* Onboarding guide from the real app: the NEXT required field pulses */
+    animation: stepGlow 1.5s ease-in-out infinite;
+  }
+  .barcode-input::placeholder { color: rgb(var(--c-text-dim)); font-size: 0.9375rem; }
+  .barcode-input:focus { outline: none; animation: none; border-color: rgb(var(--c-info-600)); }
+  @keyframes stepGlow {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(47, 107, 255, 0.85); }
+    50%      { box-shadow: 0 0 0 2px rgba(47, 107, 255, 0.95), 0 0 0 7px rgba(47, 107, 255, 0.16); }
+  }
+  .camera-btn {
+    width: 62px; height: 62px;
+    flex-shrink: 0;
+    border-radius: 1rem;
+    background: rgb(var(--c-info-600));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(47, 107, 255, 0.28);
+    transition: all 0.15s ease;
+  }
+  .camera-btn:hover { background: rgb(var(--c-info-700)); }
+  .camera-btn:active { transform: scale(0.95); }
+  .camera-btn svg { width: 1.25rem; height: 1.25rem; }
+
+  .confirm-btn {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    background: rgb(var(--c-info-600));
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 14px rgba(47, 107, 255, 0.28);
+    transition: all 0.15s ease;
+  }
+  .confirm-btn:hover { background: rgb(var(--c-info-700)); }
+  .confirm-btn:active { transform: scale(0.99); }
+  .confirm-btn svg { width: 1rem; height: 1rem; }
+
+  /* ==========================================================
+     Scan result banner
      ========================================================== */
   .scan-result {
     background: rgb(var(--c-success-600));
+    box-shadow: 0 6px 20px rgba(31, 157, 87, 0.28);
     color: #fff;
-    border-radius: 12px;
-    padding: 12px 14px;
-    font-size: 14px;
-    box-shadow: 0 4px 12px rgb(var(--c-success-600) / 0.3);
-    animation: pulse-once 0.4s ease-out;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin-bottom: 0.75rem;
+    animation: pulseOnce 0.3s ease-out;
   }
-  @keyframes pulse-once {
+  @keyframes pulseOnce {
     0% { transform: scale(1); }
     50% { transform: scale(1.02); }
     100% { transform: scale(1); }
   }
-  .scan-result .msg {
+  .scan-result .icon-box {
+    width: 2.5rem; height: 2.5rem;
+    flex: none;
+    border-radius: 0.75rem;
+    background: rgba(255 255 255 / 0.2);
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-weight: 600;
+    justify-content: center;
   }
-  .scan-result .msg svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .scan-result .icon-box svg { width: 1.5rem; height: 1.5rem; }
+  .scan-result .msg { font-weight: 600; font-size: 0.875rem; }
   .scan-result .detail {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 12px;
-    margin-top: 4px;
-    margin-left: 26px;
     font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: rgba(255 255 255 / 0.85);
+    margin-top: 0.125rem;
   }
 
   /* ==========================================================
-     Today summary panel
+     Today summary
      ========================================================== */
   .summary-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4px 6px;
+    gap: 0.5rem;
+    padding: 0.25rem;
   }
   .summary-label {
-    font-size: 13px;
-    color: rgb(226, 232, 240);
-  }
-  .summary-label .sub {
-    color: rgb(148, 163, 184);
-    margin-left: 4px;
+    color: rgb(var(--c-text-sub));
+    font-size: 0.875rem;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .summary-count {
-    font-size: 28px;
+    font-size: 1.875rem;
     font-weight: 700;
-    color: rgb(var(--c-info-400));
+    color: rgb(var(--c-info-500));
     font-family: var(--font-mono);
     line-height: 1;
+    flex: none;
   }
 
   /* ==========================================================
      Recent scans table
      ========================================================== */
-  .recent-table-wrap {
-    border-radius: 8px;
-    overflow: hidden;
-    max-height: 64vh;
+  .table-wrap {
+    max-height: 70vh;
     overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 0.5rem;
   }
-  .recent-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  thead { position: sticky; top: 0; z-index: 1; }
+  thead tr {
+    background: #FAF9F6;
+    border-bottom: 1px solid rgb(var(--c-dark-border));
   }
-  .recent-table thead {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  .recent-table thead th {
-    background: rgb(var(--c-info-600));
-    color: #fff;
-    padding: 9px 12px;
+  thead th {
     text-align: left;
-    font-weight: 500;
-    font-size: 11.5px;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .recent-table thead th:first-child { border-top-left-radius: 8px; }
-  .recent-table thead th:last-child { border-top-right-radius: 8px; text-align: right; }
-  .recent-table tbody tr {
-    border-bottom: 1px solid rgb(var(--c-slate-500) / 0.2);
-    transition: background-color 120ms;
-  }
-  .recent-table tbody tr:nth-child(odd) { background: rgb(var(--c-slate-600) / 0.3); }
-  .recent-table tbody tr:hover { background: rgb(var(--c-slate-500) / 0.25); }
-  .recent-table tbody tr.row-new {
-    animation: highlight-new 2.4s ease-out 1;
-  }
-  @keyframes highlight-new {
-    from { background-color: rgb(var(--c-success-400) / 0.25); }
-    to { background-color: rgb(var(--c-slate-600) / 0.3); }
-  }
-  .recent-table td {
-    padding: 9px 12px;
-    color: rgb(203, 213, 225);
-    font-size: 12.5px;
-  }
-  .barcode {
-    font-family: var(--font-mono);
+    padding: 0.625rem 0.75rem;
     font-weight: 600;
-    color: rgb(var(--c-info-400));
-    letter-spacing: 0.02em;
-  }
-  .scan-time {
-    color: rgb(148, 163, 184);
-    font-size: 11.5px;
-    white-space: nowrap;
-    font-family: var(--font-mono);
-  }
-  .job-tag {
-    color: rgb(203, 213, 225);
-    font-size: 11.5px;
-  }
-  .job-tag .sep { color: rgb(148, 163, 184); margin: 0 4px; }
-  .row-actions {
-    text-align: right;
-    white-space: nowrap;
-  }
-  .row-actions .icon-btn {
-    width: 26px; height: 26px;
-    border-radius: 6px;
-    background: transparent;
-    border: none;
-    color: rgb(var(--c-info-400));
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 120ms;
-  }
-  tr:hover .icon-btn { opacity: 1; }
-  .icon-btn:hover { background: rgb(var(--c-info-600) / 0.25); }
-  .icon-btn.danger { color: rgb(var(--c-danger-400)); }
-  .icon-btn.danger:hover { background: rgb(var(--c-danger-500) / 0.2); }
-  .icon-btn svg { width: 14px; height: 14px; }
-
-  /* Workflow violation row (shown for one row, illustrating dependency error) */
-  .recent-table tbody tr.row-violation {
-    background: rgb(var(--c-danger-500) / 0.12) !important;
-    border-left: 2px solid rgb(var(--c-danger-500));
-  }
-  .recent-table tbody tr.row-violation .barcode { color: rgb(var(--c-danger-400)); }
-  .violation-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: rgb(var(--c-danger-500) / 0.2);
-    color: rgb(var(--c-danger-400));
-    border: 1px solid rgb(var(--c-danger-500) / 0.4);
-    border-radius: 4px;
-    padding: 1px 6px;
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 0.6875rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
-    font-family: var(--font-mono);
+    letter-spacing: 0.025em;
+    color: rgb(var(--c-text-dim));
+    white-space: nowrap;
   }
+  thead th:last-child { width: 1px; }
+  tbody tr {
+    border-bottom: 1px solid #F4F2EC;
+    transition: background-color 0.15s ease;
+  }
+  tbody tr:hover { background: #FAF9F6; }
+  tbody tr.row-new { animation: highlightNew 2s ease-out; }
+  @keyframes highlightNew {
+    from { background-color: rgb(var(--c-success-400) / 0.2); }
+    to { background-color: transparent; }
+  }
+  tbody td { padding: 0.625rem 0.75rem; vertical-align: top; }
+  .cell-barcode { font-family: var(--font-mono); font-weight: 600; color: rgb(var(--c-text)); }
+  .cell-date { color: rgb(var(--c-text-dim)); font-size: 0.75rem; white-space: nowrap; }
+  .cell-user { color: rgb(var(--c-text-sub)); font-size: 0.75rem; white-space: nowrap; }
+  .cell-notes {
+    color: rgb(var(--c-text-sub));
+    font-size: 0.75rem;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Mobile-only meta line under the barcode (sm:hidden in the real app) */
+  .row-meta { display: none; }
+
+  .row-actions { text-align: right; }
+  .row-actions .btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  tbody tr:hover .btn-group { opacity: 1; }
+  .icon-btn {
+    padding: 0.375rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    transition: background-color 0.15s ease;
+  }
+  .icon-btn svg { width: 1rem; height: 1rem; }
+  .icon-btn.edit { color: rgb(var(--c-info-500)); }
+  .icon-btn.edit:hover { background: rgb(var(--c-info-50)); }
+  .icon-btn.audit { color: rgb(var(--c-text-dim)); }
+  .icon-btn.audit:hover { background: rgb(var(--c-chrome)); }
+  .icon-btn.del { color: rgb(var(--c-danger-500)); }
+  .icon-btn.del:hover { background: rgb(var(--c-danger-50)); }
 
   /* ==========================================================
-     Footer note
+     Toast (notification pushed from JST claims)
+     ========================================================== */
+  .toast-container {
+    position: fixed;
+    /* real app pins this to top-4; nudged below the header here so the
+       static toast never sits on top of the page title */
+    top: 5rem; right: 1rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 300px;
+    max-width: 28rem;
+  }
+  .toast {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    background: rgb(var(--c-info-600));
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    animation: slideInRight 0.3s ease-out;
+  }
+  @keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .toast > svg { width: 1.25rem; height: 1.25rem; color: #fff; flex-shrink: 0; }
+  .toast span { color: #fff; font-weight: 500; font-size: 0.875rem; flex: 1; }
+  .toast button { color: rgba(255 255 255 / 0.7); display: flex; flex-shrink: 0; }
+  .toast button:hover { color: #fff; }
+  .toast button svg { width: 1rem; height: 1rem; }
+
+  /* ==========================================================
+     Footer note (mock-only)
      ========================================================== */
   .footer-note {
     text-align: center;
-    padding: 16px 16px 28px;
+    padding: 0.5rem 1rem 2rem;
     color: rgb(var(--c-text-dim));
-    font-size: 11.5px;
-    font-family: var(--font-mono);
-    line-height: 1.7;
+    font-size: 0.75rem;
+    line-height: 1.8;
   }
-  .footer-note strong { color: rgb(var(--c-warning-600)); }
+  .footer-note strong { color: rgb(var(--c-warning-700)); }
   .footer-note a { color: rgb(var(--c-info-500)); font-weight: 600; }
-  .footer-note a:hover { color: rgb(var(--c-info-600)); }
+  .footer-note a:hover { color: rgb(var(--c-info-700)); }
 
   /* ==========================================================
-     Responsive
+     Responsive — mirrors the real Tailwind breakpoints
      ========================================================== */
-  @media (max-width: 1180px) {
-    .notebook-grid { grid-template-columns: 4fr 6fr; }
-    .recent-table-wrap { max-height: 60vh; }
+  @media (max-width: 1023px) {   /* lg: grid collapses to one column */
+    .scan-grid { grid-template-columns: minmax(0, 1fr); }
+    .col-left, .col-right { grid-column: span 1 / span 1; }
+    .col-notes { display: none; }
+    .table-wrap { max-height: none; }
   }
-  @media (max-width: 900px) {
-    :root { --sidebar-w: 0; }
+  @media (max-width: 767px) {    /* md: sidebar becomes a drawer */
     .sidebar { display: none; }
     .main-content { margin-left: 0; }
-    .notebook { margin: 0 12px 16px; padding: 16px; }
-    .notebook-grid {
-      grid-template-columns: 1fr;
-      gap: 12px;
+    .mobile-topbar { display: flex; }
+    .page-header { position: relative; padding: 1rem; }
+    .page-body { padding: 1rem; }
+    .col-sub { display: none; }
+    .row-actions .btn-group { opacity: 0.4; }
+  }
+  @media (max-width: 639px) {    /* sm: table folds into the barcode cell */
+    .col-main, .col-date, .col-user { display: none; }
+    .row-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.25rem 0.5rem;
+      margin-top: 0.375rem;
+      font-size: 0.75rem;
+      color: rgb(var(--c-text-dim));
     }
-    .recent-table-wrap { max-height: none; }
-    .recent-table thead th:nth-child(3),
-    .recent-table tbody td:nth-child(3) { display: none; }
-    .recent-table thead th:nth-child(4),
-    .recent-table tbody td:nth-child(4) { display: none; }
-    .row-actions .icon-btn { opacity: 0.6; }
+    .row-meta .pill { font-size: 0.625rem; padding: 0.125rem 0.5rem; }
+    .row-meta .who { display: inline-flex; align-items: center; gap: 0.25rem; }
+    .row-meta .who svg { width: 0.75rem; height: 0.75rem; }
+    .toast-container { left: 1rem; top: 7.5rem; min-width: 0; }
   }
 </style>
 </head>
 <body>
 
-<!-- ==================== SIDEBAR ==================== -->
+<!-- ══════════════════ SIDEBAR ══════════════════ -->
 <aside class="sidebar">
   <div class="sb-brand">
-    <div class="sb-logo">BSN</div>
+    <div class="sb-logo">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5v14M8 5v14M12 5v14M16 5v10M20 5v14"/></svg>
+    </div>
     <div>
       <div class="sb-title">BSN</div>
       <div class="sb-subtitle">Barcode Scanner</div>
@@ -618,371 +654,573 @@
   </div>
 
   <nav class="sb-nav-list">
-    <div class="sb-section-label">Menu</div>
-    <a class="sb-nav active">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="4" width="18" height="16" rx="2"/>
-        <line x1="7" y1="8" x2="7" y2="16"/>
-        <line x1="10" y1="8" x2="10" y2="16"/>
-        <line x1="13" y1="8" x2="13" y2="16"/>
-        <line x1="16" y1="8" x2="16" y2="16"/>
-      </svg>
-      <span>Scanner</span>
+    <div class="sidebar-section-label">Menu</div>
+    <a class="sidebar-nav-item active">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+      Scanner
     </a>
-    <a class="sb-nav">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <polyline points="12 6 12 12 16 14"/>
-      </svg>
-      <span>History</span>
+    <a class="sidebar-nav-item">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      History
     </a>
 
-    <div class="sb-section-label" style="margin-top: 12px;">Admin</div>
-    <a class="sb-nav">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/>
-      </svg>
-      <span>Settings</span>
+    <div class="sidebar-section-label" style="padding-top: 1.25rem;">Admin</div>
+    <a class="sidebar-nav-item">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      Settings
     </a>
-    <a class="sb-nav">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 18V5l12-2v13"/>
-        <circle cx="6" cy="18" r="3"/>
-        <circle cx="18" cy="16" r="3"/>
-      </svg>
-      <span>Sounds</span>
+    <a class="sidebar-nav-item">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+      Sounds
     </a>
-    <a class="sb-nav">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-        <path d="M13.73 21a2 2 0 01-3.46 0"/>
-      </svg>
-      <span>Notifications</span>
+    <a class="sidebar-nav-item">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+      Notifications
     </a>
-    <a class="sb-nav">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 00-3-3.87"/>
-        <path d="M16 3.13a4 4 0 010 7.75"/>
-      </svg>
-      <span>Users</span>
+    <a class="sidebar-nav-item">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      Users
     </a>
   </nav>
 
   <div class="sb-footer">
-    <div class="user-row">
-      <div class="user-avatar">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
+    <div class="sb-user">
+      <div class="sb-avatar">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
       </div>
       <div>
-        <div class="user-name">Sahatsawat T.</div>
-        <div class="user-role">Admin</div>
+        <div class="sb-user-name">
+          <span>Sahatsawat T.</span>
+          <span class="sb-admin-badge">ADMIN</span>
+        </div>
+        <div class="sb-user-role">Admin</div>
       </div>
     </div>
-    <div class="lang-row">
-      <a>EN</a>
+    <div class="sb-actions">
+      <a>TH</a>
       <a>Logout</a>
     </div>
+    <p class="sb-version">v2.1.0</p>
   </div>
 </aside>
 
-<!-- ==================== MAIN ==================== -->
-<div class="main-content">
+<!-- ══════════════════ MOBILE TOP BAR ══════════════════ -->
+<div class="mobile-topbar">
+  <div class="mt-left">
+    <button class="mt-burger" aria-label="Menu">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <div class="mt-logo">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5v14M8 5v14M12 5v14M16 5v10M20 5v14"/></svg>
+    </div>
+    <div>
+      <div class="mt-title">BSN</div>
+      <div class="mt-sub">Barcode Scanner</div>
+    </div>
+  </div>
+  <div class="mt-user">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+    <span>Sahatsawat T.</span>
+  </div>
+</div>
 
-  <!-- Page header -->
-  <div class="page-header">
-    <div class="page-header-inner">
-      <div class="page-header-title">
-        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="16" rx="2"/>
-          <line x1="7" y1="8" x2="7" y2="16"/>
-          <line x1="10" y1="8" x2="10" y2="16"/>
-          <line x1="13" y1="8" x2="13" y2="16"/>
-          <line x1="16" y1="8" x2="16" y2="16"/>
-        </svg>
-        <h1>Scanner</h1>
-        <span class="mock-badge">Fictional data</span>
-      </div>
+<!-- ══════════════════ MAIN ══════════════════ -->
+<main class="main-content">
+
+  <!-- Toast: notification pushed from the JST claim feed -->
+  <div class="toast-container">
+    <div class="toast">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span>Customer claim · SPXTH04682911: pack a replacement adapter</span>
+      <button aria-label="Dismiss">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
     </div>
   </div>
 
-  <!-- Notebook (dark slate-700 container) -->
-  <div class="notebook">
-    <div class="notebook-grid">
+  <!-- Page header -->
+  <header class="page-header">
+    <div class="ph-left">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+      <h1>Barcode Scanner</h1>
+      <span class="mock-badge">Mock UI · fictional data</span>
+    </div>
+  </header>
 
-      <!-- ============== LEFT COLUMN ============== -->
-      <div class="left-col">
+  <div class="page-body">
+    <div class="scan-grid">
 
-        <!-- Scanner Form -->
-        <div class="panel">
-          <h3 class="panel-title">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-            </svg>
+      <!-- ══════════ LEFT COLUMN ══════════ -->
+      <div class="col-left">
+
+        <!-- Scanner form -->
+        <div class="ui-card">
+          <h3 class="card-title">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
             Main Job
           </h3>
 
-          <div class="form-row">
+          <div class="field">
             <label class="ui-label">Main Job</label>
             <select class="ui-input">
-              <option>Outbound</option>
+              <option selected>Outbound</option>
               <option>Release</option>
               <option>Receiving</option>
+              <option>Return</option>
+              <option>Pre-Repack</option>
               <option>Stock Count</option>
             </select>
           </div>
 
-          <div class="form-row">
+          <div class="field">
             <label class="ui-label">Sub Job</label>
             <select class="ui-input">
-              <option>Pack &amp; Label</option>
-              <option>Carrier Handover</option>
+              <option selected>Pack &amp; Label</option>
               <option>QC Final Check</option>
+              <option>Carrier Handover</option>
             </select>
           </div>
 
-          <div class="form-row">
+          <div class="field">
             <label class="ui-label">Notes</label>
-            <textarea class="ui-input" rows="2" placeholder="Optional notes…"></textarea>
+            <textarea class="ui-input" rows="2" placeholder="Notes (optional)"></textarea>
           </div>
 
-          <label class="ui-label" style="margin-top: 4px;">Barcode</label>
           <div class="barcode-row">
-            <div class="barcode-wrap">
-              <input type="text" class="barcode-input" placeholder="Scan or type…" autocomplete="off" />
+            <div style="flex: 1; min-width: 0;">
+              <input type="text" class="barcode-input" placeholder="Scan or type barcode" autocomplete="off" aria-label="Barcode" />
             </div>
-            <button class="camera-btn" title="Open camera scanner">
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
-                <circle cx="12" cy="13" r="4"/>
-              </svg>
+            <button class="camera-btn" title="Scan with camera">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
             </button>
           </div>
+
+          <button class="confirm-btn">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            Confirm Scan
+          </button>
         </div>
 
-        <!-- Scan Result Toast (success) -->
+        <!-- Scan result -->
         <div class="scan-result">
-          <div class="msg">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"/>
-            </svg>
-            Scanned successfully
+          <div class="icon-box">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
           </div>
-          <div class="detail">EP-OB-2026-04582 · Outbound · Pack &amp; Label · 247 today</div>
+          <div style="flex: 1; min-width: 0;">
+            <div class="msg">Scan successful</div>
+            <div class="detail">SPXTH04682911</div>
+          </div>
         </div>
 
-        <!-- Today Summary -->
-        <div class="panel summary-panel">
-          <h3 class="panel-title">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-            </svg>
+        <!-- Today summary -->
+        <div class="ui-card">
+          <h3 class="card-title no-rule">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
             Today's Summary
           </h3>
           <div class="summary-row">
-            <div class="summary-label">Outbound<span class="sub">· Pack &amp; Label</span></div>
-            <div class="summary-count">247</div>
+            <span class="summary-label" title="Outbound / Pack &amp; Label">Outbound / Pack &amp; Label</span>
+            <span class="summary-count">247</span>
           </div>
         </div>
       </div>
 
-      <!-- ============== RIGHT COLUMN ============== -->
-      <div class="panel">
-        <h3 class="panel-title">
-          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+      <!-- ══════════ RIGHT COLUMN ══════════ -->
+      <div class="col-right ui-card">
+        <h3 class="card-title">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           Recent Scans
         </h3>
-        <div class="recent-table-wrap">
-          <table class="recent-table">
+
+        <div class="table-wrap">
+          <table>
             <thead>
               <tr>
                 <th>Barcode</th>
-                <th>Time</th>
-                <th>Job / Sub-job</th>
-                <th>Notes</th>
+                <th class="col-main">Main Job</th>
+                <th class="col-sub">Sub Job</th>
+                <th class="col-date">Scan Date</th>
+                <th class="col-user">User</th>
+                <th class="col-notes">Notes</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
+
               <tr class="row-new">
-                <td><span class="barcode">EP-OB-2026-04582</span></td>
-                <td class="scan-time">15/05 14:32</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">—</td>
-                <td class="row-actions">
-                  <button class="icon-btn" title="Edit">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                  </button>
-                  <button class="icon-btn danger" title="Delete">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td><span class="barcode">EP-OB-2026-04581</span></td>
-                <td class="scan-time">15/05 14:31</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">—</td>
-                <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
-                </td>
-              </tr>
-              <tr>
-                <td><span class="barcode">EP-OB-2026-04580</span></td>
-                <td class="scan-time">15/05 14:30</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">Heavy item</td>
-                <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
-                </td>
-              </tr>
-              <tr class="row-violation">
                 <td>
-                  <span class="barcode">EP-OB-2026-04579</span>
-                  <div style="margin-top: 3px;"><span class="violation-tag">⚠ Release first</span></div>
+                  <div class="cell-barcode">SPXTH04682911</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Pack &amp; Label</span>
+                    <span>09/08 14:32</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>somchai.p</span>
+                  </div>
                 </td>
-                <td class="scan-time">15/05 14:28</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag" style="color: rgb(var(--c-danger-400));">Workflow violation: Release not completed</td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Pack &amp; Label</span></td>
+                <td class="col-date cell-date">09/08/2026 14:32</td>
+                <td class="col-user cell-user">somchai.p</td>
+                <td class="col-notes cell-notes">Claim replacement</td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04578</span></td>
-                <td class="scan-time">15/05 14:25</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">—</td>
+                <td>
+                  <div class="cell-barcode">SPXTH04682908</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Pack &amp; Label</span>
+                    <span>09/08 14:31</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>somchai.p</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Pack &amp; Label</span></td>
+                <td class="col-date cell-date">09/08/2026 14:31</td>
+                <td class="col-user cell-user">somchai.p</td>
+                <td class="col-notes cell-notes"></td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04577</span></td>
-                <td class="scan-time">15/05 14:24</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Carrier Handover</span></td>
-                <td class="job-tag">—</td>
+                <td>
+                  <div class="cell-barcode">KEX8837201455</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">QC Final Check</span>
+                    <span>09/08 14:29</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>nattaya.k</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">QC Final Check</span></td>
+                <td class="col-date cell-date">09/08/2026 14:29</td>
+                <td class="col-user cell-user">nattaya.k</td>
+                <td class="col-notes cell-notes">Fragile · double-box</td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04576</span></td>
-                <td class="scan-time">15/05 14:22</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">Fragile · double-box</td>
+                <td>
+                  <div class="cell-barcode">SPXTH04682903</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Release</span>
+                    <span class="pill ui-tag-neutral">Wave 3</span>
+                    <span>09/08 14:26</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>wichai.s</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Release</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Wave 3</span></td>
+                <td class="col-date cell-date">09/08/2026 14:26</td>
+                <td class="col-user cell-user">wichai.s</td>
+                <td class="col-notes cell-notes"></td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04575</span></td>
-                <td class="scan-time">15/05 14:20</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>QC Final Check</span></td>
-                <td class="job-tag">—</td>
+                <td>
+                  <div class="cell-barcode">TH47HB2K9QM4A</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Carrier Handover</span>
+                    <span>09/08 14:24</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>pornthip.a</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Carrier Handover</span></td>
+                <td class="col-date cell-date">09/08/2026 14:24</td>
+                <td class="col-user cell-user">pornthip.a</td>
+                <td class="col-notes cell-notes">Flash pickup 15:00</td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04574</span></td>
-                <td class="scan-time">15/05 14:18</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">—</td>
+                <td>
+                  <div class="cell-barcode">SPXTH04682897</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Pack &amp; Label</span>
+                    <span>09/08 14:22</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>somchai.p</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Pack &amp; Label</span></td>
+                <td class="col-date cell-date">09/08/2026 14:22</td>
+                <td class="col-user cell-user">somchai.p</td>
+                <td class="col-notes cell-notes"></td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04573</span></td>
-                <td class="scan-time">15/05 14:15</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Carrier Handover</span></td>
-                <td class="job-tag">DHL pickup</td>
+                <td>
+                  <div class="cell-barcode">SPXTH04682891</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Return</span>
+                    <span class="pill ui-tag-neutral">Inspect</span>
+                    <span>09/08 14:19</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>nattaya.k</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Return</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Inspect</span></td>
+                <td class="col-date cell-date">09/08/2026 14:19</td>
+                <td class="col-user cell-user">nattaya.k</td>
+                <td class="col-notes cell-notes">Damaged carton — replaced</td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04572</span></td>
-                <td class="scan-time">15/05 14:12</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">—</td>
+                <td>
+                  <div class="cell-barcode">KEX8837201402</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Pack &amp; Label</span>
+                    <span>09/08 14:17</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>somchai.p</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Pack &amp; Label</span></td>
+                <td class="col-date cell-date">09/08/2026 14:17</td>
+                <td class="col-user cell-user">somchai.p</td>
+                <td class="col-notes cell-notes"></td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04571</span></td>
-                <td class="scan-time">15/05 14:10</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">—</td>
+                <td>
+                  <div class="cell-barcode">SPXTH04682884</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Pack &amp; Label</span>
+                    <span>09/08 14:15</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>pornthip.a</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Pack &amp; Label</span></td>
+                <td class="col-date cell-date">09/08/2026 14:15</td>
+                <td class="col-user cell-user">pornthip.a</td>
+                <td class="col-notes cell-notes">Bundle 3 SKUs</td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04570</span></td>
-                <td class="scan-time">15/05 14:08</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>QC Final Check</span></td>
-                <td class="job-tag">Damaged carton — replaced</td>
+                <td>
+                  <div class="cell-barcode">TH47HB2K8PL2C</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">QC Final Check</span>
+                    <span>09/08 14:12</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>nattaya.k</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">QC Final Check</span></td>
+                <td class="col-date cell-date">09/08/2026 14:12</td>
+                <td class="col-user cell-user">nattaya.k</td>
+                <td class="col-notes cell-notes"></td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04569</span></td>
-                <td class="scan-time">15/05 14:05</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">—</td>
+                <td>
+                  <div class="cell-barcode">SPXTH04682876</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Pre-Repack</span>
+                    <span class="pill ui-tag-neutral">Sort</span>
+                    <span>09/08 14:09</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>wichai.s</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Pre-Repack</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Sort</span></td>
+                <td class="col-date cell-date">09/08/2026 14:09</td>
+                <td class="col-user cell-user">wichai.s</td>
+                <td class="col-notes cell-notes"></td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
               <tr>
-                <td><span class="barcode">EP-OB-2026-04568</span></td>
-                <td class="scan-time">15/05 14:02</td>
-                <td><span class="job-tag">Outbound<span class="sep">/</span>Pack &amp; Label</span></td>
-                <td class="job-tag">—</td>
+                <td>
+                  <div class="cell-barcode">SPXTH04682870</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Pack &amp; Label</span>
+                    <span>09/08 14:06</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>somchai.p</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Pack &amp; Label</span></td>
+                <td class="col-date cell-date">09/08/2026 14:06</td>
+                <td class="col-user cell-user">somchai.p</td>
+                <td class="col-notes cell-notes"></td>
                 <td class="row-actions">
-                  <button class="icon-btn" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
-                  <button class="icon-btn danger" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
                 </td>
               </tr>
+
+              <tr>
+                <td>
+                  <div class="cell-barcode">KEX8837201388</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Carrier Handover</span>
+                    <span>09/08 14:03</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>pornthip.a</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Carrier Handover</span></td>
+                <td class="col-date cell-date">09/08/2026 14:03</td>
+                <td class="col-user cell-user">pornthip.a</td>
+                <td class="col-notes cell-notes">Kerry batch 04</td>
+                <td class="row-actions">
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="cell-barcode">SPXTH04682861</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Outbound</span>
+                    <span class="pill ui-tag-neutral">Pack &amp; Label</span>
+                    <span>09/08 14:01</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>somchai.p</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Outbound</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Pack &amp; Label</span></td>
+                <td class="col-date cell-date">09/08/2026 14:01</td>
+                <td class="col-user cell-user">somchai.p</td>
+                <td class="col-notes cell-notes"></td>
+                <td class="row-actions">
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <div class="cell-barcode">SPXTH04682855</div>
+                  <div class="row-meta">
+                    <span class="pill ui-tag-info">Receiving</span>
+                    <span class="pill ui-tag-neutral">Putaway</span>
+                    <span>09/08 13:58</span>
+                    <span class="who"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>wichai.s</span>
+                  </div>
+                </td>
+                <td class="col-main"><span class="pill ui-tag-info">Receiving</span></td>
+                <td class="col-sub"><span class="pill ui-tag-neutral">Putaway</span></td>
+                <td class="col-date cell-date">09/08/2026 13:58</td>
+                <td class="col-user cell-user">wichai.s</td>
+                <td class="col-notes cell-notes">PO-2608-114</td>
+                <td class="row-actions">
+                  <div class="btn-group">
+                    <button class="icon-btn edit" title="Edit"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+                    <button class="icon-btn audit" title="Audit trail"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>
+                    <button class="icon-btn del" title="Delete"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+                  </div>
+                </td>
+              </tr>
+
             </tbody>
           </table>
         </div>
       </div>
 
-    </div><!-- /.notebook-grid -->
-  </div><!-- /.notebook -->
+    </div><!-- /.scan-grid -->
+  </div><!-- /.page-body -->
 
   <div class="footer-note">
-    <strong>All data is fictional.</strong> Static mock that replicates the real BSN (Barcode Scanner Network) UI from EP Asia Group — same color tokens, layout, and workflow logic as production.<br>
+    <strong>All data is fictional.</strong> Static mock of the real BSN (Barcode Scanner Network) v2 scanner page from EP Asia Group — same design tokens, layout, components and workflow states as the production app (FastAPI + HTMX + Alpine, Azure App Service).<br />
     Sahatsawat Thongma · <a href="../resume.html">Resume</a> · <a href="fulfillment.html">Fulfillment dashboard</a> · <a href="procurement.html">Purchase Plan</a> · <a href="sales-insights.html">Sales Insights</a> · <a href="wms.html">WMS map</a> · <a href="https://github.com/sthongma/portfolio">GitHub</a>
   </div>
 
-</div><!-- /.main-content -->
+</main>
 
 </body>
 </html>
