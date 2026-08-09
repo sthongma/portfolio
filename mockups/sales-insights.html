@@ -434,6 +434,11 @@
     grid-template-columns: 240px 1fr;
     gap: 18px;
   }
+  /* Grid items default to min-width:auto and refuse to shrink below their
+     content. The heatmap column holds .heat-body (min-width:600px), so
+     without this the whole card was pushed wider than its layout track
+     instead of letting .heat-wrap's overflow-x:auto scroll. */
+  .timing-grid > * { min-width: 0; }
   .peak-list {
     border: 1px solid var(--line);
     border-radius: 4px;
@@ -684,7 +689,7 @@
   }
   .data-table thead th {
     text-align: left;
-    padding: 8px 12px;
+    padding: 8px 10px;
     font-family: var(--f-mono);
     font-size: 10px;
     text-transform: uppercase;
@@ -693,9 +698,10 @@
     border-bottom: 1px solid var(--line);
     background: var(--paper-100);
     font-weight: 500;
+    white-space: nowrap;
   }
   .data-table tbody td {
-    padding: 9px 12px;
+    padding: 9px 10px;
     border-bottom: 1px solid var(--line-soft);
     color: var(--ink-700);
   }
@@ -719,7 +725,7 @@
     font-size: 11px;
   }
   .data-table .truncate {
-    max-width: 280px;
+    max-width: 210px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -759,6 +765,12 @@
     font-weight: 500;
     color: var(--ink-900);
   }
+
+  /* Wide tables must scroll inside the card, never spill past it.
+     The Top SKUs table needs ~840px of columns but the card can be
+     ~740px wide at some breakpoints — without this the last column
+     (RI %) rendered outside the card and was invisible. */
+  .table-scroll { overflow-x: auto; }
 
   /* ============= MATRIX HEATMAP ============= */
   .matrix-wrap {
@@ -1043,9 +1055,16 @@
   }
 
   /* ============= RESPONSIVE ============= */
+  /* The 2-column timing layout needs 240px (peak list) + 636px (heatmap
+     min-width) + gaps = ~894px of card body. That is only available from
+     ~1460px viewport up; below it, stack so the heatmap gets full width
+     instead of being squeezed into a horizontal scroll. */
+  @media (max-width: 1459px) {
+    .timing-grid { grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 1200px) {
     .kpi-grid { grid-template-columns: repeat(3, 1fr); }
-    .timing-grid { grid-template-columns: 1fr; }
     .pmix-grid { grid-template-columns: 1fr; }
     .geo-grid { grid-template-columns: 1fr; }
   }
@@ -1445,7 +1464,7 @@
         </div>
         <div style="font-family:var(--f-mono); font-size:10px; color:var(--ink-500);">8 of 834 SKUs</div>
       </div>
-      <div style="padding:0;">
+      <div class="table-scroll" style="padding:0;">
         <table class="data-table">
           <thead>
             <tr>
@@ -1540,7 +1559,7 @@
         </div>
         <div style="font-family:var(--f-mono); font-size:10px; color:var(--ink-500);">5 of 142 sets</div>
       </div>
-      <div style="padding:0;">
+      <div class="table-scroll" style="padding:0;">
         <table class="data-table">
           <thead>
             <tr>
