@@ -464,38 +464,6 @@
     stroke-width: 2.2;
   }
 
-  /* Demo-link buttons — animated RGB ring marks every clickable live
-     demo. Ring replaces the static border; pauses under
-     prefers-reduced-motion. */
-  @property --rgb-ring-angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-  }
-  @keyframes rgb-ring-spin { to { --rgb-ring-angle: 360deg; } }
-  .demo-link {
-    position: relative;
-    border-color: transparent;
-  }
-  .demo-link::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: 8px;
-    padding: 1.5px;
-    background: conic-gradient(from var(--rgb-ring-angle), #ff2d55, #ffcc00, #34c759, #00b0ff, #af52de, #ff2d55);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-    animation: rgb-ring-spin 3.2s linear infinite;
-    pointer-events: none;
-  }
-  .demo-link:hover { border-color: transparent; }
-  .demo-link:hover::before { animation-duration: 1.1s; }
-  @media (prefers-reduced-motion: reduce) {
-    .demo-link::before { animation: none; }
-  }
 
   /* Metric summary (project #1) */
   .metrics {
@@ -1313,6 +1281,36 @@
     border-color: var(--blue-line);
     color: var(--accent);
     transform: none;
+  }
+
+  /* Animated RGB ring marks every clickable live demo. The ring is the
+     button's own border area: inner background clipped to padding-box,
+     rotating conic gradient clipped to border-box, so the ring is
+     perfectly even and follows the button's corner radius. Must come
+     after the Carbon-layer .demo-link overrides above. Pauses under
+     prefers-reduced-motion. */
+  @property --rgb-ring-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @keyframes rgb-ring-spin { to { --rgb-ring-angle: 360deg; } }
+  .demo-link {
+    border: 1.5px solid transparent;
+    background:
+      linear-gradient(var(--bg-elev), var(--bg-elev)) padding-box,
+      conic-gradient(from var(--rgb-ring-angle), #ff2d55, #ffcc00, #34c759, #00b0ff, #af52de, #ff2d55) border-box;
+    animation: rgb-ring-spin 3.2s linear infinite;
+  }
+  .demo-link:hover {
+    border-color: transparent;
+    background:
+      linear-gradient(var(--blue-soft), var(--blue-soft)) padding-box,
+      conic-gradient(from var(--rgb-ring-angle), #ff2d55, #ffcc00, #34c759, #00b0ff, #af52de, #ff2d55) border-box;
+    animation-duration: 1.1s;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .demo-link { animation: none; }
   }
 
   /* ---------- Diagram ---------- */
