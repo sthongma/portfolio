@@ -6,7 +6,7 @@ window.resumeI18n = {
       roleTitle: "Data Engineer",
       roleTagline: "I build the data systems an e-commerce business runs on — solo, end to end.",
       location: "Samut Sakhon, Thailand",
-      tabs: ["Resume", "Projects"],
+      tabs: ["Resume", "Projects · Live Demos"],
       sectionSummary: "Summary",
       summary: [
         "<strong>Data engineer who builds systems the whole company actually uses.</strong> 4 years in e-commerce — today I run the entire data platform of a nine-figure monthly-revenue business single-handed. Executives check sales and stock themselves instead of waiting for a spreadsheet, ~40 daily manual jobs now run automatically from 5 a.m., and a team of 30+ gets back <strong>30–90 hours every day</strong>. Current focus: <strong>data reliability</strong> — catching the failure where every job reports success but the numbers are silently wrong, before anyone makes a decision on them. Tools: <strong>dbt · Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong>."
@@ -91,7 +91,7 @@ window.resumeI18n = {
       roleTitle: "Data Engineer",
       roleTagline: "สร้างระบบข้อมูลให้ธุรกิจ e-commerce — คนเดียว ตั้งแต่ต้นจนจบ",
       location: "สมุทรสาคร, ประเทศไทย",
-      tabs: ["Resume", "Projects"],
+      tabs: ["Resume", "Projects · Live Demos"],
       sectionSummary: "เกี่ยวกับผม",
       summary: [
         "<strong>Data engineer ที่สร้างระบบให้คนทั้งบริษัทได้ใช้จริง</strong> — ประสบการณ์ 4 ปีในสาย e-commerce ปัจจุบันดูแล data platform ทั้งระบบของบริษัทระดับร้อยล้านบาทต่อเดือนคนเดียว · ผู้บริหารดูยอดขาย-สต็อกได้เอง ไม่ต้องรอใครทำ Excel ให้ · งานมือ ~40 งาน/วันหายไป ระบบทำเองตั้งแต่ตีห้า · ทีม 30+ คนได้เวลาคืนวันละ <strong>30–90 ชั่วโมง</strong> · ตอนนี้โฟกัส <strong>data reliability</strong> — จับปัญหาที่ระบบขึ้นว่าสำเร็จแต่ตัวเลขผิดเงียบ ๆ ก่อนที่ใครจะเอาไปตัดสินใจ · Tools: <strong>dbt · Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong>"
