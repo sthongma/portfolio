@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sahatsawat Thongma — Data Engineer</title>
-<meta name="description" content="Sahatsawat Thongma — Data Engineer who builds and runs the data platform, warehouse apps and AI tooling behind a Thai e-commerce business selling ~฿200M a month. Executives self-serve their numbers; ~40 daily manual jobs run themselves. dbt · Airflow · PostgreSQL · Python · Azure." />
+<meta name="description" content="Sahatsawat Thongma — Data Engineer who builds and runs the data platform, warehouse apps and AI tooling behind a Thai e-commerce business shipping ~2,000 orders a day across 4 marketplaces. Executives self-serve their numbers; ~40 daily manual jobs run themselves. dbt · Airflow · PostgreSQL · Python · Azure." />
 <meta property="og:title" content="Sahatsawat Thongma — Data Engineer" />
 <meta property="og:description" content="From raw marketplace data to the dashboards, warehouse apps and AI assistant a Thai e-commerce business runs on. dbt · Airflow · PostgreSQL · Python." />
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/186543613" />
@@ -1702,9 +1702,10 @@
       <strong>Data engineer who builds systems the whole company
       actually uses.</strong> 4 years in e-commerce — today I run the
       data platform, the warehouse apps and the AI tooling of a
-      business selling ~฿200M a month. Executives check sales and
-      stock themselves instead of waiting for a spreadsheet, and ~40
-      daily manual jobs now run automatically from 5 a.m. Current
+      business shipping ~2,000 orders a day across 4 marketplaces.
+      Executives check sales and stock themselves instead of waiting
+      for a spreadsheet, and ~40 daily manual jobs now run
+      automatically from 5 a.m. Current
       focus: <strong>data reliability</strong> — catching the failure
       where every job reports success but the numbers are silently
       wrong, before anyone makes a decision on them. Tools: <strong>dbt ·
@@ -1738,8 +1739,8 @@
           <strong>Caught data failures no one knew were happening — and
           fixed them at the root.</strong> Recovered <strong>23,677
           shipment tracking numbers</strong> the system had silently
-          deleted, and traced <strong>28.5% of a month's sales (฿37.9M
-          of ฿132.8M) that were attributed to no store</strong> down to
+          deleted, and traced <strong>28.5% of a month's sales that
+          were attributed to no store</strong> down to
           zero — with automatic checks that now raise the alarm before a
           bad number reaches a business decision (data-reliability
           tests, freshness monitoring).
@@ -1748,9 +1749,11 @@
           <strong>Turned problems the business used to find out about
           too late into things it catches up front.</strong> Built
           price/discount guardrails per SKU × store: replayed across the
-          full sales history they flag <strong>150 SKU-store pairs and
-          ฿331,460 of discount given beyond the company's own
-          ceiling</strong>. Built a reorder engine on the dashboard
+          full sales history they flag <strong>150 SKU-store pairs
+          discounting an average 9.9 points past the company's own
+          ceiling</strong> (worst case 180 points over) — <strong>9.3%
+          of those items' value leaking out as unintended
+          discount</strong>. Built a reorder engine on the dashboard
           (reorder point, safety stock, days of cover, suggested
           quantity) replacing a manual cross-check of several
           spreadsheets — it now covers <strong>2,971 SKUs and flags 373
@@ -1767,8 +1770,8 @@
           separates <strong>claims from ordinary returns across 21,152
           parcels</strong> and answers whether goods actually made it
           back — return-leg visibility went from 26.8% to 98.0%,
-          surfacing <strong>฿7.9M of stock in transit back</strong> that
-          was previously invisible.
+          surfacing <strong>2,661 parcels in transit back</strong> that
+          were previously invisible.
         </li>
         <li data-i18n="epBullets[4]">
           <strong>Built AI systems that run in production — not just
@@ -1779,15 +1782,21 @@
           a Telegram bot that reports system health.
         </li>
         <li data-i18n="epBullets[5]">
-          <strong>Cut recurring cloud costs and gave the company's data
-          its first safety net.</strong> Moved the warehouse and its
-          scheduling off two paid monthly cloud services onto self-run
-          infrastructure — done in a single quarter with zero dashboard
-          downtime — and shipped the first nightly, independently
-          verified backup the warehouse ever had (Azure SQL Server →
-          PostgreSQL, 46 Azure Data Factory pipelines → Airflow, pg_dump
-          to Azure Blob). I design, build, deploy and stay on call for
-          <strong>all 7 production systems</strong>.
+          <strong>Cut recurring cloud costs — measurably — and gave the
+          company's data its first safety net.</strong> Moved the
+          warehouse and its scheduling off two paid monthly cloud
+          services onto self-run infrastructure in a single quarter with
+          zero dashboard downtime. Against the actual Azure bill:
+          <strong>monthly database spend fell 44%</strong> even while a
+          new scanning workload joined the same bill, and <strong>Data
+          Factory went to zero on the day it was retired</strong>. The
+          decision came from measurement, not instinct — the nightly
+          batch was pinned at 98% IO on cloud taking 2 hours versus 20
+          minutes locally, and scaling vCores was tested and shown to
+          cost more without paying for itself. Also shipped the first
+          nightly, independently verified backup the warehouse ever had.
+          I design, build, deploy and stay on call for <strong>all 7
+          production systems</strong>.
         </li>
       </ul>
     </div>
