@@ -1786,14 +1786,15 @@
           company's data its first safety net.</strong> Moved the
           warehouse and its scheduling off two paid monthly cloud
           services onto self-run infrastructure in a single quarter with
-          zero dashboard downtime. Against the actual Azure bill:
-          <strong>monthly database spend fell 44%</strong> even while a
-          new scanning workload joined the same bill, and <strong>Data
-          Factory went to zero on the day it was retired</strong>. The
-          decision came from measurement, not instinct — the nightly
-          batch was pinned at 98% IO on cloud taking 2 hours versus 20
-          minutes locally, and scaling vCores was tested and shown to
-          cost more without paying for itself. Also shipped the first
+          zero dashboard downtime. Checked against the actual Azure
+          bill: <strong>the Data Factory line went to zero the day after
+          retirement</strong> and <strong>the warehouse's cloud database
+          was shut down for good</strong>. The bigger win was runtime —
+          <strong>the nightly batch went from 2 hours to 20
+          minutes</strong>. The decision came from measurement, not
+          instinct: the batch was pinned at 98% IO in the cloud, and
+          scaling vCores was tested and measured to cost more without
+          paying for itself. Also shipped the first
           nightly, independently verified backup the warehouse ever had.
           I design, build, deploy and stay on call for <strong>all 7
           production systems</strong>.
