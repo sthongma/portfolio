@@ -44,8 +44,8 @@
   .doc { flex: 1; display: flex; flex-direction: column; }
 
   /* ---------- consistent section header ---------- */
-  .section { padding: 5px 0 0; }
-  .section + .section { margin-top: 2px; }
+  .section { padding: 3px 0 0; }
+  .section + .section { margin-top: 1px; }
   .eyebrow {
     display: flex; align-items: center; gap: 9px;
     font-family: var(--font-mono); font-size: 8.5px; font-weight: 600;
@@ -92,12 +92,12 @@
   }
   .summary .tl .step { color: var(--ink-2); }
   .summary .tl .now { color: var(--blue); font-weight: 600; }
-  .summary .cur { font-size: 11.3px; color: var(--body); line-height: 1.52; margin: 0; }
+  .summary .cur { font-size: 10.8px; color: var(--body); line-height: 1.45; margin: 0; }
   .summary .cur b { color: var(--ink); font-weight: 600; }
   .summary .hl {
-    margin: 6px 0 0; padding: 6px 10px; background: var(--blue-soft);
+    margin: 5px 0 0; padding: 5px 9px; background: var(--blue-soft);
     border: 1px solid var(--blue-line); border-radius: var(--r);
-    font-size: 10.8px; color: var(--ink-2); line-height: 1.45;
+    font-size: 10.3px; color: var(--ink-2); line-height: 1.4;
   }
   .summary .hl b { color: var(--ink); font-weight: 600; }
   .summary .hl .big { font-family: var(--font-mono); font-weight: 700; color: var(--blue-70); }
@@ -159,15 +159,15 @@
   .experience .xp-role { font-size: 10.5px; font-weight: 500; color: var(--blue); letter-spacing: -0.005em; }
   .experience .xp-per { margin-left: auto; font-family: var(--font-mono); font-size: 9px; font-weight: 500; color: var(--muted); white-space: nowrap; }
   .experience .xp-pts { margin: 4px 0 0; padding: 0; list-style: none; }
-  .experience .xp-pts li { font-size: 10.7px; color: var(--body); line-height: 1.44; position: relative; padding-left: 15px; }
-  .experience .xp-pts li.bullet::before { content: ""; position: absolute; left: 1px; top: 7px; width: 5px; height: 5px; background: var(--blue); }
-  .experience .xp-pts li + li { margin-top: 4.5px; }
+  .experience .xp-pts li { font-size: 10.2px; color: var(--body); line-height: 1.38; position: relative; padding-left: 15px; }
+  .experience .xp-pts li.bullet::before { content: ""; position: absolute; left: 1px; top: 6px; width: 5px; height: 5px; background: var(--blue); }
+  .experience .xp-pts li + li { margin-top: 3.5px; }
   .experience .xp-pts li b { color: var(--ink); font-weight: 600; }
   .experience .xp-sys { list-style: none; padding-left: 0 !important; margin-top: 5px; display: flex; flex-wrap: wrap; gap: 5px; }
   .experience .sys { font-family: var(--font-mono); font-size: 8px; font-weight: 500; letter-spacing: 0.01em; padding: 3px 8px; background: var(--field); border: 1px solid var(--line); border-radius: 3px; color: var(--ink-2); white-space: nowrap; }
 
   /* ---------------- SKILLS ---------------- */
-  .skills .grid { display: grid; grid-template-columns: 118px 1fr; gap: 4.5px 16px; align-items: start; }
+  .skills .grid { display: grid; grid-template-columns: 118px 1fr; gap: 3.2px 16px; align-items: start; }
   .skills .grid .row { display: contents; }
   .skills dt { font-size: 9.5px; font-weight: 600; color: var(--ink); padding-top: 3px; font-family: var(--font-mono); letter-spacing: 0.01em; }
   .skills dd { margin: 0; display: flex; flex-wrap: wrap; gap: 5px; }
@@ -189,7 +189,7 @@
     <div class="id">
       <h1>สหัสวรรษ ทองมา</h1>
       <div class="role">Data Engineer</div>
-      <div class="role-sub">สร้างระบบข้อมูลให้ธุรกิจ e-commerce — คนเดียว ตั้งแต่ต้นจนจบ</div>
+      <div class="role-sub">Data platform · Web apps · AI systems — ออกแบบ สร้าง และดูแลเองตั้งแต่ต้นจนจบ</div>
       <div class="contacts">
         <a href="mailto:sahatsawat.thongma@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
@@ -219,30 +219,28 @@
   <section class="section summary" data-screen-label="Summary">
     <div class="eyebrow"><span class="tick"></span>Summary<span class="num">/ 01</span></div>
     <p class="tl">
-      <span class="step">2022 — Graphic design &amp; admin operations</span>
+      <span class="step">2022–2025 — Accounting · ERP · Operations (ควบหลายหน้าที่)</span>
       <span>→</span>
-      <span class="step">2024 — Accounting &amp; ERP admin</span>
-      <span>→</span>
-      <span class="now">2025 — Data Engineer</span>
+      <span class="now">2025–ปัจจุบัน — Data Engineer</span>
     </p>
-    <p class="cur">ประสบการณ์ 4 ปีในสาย e-commerce ปัจจุบันเป็น <b>Data Engineer</b> — สร้างและดูแล <b>ระบบ production ทั้ง 7 ตัว</b> ของบริษัทระดับร้อยล้านบาทต่อเดือน · ผู้บริหารดูยอดขายได้เองไม่ต้องรอรายงาน · งานมือ ~40 งาน/วันหายไป ระบบทำเองตั้งแต่ตีห้า (dbt · Airflow · PostgreSQL · Python)</p>
-    <div class="hl">สร้าง <b>Data warehouse &amp; Web app</b> แทน Google Sheets / Excel / WMS เดิมที่ไม่เป็นระบบ ให้ทีม <b>30 คน</b> ประหยัดเวลารวม <span class="big">30–90 ชม./วัน</span> (1–3 ชม. ต่อคน) จบปัญหาสต็อก &amp; ตัวเลขไม่ตรงข้ามช่องทาง</div>
+    <p class="cur">ประสบการณ์ 4 ปีในสาย e-commerce ปัจจุบันเป็น <b>Data Engineer</b> ดูแล <b>ระบบ production 7 ตัว</b> ของบริษัทที่ขาย <b>~200 ล้านบาท/เดือน</b> — คลังข้อมูล 52 GB, WMS, ระบบสแกน, dashboard ที่ผู้บริหารเปิดดูเอง · งานมือ ~40 งาน/วันหายไป ระบบทำเองตั้งแต่ตีห้า (dbt · Airflow · PostgreSQL · Python · FastAPI/React)</p>
+    <div class="hl">ผลที่วัดเป็นตัวเลขได้: KPI ส่งของทันเวลาเชื่อถือได้ครั้งแรกที่ <b>94.6%</b> บน <b>323,134</b> ออเดอร์ · ดักราคา/ส่วนลดตั้งผิดคิดเป็นเงิน <span class="big">฿331,460</span> · แยก "เคลม" ออกจาก "คืนปกติ" ได้ <b>21,152 พัสดุ</b> ที่ ERP แยกไม่ได้มาตลอด · และทำ <b>ผู้ช่วย AI</b> ให้ทีมถามข้อมูลเป็นภาษาไทยแล้วได้ Excel/dashboard เอง</div>
   </section>
 
   <!-- ======= PROD PROJECT ======= -->
   <section class="section prod" data-screen-label="Prod Project">
     <div class="eyebrow"><span class="tick"></span>Prod Project<span class="num">/ 02</span></div>
     <h2>E-Commerce Data Pipeline &amp; Analytics Platform</h2>
-    <p class="desc">Data platform เต็มระบบ สร้างคนเดียวตั้งแต่ต้นจนจบ — เปลี่ยนงานโหลด/refresh ไฟล์ที่เคยมีคนนั่งทำทุกเช้า ให้ระบบดึงจาก 8 แหล่งเองอัตโนมัติ (Python + Playwright <span class="arrow">→</span> Azure Blob data lake → dbt → Airflow)</p>
+    <p class="desc">Data platform เต็มระบบ ออกแบบและสร้างเองตั้งแต่ต้นจนจบ — เปลี่ยนงานโหลด/refresh ไฟล์ที่เคยมีคนนั่งทำทุกเช้า ให้ระบบดึงจาก 8 แหล่งเองอัตโนมัติ (Python + Playwright <span class="arrow">→</span> Azure Blob data lake → dbt → Airflow)</p>
 
     <div class="diagram">
       <!-- stats -->
       <div class="stats">
-        <div class="stat"><span class="v">100K</span><span class="l">row / day</span></div>
-        <div class="stat"><span class="v">59 GB</span><span class="l">warehouse</span></div>
-        <div class="stat"><span class="v">420</span><span class="l">data test</span></div>
-        <div class="stat"><span class="v">1,000+</span><span class="l">order / day</span></div>
-        <div class="stat"><span class="v">178</span><span class="l">dbt model</span></div>
+        <div class="stat"><span class="v">52 GB</span><span class="l">warehouse</span></div>
+        <div class="stat"><span class="v">70M</span><span class="l">row</span></div>
+        <div class="stat"><span class="v">199</span><span class="l">dbt model</span></div>
+        <div class="stat"><span class="v">494</span><span class="l">data test</span></div>
+        <div class="stat"><span class="v">8</span><span class="l">source system</span></div>
       </div>
 
       <!-- zones -->
@@ -293,9 +291,9 @@
           <div class="znodes">
             <div class="medallion">
               <div class="layer bronze"><div class="lt">Bronze Layer</div><div class="lm">CONFIG UI · AI MAPPING · 32 FILE TYPES</div></div>
-              <div class="layer staging"><div class="lt">dbt Staging</div><div class="lm">39 VIEWS · CASTING · NULL STD</div></div>
-              <div class="layer silver"><div class="lt">dbt Silver</div><div class="lm">43 INCREMENTAL · ROW-HASH DEDUP</div></div>
-              <div class="layer inter"><div class="lt">dbt Intermediate</div><div class="lm">75 VIEWS · JOINS · CALCULATIONS</div></div>
+              <div class="layer staging"><div class="lt">dbt Staging</div><div class="lm">40 VIEWS · CASTING · NULL STD</div></div>
+              <div class="layer silver"><div class="lt">dbt Silver</div><div class="lm">44 INCREMENTAL · ROW-HASH DEDUP</div></div>
+              <div class="layer inter"><div class="lt">dbt Intermediate</div><div class="lm">94 VIEWS · JOINS · CALCULATIONS</div></div>
               <div class="layer gold"><div class="lt">dbt Gold</div><div class="lm">10 FACT · 6 DIM · INCREMENTAL</div></div>
             </div>
           </div>
@@ -308,7 +306,7 @@
           <div class="znodes">
             <div class="node app">
               <div class="ic"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="8" width="36" height="32" rx="3" fill="#fff" stroke="#0f62fe" stroke-width="1.6"/><rect x="11" y="24" width="5" height="11" rx="0.5" fill="#0f62fe"/><rect x="20" y="18" width="5" height="17" rx="0.5" fill="#4589ff"/><rect x="29" y="13" width="5" height="22" rx="0.5" fill="#78a9ff"/><line x1="6" y1="15" x2="42" y2="15" stroke="#d0ddff" stroke-width="1.4"/></svg></div>
-              <div class="tx"><div class="nt">FastAPI + React Dashboard</div><div class="ns">Real-time KPIs · price alerts · procurement · drilldowns</div></div>
+              <div class="tx"><div class="nt">FastAPI + React Dashboard</div><div class="ns">KPI ส่งของ · ดักราคาผิด · วางแผนสั่งซื้อ · ผู้ช่วย AI ถามเป็นภาษาคน</div></div>
             </div>
           </div>
         </div>
@@ -327,22 +325,22 @@
         <span class="xp-per">May 2025 – Present</span>
       </div>
       <ul class="xp-pts">
-        <li class="bullet"><b>วิศวกรคนเดียว สร้าง + ดูแล 7 ระบบ production ทั้งบริษัท</b> — ทีม 30+ คนได้เวลาคืนวันละ <b>30–90 ชม.</b> งานมือ ~40 งาน/วันระบบทำแทนตั้งแต่ตีห้า · WMS จากโค้ดบรรทัดแรกถึงหน้างานจริงใน <b>15 วัน</b> พนักงานเรียนรู้ใน 5 นาที (รวมคนไม่ใช้ภาษาไทย)</li>
-        <li class="bullet"><b>จับปัญหาข้อมูลที่ไม่มีใครรู้ว่ากำลังเกิด</b> — กู้เลขพัสดุคืน <b>23,677 เลข</b> ที่ระบบลบทิ้งเงียบ ๆ · แก้ที่รากจน <b>28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้าน เหลือ 0</b> พร้อม test กันเกิดซ้ำ</li>
-        <li class="bullet"><b>ลดค่าคลาวด์รายเดือน + ทำ backup ตัวแรกของบริษัท</b> — ปิดบริการคลาวด์รายเดือน 2 ตัว จบในไตรมาสเดียวโดย dashboard ไม่ดาวน์ (Azure SQL → PostgreSQL on-prem · ADF → Airflow)</li>
-        <li class="xp-sys"><span class="sys">Data Platform / DPL</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">Webhook Receiver</span><span class="sys">OCR Pipeline</span><span class="sys">Blob Data Lake</span><span class="sys">Playwright RPA</span></li>
+        <li class="bullet"><b>ทำให้ KPI ที่ผู้บริหารดูทุกวันเชื่อถือได้</b> — อัตราส่งของทันเวลาเคยรายงานว่าปี 2025 หลุดเป้าเกือบทั้งหมด ทั้งที่ ERP ยืนยันว่าส่งแล้ว 97% เพราะโมเดลตัดสินช่วงที่ยังไม่มีข้อมูล · รื้อวิธีวัดใหม่ → <b>94.6% บน 323,134 ออเดอร์</b> และเคสหลุดที่ <b>88% เคยไม่มีสาเหตุกำกับ</b> ตอนนี้ระบุได้ครบ ทีมไล่แก้เป็นรายสาเหตุได้ครั้งแรก</li>
+        <li class="bullet"><b>จับปัญหาข้อมูลที่ไม่มีใครรู้ว่ากำลังเกิด</b> — กู้เลขพัสดุคืน <b>23,677 เลข</b> ที่ระบบลบทิ้งเงียบ ๆ · ยอดขาย <b>28.5% ของเดือน (฿37.9 ล้าน) ที่ไม่ติดชื่อร้าน เหลือ 0</b> พร้อม test ที่ดังก่อนเลขผิดจะถึงมือคนตัดสินใจ · ปิดบริการคลาวด์รายเดือน 2 ตัวจบในไตรมาสเดียวโดย dashboard ไม่ดาวน์ + ทำ backup ตัวแรกของคลังข้อมูล</li>
+        <li class="bullet"><b>เปลี่ยนของที่เคย "รู้ตอนสายไปแล้ว" ให้ดักได้ล่วงหน้า</b> — ระบบเทียบราคาขายจริงกับเพดานราย SKU×ร้าน ดักได้ <b>150 คู่ · ส่วนลดเกินเพดาน ฿331,460</b> · ระบบวางแผนสั่งซื้อ (จุดสั่งซ้ำ + safety stock) ชี้ <b>373 SKU ที่ต้องสั่งเดี๋ยวนี้</b> แทนการนั่งเปิดหลายตารางเทียบเอง</li>
+        <li class="bullet"><b>สร้างแอปแทน WMS เดิม และปิดช่องว่างที่ ERP ทำไม่ได้</b> — WMS เขียนเอง โค้ดบรรทัดแรกถึง production ใน <b>15 วัน</b> ทุกการหยิบ/นับ/ย้ายมี audit trail (<b>208,189 รายการ · 36 คนใช้จริง</b>) เรียนรู้ใน 5 นาที · ระบบสแกนแยก <b>"เคลม" จาก "คืนปกติ" 21,152 พัสดุ</b> + ตอบได้ว่าของกลับถึงคลังหรือยัง เห็นของกำลังกลับ <b>฿7.9 ล้าน</b> ที่เคยมองไม่เห็น</li>
+        <li class="xp-sys"><span class="sys">Data Platform</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">AI Data Assistant</span><span class="sys">Ops Bot</span><span class="sys">OCR Pipeline</span><span class="sys">Blob Data Lake</span><span class="sys">Playwright RPA</span></li>
       </ul>
     </div>
 
     <div class="xp">
       <div class="xp-head">
         <span class="xp-co">Traveler Co., Ltd.</span>
-        <span class="xp-role">Accountant · ERP &amp; BI Analyst</span>
+        <span class="xp-role">Accounting · ERP &amp; BI · Operations (ควบหลายหน้าที่)</span>
         <span class="xp-per">2022 – 2025</span>
       </div>
       <ul class="xp-pts">
-        <li class="bullet"><b>จบปัญหาสต็อกไม่ตรงกันข้ามช่องทางขาย</b> — วาง master data ของ ERP ตั้งแต่ศูนย์ ให้ทุก marketplace ใช้มาตรฐาน SKU เดียวกัน (Ecount ERP)</li>
-        <li class="bullet"><b>ปิดปัญหาตัวเลข sales กับ finance ไม่ตรงกันทุกเดือน</b> — สร้างรายงานกลางที่สองทีมใช้กระทบยอดร่วมกัน (Power BI + Power Query)</li>
+        <li class="bullet"><b>จบปัญหาสต็อกไม่ตรงกันข้ามช่องทางขาย</b> — วาง master data ของ ERP ตั้งแต่ศูนย์ ให้ทุก marketplace ใช้มาตรฐาน SKU เดียวกัน (Ecount ERP) · <b>ปิดปัญหาตัวเลข sales กับ finance ไม่ตรงกันทุกเดือน</b> ด้วยรายงานกลางที่สองทีมใช้กระทบยอดร่วมกัน (Power BI + Power Query)</li>
       </ul>
     </div>
   </section>
@@ -361,8 +359,8 @@
       <dd><span class="tok">FastAPI</span><span class="tok">React / TypeScript</span><span class="tok">REST / JSON API</span><span class="tok">Playwright (RPA)</span><span class="tok">Power BI</span><span class="tok">Power Query</span></dd>
       <dt>Cloud · Azure</dt>
       <dd><span class="tok">Blob Storage</span><span class="tok">App Service</span><span class="tok">Data Factory</span><span class="tok">Azure SQL</span><span class="tok">Document Intelligence</span></dd>
-      <dt>Tooling</dt>
-      <dd><span class="tok">Git</span><span class="tok">GitHub Actions</span><span class="tok">AI pair-programming</span></dd>
+      <dt>AI &amp; Tooling</dt>
+      <dd><span class="tok">LLM tool-calling</span><span class="tok">AI agents</span><span class="tok">Git</span><span class="tok">GitHub Actions</span></dd>
       <dt>Education</dt>
       <dd><span class="tok cert">วศ.บ. วิศวกรรมคอมพิวเตอร์ — ม.เอเชียอาคเนย์ (กำลังศึกษา · คาดจบ 2029)</span></dd>
       <dt>Certifications</dt>

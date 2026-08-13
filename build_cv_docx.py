@@ -102,7 +102,7 @@ p = para(space_after=1)
 add_run(p, "Data Engineer", bold=True, size=12.5, color=BLUE)
 
 p = para(space_after=4)
-add_run(p, "สร้างระบบข้อมูลให้ธุรกิจ e-commerce — คนเดียว ตั้งแต่ต้นจนจบ", size=10, color=GREY)
+add_run(p, "Data platform · Web apps · AI systems — ออกแบบ สร้าง และดูแลเองตั้งแต่ต้นจนจบ", size=10, color=GREY)
 
 p = para(space_after=1)
 add_run(p, "sahatsawat.thongma@gmail.com  |  +66 83-691-4296  |  พันท้ายนรสิงห์, สมุทรสาคร (เปิดรับ remote / hybrid)", size=9.5, color=GREY)
@@ -114,14 +114,20 @@ section_heading("Professional Summary")
 p = para(align=WD_ALIGN_PARAGRAPH.JUSTIFY)
 add_run(p,
     "Data Engineer ประสบการณ์ 4 ปีในสาย e-commerce — ออกแบบ สร้าง และดูแล data platform "
-    "เต็มระบบคนเดียว (end-to-end) ให้บริษัท e-commerce ระดับร้อยล้านบาทต่อเดือน "
-    "งานที่สร้างช่วยให้ทีม 30+ คนประหยัดเวลารวม 30–90 ชม./วัน งานมือ ~40 งาน/วันเปลี่ยนเป็นระบบอัตโนมัติ"
-    "ที่รันเองตั้งแต่ตีห้า และผู้บริหารดูยอดขายได้เองโดยไม่ต้องรอรายงาน "
-    "เทคโนโลยีที่ใช้จริงใน production: PostgreSQL data warehouse 59 GB (ingest 100K+ records/วัน), "
-    "dbt, Apache Airflow ใน Docker, Python, ELT pipelines, medallion + dimensional (Kimball) modeling, Azure "
-    "ปี 2026 ปิด platform migration 2 ตัวในไตรมาสเดียว "
-    "(Azure SQL Server → PostgreSQL on-prem, Azure Data Factory → Airflow) ปัจจุบันโฟกัส "
-    "data reliability — จับเคสที่ pipeline ขึ้นว่าสำเร็จแต่ข้อมูลหายเงียบ ๆ ก่อนกระทบการตัดสินใจ")
+    "เต็มระบบแบบ end-to-end ให้บริษัทที่ขาย ~200 ล้านบาท/เดือน รวมถึง web app และ AI system "
+    "ที่ทีมใช้งานจริงทุกวัน งานมือ ~40 งาน/วันเปลี่ยนเป็นระบบอัตโนมัติที่รันเองตั้งแต่ตีห้า "
+    "และผู้บริหารดูยอดขาย/สต็อกได้เองโดยไม่ต้องรอรายงาน")
+p = para(align=WD_ALIGN_PARAGRAPH.JUSTIFY)
+add_run(p,
+    "เทคโนโลยีที่ใช้จริงใน production: PostgreSQL data warehouse 52 GB (70 ล้านแถว, 8 source systems), "
+    "dbt (199 models / 494 tests), Apache Airflow ใน Docker, Python, ELT pipelines, "
+    "medallion + dimensional (Kimball) modeling, FastAPI/React และ Azure "
+    "ปี 2026 ปิด platform migration 2 ตัวจบในไตรมาสเดียว "
+    "(Azure SQL Server → PostgreSQL on-prem, Azure Data Factory → Airflow)")
+p = para(align=WD_ALIGN_PARAGRAPH.JUSTIFY)
+add_run(p,
+    "โฟกัสปัจจุบันคือ data reliability — จับเคสที่ pipeline ขึ้นว่าสำเร็จแต่ข้อมูลหายเงียบ ๆ "
+    "ก่อนที่ตัวเลขผิดจะไปถึงการตัดสินใจ")
 
 # ===================== SKILLS =====================
 section_heading("Technical Skills")
@@ -130,6 +136,7 @@ skills = [
     ("Data Engineering: ", "Python, Pandas, ETL / ELT, Apache Airflow, Docker, SQLAlchemy"),
     ("Reliability & Observability: ", "dbt tests & data contracts, source freshness SLAs, Elementary Data, pipeline monitoring & alerting, backup & disaster recovery, PostgreSQL administration"),
     ("App Development: ", "FastAPI, React / TypeScript, REST / JSON API"),
+    ("AI Systems: ", "LLM tool-calling / function calling, AI agents, natural-language-to-SQL (read-only + PII guard), Azure OpenAI / Azure AI Foundry"),
     ("Ingestion & BI: ", "Playwright (RPA), Power BI, Power Query"),
     ("Cloud — Azure: ", "Blob Storage, App Service, Data Factory (ADF), Azure SQL, Document Intelligence"),
     ("Developer Tooling: ", "Git, GitHub Actions, AI pair-programming (Claude Code, Cursor)"),
@@ -149,34 +156,60 @@ add_run(p, "          May 2025 – Present", size=9.5, color=GREY)
 p = para(space_after=3)
 add_run(p, "Data Engineer — E-Commerce Data Platform", bold=True, size=10, color=BLUE)
 
-bullet([("สร้าง ", False), ("data warehouse ตัวแรกของบริษัท พร้อม platform รอบตัวมัน", True),
-        (" — แทน Google Sheets/Excel ให้ทีม 30+ คน ประหยัดเวลารวม ", False),
-        ("30–90 ชม./วัน", True),
-        (" ผู้บริหารดูยอดขาย/สต็อกได้เอง งานมือ ~40 งาน/วันรันเองตั้งแต่ตีห้า · เทคนิค: 178 dbt models บน medallion architecture 5 ชั้น + SCD type-2 dimensional modeling, 420 data tests, ingest 100K+ records/วัน จาก 8 source systems ด้วย Python + Playwright ingestion framework, orchestrate ด้วย Apache Airflow ใน Docker, เสิร์ฟผ่าน FastAPI + React dashboards พร้อมทาง self-service แบบ read-only", False)])
+bullet([("ทำให้ KPI ที่ผู้บริหารดูทุกวันเชื่อถือได้เป็นครั้งแรก", True),
+        (" — อัตราส่งของทันเวลา (fulfillment rate) เคยรายงานว่าปี 2025 หลุดเป้าเกือบทั้งหมด "
+         "ทั้งที่ ERP ยืนยันว่าส่งของแล้ว 97% เพราะโมเดลตัดสินช่วงเวลาที่ feed ต้นทางยังไม่เกิด "
+         "และเอาออเดอร์ที่สัญญาคนละแบบ (พรีออเดอร์/B2B/ขายส่ง) มารวมในตัวหารเดียวกัน · รื้อวิธีวัดใหม่ทั้งชุด → ปัจจุบัน ", False),
+        ("94.6% บน 323,134 ออเดอร์", True),
+        (" และเคสที่หลุดซึ่ง ", False), ("88% เคยไม่มีสาเหตุกำกับ", True),
+        (" ตอนนี้ระบุสาเหตุได้ครบ ทีมปฏิบัติการไล่แก้เป็นรายสาเหตุได้ครั้งแรก · เทคนิค: data-coverage floor, "
+         "scope gate, failure-reason taxonomy 6 ชั้น บน fact table 17 แกนพยาน", False)])
 
 bullet([("จับและแก้ data incident ที่ไม่มีสัญญาณเตือน", True),
         (" — กู้เลขพัสดุคืน ", False), ("23,677 เลข", True),
         (" ที่ dedup rule ลบทิ้งเงียบ ๆ และแก้ที่รากจน ", False),
-        ("28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้านเหลือศูนย์", True),
-        (" · เทคนิค: freshness canary เทียบ source สด, value-presence gate เป็น hard failure, regression test กันกลับมาโดยไม่มีใครรู้", False)])
+        ("28.5% ของยอดขายเดือนหนึ่ง (฿37.9 ล้าน จาก ฿132.8 ล้าน) ที่ไม่ติดชื่อร้านเหลือศูนย์", True),
+        (" · เทคนิค: freshness canary เทียบ source สด, value-presence gate เป็น hard failure, regression test กันกลับมาโดยไม่มีใครรู้ · "
+         "และทำ disaster-recovery backup ตัวแรกของ warehouse (nightly pg_dump ขึ้น Azure Blob พร้อม verification task แยก retention 35 วัน)", False)])
 
-bullet([("ลด cloud cost รายเดือน และทำ disaster-recovery backup ตัวแรกของ warehouse 59 GB", True),
-        (" — ปิด platform migration 2 ตัวจบในไตรมาสเดียว (Azure SQL Server → self-hosted PostgreSQL และปลดระวาง Azure Data Factory ทั้ง 46 pipelines → Airflow DAGs) โดย dashboard ไม่ดาวน์เลย · backup: nightly pg_dump ขึ้น Azure Blob พร้อม verification task แยก retention 35 วัน", False)])
+bullet([("เปลี่ยนปัญหาที่เคย “รู้ตอนสายไปแล้ว” ให้ดักได้ล่วงหน้า", True),
+        (" — สร้างระบบเทียบราคาขายจริงกับเพดานราคา/ส่วนลดราย SKU × ร้าน (มี.ค. 2026): "
+         "ย้อนตรวจทั้งประวัติการขายดักได้ ", False),
+        ("150 คู่ SKU×ร้าน / 970 จุด · ส่วนลดที่ให้เกินเพดานที่ตั้งไว้เอง ฿331,460", True),
+        (" · และสร้าง reorder engine บน dashboard (จุดสั่งซ้ำ, safety stock, days-of-cover, ปริมาณที่ควรสั่ง) "
+         "แทนการเปิดหลายตารางมานั่งเทียบเอง — ปัจจุบันครอบ ", False),
+        ("2,971 SKU ชี้ 373 ตัวที่ต้องสั่งทันที", True),
+        (" และจับ PO ค้างที่ระบบเคยนับผิดว่าเป็น “ของกำลังมา”", False)])
 
-bullet([("แทนที่ vendor WMS ด้วย custom apps ที่เขียนเอง", True),
-        (" (WMS, barcode scanner, invoice OCR) — จากโค้ดบรรทัดแรกถึงหน้างานจริงใน ", False),
+bullet([("แทนที่ vendor WMS ด้วย custom apps ที่เขียนเอง และปิดช่องว่างที่ ERP ทำไม่ได้", True),
+        (" — WMS: จากโค้ดบรรทัดแรกถึง production deploy ใน ", False),
         ("15 วัน", True),
-        (" พนักงานคลัง (รวมที่ไม่ใช้ภาษาไทย) เรียนรู้ใน 5 นาที รองรับ ", False),
-        ("1,000+ orders/วัน", True), (" พร้อม audit trail เต็มรูปแบบ · ", False),
-        ("ดูแลระบบ production ทั้ง 7 ตัวคนเดียว", True),
-        (" ตั้งแต่ architecture, build, deploy ถึง on-call (FastAPI, React, PostgreSQL)", False)])
+        (" พนักงานคลัง (รวมที่ไม่ใช้ภาษาไทย) เรียนรู้ใน 5 นาที ทุกการหยิบ/นับ/ย้ายลง inventory ledger "
+         "พร้อม audit trail — ปัจจุบัน ", False),
+        ("208,189 รายการ · ผู้ใช้จริง 36 คน", True),
+        (" รองรับ ~2,000 ออเดอร์/วัน · ระบบสแกน barcode ปิด 2 ช่องว่างของ ERP: แยก ", False),
+        ("“เคลม” ออกจาก “คืนปกติ” ได้ 21,152 พัสดุ", True),
+        (" และตอบได้ว่าของกลับถึงคลังหรือยัง (มองเห็นขากลับจาก 26.8% เป็น 98.0% ผ่าน crosswalk "
+         "เลขขาไป↔ขากลับ 28,891 คู่) — เห็นของกำลังเดินทางกลับมูลค่า ", False),
+        ("฿7.9 ล้าน", True), (" ที่เดิมมองไม่เห็น", False)])
+
+bullet([("สร้าง AI system ที่ใช้จริงใน production ไม่ใช่แค่ใช้ AI ช่วยเขียนโค้ด", True),
+        (" — ผู้ช่วยข้อมูลที่พนักงานถามเป็นภาษาไทยแล้วได้ Excel/dashboard จากคลังข้อมูลจริง "
+         "(บังคับ SELECT-only ระดับฐานข้อมูล + guard ข้อมูลส่วนบุคคล), chat widget แบบ function-calling "
+         "บน dashboard และบอทสรุปสถานะระบบใน Telegram", False)])
+
+bullet([("ลด cloud cost รายเดือน", True),
+        (" — ปิด platform migration 2 ตัวจบในไตรมาสเดียว (Azure SQL Server → self-hosted PostgreSQL "
+         "และปลดระวาง Azure Data Factory ทั้ง 46 pipelines → Airflow DAGs) โดย dashboard ไม่ดาวน์เลย · ", False),
+        ("ดูแลระบบ production ทั้ง 7 ตัว", True),
+        (" ตั้งแต่ architecture, build, deploy ถึง on-call", False)])
 
 # --- Traveler ---
 p = para(space_before=8, space_after=0)
 add_run(p, "Traveler Co., Ltd.", bold=True, size=11)
 add_run(p, "          2022 – 2025", size=9.5, color=GREY)
 p = para(space_after=3)
-add_run(p, "Accountant — ERP & BI Analyst", bold=True, size=10, color=BLUE)
+add_run(p, "Accounting · ERP & BI · Operations (ควบหลายหน้าที่)", bold=True, size=10, color=BLUE)
 
 bullet([("จบปัญหาสต็อกไม่ตรงกันข้ามช่องทางขาย", True),
         (" — วาง master data ของ ERP ตั้งแต่ศูนย์: ผังบัญชี, ข้อมูลลูกค้า/ผู้ขาย และมาตรฐาน SKU เดียวกันทุก marketplace ให้ finance กับ sales ใช้ตัวเลขชุดเดียวกัน (Ecount ERP) · เทคนิค: chart of accounts, customer/vendor master, SKU mapping ข้าม marketplaces + ERP", False)])
@@ -186,14 +219,18 @@ bullet([("ปิดปัญหาตัวเลข sales กับ finance ไ
 # ===================== PROJECT =====================
 section_heading("Selected Project")
 p = para(space_after=2)
-add_run(p, "E-Commerce Data Pipeline & Analytics Platform — built & operated end-to-end (solo)", bold=True)
+add_run(p, "E-Commerce Data Pipeline & Analytics Platform — built & operated end-to-end", bold=True)
 p = para(space_after=3)
-add_run(p, "59 GB PostgreSQL warehouse · 10.6M rows rebuilt nightly · 100K+ rows/day · 1,000+ orders/day · 178 dbt models · 420 data tests · 11 Airflow DAGs · 32 file types", size=9.5, color=GREY)
-p = para()
-add_run(p, "Data platform เต็มระบบ สร้างและดูแลคนเดียว — เปลี่ยนงานที่เคยต้องมีคนนั่งโหลดและ refresh ไฟล์ทุกเช้า "
+add_run(p, "52 GB PostgreSQL warehouse · 70M rows · 8 source systems · 199 dbt models · 494 data tests · 11 Airflow DAGs · 32 file types · ~2,000 orders/day", size=9.5, color=GREY)
+p = para(space_after=3)
+add_run(p, "Data platform เต็มระบบ ออกแบบ สร้าง และดูแลเอง — เปลี่ยนงานที่เคยต้องมีคนนั่งโหลดและ refresh ไฟล์ทุกเช้า "
            "ให้ระบบดึง raw data จาก 8 source systems (marketplaces, OMS, internal apps, logistics) เองอัตโนมัติ "
-           "แล้วเสิร์ฟเป็น dashboard แบบ real-time ให้ทั้งบริษัท "
+           "แล้วเสิร์ฟเป็น dashboard แบบ real-time ให้ทั้งบริษัท พร้อมผู้ช่วย AI ให้ถามข้อมูลเป็นภาษาคนได้ "
            "(Python + Playwright → Azure Blob data lake → dbt medallion 5 ชั้นบน PostgreSQL → Apache Airflow ใน Docker → FastAPI + React)")
+p = para()
+add_run(p, "แดชบอร์ด 5 ตัวที่ใช้งานจริง: KPI การส่งของ (fulfillment) · ดักราคา/ส่วนลดตั้งผิด · "
+           "วางแผนสั่งซื้อ (reorder engine) · วิเคราะห์การขาย (ออนไลน์ + ขายส่ง) · ผู้ดูแลระบบและสิทธิ์ผู้ใช้",
+        size=9.5, color=GREY)
 
 # ===================== EDUCATION =====================
 section_heading("Education")

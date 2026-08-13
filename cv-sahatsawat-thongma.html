@@ -17,8 +17,8 @@
   body {
     font-family: "Segoe UI", "Leelawadee UI", Tahoma, Arial, sans-serif;
     color: #1a1a1a;
-    font-size: 10.5pt;
-    line-height: 1.5;
+    font-size: 10pt;
+    line-height: 1.4;
   }
 
   .page { max-width: 190mm; margin: 0 auto; padding: 14mm 13mm; }
@@ -52,7 +52,7 @@
   .contact .sep { color: #999; padding: 0 6px; }
 
   /* ---------- sections ---------- */
-  section { margin-top: 14px; }
+  section { margin-top: 11px; }
   h2 {
     margin: 0 0 7px;
     font-size: 11pt;
@@ -84,8 +84,8 @@
   .job-head .period { font-size: 9.5pt; color: #555; white-space: nowrap; }
   .job .title { font-size: 10pt; font-weight: 600; color: #0043ce; margin: 1px 0 5px; }
 
-  ul { margin: 4px 0 0; padding-left: 18px; }
-  li { margin-bottom: 4px; }
+  ul { margin: 3px 0 0; padding-left: 17px; }
+  li { margin-bottom: 3px; }
   li:last-child { margin-bottom: 0; }
   strong { color: #111; font-weight: 700; }
 
@@ -118,7 +118,7 @@
   <header>
     <h1>สหัสวรรษ ทองมา (Sahatsawat Thongma)</h1>
     <div class="role">Data Engineer</div>
-    <div class="tagline">สร้างระบบข้อมูลให้ธุรกิจ e-commerce — คนเดียว ตั้งแต่ต้นจนจบ</div>
+    <div class="tagline">Data platform · Web apps · AI systems — ออกแบบ สร้าง และดูแลเองตั้งแต่ต้นจนจบ</div>
     <div class="contact">
       <a href="mailto:sahatsawat.thongma@gmail.com">sahatsawat.thongma@gmail.com</a>
       <span class="sep">|</span>
@@ -135,7 +135,9 @@
   <!-- ============ SUMMARY ============ -->
   <section>
     <h2>Professional Summary</h2>
-    <p class="summary">Data Engineer ประสบการณ์ 4 ปีในสาย e-commerce — ออกแบบ สร้าง และดูแล data platform เต็มระบบคนเดียว (end-to-end) ให้บริษัท e-commerce ระดับร้อยล้านบาทต่อเดือน งานที่สร้างช่วยให้ทีม 30+ คนประหยัดเวลารวม 30–90 ชม./วัน งานมือ ~40 งาน/วันเปลี่ยนเป็นระบบอัตโนมัติที่รันเองตั้งแต่ตีห้า และผู้บริหารดูยอดขายได้เองโดยไม่ต้องรอรายงาน เทคโนโลยีที่ใช้จริงใน production: PostgreSQL data warehouse 59 GB (ingest 100K+ records/วัน), dbt, Apache Airflow ใน Docker, Python, ELT pipelines, medallion + dimensional (Kimball) modeling, Azure ปี 2026 ปิด platform migration 2 ตัวในไตรมาสเดียว (Azure SQL Server → PostgreSQL on-prem, Azure Data Factory → Airflow) ปัจจุบันโฟกัส data reliability — จับเคสที่ pipeline ขึ้นว่าสำเร็จแต่ข้อมูลหายเงียบ ๆ ก่อนกระทบการตัดสินใจ</p>
+    <p class="summary">Data Engineer ประสบการณ์ 4 ปีในสาย e-commerce — ออกแบบ สร้าง และดูแล data platform เต็มระบบแบบ end-to-end ให้บริษัทที่ขาย ~200 ล้านบาท/เดือน รวมถึง web app และ AI system ที่ทีมใช้งานจริงทุกวัน งานมือ ~40 งาน/วันเปลี่ยนเป็นระบบอัตโนมัติที่รันเองตั้งแต่ตีห้า และผู้บริหารดูยอดขาย/สต็อกได้เองโดยไม่ต้องรอรายงาน</p>
+    <p class="summary">เทคโนโลยีที่ใช้จริงใน production: PostgreSQL data warehouse 52 GB (70 ล้านแถว, 8 source systems), dbt (199 models / 494 tests), Apache Airflow ใน Docker, Python, ELT pipelines, medallion + dimensional (Kimball) modeling, FastAPI/React และ Azure ปี 2026 ปิด platform migration 2 ตัวจบในไตรมาสเดียว (Azure SQL Server → PostgreSQL on-prem, Azure Data Factory → Airflow)</p>
+    <p class="summary">โฟกัสปัจจุบันคือ data reliability — จับเคสที่ pipeline ขึ้นว่าสำเร็จแต่ข้อมูลหายเงียบ ๆ ก่อนที่ตัวเลขผิดจะไปถึงการตัดสินใจ</p>
   </section>
 
   <!-- ============ SKILLS ============ -->
@@ -145,6 +147,7 @@
     <p class="skills-row"><span class="label">Data Engineering:</span> Python, Pandas, ETL / ELT, Apache Airflow, Docker, SQLAlchemy</p>
     <p class="skills-row"><span class="label">Reliability &amp; Observability:</span> dbt tests &amp; data contracts, source freshness SLAs, Elementary Data, pipeline monitoring &amp; alerting, backup &amp; disaster recovery, PostgreSQL administration</p>
     <p class="skills-row"><span class="label">App Development:</span> FastAPI, React / TypeScript, REST / JSON API</p>
+    <p class="skills-row"><span class="label">AI Systems:</span> LLM tool-calling / function calling, AI agents, natural-language-to-SQL (read-only + PII guard), Azure OpenAI / Azure AI Foundry</p>
     <p class="skills-row"><span class="label">Ingestion &amp; BI:</span> Playwright (RPA), Power BI, Power Query</p>
     <p class="skills-row"><span class="label">Cloud — Azure:</span> Blob Storage, App Service, Data Factory (ADF), Azure SQL, Document Intelligence</p>
     <p class="skills-row"><span class="label">Developer Tooling:</span> Git, GitHub Actions, AI pair-programming (Claude Code, Cursor)</p>
@@ -161,10 +164,12 @@
       </div>
       <div class="title">Data Engineer — E-Commerce Data Platform</div>
       <ul>
-<li>สร้าง <strong>data warehouse ตัวแรกของบริษัท พร้อม platform รอบตัวมัน</strong> — แทน Google Sheets/Excel ให้ทีม 30+ คน ประหยัดเวลารวม <strong>30–90 ชม./วัน</strong> ผู้บริหารดูยอดขาย/สต็อกได้เอง งานมือ ~40 งาน/วันรันเองตั้งแต่ตีห้า · เทคนิค: 178 dbt models บน medallion architecture 5 ชั้น + SCD type-2 dimensional modeling, 420 data tests, ingest 100K+ records/วัน จาก 8 source systems ด้วย Python + Playwright ingestion framework, orchestrate ด้วย Apache Airflow ใน Docker, เสิร์ฟผ่าน FastAPI + React dashboards พร้อมทาง self-service แบบ read-only</li>
-        <li><strong>จับและแก้ data incident ที่ไม่มีสัญญาณเตือน</strong> — กู้เลขพัสดุคืน <strong>23,677 เลข</strong> ที่ dedup rule ลบทิ้งเงียบ ๆ และแก้ที่รากจน <strong>28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้านเหลือศูนย์</strong> · เทคนิค: freshness canary เทียบ source สด, value-presence gate เป็น hard failure, regression test กันกลับมาโดยไม่มีใครรู้</li>
-        <li><strong>ลด cloud cost รายเดือน และทำ disaster-recovery backup ตัวแรกของ warehouse 59 GB</strong> — ปิด platform migration 2 ตัวจบในไตรมาสเดียว (Azure SQL Server → self-hosted PostgreSQL และปลดระวาง Azure Data Factory ทั้ง 46 pipelines → Airflow DAGs) โดย dashboard ไม่ดาวน์เลย · backup: nightly pg_dump ขึ้น Azure Blob พร้อม verification task แยก retention 35 วัน</li>
-        <li><strong>แทนที่ vendor WMS ด้วย custom apps ที่เขียนเอง</strong> (WMS, barcode scanner, invoice OCR) — จากโค้ดบรรทัดแรกถึงหน้างานจริงใน <strong>15 วัน</strong> พนักงานคลัง (รวมที่ไม่ใช้ภาษาไทย) เรียนรู้ใน 5 นาที รองรับ <strong>1,000+ orders/วัน</strong> พร้อม audit trail เต็มรูปแบบ · <strong>ดูแลระบบ production ทั้ง 7 ตัวคนเดียว</strong> ตั้งแต่ architecture, build, deploy ถึง on-call (FastAPI, React, PostgreSQL)</li>
+        <li><strong>ทำให้ KPI ที่ผู้บริหารดูทุกวันเชื่อถือได้เป็นครั้งแรก</strong> — อัตราส่งของทันเวลา (fulfillment rate) เคยรายงานว่าปี 2025 หลุดเป้าเกือบทั้งหมด ทั้งที่ ERP ยืนยันว่าส่งของแล้ว 97% เพราะโมเดลตัดสินช่วงเวลาที่ feed ต้นทางยังไม่เกิด และเอาออเดอร์ที่สัญญาคนละแบบ (พรีออเดอร์/B2B/ขายส่ง) มารวมในตัวหารเดียวกัน · รื้อวิธีวัดใหม่ทั้งชุด → ปัจจุบัน <strong>94.6% บน 323,134 ออเดอร์</strong> และเคสที่หลุดซึ่ง <strong>88% เคยไม่มีสาเหตุกำกับ</strong> ตอนนี้ระบุสาเหตุได้ครบ ทีมปฏิบัติการไล่แก้เป็นรายสาเหตุได้ครั้งแรก · เทคนิค: data-coverage floor, scope gate, failure-reason taxonomy 6 ชั้น บน fact table 17 แกนพยาน</li>
+        <li><strong>จับและแก้ data incident ที่ไม่มีสัญญาณเตือน</strong> — กู้เลขพัสดุคืน <strong>23,677 เลข</strong> ที่ dedup rule ลบทิ้งเงียบ ๆ และแก้ที่รากจน <strong>28.5% ของยอดขายเดือนหนึ่ง (฿37.9 ล้าน จาก ฿132.8 ล้าน) ที่ไม่ติดชื่อร้านเหลือศูนย์</strong> · เทคนิค: freshness canary เทียบ source สด, value-presence gate เป็น hard failure, regression test กันกลับมาโดยไม่มีใครรู้ · และทำ disaster-recovery backup ตัวแรกของ warehouse (nightly pg_dump ขึ้น Azure Blob พร้อม verification task แยก retention 35 วัน)</li>
+        <li><strong>เปลี่ยนปัญหาที่เคย "รู้ตอนสายไปแล้ว" ให้ดักได้ล่วงหน้า</strong> — สร้างระบบเทียบราคาขายจริงกับเพดานราคา/ส่วนลดราย SKU × ร้าน (มี.ค. 2026): ย้อนตรวจทั้งประวัติการขายดักได้ <strong>150 คู่ SKU×ร้าน / 970 จุด · ส่วนลดที่ให้เกินเพดานที่ตั้งไว้เอง ฿331,460</strong> · และสร้าง reorder engine บน dashboard (จุดสั่งซ้ำ, safety stock, days-of-cover, ปริมาณที่ควรสั่ง) แทนการเปิดหลายตารางมานั่งเทียบเอง — ปัจจุบันครอบ <strong>2,971 SKU ชี้ 373 ตัวที่ต้องสั่งทันที</strong> และจับ PO ค้างที่ระบบเคยนับผิดว่าเป็น "ของกำลังมา"</li>
+        <li><strong>แทนที่ vendor WMS ด้วย custom apps ที่เขียนเอง และปิดช่องว่างที่ ERP ทำไม่ได้</strong> — WMS: จากโค้ดบรรทัดแรกถึง production deploy ใน <strong>15 วัน</strong> พนักงานคลัง (รวมที่ไม่ใช้ภาษาไทย) เรียนรู้ใน 5 นาที ทุกการหยิบ/นับ/ย้ายลง inventory ledger พร้อม audit trail — ปัจจุบัน <strong>208,189 รายการ · ผู้ใช้จริง 36 คน</strong> รองรับ ~2,000 ออเดอร์/วัน · ระบบสแกน barcode ปิด 2 ช่องว่างของ ERP: แยก <strong>"เคลม" ออกจาก "คืนปกติ" ได้ 21,152 พัสดุ</strong> และตอบได้ว่าของกลับถึงคลังหรือยัง (มองเห็นขากลับจาก 26.8% เป็น 98.0% ผ่าน crosswalk เลขขาไป↔ขากลับ 28,891 คู่) — เห็นของกำลังเดินทางกลับมูลค่า <strong>฿7.9 ล้าน</strong> ที่เดิมมองไม่เห็น</li>
+        <li><strong>สร้าง AI system ที่ใช้จริงใน production ไม่ใช่แค่ใช้ AI ช่วยเขียนโค้ด</strong> — ผู้ช่วยข้อมูลที่พนักงานถามเป็นภาษาไทยแล้วได้ Excel/dashboard จากคลังข้อมูลจริง (บังคับ SELECT-only ระดับฐานข้อมูล + guard ข้อมูลส่วนบุคคล), chat widget แบบ function-calling บน dashboard และบอทสรุปสถานะระบบใน Telegram</li>
+        <li><strong>ลด cloud cost รายเดือน</strong> — ปิด platform migration 2 ตัวจบในไตรมาสเดียว (Azure SQL Server → self-hosted PostgreSQL และปลดระวาง Azure Data Factory ทั้ง 46 pipelines → Airflow DAGs) โดย dashboard ไม่ดาวน์เลย · <strong>ดูแลระบบ production ทั้ง 7 ตัว</strong> ตั้งแต่ architecture, build, deploy ถึง on-call</li>
       </ul>
     </div>
 
@@ -173,7 +178,7 @@
         <span class="co">Traveler Co., Ltd.</span>
         <span class="period">2022 – 2025</span>
       </div>
-      <div class="title">Accountant — ERP &amp; BI Analyst</div>
+      <div class="title">Accounting · ERP &amp; BI · Operations (ควบหลายหน้าที่)</div>
       <ul>
 <li><strong>จบปัญหาสต็อกไม่ตรงกันข้ามช่องทางขาย</strong> — วาง master data ของ ERP ตั้งแต่ศูนย์: ผังบัญชี, ข้อมูลลูกค้า/ผู้ขาย และมาตรฐาน SKU เดียวกันทุก marketplace ให้ finance กับ sales ใช้ตัวเลขชุดเดียวกัน (Ecount ERP) · เทคนิค: chart of accounts, customer/vendor master, SKU mapping ข้าม marketplaces + ERP</li>
         <li><strong>ปิดปัญหาตัวเลข sales กับ finance ไม่ตรงกันที่เกิดซ้ำทุกเดือน</strong> — สร้างรายงานรายเดือนกลางที่สองทีมใช้กระทบยอดร่วมกัน (Power BI, Power Query)</li>
@@ -184,9 +189,10 @@
   <!-- ============ KEY PROJECT ============ -->
   <section>
     <h2>Selected Project</h2>
-    <p class="proj-head">E-Commerce Data Pipeline &amp; Analytics Platform — built &amp; operated end-to-end (solo)</p>
-    <p class="proj-stats">59 GB PostgreSQL warehouse · 10.6M rows rebuilt nightly · 100K+ rows/day · 1,000+ orders/day · 178 dbt models · 420 data tests · 11 Airflow DAGs · 32 file types</p>
-    <p>Data platform เต็มระบบ สร้างและดูแลคนเดียว — เปลี่ยนงานที่เคยต้องมีคนนั่งโหลดและ refresh ไฟล์ทุกเช้า ให้ระบบดึง raw data จาก 8 source systems (marketplaces, OMS, internal apps, logistics) เองอัตโนมัติ แล้วเสิร์ฟเป็น dashboard แบบ real-time ให้ทั้งบริษัท (Python + Playwright → Azure Blob data lake → dbt medallion 5 ชั้นบน PostgreSQL → Apache Airflow ใน Docker → FastAPI + React)</p>
+    <p class="proj-head">E-Commerce Data Pipeline &amp; Analytics Platform — built &amp; operated end-to-end</p>
+    <p class="proj-stats">52 GB PostgreSQL warehouse · 70M rows · 8 source systems · 199 dbt models · 494 data tests · 11 Airflow DAGs · 32 file types · ~2,000 orders/day</p>
+    <p>Data platform เต็มระบบ ออกแบบ สร้าง และดูแลเอง — เปลี่ยนงานที่เคยต้องมีคนนั่งโหลดและ refresh ไฟล์ทุกเช้า ให้ระบบดึง raw data จาก 8 source systems (marketplaces, OMS, internal apps, logistics) เองอัตโนมัติ แล้วเสิร์ฟเป็น dashboard แบบ real-time ให้ทั้งบริษัท พร้อมผู้ช่วย AI ให้ถามข้อมูลเป็นภาษาคนได้ (Python + Playwright → Azure Blob data lake → dbt medallion 5 ชั้นบน PostgreSQL → Apache Airflow ใน Docker → FastAPI + React)</p>
+    <p class="proj-stats">แดชบอร์ด 5 ตัวที่ใช้งานจริง: KPI การส่งของ (fulfillment) · ดักราคา/ส่วนลดตั้งผิด · วางแผนสั่งซื้อ (reorder engine) · วิเคราะห์การขาย (ออนไลน์ + ขายส่ง) · ผู้ดูแลระบบและสิทธิ์ผู้ใช้</p>
   </section>
 
   <!-- ============ EDUCATION ============ -->

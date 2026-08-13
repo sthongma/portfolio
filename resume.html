@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Sahatsawat Thongma — Data Engineer</title>
-<meta name="description" content="Sahatsawat Thongma — Data Engineer who single-handedly builds and runs the data platform behind a nine-figure monthly-revenue e-commerce business. Executives self-serve their numbers; a 30+ person team saves 30–90 hours a day. dbt · Airflow · PostgreSQL · Python · Azure." />
+<meta name="description" content="Sahatsawat Thongma — Data Engineer who builds and runs the data platform, warehouse apps and AI tooling behind a Thai e-commerce business selling ~฿200M a month. Executives self-serve their numbers; ~40 daily manual jobs run themselves. dbt · Airflow · PostgreSQL · Python · Azure." />
 <meta property="og:title" content="Sahatsawat Thongma — Data Engineer" />
-<meta property="og:description" content="One engineer, the whole data platform — from raw marketplace data to the dashboards a nine-figure e-commerce business runs on. dbt · Airflow · PostgreSQL · Python." />
+<meta property="og:description" content="From raw marketplace data to the dashboards, warehouse apps and AI assistant a Thai e-commerce business runs on. dbt · Airflow · PostgreSQL · Python." />
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/186543613" />
 <meta property="og:type" content="profile" />
 <meta name="twitter:card" content="summary" />
@@ -1632,7 +1632,7 @@
     <div class="hero-text">
     <h1 data-i18n="name">Sahatsawat Thongma</h1>
     <p class="title" data-i18n="roleTitle">Data Engineer</p>
-    <p class="role-tagline" data-i18n="roleTagline">I build the data systems an e-commerce business runs on — solo, end to end.</p>
+    <p class="role-tagline" data-i18n="roleTagline">Data platform · web apps · AI systems — designed, built and operated end to end.</p>
     <address class="contact">
       <a href="mailto:sahatsawat.thongma@gmail.com">
         <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1701,14 +1701,13 @@
     <p data-i18n="summary[0]">
       <strong>Data engineer who builds systems the whole company
       actually uses.</strong> 4 years in e-commerce — today I run the
-      entire data platform of a nine-figure monthly-revenue business
-      single-handed. Executives check sales and stock themselves
-      instead of waiting for a spreadsheet, ~40 daily manual jobs now
-      run automatically from 5 a.m., and a team of 30+ gets back
-      <strong>30–90 hours every day</strong>. Current focus:
-      <strong>data reliability</strong> — catching the failure where
-      every job reports success but the numbers are silently wrong,
-      before anyone makes a decision on them. Tools: <strong>dbt ·
+      data platform, the warehouse apps and the AI tooling of a
+      business selling ~฿200M a month. Executives check sales and
+      stock themselves instead of waiting for a spreadsheet, and ~40
+      daily manual jobs now run automatically from 5 a.m. Current
+      focus: <strong>data reliability</strong> — catching the failure
+      where every job reports success but the numbers are silently
+      wrong, before anyone makes a decision on them. Tools: <strong>dbt ·
       Airflow · PostgreSQL · Python · Azure · FastAPI/React</strong>.
     </p>
   </section>
@@ -1723,44 +1722,72 @@
       <div class="role" data-i18n="epRole">Data Engineer &nbsp;·&nbsp; E-Commerce Data Platform</div>
       <ul>
         <li data-i18n="epBullets[0]">
-          <strong>Built the company's first data warehouse — and the
-          platform around it.</strong> Replaced scattered Google Sheets
-          and Excel for a 30+ person team, giving back <strong>30–90
-          hours every day</strong>; executives now pull their own sales,
-          stock and delivery numbers instead of waiting for reports, and
-          ~40 daily manual download jobs run themselves from 5 a.m.
-          (dbt, Apache Airflow, PostgreSQL, Python — data from 8 sources
-          incl. Shopee, Lazada, TikTok).
+          <strong>Made the KPI executives read every day trustworthy
+          for the first time.</strong> On-time fulfilment was reported
+          as missing target for nearly all of 2025 — while the ERP
+          insisted 97% had shipped — because the model judged months
+          before its evidence feed existed, and mixed order types with
+          completely different delivery promises into one denominator.
+          I rebuilt how it is measured: today it reads <strong>94.6%
+          across 323,134 orders</strong>, and the misses — <strong>88%
+          of which previously carried no reason at all</strong> — are
+          now fully attributed, so operations can work them down cause
+          by cause.
         </li>
         <li data-i18n="epBullets[1]">
           <strong>Caught data failures no one knew were happening — and
           fixed them at the root.</strong> Recovered <strong>23,677
           shipment tracking numbers</strong> the system had silently
-          deleted, and traced <strong>28.5% of a month's sales that were
-          attributed to no store</strong> down to zero — with automatic
-          checks that now raise the alarm before a bad number reaches a
-          business decision (data-reliability tests, freshness
-          monitoring).
+          deleted, and traced <strong>28.5% of a month's sales (฿37.9M
+          of ฿132.8M) that were attributed to no store</strong> down to
+          zero — with automatic checks that now raise the alarm before a
+          bad number reaches a business decision (data-reliability
+          tests, freshness monitoring).
         </li>
         <li data-i18n="epBullets[2]">
+          <strong>Turned problems the business used to find out about
+          too late into things it catches up front.</strong> Built
+          price/discount guardrails per SKU × store: replayed across the
+          full sales history they flag <strong>150 SKU-store pairs and
+          ฿331,460 of discount given beyond the company's own
+          ceiling</strong>. Built a reorder engine on the dashboard
+          (reorder point, safety stock, days of cover, suggested
+          quantity) replacing a manual cross-check of several
+          spreadsheets — it now covers <strong>2,971 SKUs and flags 373
+          to order right now</strong>.
+        </li>
+        <li data-i18n="epBullets[3]">
+          <strong>Replaced the vendor warehouse system with apps I
+          built, and closed the gaps the ERP could not.</strong> WMS:
+          first line of code to production deploy in <strong>15
+          days</strong>; staff including non-Thai speakers learn it in
+          under 5 minutes, every pick/count/move lands in an inventory
+          ledger with a full audit trail — <strong>208,189 entries, 36
+          real users</strong>, ~2,000 orders/day. The barcode scanner
+          separates <strong>claims from ordinary returns across 21,152
+          parcels</strong> and answers whether goods actually made it
+          back — return-leg visibility went from 26.8% to 98.0%,
+          surfacing <strong>฿7.9M of stock in transit back</strong> that
+          was previously invisible.
+        </li>
+        <li data-i18n="epBullets[4]">
+          <strong>Built AI systems that run in production — not just
+          AI-assisted coding.</strong> A data assistant staff query in
+          Thai to get an Excel file or a dashboard straight from the
+          warehouse (SELECT-only enforced at the database, with PII
+          guards), a function-calling chat widget on the dashboard, and
+          a Telegram bot that reports system health.
+        </li>
+        <li data-i18n="epBullets[5]">
           <strong>Cut recurring cloud costs and gave the company's data
           its first safety net.</strong> Moved the warehouse and its
           scheduling off two paid monthly cloud services onto self-run
           infrastructure — done in a single quarter with zero dashboard
           downtime — and shipped the first nightly, independently
-          verified backup the 59 GB warehouse ever had (Azure SQL Server
-          → PostgreSQL, Azure Data Factory → Airflow, pg_dump to Azure
-          Blob).
-        </li>
-        <li data-i18n="epBullets[3]">
-          <strong>Replaced the vendor warehouse system with apps I
-          built</strong> — from first line of code to live on the
-          warehouse floor in <strong>15 days</strong>; staff, including
-          non-Thai speakers, learn it in under 5 minutes, and it handles
-          <strong>1,000+ orders/day</strong> with a full audit trail. I
-          design, build, deploy and stay on call for <strong>all 7
-          production systems single-handed</strong> (WMS, barcode
-          scanner, invoice OCR — FastAPI/React).
+          verified backup the warehouse ever had (Azure SQL Server →
+          PostgreSQL, 46 Azure Data Factory pipelines → Airflow, pg_dump
+          to Azure Blob). I design, build, deploy and stay on call for
+          <strong>all 7 production systems</strong>.
         </li>
       </ul>
     </div>
@@ -1903,36 +1930,37 @@
         <h3><span class="num">01</span>E-Commerce Data Pipeline &amp; Analytics Platform</h3>
       </div>
       <p class="tagline" data-i18n="projectTaglines[0]">
-        Full data platform — a 59 GB PostgreSQL warehouse rebuilt nightly
-        (10.6M rows), 178 dbt models under 420 tests, 100K+ rows/day and
-        1,000+ orders/day across 4 sales channels.
+        Full data platform — a 52 GB PostgreSQL warehouse holding 70M
+        rows, 199 dbt models under 494 tests, fed from 8 source systems
+        across 4 sales channels, serving 5 dashboards plus an AI
+        assistant.
       </p>
       <ul class="bullets">
         <li data-i18n="projectBullets[0][0]">Ingests from <strong>8 source systems</strong> (Shopee, Lazada, TikTok, Facebook, JST OMS, DHL, Flash Express, internal WMS/BSN) via a <strong>Python + Playwright RPA framework</strong> and direct database pulls, landing in an <strong>Azure Blob data lake</strong> → a 5-layer <strong>dbt medallion</strong> warehouse — replacing a daily manual download routine that one person used to do every morning.</li>
-        <li data-i18n="projectBullets[0][1]">Orchestrated by <strong>Apache Airflow in Docker</strong> — 11 DAGs with custom Bronze/dbt operators, <strong>420 dbt data tests</strong>, source-freshness checks, and <strong>Telegram alerts</strong> that fire on failure <em>and</em> on runs that finish green but moved no data.</li>
+        <li data-i18n="projectBullets[0][1]">Orchestrated by <strong>Apache Airflow in Docker</strong> — 11 DAGs with custom Bronze/dbt operators, <strong>494 dbt data tests</strong>, source-freshness checks, and <strong>Telegram alerts</strong> that fire on failure <em>and</em> on runs that finish green but moved no data.</li>
         <li data-i18n="projectBullets[0][2]"><strong>Migrated off two platforms in one quarter</strong> — the warehouse from Azure SQL Server to self-hosted PostgreSQL, and the orchestration layer from 46 Azure Data Factory pipelines to Airflow DAGs, with no dashboard downtime.</li>
         <li data-i18n="projectBullets[0][3]"><strong>Reliability &amp; DR</strong> — freshness canaries measured against live source, value-presence gates enforced as hard failures, and the first disaster-recovery backup the warehouse ever had: nightly <code>pg_dump</code> to Blob, independently verified, 35-day retention.</li>
       </ul>
 
       <div class="metrics" aria-label="Data platform metrics">
         <div class="metric">
-          <span class="val">100K+</span>
-          <span class="label">rows / day</span>
+          <span class="val">70M</span>
+          <span class="label">rows</span>
         </div>
         <div class="metric">
-          <span class="val">1,000+</span>
+          <span class="val">~2,000</span>
           <span class="label">orders / day</span>
         </div>
         <div class="metric">
-          <span class="val">178</span>
+          <span class="val">199</span>
           <span class="label">dbt models</span>
         </div>
         <div class="metric">
-          <span class="val">59 GB</span>
+          <span class="val">52 GB</span>
           <span class="label">warehouse</span>
         </div>
         <div class="metric">
-          <span class="val">420</span>
+          <span class="val">494</span>
           <span class="label">dbt data tests</span>
         </div>
       </div>
@@ -2070,7 +2098,7 @@
         <text class="box-sub" x="300" y="983">Price alerts · procurement tracking · drilldowns</text>
 
         <!-- Airflow footer -->
-        <text class="arch-footer" x="418" y="1040">Orchestrated by Airflow in Docker · 11 DAGs · nightly 05:00 · freshness canaries · 420 dbt tests · Telegram alerts</text>
+        <text class="arch-footer" x="418" y="1040">Orchestrated by Airflow in Docker · 11 DAGs · nightly 05:00 · freshness canaries · 494 dbt tests · Telegram alerts</text>
       </svg>
       </div>
       </div>
