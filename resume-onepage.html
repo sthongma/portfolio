@@ -37,20 +37,20 @@
     min-height: 297mm;
     margin: 0 auto;
     background: #ffffff;
-    padding: 5mm 12mm 4mm;
+    padding: 4mm 12mm 2mm;
     display: flex;
     flex-direction: column;
   }
   .doc { flex: 1; display: flex; flex-direction: column; }
 
   /* ---------- consistent section header ---------- */
-  .section { padding: 3px 0 0; }
+  .section { padding: 2px 0 0; }
   .section + .section { margin-top: 1px; }
   .eyebrow {
     display: flex; align-items: center; gap: 9px;
     font-family: var(--font-mono); font-size: 8.5px; font-weight: 600;
     letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink);
-    margin: 0 0 3px;
+    margin: 0 0 2px;
   }
   .eyebrow .tick { width: 9px; height: 9px; background: var(--blue); flex: 0 0 auto; }
   .eyebrow .num { color: var(--muted); font-weight: 500; }
@@ -63,7 +63,7 @@
   }
   .hero .photo-wrap { flex: 0 0 auto; position: relative; }
   .hero .photo { width: 96px; height: 100%; object-fit: cover; display: block; }
-  .hero .id { flex: 1; min-width: 0; padding: 9px 15px; display: flex; flex-direction: column; justify-content: center; border-left: 3px solid var(--blue); }
+  .hero .id { flex: 1; min-width: 0; padding: 7px 15px; display: flex; flex-direction: column; justify-content: center; border-left: 3px solid var(--blue); }
   .hero h1 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.06; color: var(--ink); }
   .hero .role {
     margin: 5px 0 2px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
@@ -95,7 +95,7 @@
   .summary .cur { font-size: 10.8px; color: var(--body); line-height: 1.45; margin: 0; }
   .summary .cur b { color: var(--ink); font-weight: 600; }
   .summary .hl {
-    margin: 5px 0 0; padding: 5px 9px; background: var(--blue-soft);
+    margin: 4px 0 0; padding: 4px 9px; background: var(--blue-soft);
     border: 1px solid var(--blue-line); border-radius: var(--r);
     font-size: 10.3px; color: var(--ink-2); line-height: 1.4;
   }
@@ -104,15 +104,15 @@
 
   /* ---------------- PROD PROJECT ---------------- */
   .prod h2 { margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
-  .prod .desc { margin: 5px 0 0; font-size: 10.4px; color: var(--body); line-height: 1.5; }
+  .prod .desc { margin: 4px 0 0; font-size: 10.4px; color: var(--body); line-height: 1.48; }
   .prod .desc b { color: var(--ink); font-weight: 600; }
   .prod .desc .arrow { color: var(--blue); font-weight: 700; font-family: var(--font-mono); }
 
-  .diagram { margin-top: 5px; }
+  .diagram { margin-top: 4px; }
 
   /* stat strip */
-  .stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-bottom: 6px; }
-  .stat { padding: 5px 6px; border-left: 1px solid var(--line); text-align: left; }
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; margin-bottom: 5px; }
+  .stat { padding: 4px 6px; border-left: 1px solid var(--line); text-align: left; }
   .stat:first-child { border-left: none; }
   .stat .v { display: block; font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1; letter-spacing: -0.01em; }
   .stat .l { display: block; margin-top: 3px; font-family: var(--font-mono); font-size: 7px; font-weight: 500; letter-spacing: 0.05em; color: var(--muted); text-transform: uppercase; }
@@ -127,11 +127,11 @@
   .zhead { font-family: var(--font-mono); font-size: 7.5px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ink); padding: 4.5px 9px; background: var(--field); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
   .zhead .zc { color: var(--blue); font-weight: 700; }
   .zone.warehouse .zhead { background: var(--blue-soft); border-bottom-color: var(--blue-line); }
-  .znodes { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 5px; }
+  .znodes { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 2.5px; padding: 4px; }
   .zarrow { flex: 0 0 20px; display: flex; align-items: center; justify-content: center; color: var(--muted); }
   .zarrow svg { width: 16px; height: 12px; }
 
-  .node { display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid var(--line); border-radius: 3px; padding: 4.5px 7px; }
+  .node { display: flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid var(--line); border-radius: 3px; padding: 4px 7px; }
   .node .ic { flex: 0 0 auto; width: 22px; height: 22px; }
   .node .ic svg { width: 100%; height: 100%; display: block; }
   .node .nt { font-size: 10px; font-weight: 600; color: var(--ink); line-height: 1.15; }
@@ -153,7 +153,7 @@
   .node.app .ns { font-size: 8.4px; color: var(--ink-2); line-height: 1.45; }
 
   /* ---------------- EXPERIENCE ---------------- */
-  .experience .xp + .xp { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--line); }
+  .experience .xp + .xp { margin-top: 5px; padding-top: 5px; border-top: 1px solid var(--line); }
   .experience .xp-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 3px 10px; }
   .experience .xp-co { font-size: 12.5px; font-weight: 600; color: var(--ink); }
   .experience .xp-role { font-size: 10.5px; font-weight: 500; color: var(--blue); letter-spacing: -0.005em; }
@@ -161,13 +161,13 @@
   .experience .xp-pts { margin: 4px 0 0; padding: 0; list-style: none; }
   .experience .xp-pts li { font-size: 9.8px; color: var(--body); line-height: 1.33; position: relative; padding-left: 15px; }
   .experience .xp-pts li.bullet::before { content: ""; position: absolute; left: 1px; top: 6px; width: 5px; height: 5px; background: var(--blue); }
-  .experience .xp-pts li + li { margin-top: 3.5px; }
+  .experience .xp-pts li + li { margin-top: 3px; }
   .experience .xp-pts li b { color: var(--ink); font-weight: 600; }
   .experience .xp-sys { list-style: none; padding-left: 0 !important; margin-top: 5px; display: flex; flex-wrap: wrap; gap: 5px; }
   .experience .sys { font-family: var(--font-mono); font-size: 8px; font-weight: 500; letter-spacing: 0.01em; padding: 3px 8px; background: var(--field); border: 1px solid var(--line); border-radius: 3px; color: var(--ink-2); white-space: nowrap; }
 
   /* ---------------- SKILLS ---------------- */
-  .skills .grid { display: grid; grid-template-columns: 118px 1fr; gap: 3.2px 16px; align-items: start; }
+  .skills .grid { display: grid; grid-template-columns: 118px 1fr; gap: 2.8px 16px; align-items: start; }
   .skills .grid .row { display: contents; }
   .skills dt { font-size: 9.5px; font-weight: 600; color: var(--ink); padding-top: 3px; font-family: var(--font-mono); letter-spacing: 0.01em; }
   .skills dd { margin: 0; display: flex; flex-wrap: wrap; gap: 5px; }
@@ -223,8 +223,8 @@
       <span>→</span>
       <span class="now">2025–ปัจจุบัน — Data Engineer</span>
     </p>
-    <p class="cur">ประสบการณ์ 4 ปีในสาย e-commerce ปัจจุบันเป็น <b>Data Engineer</b> ดูแล <b>ระบบ production 7 ตัว</b> ของบริษัทที่ขายผ่าน <b>4 marketplace ~2,000 ออเดอร์/วัน</b> — คลังข้อมูล 52 GB, WMS, ระบบสแกน, dashboard ที่ผู้บริหารเปิดดูเอง · งานมือ ~40 งาน/วันหายไป ระบบทำเองตั้งแต่ตีห้า (dbt · Airflow · PostgreSQL · Python · FastAPI/React)</p>
-    <div class="hl">ผลที่วัดเป็นตัวเลขได้: KPI ส่งของทันเวลาเชื่อถือได้ครั้งแรกที่ <span class="big">94.6%</span> บน <b>323,134</b> ออเดอร์ · ดักส่วนลดที่ตั้งเกินเพดานซึ่งรั่วอยู่ <b>9.3%</b> ของมูลค่าสินค้ากลุ่มนั้น · แยก "เคลม" ออกจาก "คืนปกติ" ได้ <b>21,152 พัสดุ</b> ที่ ERP แยกไม่ได้มาตลอด · ทำ <b>ผู้ช่วย AI</b> ให้ทีมถามข้อมูลเป็นภาษาไทยได้เอง</div>
+    <p class="cur">ประสบการณ์ 4 ปีในธุรกิจ e-commerce — 3 ปีฝั่งธุรกิจ (บัญชี · ERP · BI) และเป็น <b>Data Engineer</b> เต็มตัวตั้งแต่ พ.ค. 2025 ปัจจุบันดูแล <b>ระบบ production 9 ตัว</b> ของบริษัทที่ขายผ่าน <b>4 marketplace ~2,000 ออเดอร์/วัน</b> — คลังข้อมูล 50+ GB, WMS, ระบบสแกน, dashboard ที่ผู้บริหารเปิดดูเอง · งานมือ ~40 งาน/วันหายไป ระบบทำเองตั้งแต่ตีห้า</p>
+    <div class="hl">ผลที่วัดเป็นตัวเลขได้: KPI ส่งของทันเวลาเชื่อถือได้ครั้งแรกที่ <span class="big">~95%</span> · ดักส่วนลดที่ตั้งเกินเพดานซึ่งรั่วอยู่ <b>9.3%</b> ของมูลค่าสินค้ากลุ่มนั้น · ทำ <b>ผู้ช่วย AI</b> ให้ทีมถามข้อมูลเป็นภาษาไทยได้เอง</div>
   </section>
 
   <!-- ======= PROD PROJECT ======= -->
@@ -236,10 +236,10 @@
     <div class="diagram">
       <!-- stats -->
       <div class="stats">
-        <div class="stat"><span class="v">52 GB</span><span class="l">warehouse</span></div>
-        <div class="stat"><span class="v">70M</span><span class="l">row</span></div>
-        <div class="stat"><span class="v">199</span><span class="l">dbt model</span></div>
-        <div class="stat"><span class="v">494</span><span class="l">data test</span></div>
+        <div class="stat"><span class="v">50+ GB</span><span class="l">warehouse</span></div>
+        <div class="stat"><span class="v">65M+</span><span class="l">row</span></div>
+        <div class="stat"><span class="v">200+</span><span class="l">dbt model</span></div>
+        <div class="stat"><span class="v">500+</span><span class="l">data test</span></div>
         <div class="stat"><span class="v">8</span><span class="l">source system</span></div>
       </div>
 
@@ -325,10 +325,11 @@
         <span class="xp-per">May 2025 – Present</span>
       </div>
       <ul class="xp-pts">
-        <li class="bullet"><b>ทำให้ KPI ที่ผู้บริหารดูทุกวันเชื่อถือได้</b> — อัตราส่งของทันเวลาเคยรายงานว่าปี 2025 หลุดเป้าเกือบทั้งหมด ทั้งที่ ERP ยืนยันว่าส่งแล้ว 97% เพราะโมเดลตัดสินช่วงที่ยังไม่มีข้อมูล · รื้อวิธีวัดใหม่ → <b>94.6% บน 323,134 ออเดอร์</b> และเคสหลุดที่ <b>88% เคยไม่มีสาเหตุกำกับ</b> ตอนนี้ระบุได้ครบ ทีมไล่แก้รายสาเหตุได้ครั้งแรก</li>
-        <li class="bullet"><b>จับปัญหาข้อมูลที่ไม่มีใครรู้ว่ากำลังเกิด</b> — กู้เลขพัสดุคืน <b>23,677 เลข</b> ที่ระบบลบทิ้งเงียบ ๆ · ยอดขาย <b>28.5% ของเดือนหนึ่งที่ไม่ติดชื่อร้าน เหลือ 0</b> พร้อม test ที่ดังก่อนเลขผิดถึงมือคนตัดสินใจ · ย้ายคลังข้อมูลออกจากคลาวด์ + ปลดระวาง Data Factory 46 pipelines จบในไตรมาสเดียว dashboard ไม่ดาวน์ — <b>ค่าคลังบนคลาวด์ที่โต 162% ใน 5 เดือน เหลือ 0 · Data Factory เหลือ 0 · batch 2 ชม. → 20 นาที</b></li>
-        <li class="bullet"><b>เปลี่ยนของที่เคย "รู้ตอนสายไปแล้ว" ให้ดักได้ล่วงหน้า</b> — ระบบเทียบราคาขายจริงกับเพดานราย SKU×ร้าน ดักได้ <b>150 คู่</b> ที่ให้ส่วนลดเกินเพดานเฉลี่ย <b>9.9 จุด%</b> · ระบบวางแผนสั่งซื้อ (จุดสั่งซ้ำ + safety stock) ชี้ <b>373 SKU ที่ต้องสั่งเดี๋ยวนี้</b> แทนการเปิดหลายตารางเทียบเอง</li>
-        <li class="bullet"><b>สร้างแอปแทน WMS เดิม และปิดช่องว่างที่ ERP ทำไม่ได้</b> — WMS เขียนเอง โค้ดบรรทัดแรกถึง production ใน <b>15 วัน</b> ทุกการหยิบ/นับ/ย้ายมี audit trail (<b>208,189 รายการ · 36 คนใช้จริง</b>) เรียนรู้ใน 5 นาที · ระบบสแกนแยก <b>"เคลม" จาก "คืนปกติ" 21,152 พัสดุ</b> + ตอบได้ว่าของกลับถึงคลังหรือยัง เห็นของกำลังกลับอีก <b>2,661 พัสดุ</b> ที่เคยมองไม่เห็น</li>
+        <li class="bullet"><b>ทำให้ KPI ที่ผู้บริหารดูทุกวันเชื่อถือได้</b> — เคยรายงานว่าปี 2025 หลุดเป้าเกือบทั้งหมด ทั้งที่ของส่งจริง 97% · รื้อวิธีวัดใหม่ → <b>~95% บน 320,000+ ออเดอร์</b> และเคสหลุดที่ <b>88%</b> เคยไม่มีสาเหตุกำกับ ตอนนี้ระบุได้ครบ ทีมไล่แก้รายสาเหตุได้ครั้งแรก</li>
+        <li class="bullet"><b>จับปัญหาข้อมูลที่ไม่มีใครรู้ว่ากำลังเกิด</b> — กู้เลขพัสดุคืน <b>23,600+ เลข</b> ที่ระบบลบทิ้งเงียบ ๆ · ยอดขายที่ไม่ติดชื่อร้าน <b>28.5% ของเดือน → 0</b> พร้อม test ที่ดังก่อนเลขผิดถึงมือคนตัดสินใจ</li>
+        <li class="bullet"><b>เปลี่ยนของที่เคย "รู้ตอนสายไปแล้ว" ให้ดักได้ล่วงหน้า</b> — ระบบเทียบราคาขายจริงกับเพดานราย SKU×ร้าน ดักได้ <b>150 คู่</b> ที่ลดเกินเพดานเฉลี่ย 9.9 จุด% · ระบบวางแผนสั่งซื้อ (จุดสั่งซ้ำ + safety stock) ชี้ <b>360+ SKU ที่ต้องสั่งเดี๋ยวนี้</b> แทนการเปิดหลายตารางเทียบเอง</li>
+        <li class="bullet"><b>สร้างแอปแทน WMS เดิม และปิดช่องว่างที่ ERP ทำไม่ได้</b> — WMS เขียนเอง โค้ดบรรทัดแรกถึง production ใน <b>15 วัน</b> ทุกการหยิบ/นับ/ย้ายมี audit trail (<b>200,000+ รายการ · 36 คนใช้จริง</b>) เรียนรู้ใน 5 นาที · ระบบสแกนแยก "เคลม" จาก "คืนปกติ" 21,000+ พัสดุ + ตอบได้ว่าของกลับถึงคลังหรือยัง เห็นของกำลังกลับอีก 2,661 พัสดุที่เคยมองไม่เห็น</li>
+        <li class="bullet"><b>ย้ายคลังข้อมูลออกจากคลาวด์ ตัดต้นทุนถาวร</b> — ค่าฐานข้อมูลที่โต 162% ใน 5 เดือนจนเป็นรายจ่ายก้อนใหญ่สุด <b>เหลือ 0</b> · ปลดระวาง Data Factory 46 pipelines · nightly batch <b>2 ชม. → 20 นาที</b> — จบในไตรมาสเดียว dashboard ไม่ดาวน์เลย</li>
         <li class="xp-sys"><span class="sys">Data Platform</span><span class="sys">WMS</span><span class="sys">Barcode Scanner</span><span class="sys">AI Data Assistant</span><span class="sys">Ops Bot</span><span class="sys">OCR Pipeline</span><span class="sys">Blob Data Lake</span><span class="sys">Playwright RPA</span></li>
       </ul>
     </div>

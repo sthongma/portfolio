@@ -1700,7 +1700,9 @@
     <h2 data-i18n="sectionSummary">Summary</h2>
     <p data-i18n="summary[0]">
       <strong>Data engineer who builds systems the whole company
-      actually uses.</strong> 4 years in e-commerce — today I run the
+      actually uses.</strong> 4 years in e-commerce — 3 on the
+      business side (accounting · ERP · BI), and a full-time data
+      engineer since May 2025. Today I run the
       data platform, the warehouse apps and the AI tooling of a
       business shipping ~2,000 orders a day across 4 marketplaces.
       Executives check sales and stock themselves instead of waiting
@@ -1729,15 +1731,15 @@
           insisted 97% had shipped — because the model judged months
           before its evidence feed existed, and mixed order types with
           completely different delivery promises into one denominator.
-          I rebuilt how it is measured: today it reads <strong>94.6%
-          across 323,134 orders</strong>, and the misses — <strong>88%
+          I rebuilt how it is measured: today it reads <strong>~95%
+          across 320,000+ orders</strong>, and the misses — <strong>88%
           of which previously carried no reason at all</strong> — are
           now fully attributed, so operations can work them down cause
           by cause.
         </li>
         <li data-i18n="epBullets[1]">
           <strong>Caught data failures no one knew were happening — and
-          fixed them at the root.</strong> Recovered <strong>23,677
+          fixed them at the root.</strong> Recovered <strong>23,600+
           shipment tracking numbers</strong> the system had silently
           deleted, and traced <strong>28.5% of a month's sales that
           were attributed to no store</strong> down to
@@ -1751,13 +1753,13 @@
           price/discount guardrails per SKU × store: replayed across the
           full sales history they flag <strong>150 SKU-store pairs
           discounting an average 9.9 points past the company's own
-          ceiling</strong> (worst case 180 points over) — <strong>9.3%
+          ceiling</strong> (worst case 160+ points over) — <strong>9.3%
           of those items' value leaking out as unintended
           discount</strong>. Built a reorder engine on the dashboard
           (reorder point, safety stock, days of cover, suggested
           quantity) replacing a manual cross-check of several
-          spreadsheets — it now covers <strong>2,971 SKUs and flags 373
-          to order right now</strong>.
+          spreadsheets — it now covers <strong>2,900+ SKUs and flags
+          360+ to order right now</strong>.
         </li>
         <li data-i18n="epBullets[3]">
           <strong>Replaced the vendor warehouse system with apps I
@@ -1765,9 +1767,9 @@
           first line of code to production deploy in <strong>15
           days</strong>; staff including non-Thai speakers learn it in
           under 5 minutes, every pick/count/move lands in an inventory
-          ledger with a full audit trail — <strong>208,189 entries, 36
+          ledger with a full audit trail — <strong>200,000+ entries, 36
           real users</strong>, ~2,000 orders/day. The barcode scanner
-          separates <strong>claims from ordinary returns across 21,152
+          separates <strong>claims from ordinary returns across 21,000+
           parcels</strong> and answers whether goods actually made it
           back — return-leg visibility went from 26.8% to 98.0%,
           surfacing <strong>2,661 parcels in transit back</strong> that
@@ -1799,7 +1801,7 @@
           scaling vCores was tested and measured to cost more without
           paying for itself. Also shipped the first
           nightly, independently verified backup the warehouse ever had.
-          I design, build, deploy and stay on call for <strong>all 7
+          I design, build, deploy and stay on call for <strong>all 9
           production systems</strong>.
         </li>
       </ul>
@@ -1943,21 +1945,21 @@
         <h3><span class="num">01</span>E-Commerce Data Pipeline &amp; Analytics Platform</h3>
       </div>
       <p class="tagline" data-i18n="projectTaglines[0]">
-        Full data platform — a 52 GB PostgreSQL warehouse holding 70M
-        rows, 199 dbt models under 494 tests, fed from 8 source systems
+        Full data platform — a 50+ GB PostgreSQL warehouse holding 65M+
+        rows, 200+ dbt models under 500+ tests, fed from 8 source systems
         across 4 sales channels, serving 5 dashboards plus an AI
         assistant.
       </p>
       <ul class="bullets">
         <li data-i18n="projectBullets[0][0]">Ingests from <strong>8 source systems</strong> (Shopee, Lazada, TikTok, Facebook, JST OMS, DHL, Flash Express, internal WMS/BSN) via a <strong>Python + Playwright RPA framework</strong> and direct database pulls, landing in an <strong>Azure Blob data lake</strong> → a 5-layer <strong>dbt medallion</strong> warehouse — replacing a daily manual download routine that one person used to do every morning.</li>
-        <li data-i18n="projectBullets[0][1]">Orchestrated by <strong>Apache Airflow in Docker</strong> — 11 DAGs with custom Bronze/dbt operators, <strong>494 dbt data tests</strong>, source-freshness checks, and <strong>Telegram alerts</strong> that fire on failure <em>and</em> on runs that finish green but moved no data.</li>
+        <li data-i18n="projectBullets[0][1]">Orchestrated by <strong>Apache Airflow in Docker</strong> — 11 DAGs with custom Bronze/dbt operators, <strong>500+ dbt data tests</strong>, source-freshness checks, and <strong>Telegram alerts</strong> that fire on failure <em>and</em> on runs that finish green but moved no data.</li>
         <li data-i18n="projectBullets[0][2]"><strong>Migrated off two platforms in one quarter</strong> — the warehouse from Azure SQL Server to self-hosted PostgreSQL, and the orchestration layer from 46 Azure Data Factory pipelines to Airflow DAGs, with no dashboard downtime.</li>
         <li data-i18n="projectBullets[0][3]"><strong>Reliability &amp; DR</strong> — freshness canaries measured against live source, value-presence gates enforced as hard failures, and the first disaster-recovery backup the warehouse ever had: nightly <code>pg_dump</code> to Blob, independently verified, 35-day retention.</li>
       </ul>
 
       <div class="metrics" aria-label="Data platform metrics">
         <div class="metric">
-          <span class="val">70M</span>
+          <span class="val">65M+</span>
           <span class="label">rows</span>
         </div>
         <div class="metric">
@@ -1965,15 +1967,15 @@
           <span class="label">orders / day</span>
         </div>
         <div class="metric">
-          <span class="val">199</span>
+          <span class="val">200+</span>
           <span class="label">dbt models</span>
         </div>
         <div class="metric">
-          <span class="val">52 GB</span>
+          <span class="val">50+ GB</span>
           <span class="label">warehouse</span>
         </div>
         <div class="metric">
-          <span class="val">494</span>
+          <span class="val">500+</span>
           <span class="label">dbt data tests</span>
         </div>
       </div>
@@ -2111,7 +2113,7 @@
         <text class="box-sub" x="300" y="983">Price alerts · procurement tracking · drilldowns</text>
 
         <!-- Airflow footer -->
-        <text class="arch-footer" x="418" y="1040">Orchestrated by Airflow in Docker · 11 DAGs · nightly 05:00 · freshness canaries · 494 dbt tests · Telegram alerts</text>
+        <text class="arch-footer" x="418" y="1040">Orchestrated by Airflow in Docker · 11 DAGs · nightly 05:00 · freshness canaries · 500+ dbt tests · Telegram alerts</text>
       </svg>
       </div>
       </div>

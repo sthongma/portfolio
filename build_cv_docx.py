@@ -113,14 +113,15 @@ add_run(p, "github.com/sthongma  |  sthongma.github.io/portfolio/resume.html", s
 section_heading("Professional Summary")
 p = para(align=WD_ALIGN_PARAGRAPH.JUSTIFY)
 add_run(p,
-    "Data Engineer ประสบการณ์ 4 ปีในสาย e-commerce — ออกแบบ สร้าง และดูแล data platform "
+    "Data Engineer ประสบการณ์ 4 ปีในธุรกิจ e-commerce — 3 ปีฝั่งธุรกิจ (บัญชี · ERP · BI) "
+    "และเป็น data engineer เต็มตัวตั้งแต่ พ.ค. 2025 — ออกแบบ สร้าง และดูแล data platform "
     "เต็มระบบแบบ end-to-end ให้บริษัทที่ขายผ่าน 4 marketplace ราว 2,000 ออเดอร์/วัน รวมถึง web app และ AI system "
     "ที่ทีมใช้งานจริงทุกวัน งานมือ ~40 งาน/วันเปลี่ยนเป็นระบบอัตโนมัติที่รันเองตั้งแต่ตีห้า "
     "และผู้บริหารดูยอดขาย/สต็อกได้เองโดยไม่ต้องรอรายงาน")
 p = para(align=WD_ALIGN_PARAGRAPH.JUSTIFY)
 add_run(p,
-    "เทคโนโลยีที่ใช้จริงใน production: PostgreSQL data warehouse 52 GB (70 ล้านแถว, 8 source systems), "
-    "dbt (199 models / 494 tests), Apache Airflow ใน Docker, Python, ELT pipelines, "
+    "เทคโนโลยีที่ใช้จริงใน production: PostgreSQL data warehouse 50+ GB (65+ ล้านแถว, 8 source systems), "
+    "dbt (200+ models / 500+ tests), Apache Airflow ใน Docker, Python, ELT pipelines, "
     "medallion + dimensional (Kimball) modeling, FastAPI/React และ Azure "
     "ปี 2026 ปิด platform migration 2 ตัวจบในไตรมาสเดียว "
     "(Azure SQL Server → PostgreSQL on-prem, Azure Data Factory → Airflow)")
@@ -160,13 +161,13 @@ bullet([("ทำให้ KPI ที่ผู้บริหารดูทุ�
         (" — อัตราส่งของทันเวลา (fulfillment rate) เคยรายงานว่าปี 2025 หลุดเป้าเกือบทั้งหมด "
          "ทั้งที่ ERP ยืนยันว่าส่งของแล้ว 97% เพราะโมเดลตัดสินช่วงเวลาที่ feed ต้นทางยังไม่เกิด "
          "และเอาออเดอร์ที่สัญญาคนละแบบ (พรีออเดอร์/B2B/ขายส่ง) มารวมในตัวหารเดียวกัน · รื้อวิธีวัดใหม่ทั้งชุด → ปัจจุบัน ", False),
-        ("94.6% บน 323,134 ออเดอร์", True),
+        ("~95% บน 320,000+ ออเดอร์", True),
         (" และเคสที่หลุดซึ่ง ", False), ("88% เคยไม่มีสาเหตุกำกับ", True),
         (" ตอนนี้ระบุสาเหตุได้ครบ ทีมปฏิบัติการไล่แก้เป็นรายสาเหตุได้ครั้งแรก · เทคนิค: data-coverage floor, "
          "scope gate, failure-reason taxonomy 6 ชั้น บน fact table 17 แกนพยาน", False)])
 
 bullet([("จับและแก้ data incident ที่ไม่มีสัญญาณเตือน", True),
-        (" — กู้เลขพัสดุคืน ", False), ("23,677 เลข", True),
+        (" — กู้เลขพัสดุคืน ", False), ("23,600+ เลข", True),
         (" ที่ dedup rule ลบทิ้งเงียบ ๆ และแก้ที่รากจน ", False),
         ("28.5% ของยอดขายเดือนหนึ่งที่ไม่ติดชื่อร้านเหลือศูนย์", True),
         (" · เทคนิค: freshness canary เทียบ source สด, value-presence gate เป็น hard failure, regression test กันกลับมาโดยไม่มีใครรู้ · "
@@ -175,12 +176,12 @@ bullet([("จับและแก้ data incident ที่ไม่มีส�
 bullet([("เปลี่ยนปัญหาที่เคย “รู้ตอนสายไปแล้ว” ให้ดักได้ล่วงหน้า", True),
         (" — สร้างระบบเทียบราคาขายจริงกับเพดานราคา/ส่วนลดราย SKU × ร้าน (มี.ค. 2026): "
          "ย้อนตรวจทั้งประวัติการขายดักได้ ", False),
-        ("150 คู่ SKU×ร้าน / 970 จุด", True),
+        ("150 คู่ SKU×ร้าน / 950+ จุด", True),
         (" ที่ให้ส่วนลดเกินเพดานที่ตั้งไว้เอง ", False),
-        ("เฉลี่ย 9.9 จุด% (หนักสุดเกิน 180 จุด%) คิดเป็นเงินรั่ว 9.3% ของมูลค่าสินค้าในกลุ่มนั้น", True),
+        ("เฉลี่ย 9.9 จุด% (หนักสุดเกิน 160 จุด%) คิดเป็นเงินรั่ว 9.3% ของมูลค่าสินค้าในกลุ่มนั้น", True),
         (" · และสร้าง reorder engine บน dashboard (จุดสั่งซ้ำ, safety stock, days-of-cover, ปริมาณที่ควรสั่ง) "
          "แทนการเปิดหลายตารางมานั่งเทียบเอง — ปัจจุบันครอบ ", False),
-        ("2,971 SKU ชี้ 373 ตัวที่ต้องสั่งทันที", True),
+        ("2,900+ SKU ชี้ 360+ ตัวที่ต้องสั่งทันที", True),
         (" และจับ PO ค้างที่ระบบเคยนับผิดว่าเป็น “ของกำลังมา”", False)])
 
 bullet([("แทนที่ vendor WMS ด้วย custom apps ที่เขียนเอง และปิดช่องว่างที่ ERP ทำไม่ได้", True),
@@ -188,11 +189,11 @@ bullet([("แทนที่ vendor WMS ด้วย custom apps ที่เข
         ("15 วัน", True),
         (" พนักงานคลัง (รวมที่ไม่ใช้ภาษาไทย) เรียนรู้ใน 5 นาที ทุกการหยิบ/นับ/ย้ายลง inventory ledger "
          "พร้อม audit trail — ปัจจุบัน ", False),
-        ("208,189 รายการ · ผู้ใช้จริง 36 คน", True),
+        ("200,000+ รายการ · ผู้ใช้จริง 36 คน", True),
         (" รองรับ ~2,000 ออเดอร์/วัน · ระบบสแกน barcode ปิด 2 ช่องว่างของ ERP: แยก ", False),
-        ("“เคลม” ออกจาก “คืนปกติ” ได้ 21,152 พัสดุ", True),
+        ("“เคลม” ออกจาก “คืนปกติ” ได้ 21,000+ พัสดุ", True),
         (" และตอบได้ว่าของกลับถึงคลังหรือยัง (มองเห็นขากลับจาก 26.8% เป็น 98.0% ผ่าน crosswalk "
-         "เลขขาไป↔ขากลับ 28,891 คู่) — เห็นของที่กำลังเดินทางกลับอีก ", False),
+         "เลขขาไป↔ขากลับ 28,000+ คู่) — เห็นของที่กำลังเดินทางกลับอีก ", False),
         ("2,661 พัสดุ", True), (" ที่เดิมมองไม่เห็น", False)])
 
 bullet([("สร้าง AI system ที่ใช้จริงใน production ไม่ใช่แค่ใช้ AI ช่วยเขียนโค้ด", True),
@@ -213,7 +214,7 @@ bullet([("ลด cloud cost รายเดือนอย่างวัดไ�
         ("nightly batch จาก 2 ชม. เหลือ 20 นาที", True),
         (" — เหตุผลที่ย้ายมาจากการวัด ไม่ใช่ความรู้สึก: batch เดิมติด IO 98% บนคลาวด์ "
          "และการเพิ่ม vCore ทดสอบแล้ววัดได้ว่าแพงขึ้นโดยไม่คุ้มจนต้องถอยกลับ · ", False),
-        ("ดูแลระบบ production ทั้ง 7 ตัว", True),
+        ("ดูแลระบบ production ทั้ง 9 ตัว", True),
         (" ตั้งแต่ architecture, build, deploy ถึง on-call", False)])
 
 # --- Traveler ---
@@ -233,7 +234,7 @@ section_heading("Selected Project")
 p = para(space_after=2)
 add_run(p, "E-Commerce Data Pipeline & Analytics Platform — built & operated end-to-end", bold=True)
 p = para(space_after=3)
-add_run(p, "52 GB PostgreSQL warehouse · 70M rows · 8 source systems · 199 dbt models · 494 data tests · 11 Airflow DAGs · 32 file types · ~2,000 orders/day", size=9.5, color=GREY)
+add_run(p, "50+ GB PostgreSQL warehouse · 65M+ rows · 8 source systems · 200+ dbt models · 500+ data tests · 11 Airflow DAGs · 32 file types · ~2,000 orders/day", size=9.5, color=GREY)
 p = para(space_after=3)
 add_run(p, "Data platform เต็มระบบ ออกแบบ สร้าง และดูแลเอง — เปลี่ยนงานที่เคยต้องมีคนนั่งโหลดและ refresh ไฟล์ทุกเช้า "
            "ให้ระบบดึง raw data จาก 8 source systems (marketplaces, OMS, internal apps, logistics) เองอัตโนมัติ "
